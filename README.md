@@ -1,5 +1,5 @@
 <p align="center">
-  <h1><center> 	&#127979; Apprendre le Deep Learning avec des Notebooks 	&#127979; </center></h1>
+  <h1><center> 	&#127979; Apprendre le Deep Learning à partir de zéro &#127979; </center></h1>
 </p>
 
 # Description
