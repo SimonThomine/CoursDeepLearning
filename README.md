@@ -18,10 +18,10 @@ Le dernier notebook de cette partie introduit des techniques avancées d'entraî
 
 
 ## TODO
- [] Cours sur les RNN
- [] Cours sur les CNN
- [] Exercices d'entraînement Fondations
- [] Exercices d'entraînement RéseauFullyConnected
- [] Cours spécifiques sur Regularization (intuition etc)
- [] Cours spécifiques sur Dropout (intuition etc)
- [] Cours spécifiques sur BatchNorm (intuition etc)
+ - [] Cours sur les RNN  
+ - [] Cours sur les CNN  
+ - [] Exercices d'entraînement Fondations  
+ - [] Exercices d'entraînement RéseauFullyConnected  
+ - [] Cours spécifiques sur Regularization (intuition etc)  
+ - [] Cours spécifiques sur Dropout (intuition etc)  
+ - [] Cours spécifiques sur BatchNorm (intuition etc)  
