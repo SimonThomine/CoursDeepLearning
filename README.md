@@ -20,6 +20,7 @@ Le dernier notebook de cette partie introduit des techniques avancées d'entraî
 ## TODO
  - [] Cours sur les RNN  
  - [] Cours sur les CNN  
+ - [] Cours sur les Transformers (Concept et Hugging Face library) 
  - [] Exercices d'entraînement Fondations  
  - [] Exercices d'entraînement RéseauFullyConnected  
  - [] Cours spécifiques sur Regularization (intuition etc)  
