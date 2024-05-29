@@ -18,12 +18,13 @@ Le dernier notebook de cette partie introduit des techniques avancées d'entraî
 
 
 ## TODO
- - [] Cours sur les RNN  
- - [] Cours sur les CNN  
- - [] Cours sur les AutoEncoders 
- - [] Cours sur les Transformers (Concept et Hugging Face library) 
- - [] Exercices d'entraînement Fondations  
- - [] Exercices d'entraînement RéseauFullyConnected  
- - [] Cours spécifiques sur Regularization (intuition etc)  
- - [] Cours spécifiques sur Dropout (intuition etc)  
- - [] Cours spécifiques sur BatchNorm (intuition etc)  
+ - [ ] Cours sur les RNN  
+ - [ ] Cours sur les CNN  
+ - [ ] Cours sur les AutoEncoders 
+ - [ ] Cours sur le transfer learning (fine tuning surtout)
+ - [ ] Cours sur les Transformers (Concept et Hugging Face library) 
+ - [ ] Exercices d'entraînement Fondations  
+ - [ ] Exercices d'entraînement RéseauFullyConnected  
+ - [ ] Cours spécifiques sur Regularization (intuition etc)  
+ - [ ] Cours spécifiques sur Dropout (intuition etc)  
+ - [ ] Cours spécifiques sur BatchNorm (intuition etc)  
