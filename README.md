@@ -21,7 +21,7 @@ Le dernier notebook de cette partie introduit des techniques avancées d'entraî
  - [x] Cours sur les fondations
  - [x] Cours sur les réseau fully connected 
  - [x] Cours sur les CNN  
- - [ ] Cours sur les AutoEncoders 
+ - [x] Cours sur les AutoEncoders 
  - [ ] Cours sur les Transformers (Concept et Hugging Face library)
  - [ ] Cours sur les RNN 
  - [ ] Cours sur le transfer learning (fine tuning surtout)
