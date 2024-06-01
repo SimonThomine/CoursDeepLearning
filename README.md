@@ -6,6 +6,15 @@
 Ce repository propose des cours d'initiation au deep learning se basant sur des notebooks.
 Pour un débutant, les cours sont à faire dans l'ordre pour une meilleur compréhension globale. 
 
+### Installation de l'environnement de travail 
+L'ensemble des library nécessaires pour le cours sont disponibles dans requirements.txt, vous pouvez choisir d'installer tout d'un coup ou au fur et à mesure de votre avancement dans le cours.   
+Il est conseillé d'utiliser un environnement de travail conda pour éviter tout conflit avec des library déjà installé sur votre ordinateur.  
+
+```
+`pip install -r requirements.txt`
+```
+
+
 ## Fondations
 Le premier cours "Fondations" introduit les bases de l'optimisation par descente du gradient avec une compréhension intuitive. La règle de la chaîne est introduite puis un premier exemple de regression logistique est présenté. 
 <!-- Lorsque le premier cours est bien compris, il est recommandé de faire la partie exercice avant de passer aux cours suivants.  -->

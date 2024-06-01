@@ -1,0 +1,9 @@
+numpy
+ipykernel
+pillow
+matplotlib
+tabulate
+micrograd
+scikit-learn
+torch
+torchvision
