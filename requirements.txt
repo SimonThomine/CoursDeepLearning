@@ -8,3 +8,4 @@ micrograd
 scikit-learn
 torch
 torchvision
+transformers
