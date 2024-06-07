@@ -9,3 +9,6 @@ scikit-learn
 torch
 torchvision
 transformers
+sentence_transformers
+datasets
+phonemizer
