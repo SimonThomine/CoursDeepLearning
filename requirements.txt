@@ -12,3 +12,5 @@ transformers
 sentence_transformers
 datasets
 phonemizer
+diffusers
+gradio
