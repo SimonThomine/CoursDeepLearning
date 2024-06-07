@@ -33,6 +33,8 @@ Le quatrième cours "Autoencodeurs" aborde la notion d'entraînement non supervi
 ## 5. 🗨️ NLP
 Le cinquième cours "NLP" est grandement inspiré de la série de vidéo de Andrej Karpathy ["Building makemore"](https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ) qui traîte les NLP avec une approche de prédiction du prochain token. Le cours aborde d'abord des modèles très simples pour avoir une intuition sur le traîtement de données discrètes avec un réseau neurones puis les modèles se complexifient petit à petit. 
 
+## 6. 🤗 Hugging Face
+Le sixième cours "HuggingFace" est dédié à une exploration des librarys, des modèles, des datasets et autres de [Hugging Face](https://huggingface.co/). C'est une plateforme regroupant énormement des modèles open source pour une grande variété de tâches avec une library pour les implémenter rapidement et efficacement en python. Le cours présente d'abord le site de Hugging Face pour ensuite présenter les fonctionnalités des différentes librarys (transformers et diffusers principalement) sur différents cas d'usage. Le dernier notebook présente brièvement gradio, une library pour créer des interfaces simples de démo.
 
 # 📌 TODO
  - [x] Cours sur les fondations
@@ -40,8 +42,9 @@ Le cinquième cours "NLP" est grandement inspiré de la série de vidéo de Andr
  - [x] Cours sur les CNN  
  - [x] Cours sur les AutoEncoders 
  - [ ] Cours sur le NLP (Karpathy makemore)
- - [ ] Cours sur les Transformers (Concept et Hugging Face library)
+ - [ ] Cours sur les Hugging Face
  - [ ] Cours sur les RNN 
+ - [ ] Cours sur les Transformers (Concept et applications sur NLP)
  - [ ] Cours sur le transfer learning (fine tuning surtout)
  - [ ] Cours spécifiques sur Regularization (intuition etc)  
  - [ ] Cours spécifiques sur Dropout (intuition etc)  
