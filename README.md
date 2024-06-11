@@ -41,10 +41,10 @@ Le sixième cours "HuggingFace" est dédié à une exploration des librarys, des
  - [x] Cours sur les réseau fully connected 
  - [x] Cours sur les CNN  
  - [x] Cours sur les AutoEncoders 
- - [ ] Cours sur le NLP (Karpathy makemore)
- - [ ] Cours sur Hugging Face
+ - [x] Cours sur le NLP (Karpathy makemore)
+ - [x] Cours sur Hugging Face
+ - [ ] Cours sur les Transformers (Concept et applications sur NLP + vidéo karpathy)
  - [ ] Cours sur les RNN 
- - [ ] Cours sur les Transformers (Concept et applications sur NLP)
  - [ ] Cours sur le transfer learning (fine tuning surtout)
  - [ ] Cours spécifiques sur Regularization (intuition etc)  
  - [ ] Cours spécifiques sur Dropout (intuition etc)  
