@@ -46,7 +46,7 @@ Le septième cours "Transformers" est dédié à l'architecture du transformers.
  - [x] Cours sur les AutoEncoders 
  - [x] Cours sur le NLP (Karpathy makemore)
  - [x] Cours sur Hugging Face
- - [ ] Cours sur les Transformers (Concept et applications sur NLP + vidéo karpathy)
+ - [x] Cours sur les Transformers (Concept et applications sur NLP + vidéo karpathy)
  - [ ] Cours sur les RNN 
  - [ ] Cours sur la détection d'objets(Yolo principalement)
  - [ ] Cours sur le transfer learning (fine tuning surtout)
