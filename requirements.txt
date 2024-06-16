@@ -14,3 +14,5 @@ datasets
 phonemizer
 diffusers
 gradio
+ultralytics
+opencv-python
