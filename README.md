@@ -42,6 +42,9 @@ Le septième cours "Transformers" est dédié à l'architecture du transformers.
 ## 8. 🔍 Detection
 Le huitième cours "Detection" présente le fonctionnement de la détection d'objets sur des images. L'introduction présente ce qu'est la détection et les deux méthodes classiques (two-stage et one-stage). Le notebook suivant propose une implémentation from scratch de YOLO et le dernier notebook présente la library [ultralytics](https://www.ultralytics.com/) qui permet d'accèder aux modèles YOLO très simplement. Dans ce dernier notebook, on présente également les différences clés entre les modèles YOLO.
 
+## Bonus 🌟 Cours spécifiques
+Ce cours présente des concepts très intéressant à comprendre mais non essentiels dans une pratique courante du deep learning. Si vous êtes intéressé par comprendre le fonctionnement d'un réseau de neurones de manière plus approfondie et de découvrir la raison de l'utilisation de techniques comme la BatchNorm, les connexions résiduelles, le dropout etc ..., ce cours est fait pour vous ! 
+
 # 📌 TODO
  - [x] Cours sur les fondations
  - [x] Cours sur les réseau fully connected 
@@ -54,6 +57,7 @@ Le huitième cours "Detection" présente le fonctionnement de la détection d'ob
  - [ ] Cours sur la détection d'objets(Yolo principalement)
  - [ ] Cours sur le transfer learning (fine tuning surtout)
  - [ ] Cours spécifiques sur Regularization (intuition etc)  
+ - [x] Cours spécifiques sur l'initialisation 
  - [ ] Cours spécifiques sur Dropout (intuition etc)  
  - [ ] Cours spécifiques sur BatchNorm (intuition etc)  
 
