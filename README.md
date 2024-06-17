@@ -56,3 +56,8 @@ Le huitième cours "Detection" présente le fonctionnement de la détection d'ob
  - [ ] Cours spécifiques sur Regularization (intuition etc)  
  - [ ] Cours spécifiques sur Dropout (intuition etc)  
  - [ ] Cours spécifiques sur BatchNorm (intuition etc)  
+
+
+**License**
+
+Ce travail est mis à disposition selon les termes de la licence MIT
