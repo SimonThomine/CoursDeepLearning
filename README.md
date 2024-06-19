@@ -60,7 +60,7 @@ Ce cours présente des concepts très intéressant à comprendre mais non essent
  - [x] Cours spécifiques sur BatchNorm 
  - [ ] Cours spécifiques sur Regularization 
  - [ ] Cours spécifiques sur Dropout (intuition etc)  
- - [ ] Cours spécifiques sur la data augmentation
+ - [x] Cours spécifiques sur la data augmentation
  
 
 
