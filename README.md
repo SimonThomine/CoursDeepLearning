@@ -54,8 +54,9 @@ Ce cours présente des concepts très intéressant à comprendre mais non essent
  - [x] Cours sur Hugging Face
  - [x] Cours sur les Transformers (Concept et applications sur NLP + vidéo karpathy)
  - [x] Cours sur la détection d'objets(Yolo principalement)
- - [ ] Cours sur les RNN 
+ - [x] Cours sur les RNN (inclu dans NLP)
  - [ ] Cours sur le transfer learning (fine tuning surtout)
+ - [ ] Cours sur le contrastive training (face recognition, siamese nets, triplet loss)
  - [x] Cours spécifiques sur l'initialisation 
  - [x] Cours spécifiques sur BatchNorm 
  - [ ] Cours spécifiques sur Regularization 
