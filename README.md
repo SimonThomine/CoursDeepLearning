@@ -42,6 +42,9 @@ Le septième cours "Transformers" est dédié à l'architecture du transformers.
 ## 8. 🔍 Detection
 Le huitième cours "Detection" présente le fonctionnement de la détection d'objets sur des images. L'introduction présente ce qu'est la détection et les deux méthodes classiques (two-stage et one-stage). Le notebook suivant propose une description précise du fonctionnement de [YOLO](https://arxiv.org/pdf/1506.02640) et le dernier notebook présente la library [ultralytics](https://www.ultralytics.com/) qui permet d'accèder aux modèles YOLO très simplement.
 
+## 9. 🎯 Entrainement contrastif
+Le neuvième cours "Entrainement contrastif" présente le concept de l'entraînement contrastif. Un premier notebook présente ce qu'est l'entraînement contrastif en se basant sur l'implémentation d'un article de "face verification". Le second notebook présente la place de l'entraînment contrastif dans le deep learning récent et notamment son intêret pour l'entrainement non supervisé. 
+
 ## Bonus 🌟 Cours spécifiques
 Ce cours présente des concepts très intéressant à comprendre mais non essentiels dans une pratique courante du deep learning. Si vous êtes intéressé par comprendre le fonctionnement d'un réseau de neurones de manière plus approfondie et de découvrir la raison de l'utilisation de techniques comme la BatchNorm, les connexions résiduelles, le dropout, la data augmentation etc ..., ce cours est fait pour vous ! 
 
@@ -56,7 +59,7 @@ Ce cours présente des concepts très intéressant à comprendre mais non essent
  - [x] Cours sur la détection d'objets(Yolo principalement)
  - [x] Cours sur les RNN (inclu dans NLP)
  - [ ] Cours sur le transfer learning (fine tuning surtout)
- - [ ] Cours sur le contrastive training (face recognition, siamese nets, triplet loss)
+ - [ ] Cours sur le contrastive training (siamese nets, triplet loss, entrainement non supervisé)
  - [x] Cours spécifiques sur l'initialisation 
  - [x] Cours spécifiques sur BatchNorm 
  - [ ] Cours spécifiques sur Regularization 
