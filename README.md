@@ -17,7 +17,6 @@ Il est conseillé d'utiliser un environnement de travail conda pour éviter tout
 # 🗺️ Plan du cours
 ## 1. 🏗️ Fondations
 Le premier cours "Fondations" introduit les bases de l'optimisation par descente du gradient avec une compréhension intuitive. La règle de la chaîne est introduite puis un premier exemple de regression logistique est présenté. 
-<!-- Lorsque le premier cours est bien compris, il est recommandé de faire la partie exercice avant de passer aux cours suivants.  -->
 
 ## 2. 🧠 Réseau Fully Connected
 Le deuxième cours "RéseauFullyConnected" introduit le fonctionnement d'un réseau de neurones avec d'abord un exemple d'un réseau codé avec [micrograd](https://github.com/karpathy/micrograd/tree/master) pour permettre d'explorer cette library pour bien comprendre le fonctionnement. Une version française MicrogradFR est disponible dans ce repository.   
@@ -58,12 +57,13 @@ Ce cours présente des concepts très intéressant à comprendre mais non essent
  - [x] Cours sur les Transformers (Concept et applications sur NLP + vidéo karpathy)
  - [x] Cours sur la détection d'objets(Yolo principalement)
  - [x] Cours sur les RNN (inclu dans NLP)
- - [ ] Cours sur le transfer learning (fine tuning surtout)
- - [ ] Cours sur le contrastive training (siamese nets, triplet loss, entrainement non supervisé)
+ - [ ] Cours sur le transfer learning et distillation 
+ - [x] Cours sur le contrastive training (siamese nets, triplet loss, entrainement non supervisé)
  - [x] Cours spécifiques sur l'initialisation 
  - [x] Cours spécifiques sur BatchNorm 
  - [ ] Cours spécifiques sur Regularization 
  - [ ] Cours spécifiques sur Dropout (intuition etc)  
+ - [ ] Cours spécifiques sur les optimizers
  - [x] Cours spécifiques sur la data augmentation
  
 
