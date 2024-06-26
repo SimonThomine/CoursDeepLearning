@@ -60,7 +60,7 @@ Ce cours présente des concepts très intéressant à comprendre mais non essent
  - [x] Cours sur les Transformers (Concept et applications sur NLP + vidéo karpathy)
  - [x] Cours sur la détection d'objets(Yolo principalement)
  - [x] Cours sur les RNN (inclu dans NLP)
- - [ ] Cours sur le transfer learning et distillation 
+ - [x] Cours sur le transfer learning et distillation 
  - [x] Cours sur le contrastive training (siamese nets, triplet loss, entrainement non supervisé)
  - [x] Cours spécifiques sur l'initialisation 
  - [x] Cours spécifiques sur BatchNorm 
