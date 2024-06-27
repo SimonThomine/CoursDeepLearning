@@ -48,7 +48,7 @@ Le neuvième cours "Entrainement contrastif" présente le concept de l'entraîne
 Le dixième cours "Transfer learning et distillation" présente deux concepts majeurs en deep learning : le transfer learning et la distillation des connaissances. La première partie de ce cours présente le transfer learning dans sa globalité puis propose une implémentation pratique. La seconde partie présente le concept de distillation des connaissances et ses variantes puis propose un cas d'application de la distillation des connaissances pour la détection d'anomalies non supervisée.
 
 ## Bonus 🌟 Cours spécifiques
-Ce cours présente des concepts très intéressant à comprendre mais non essentiels dans une pratique courante du deep learning. Si vous êtes intéressé par comprendre le fonctionnement d'un réseau de neurones de manière plus approfondie et de découvrir la raison de l'utilisation de techniques comme la BatchNorm, les connexions résiduelles, le dropout, la data augmentation etc ..., ce cours est fait pour vous ! 
+Ce cours présente des concepts très intéressant à comprendre mais non essentiels dans une pratique courante du deep learning. Si vous êtes intéressé par comprendre le fonctionnement d'un réseau de neurones de manière plus approfondie et de découvrir la raison de l'utilisation de techniques comme la BatchNorm, les connexions résiduelles, les optimizers, le dropout, la data augmentation etc ..., ce cours est fait pour vous ! 
 
 # 📌 TODO
  - [x] Cours sur les fondations
@@ -66,7 +66,7 @@ Ce cours présente des concepts très intéressant à comprendre mais non essent
  - [x] Cours spécifiques sur BatchNorm 
  - [ ] Cours spécifiques sur Regularization 
  - [ ] Cours spécifiques sur Dropout (intuition etc)  
- - [ ] Cours spécifiques sur les optimizers
+ - [x] Cours spécifiques sur les optimizers
  - [x] Cours spécifiques sur la data augmentation
  
 
