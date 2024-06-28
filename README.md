@@ -65,10 +65,10 @@ Ce cours présente des concepts très intéressant à comprendre mais non essent
  - [x] Cours spécifique sur l'initialisation 
  - [x] Cours spécifique sur BatchNorm 
  - [x] Cours spécifique sur Regularization (l2 et dropout)
- - [ ] Cours spécifique sur les connections résiduelles 
+ - [x] Cours spécifique sur les connections résiduelles 
  - [x] Cours spécifique sur les optimizers
  - [x] Cours spécifique sur la data augmentation
- 
+ - [ ] Cours sur la génération d'images
 
 
 **License**
