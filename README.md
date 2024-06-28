@@ -62,12 +62,12 @@ Ce cours présente des concepts très intéressant à comprendre mais non essent
  - [x] Cours sur les RNN (inclu dans NLP)
  - [x] Cours sur le transfer learning et distillation 
  - [x] Cours sur le contrastive training (siamese nets, triplet loss, entrainement non supervisé)
- - [x] Cours spécifiques sur l'initialisation 
- - [x] Cours spécifiques sur BatchNorm 
- - [ ] Cours spécifiques sur Regularization 
- - [ ] Cours spécifiques sur Dropout (intuition etc)  
- - [x] Cours spécifiques sur les optimizers
- - [x] Cours spécifiques sur la data augmentation
+ - [x] Cours spécifique sur l'initialisation 
+ - [x] Cours spécifique sur BatchNorm 
+ - [x] Cours spécifique sur Regularization (l2 et dropout)
+ - [ ] Cours spécifique sur les connections résiduelles 
+ - [x] Cours spécifique sur les optimizers
+ - [x] Cours spécifique sur la data augmentation
  
 
 
