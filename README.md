@@ -51,25 +51,10 @@ Le dixième cours "Transfer learning et distillation" présente deux concepts ma
 Ce cours présente des concepts très intéressant à comprendre mais non essentiels dans une pratique courante du deep learning. Si vous êtes intéressé par comprendre le fonctionnement d'un réseau de neurones de manière plus approfondie et de découvrir la raison de l'utilisation de techniques comme la BatchNorm, les connexions résiduelles, les optimizers, le dropout, la data augmentation etc ..., ce cours est fait pour vous ! 
 
 # 📌 TODO
- - [x] Cours sur les fondations
- - [x] Cours sur les réseau fully connected 
- - [x] Cours sur les CNN  
- - [x] Cours sur les AutoEncoders 
- - [x] Cours sur le NLP (Karpathy makemore)
- - [x] Cours sur Hugging Face
- - [x] Cours sur les Transformers (Concept et applications sur NLP + vidéo karpathy)
- - [x] Cours sur la détection d'objets(Yolo principalement)
- - [x] Cours sur les RNN (inclu dans NLP)
- - [x] Cours sur le transfer learning et distillation 
- - [x] Cours sur le contrastive training (siamese nets, triplet loss, entrainement non supervisé)
- - [x] Cours spécifique sur l'initialisation 
- - [x] Cours spécifique sur BatchNorm 
- - [x] Cours spécifique sur Regularization (l2 et dropout)
- - [x] Cours spécifique sur les connections résiduelles 
- - [x] Cours spécifique sur les optimizers
- - [x] Cours spécifique sur la data augmentation
- - [ ] Cours sur la génération d'images
-
+ - [ ] Cours sur les modèles génératifs (GAN, VAE, Normalizing flow et Diffusion)
+ - [ ] Cours bonus sur la cross-validation
+ - [ ] Cours sur l'implémentation de BERT à partir de zéro
+ - [ ] Cours sur le fine-tuning avec transformers de Hugging Face
 
 **License**
 
