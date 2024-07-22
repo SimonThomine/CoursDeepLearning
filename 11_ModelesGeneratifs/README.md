@@ -8,7 +8,7 @@ Ce notebook introduit la différence entre modèle discriminatifs et génératif
 Ce notebook présente l'architecture des *generative adversarial networks*(GAN), leurs avantages, faiblesses et utilisations possibles.
 
 ## Notebook 3️⃣ : [Gan Implementation](03_GanImplementation.ipynb)
-Ce notebook propose une implémentation d'un GAN pour la génération de chiffres à partir du dataset MNIST.
+Ce notebook propose une implémentation d'un GAN pour la génération de chiffres 5 à partir du dataset MNIST.
 
 ## Notebook 4️⃣ : [VAE](04_VAE.ipynb)
 Ce notebook présente l'architecture des *variational autoencoders* (VAE) en commençant par un rappel sur les autoencodeurs puis en décrivant l'intuite et la méthode derrière l'architecture VAE.
