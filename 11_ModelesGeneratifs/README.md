@@ -12,3 +12,6 @@ Ce notebook propose une implémentation d'un GAN pour la génération de chiffre
 
 ## Notebook 4️⃣ : [VAE](04_VAE.ipynb)
 Ce notebook présente l'architecture des *variational autoencoders* (VAE) en commençant par un rappel sur les autoencodeurs puis en décrivant l'intuite et la méthode derrière l'architecture VAE.
+
+## Notebook 5️⃣ : [Vae Implementation](05_VaeImplementation.ipynb)
+Ce notebook propose une implémentation d'un VAE pour la génération de chiffres à partir du dataset MNIST.
