@@ -16,3 +16,4 @@ diffusers
 gradio
 ultralytics
 opencv-python
+freia
