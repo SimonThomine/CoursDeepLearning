@@ -48,12 +48,13 @@ Le neuvième cours "Entrainement contrastif" présente le concept de l'entraîne
 Le dixième cours "Transfer learning et distillation" présente deux concepts majeurs en deep learning : le transfer learning et la distillation des connaissances. La première partie de ce cours présente le transfer learning dans sa globalité puis propose une implémentation pratique. La seconde partie présente le concept de distillation des connaissances et ses variantes puis propose un cas d'application de la distillation des connaissances pour la détection d'anomalies non supervisée.
 
 ## 11. 🌀 [Modèles génératifs](11_ModelesGeneratifs/README.md)
-Le onzième cours "Modèles génératifs" introduit le principe de modèles génératifs par opposition aux modèles discriminatifs. Les 4 grandes familles de modèles génératifs sont présentées et implémentées : les GAN, les VAE, les normalizing flow et les modèles de diffusion. Les modèles autoregressif ne sont pas abordés car ceux-ci ont été décrits dans le cours NLP et Transformers.
+Le onzième cours "Modèles génératifs" introduit le principe de modèles génératifs par opposition aux modèles discriminatifs. Les 4 grandes familles de modèles génératifs sont présentées et certaines sont implémentées : les GAN, les VAE, les normalizing flow et les modèles de diffusion. Les modèles autoregressifs ne sont pas abordés car ceux-ci ont été décrits dans le cours NLP et Transformers.
 
 ## Bonus 🌟 [Cours spécifiques](Bonus_CoursSpécifiques/README.md)
 Ce cours présente des concepts très intéressant à comprendre mais non essentiels dans une pratique courante du deep learning. Si vous êtes intéressé par comprendre le fonctionnement d'un réseau de neurones de manière plus approfondie et de découvrir la raison de l'utilisation de techniques comme la BatchNorm, les connexions résiduelles, les optimizers, le dropout, la data augmentation etc ..., ce cours est fait pour vous ! 
 
 # 📌 TODO
+ - [X] Implémentation conv1D à partir de zéro
  - [ ] Cours sur les modèles génératifs (GAN, VAE, Normalizing flow et Diffusion)
  - [ ] Cours bonus sur la cross-validation
  - [ ] Cours sur l'implémentation de BERT à partir de zéro
