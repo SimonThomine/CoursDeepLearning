@@ -8,7 +8,7 @@ Ce notebook introduit les couches de convolutions en expliquant la motivation pr
 Ce notebook introduit l'architecture du réseau de neurones convolutifs avec une explication de la logique derrière cette architecture ainsi que la description du concept de champ réceptif.
 
 ## Notebook 3️⃣ : [Conv Implementation](03_ConvImplementation.ipynb)
-Ce notebook propose une implémentation d'une couche de convolution 1D à partir de zéro et son utilisation pour la classification sur le dataset MNIST.
+Ce notebook propose une implémentation d'une couche de convolution 1D à partir de zéro et son utilisation pour la classification sur le dataset MNIST. Une implémentation de la convolution 2D est ensuite proposée pour voir si l'on obtient de meilleurs résultats.
 
 ## Notebook 4️⃣ : [Réseau Convolutif Pytorch](04_RéseauConvolutifPytorch.ipynb)
 Ce notebook propose une implémentation d'un premier réseau convolutif sur le dataset MNIST.
