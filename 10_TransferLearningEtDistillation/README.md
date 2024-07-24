@@ -12,3 +12,9 @@ Ce notebook introduit le concept de distillation des conaissances en deep learni
 
 ## Notebook 4️⃣ : [DistillationAnomalie](04_DistillationAnomalie.ipynb)
 Ce notebook montre un exemple de distillation des connaissances pour la détection d'anomalies non supervisée.
+
+## Notebook 5️⃣ : [Fine Tuning LLM](05_FineTuningLLM.ipynb)
+Ce notebook présente en détail l'architecture de BERT, un modèle conçu pour être *finetune* sur des tâches annexes.
+
+## Notebook 6️⃣ : [Fine Tuning Bert HF](06_FineTuningBertHF.ipynb)
+Ce notebook propose des exemples de *finetuning* du modèle BERT avec Hugging Face pour des tâches de *token-level prediction* et *sentence-level prediction*.
