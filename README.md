@@ -57,7 +57,7 @@ Ce cours présente des concepts très intéressant à comprendre mais non essent
  - [X] Implémentation conv1D et conv2D à partir de zéro
  - [X] Cours sur les modèles génératifs (GAN, VAE, Normalizing flow et Diffusion)
  - [X] Cours sur l'implémentation le fine-tuning avec BERT et Hugging Face
- - [ ] Cours bonus sur la cross-validation
+ - [X] Cours bonus sur la cross-validation
  - [ ] Cours bonus sur la tokenization 
 
 

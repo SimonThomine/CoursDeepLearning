@@ -21,3 +21,6 @@ Ce notebook présente en détails deux méthodes de régularisation : le régula
 
 ## Notebook 7️⃣ : [Connexions Résiduelles](07_ConnexionsResiduelles.ipynb)
 Ce notebook introduit les connexions résiduelles et leurs utilités pour l'entraînement de réseaux de neurones profonds.
+
+## Notebook 8️⃣ : [CrossValidation](08_CrossValidation.ipynb)
+Ce notebook introduit la méthode de cross validation pour évaluer les modèles et détecter l'overfitting.
