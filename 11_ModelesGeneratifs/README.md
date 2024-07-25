@@ -21,3 +21,6 @@ Ce notebook présente l'architecture des *normalizing flows*.
 
 ## Notebook 7️⃣ : [Diffusion Models](07_DiffusionModels.ipynb)
 Ce notebook présente l'architecture des *diffusion models* ainsi que leurs avantages et incovénients.
+
+## Notebook 8️⃣ : [Diffusion Implementation](08_DiffusionImplementation.ipynb)
+Ce notebook propose une implémentation simple d'un modèle de diffusion pour générer des éléments sur le dataset MNIST.
