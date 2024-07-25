@@ -15,3 +15,9 @@ Ce notebook présente l'architecture des *variational autoencoders* (VAE) en com
 
 ## Notebook 5️⃣ : [Vae Implementation](05_VaeImplementation.ipynb)
 Ce notebook propose une implémentation d'un VAE pour la génération de chiffres à partir du dataset MNIST.
+
+## Notebook 6️⃣ : [Normalizing Flows](06_NormalizingFlows.ipynb)
+Ce notebook présente l'architecture des *normalizing flows*.
+
+## Notebook 7️⃣ : [Diffusion Models](07_DiffusionModels.ipynb)
+Ce notebook présente l'architecture des *diffusion models* ainsi que leurs avantages et incovénients.
