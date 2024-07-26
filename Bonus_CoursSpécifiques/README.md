@@ -27,3 +27,6 @@ Ce notebook introduit la méthode de cross validation pour évaluer les modèles
 
 ## Notebook 9️⃣ : [Metriques Evaluation](09_MetriquesEvaluation.ipynb)
 Ce notebook introduit différents métriques que l'on peut utiliser pour évaluer son modèle.
+
+## Notebook 1️⃣0️⃣ : [Tokenization](10_Tokenization.ipynb)
+Ce notebook introduit la *tokenization* en expliquant le fonctionnement, les limitations et en proposant une implémentation du *byte-pair encoding*.
