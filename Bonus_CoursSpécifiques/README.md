@@ -24,3 +24,6 @@ Ce notebook introduit les connexions résiduelles et leurs utilités pour l'entr
 
 ## Notebook 8️⃣ : [CrossValidation](08_CrossValidation.ipynb)
 Ce notebook introduit la méthode de cross validation pour évaluer les modèles et détecter l'overfitting.
+
+## Notebook 9️⃣ : [Metriques Evaluation](09_MetriquesEvaluation.ipynb)
+Ce notebook introduit différents métriques que l'on peut utiliser pour évaluer son modèle.
