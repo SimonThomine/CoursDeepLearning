@@ -58,7 +58,7 @@ Ce cours présente des concepts très intéressant à comprendre mais non essent
  - [X] Cours sur les modèles génératifs (GAN, VAE, Normalizing flow et Diffusion)
  - [X] Cours sur l'implémentation le fine-tuning avec BERT et Hugging Face
  - [X] Cours bonus sur la cross-validation
- - [ ] Cours bonus sur la tokenization 
+ - [X] Cours bonus sur la tokenization 
  - [X] Cours bonus sur les métriques
 
 
