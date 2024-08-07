@@ -58,15 +58,6 @@ Le onzième cours "Modèles génératifs" introduit le principe de modèles gén
 ## Bonus 🌟 [Cours spécifiques](./Bonus_CoursSpécifiques/README.md)
 Ce cours présente des concepts très intéressant à comprendre mais non essentiels dans une pratique courante du deep learning. Si vous êtes intéressé par comprendre le fonctionnement d'un réseau de neurones de manière plus approfondie et de découvrir la raison de l'utilisation de techniques comme la BatchNorm, les connexions résiduelles, les optimizers, le dropout, la data augmentation etc ..., ce cours est fait pour vous ! 
 
-# 📌 TODO
- - [X] Implémentation conv1D et conv2D à partir de zéro
- - [X] Cours sur les modèles génératifs (GAN, VAE, Normalizing flow et Diffusion)
- - [X] Cours sur l'implémentation le fine-tuning avec BERT et Hugging Face
- - [X] Cours bonus sur la cross-validation
- - [X] Cours bonus sur la tokenization 
- - [X] Cours bonus sur les métriques
-
-
 **License**
 
 Ce travail est mis à disposition selon les termes de la licence MIT
