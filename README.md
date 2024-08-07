@@ -2,9 +2,17 @@
   <h1><center> 	🚀 Apprendre le Deep Learning à partir de zéro 🚀</h1>
 </p>
 
+
+<img src="images/banner_comic.webp" alt="banner" width="800" style="display: block; margin-left: auto; margin-right: auto;" />
+
+
+
 # 📚 Description
+
 Ce repository propose des cours d'initiation au deep learning se basant sur des notebooks.
 Pour un débutant, les cours sont à faire dans l'ordre pour une meilleur compréhension globale. 
+
+Un site internet du cours est disponible pour naviguer plus facilement : [**🌐 Website 🌐**](https://simonthomine.github.io/CoursDeepLearning/)
 
 ## 🛠️ Installation de l'environnement de travail 
 L'ensemble des library nécessaires pour le cours sont disponibles dans requirements.txt, vous pouvez choisir d'installer tout d'un coup ou au fur et à mesure de votre avancement dans le cours.   
@@ -52,15 +60,6 @@ Le onzième cours "Modèles génératifs" introduit le principe de modèles gén
 
 ## Bonus 🌟 [Cours spécifiques](./cours/Bonus_CoursSpécifiques/README.md)
 Ce cours présente des concepts très intéressant à comprendre mais non essentiels dans une pratique courante du deep learning. Si vous êtes intéressé par comprendre le fonctionnement d'un réseau de neurones de manière plus approfondie et de découvrir la raison de l'utilisation de techniques comme la BatchNorm, les connexions résiduelles, les optimizers, le dropout, la data augmentation etc ..., ce cours est fait pour vous ! 
-
-# 📌 TODO
- - [X] Implémentation conv1D et conv2D à partir de zéro
- - [X] Cours sur les modèles génératifs (GAN, VAE, Normalizing flow et Diffusion)
- - [X] Cours sur l'implémentation le fine-tuning avec BERT et Hugging Face
- - [X] Cours bonus sur la cross-validation
- - [X] Cours bonus sur la tokenization 
- - [X] Cours bonus sur les métriques
-
 
 **License**
 

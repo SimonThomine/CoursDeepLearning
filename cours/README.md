@@ -2,9 +2,14 @@
   <h1><center> 	🚀 Apprendre le Deep Learning à partir de zéro 🚀</h1>
 </p>
 
+<img src="../images/banner_comic.webp" alt="banner" width="800" style="display: block; margin-left: auto; margin-right: auto;" />
+
 # 📚 Description
+
 Ce repository propose des cours d'initiation au deep learning se basant sur des notebooks.
 Pour un débutant, les cours sont à faire dans l'ordre pour une meilleur compréhension globale. 
+
+Un site internet du cours est disponible pour naviguer plus facilement : [**🌐 Website 🌐**](https://simonthomine.github.io/CoursDeepLearning/)
 
 ## 🛠️ Installation de l'environnement de travail 
 L'ensemble des library nécessaires pour le cours sont disponibles dans requirements.txt, vous pouvez choisir d'installer tout d'un coup ou au fur et à mesure de votre avancement dans le cours.   
