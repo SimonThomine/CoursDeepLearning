@@ -3,9 +3,7 @@
 </p>
 
 
-<img src="images/banner_comic.webp" alt="banner" width="800" style="display: block; margin-left: auto; margin-right: auto;" />
-
-
+<img src="cours/images/banner_comic.webp" alt="banner" width="800" style="display: block; margin-left: auto; margin-right: auto;" />
 
 # 📚 Description
 
