@@ -1,6 +1,6 @@
-<div style="text-align: center;">
-# 🚀 Apprendre le Deep Learning à partir de zéro 🚀
-</div>
+<p align="center">
+  <h1><center> 	🚀 Apprendre le Deep Learning à partir de zéro 🚀</h1>
+</p>
 
 <img src="cours/images/banner_comic.webp" alt="banner" width="800" style="display: block; margin-left: auto; margin-right: auto;" />
 
