@@ -105,6 +105,7 @@ nav:
     - CrossValidation: Bonus_CoursSpécifiques/08_CrossValidation.ipynb
     - Metriques Evaluation: Bonus_CoursSpécifiques/09_MetriquesEvaluation.ipynb
     - Tokenization: Bonus_CoursSpécifiques/10_Tokenization.ipynb
+    - Quantization: Bonus_CoursSpécifiques/11_Quantization.ipynb
 
 
 theme:
