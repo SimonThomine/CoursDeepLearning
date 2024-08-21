@@ -30,3 +30,6 @@ Ce notebook introduit différents métriques que l'on peut utiliser pour évalue
 
 ## Notebook 1️⃣0️⃣ : [Tokenization](10_Tokenization.ipynb)
 Ce notebook introduit la *tokenization* en expliquant le fonctionnement, les limitations et en proposant une implémentation du *byte-pair encoding*.
+
+## Notebook 1️⃣1️⃣ : [Quantization](11_Quantization.ipynb)
+Ce notebook introduit la quantization et les méthodes de fine-tuning de modèles LLM. La première partie décrit les différentes forme de quantization et la théorie derrière. La dernière partie introduit les méthodes LoRA et QLoRA pour le fine-tuning.
