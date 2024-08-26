@@ -8,7 +8,7 @@ copyright: Copyright &copy; 2024 Simon Thomine
 site_author: Simon Thomine
 
 nav:
-  - Home: README.md
+  - Accueil: README.md
 
   - Fondations:
     - Intro: 01_Fondations/README.md
@@ -112,7 +112,7 @@ theme:
   name: material
   language: fr
   icon:
-    logo: material/math-integral-box
+    logo: material/rocket-launch
   # favicon: images/favicon.ico
   palette: 
     # Auto mode
@@ -138,6 +138,7 @@ theme:
         name: Switch to light mode
   features:
     - header.autohide
+    - navigation.logo_text
     
 plugins:
   - mkdocs-jupyter:
