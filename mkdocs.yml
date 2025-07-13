@@ -14,13 +14,15 @@ nav:
     - Intro: 01_Fondations/README.md
     - Dérivées de descente du gradient: 01_Fondations/01_DérivéesEtDescenteDuGradient.ipynb
     - Régression Logistique: 01_Fondations/02_RégressionLogistique.ipynb
+    - 📝 QCM: 01_Fondations/qcm.html
   
   - Réseau Fully Connected:
     - Intro: 02_RéseauFullyConnected/README.md
     - Mon premier réseau: 02_RéseauFullyConnected/01_MonPremierRéseau.ipynb
     - Pytorch introduction: 02_RéseauFullyConnected/02_PytorchIntroduction.ipynb
     - Techniques avancées: 02_RéseauFullyConnected/03_TechniquesAvancées.ipynb
-  
+    - 📝 QCM: 02_RéseauFullyConnected/qcm.html
+
   - RéseauConvolutifs:
     - Intro: 03_RéseauConvolutifs/README.md
     - Couches de convolutions: 03_RéseauConvolutifs/01_CouchesDeConvolutions.ipynb
@@ -29,11 +31,13 @@ nav:
     - Réseau Convolutif Pytorch: 03_RéseauConvolutifs/04_RéseauConvolutifPytorch.ipynb
     - Application Classification: 03_RéseauConvolutifs/05_ApplicationClassification.ipynb
     - Application Segmentation: 03_RéseauConvolutifs/06_ApplicationSegmentation.ipynb
-  
+    - 📝 QCM: 03_RéseauConvolutifs/qcm.html
+
   - Autoencodeurs:
     - Intuition et premier AE: 04_Autoencodeurs/01_IntuitionEtPremierAE.ipynb
     - Denoising AE: 04_Autoencodeurs/02_DenoisingAE.ipynb
-  
+    - 📝 QCM: 04_Autoencodeurs/qcm.html
+
   - NLP:
     - Intro: 05_NLP/README.md
     - Introduction: 05_NLP/01_Introduction.ipynb
@@ -42,7 +46,8 @@ nav:
     - WaveNet: 05_NLP/04_WaveNet.ipynb
     - RNN: 05_NLP/05_Rnn.ipynb
     - LSTM: 05_NLP/06_Lstm.ipynb
-  
+    - 📝 QCM: 05_NLP/qcm.html
+
   - HuggingFace:
     - Intro: 06_HuggingFace/README.md
     - Introduction: 06_HuggingFace/01_introduction.ipynb
@@ -51,7 +56,7 @@ nav:
     - Audio with transformers: 06_HuggingFace/04_AudioWithTransformers.ipynb
     - Image generation with diffusers: 06_HuggingFace/05_ImageGenerationWithDiffusers.ipynb
     - Demo avec gradio: 06_HuggingFace/06_DemoAvecGradio.ipynb
-  
+
   - Transformers:
     - Intro: 07_Transformers/README.md
     - Introduction: 07_Transformers/01_Introduction.ipynb
@@ -61,18 +66,21 @@ nav:
     - Utilisations possibles: 07_Transformers/05_UtilisationsPossibles.ipynb
     - Vision Transformer Implementation: 07_Transformers/06_VisionTransformerImplementation.ipynb
     - Swin Transformer: 07_Transformers/07_SwinTransformer.ipynb
-  
+    - 📝 QCM: 07_Transformers/qcm.html
+
   - Detection Et Yolo:
     - Intro: 08_DetectionEtYolo/README.md
     - Introduction: 08_DetectionEtYolo/01_Introduction.ipynb
     - Yolo en détail: 08_DetectionEtYolo/02_YoloEnDetail.ipynb
     - Ultralytics: 08_DetectionEtYolo/03_Ultralytics.ipynb
+    - 📝 QCM: 08_DetectionEtYolo/qcm.html
   
   - Entrainement Contrastif:
     - Intro: 09_EntrainementContrastif/README.md
     - Face verification: 09_EntrainementContrastif/01_FaceVerification.ipynb
     - Non supervisé: 09_EntrainementContrastif/02_NonSupervisé.ipynb
-  
+    - 📝 QCM: 09_EntrainementContrastif/qcm.html
+
   - Transfer Learning Et Distillation:
     - Intro: 10_TransferLearningEtDistillation/README.md
     - Transfer learning: 10_TransferLearningEtDistillation/01_TransferLearning.ipynb
@@ -81,7 +89,8 @@ nav:
     - Distillation Anomalie: 10_TransferLearningEtDistillation/04_DistillationAnomalie.ipynb
     - Fine Tuning LLM: 10_TransferLearningEtDistillation/05_FineTuningLLM.ipynb
     - Fine Tuning Bert HF: 10_TransferLearningEtDistillation/06_FineTuningBertHF.ipynb
-  
+    - 📝 QCM: 10_TransferLearningEtDistillation/qcm.html
+
   - Modeles Generatifs:
     - Intro: 11_ModelesGeneratifs/README.md
     - Introduction: 11_ModelesGeneratifs/01_Introduction.ipynb
@@ -92,7 +101,8 @@ nav:
     - Normalizing Flows: 11_ModelesGeneratifs/06_NormalizingFlows.ipynb
     - Diffusion Models: 11_ModelesGeneratifs/07_DiffusionModels.ipynb
     - Diffusion Implementation: 11_ModelesGeneratifs/08_DiffusionImplementation.ipynb
-  
+    - 📝 QCM: 11_ModelesGeneratifs/qcm.html
+
   - Bonus Cours Spécifiques:
     - Intro: Bonus_CoursSpécifiques/README.md
     - Activation et initialisation: Bonus_CoursSpécifiques/01_ActivationEtInitialisation.ipynb
