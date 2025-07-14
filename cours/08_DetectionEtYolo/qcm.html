@@ -375,28 +375,28 @@
         <div class="question-container">
             <div class="question-header">
                 <div class="question-number">1</div>
-                <div class="question-text">Quelle est la principale différence entre les méthodes "two-stage detectors" et "one-stage detectors" en détection d'objets ?  </div>
+                <div class="question-text">Quelle est la principale différence entre un détecteur d'objets en deux étapes (<em>two-stage detector</em>) et un détecteur en une étape (<em>one-stage detector</em>) ?</div>
             </div>
             <div class="answers">
         
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 1)" data-question="1">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 1)" data-question="1">
                     <div class="answer-option">A</div>
-                    <div class="answer-text">Les "two-stage detectors" utilisent une seule étape pour détecter les objets alors que les "one-stage detectors" en utilisent deux.</div>
+                    <div class="answer-text">Le <em>two-stage detector</em> produit directement les classes et les boîtes, tandis que le <em>one-stage detector</em> génère d'abord des propositions de régions.</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, true, 'B', 1)" data-question="1">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 1)" data-question="1">
                     <div class="answer-option">B</div>
-                    <div class="answer-text">Les "two-stage detectors" proposent d'abord des régions candidates puis affinent la détection, tandis que les "one-stage detectors" prédisent directement les boîtes englobantes et classes en une seule étape.</div>
+                    <div class="answer-text">Le <em>two-stage detector</em> utilise un transformer, le <em>one-stage detector</em> utilise uniquement un CNN.</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 1)" data-question="1">
+                <button class="answer-button" onclick="checkAnswer(this, true, 'C', 1)" data-question="1">
                     <div class="answer-option">C</div>
-                    <div class="answer-text">Les "two-stage detectors" sont plus rapides que les "one-stage detectors".</div>
+                    <div class="answer-text">Le <em>two-stage detector</em> génère d'abord des propositions de régions puis affine la détection, le <em>one-stage detector</em> prédit directement les boîtes et classes en une seule étape.</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 1)" data-question="1">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 1)" data-question="1">
                     <div class="answer-option">D</div>
-                    <div class="answer-text">Les "one-stage detectors" utilisent uniquement des réseaux fully connected alors que les "two-stage detectors" utilisent des CNN.</div>
+                    <div class="answer-text">Le <em>one-stage detector</em> est toujours plus précis que le <em>two-stage detector</em>.</div>
                 </button>
             
             </div>
@@ -405,28 +405,28 @@
         <div class="question-container">
             <div class="question-header">
                 <div class="question-number">2</div>
-                <div class="question-text">Quel est l’objectif principal de la Non-Maximum Suppression (NMS) dans la détection d’objets ?  </div>
+                <div class="question-text">Dans l'architecture YOLO originale, comment est déterminée la cellule responsable de la détection d'un objet ?</div>
             </div>
             <div class="answers">
         
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 2)" data-question="2">
+                <button class="answer-button" onclick="checkAnswer(this, true, 'A', 2)" data-question="2">
                     <div class="answer-option">A</div>
-                    <div class="answer-text">Augmenter le nombre de boîtes englobantes proposées par le modèle.</div>
+                    <div class="answer-text">La cellule contenant le centre de l'objet dans la grille est responsable de la détection.</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, true, 'B', 2)" data-question="2">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'A', 2)" data-question="2">
                     <div class="answer-option">B</div>
-                    <div class="answer-text">Éliminer les boîtes englobantes redondantes qui se chevauchent pour ne conserver qu’une détection pertinente par objet.</div>
+                    <div class="answer-text">La cellule qui a la plus grande aire de l'objet est responsable.</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 2)" data-question="2">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'A', 2)" data-question="2">
                     <div class="answer-option">C</div>
-                    <div class="answer-text">Améliorer la résolution de l’image d’entrée.</div>
+                    <div class="answer-text">Toutes les cellules prédisent toutes les boîtes et classes, sans attribution spécifique.</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 2)" data-question="2">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'A', 2)" data-question="2">
                     <div class="answer-option">D</div>
-                    <div class="answer-text">Générer des ancres avec différents ratios et tailles.</div>
+                    <div class="answer-text">La cellule au coin supérieur gauche de l'objet est responsable.</div>
                 </button>
             
             </div>
@@ -435,28 +435,28 @@
         <div class="question-container">
             <div class="question-header">
                 <div class="question-number">3</div>
-                <div class="question-text">Dans le modèle YOLO, que représente la cellule responsable d'un objet dans la grille divisant l'image ?  </div>
+                <div class="question-text">Quel est le rôle principal de la suppression non maximale (<em>Non-Maximum Suppression</em>, NMS) dans la détection d'objets ?</div>
             </div>
             <div class="answers">
         
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 3)" data-question="3">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 3)" data-question="3">
                     <div class="answer-option">A</div>
-                    <div class="answer-text">La cellule contenant l’objet en entier.</div>
+                    <div class="answer-text">Améliorer la résolution de l'image avant détection.</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 3)" data-question="3">
+                <button class="answer-button" onclick="checkAnswer(this, true, 'B', 3)" data-question="3">
                     <div class="answer-option">B</div>
-                    <div class="answer-text">La cellule contenant le coin supérieur gauche de l’objet.</div>
+                    <div class="answer-text">Fusionner plusieurs prédictions de boîtes qui se chevauchent en une seule détection par objet.</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, true, 'C', 3)" data-question="3">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 3)" data-question="3">
                     <div class="answer-option">C</div>
-                    <div class="answer-text">La cellule contenant le centre de l’objet.</div>
+                    <div class="answer-text">Générer des propositions de régions pour la détection.</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 3)" data-question="3">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 3)" data-question="3">
                     <div class="answer-option">D</div>
-                    <div class="answer-text">La cellule contenant la plus grande partie de l’objet.</div>
+                    <div class="answer-text">Réduire la taille des ancres utilisées par le modèle.</div>
                 </button>
             
             </div>
@@ -465,33 +465,28 @@
         <div class="question-container">
             <div class="question-header">
                 <div class="question-number">4</div>
-                <div class="question-text">Quelle est la taille de sortie du réseau YOLO en fonction de la dimension de la grille S, du nombre de classes C et du nombre de boîtes B par cellule ?  </div>
+                <div class="question-text">Quelle est l'innovation principale introduite dans YOLOv2 par rapport à la version originale de YOLO ?</div>
             </div>
             <div class="answers">
         
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 4)" data-question="4">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 4)" data-question="4">
                     <div class="answer-option">A</div>
-                    <div class="answer-text">S x S x (C + 5)</div>
+                    <div class="answer-text">Utilisation d'un backbone Darknet-53.</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 4)" data-question="4">
+                <button class="answer-button" onclick="checkAnswer(this, true, 'B', 4)" data-question="4">
                     <div class="answer-option">B</div>
-                    <div class="answer-text">S x S x (B + C x 5)</div>
+                    <div class="answer-text">Introduction des ancres (<em>anchor boxes</em>) pour améliorer la précision de localisation.</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, true, 'C', 4)" data-question="4">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 4)" data-question="4">
                     <div class="answer-option">C</div>
-                    <div class="answer-text">S x S x (C + B x 5)</div>
+                    <div class="answer-text">Ajout de la détection multi-échelle.</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 4)" data-question="4">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 4)" data-question="4">
                     <div class="answer-option">D</div>
-                    <div class="answer-text">S x S x (B x</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, true, 'C', 4)" data-question="4">
-                    <div class="answer-option">E</div>
-                    <div class="answer-text"></div>
+                    <div class="answer-text">Utilisation d'un transformer encoder.</div>
                 </button>
             
             </div>
@@ -500,190 +495,40 @@
         <div class="question-container">
             <div class="question-header">
                 <div class="question-number">5</div>
-                <div class="question-text">Quel est le principal inconvénient de YOLO concernant la détection d’objets dans une même cellule de la grille ?  </div>
+                <div class="question-text">Quelle est une des limitations majeures de l'algorithme YOLO original liée à la prédiction par cellule de la grille ?</div>
             </div>
             <div class="answers">
         
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 5)" data-question="5">
+                <button class="answer-button" onclick="checkAnswer(this, true, 'A', 5)" data-question="5">
                     <div class="answer-option">A</div>
-                    <div class="answer-text">Il ne peut pas détecter d’objets très petits.</div>
+                    <div class="answer-text">Chaque cellule ne peut prédire qu'une seule classe mais plusieurs boîtes.</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, true, 'B', 5)" data-question="5">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'A', 5)" data-question="5">
                     <div class="answer-option">B</div>
-                    <div class="answer-text">Il ne peut prédire qu’une seule classe par cellule, donc ne peut pas distinguer plusieurs objets de catégories différentes dans la même cellule.</div>
+                    <div class="answer-text">Chaque cellule peut détecter plusieurs objets de différentes classes.</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 5)" data-question="5">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'A', 5)" data-question="5">
                     <div class="answer-option">C</div>
-                    <div class="answer-text">Il ne peut prédire qu’un seul bounding box par cellule.</div>
+                    <div class="answer-text">Le modèle ne prédit pas la position des objets, uniquement la classe.</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 5)" data-question="5">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'A', 5)" data-question="5">
                     <div class="answer-option">D</div>
-                    <div class="answer-text">Il ne peut pas gérer les images de grande résolution.</div>
-                </button>
-            
-            </div>
-        </div>
-        
-        <div class="question-container">
-            <div class="question-header">
-                <div class="question-number">6</div>
-                <div class="question-text">Parmi les innovations introduites dans YOLOv2, laquelle est correcte ?  </div>
-            </div>
-            <div class="answers">
-        
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 6)" data-question="6">
-                    <div class="answer-option">A</div>
-                    <div class="answer-text">Introduction du backbone CSPDarknet53.</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 6)" data-question="6">
-                    <div class="answer-option">B</div>
-                    <div class="answer-text">Utilisation d’un modèle plus profond avec Darknet-53.</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, true, 'C', 6)" data-question="6">
-                    <div class="answer-option">C</div>
-                    <div class="answer-text">Passage à une résolution d’entrée de 416x416 et introduction des ancres pour améliorer la précision.</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 6)" data-question="6">
-                    <div class="answer-option">D</div>
-                    <div class="answer-text">Intégration du transformer encoder pour open-vocabulary detection.</div>
-                </button>
-            
-            </div>
-        </div>
-        
-        <div class="question-container">
-            <div class="question-header">
-                <div class="question-number">7</div>
-                <div class="question-text">Quel avantage principal présente l’architecture transformer utilisée dans DETR pour la détection d’objets ?  </div>
-            </div>
-            <div class="answers">
-        
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 7)" data-question="7">
-                    <div class="answer-option">A</div>
-                    <div class="answer-text">Nécessite beaucoup moins de calcul que les CNN classiques.</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, true, 'B', 7)" data-question="7">
-                    <div class="answer-option">B</div>
-                    <div class="answer-text">Supprime le besoin d’ancres, de NMS et de proposition de régions, simplifiant ainsi le pipeline.</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 7)" data-question="7">
-                    <div class="answer-option">C</div>
-                    <div class="answer-text">Est plus rapide que YOLO pour la détection en temps réel.</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 7)" data-question="7">
-                    <div class="answer-option">D</div>
-                    <div class="answer-text">Utilise uniquement des réseaux fully connected.</div>
-                </button>
-            
-            </div>
-        </div>
-        
-        <div class="question-container">
-            <div class="question-header">
-                <div class="question-number">8</div>
-                <div class="question-text">Quelle est la fonction principale des ancres (anchor boxes) dans les détecteurs d’objets ?  </div>
-            </div>
-            <div class="answers">
-        
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 8)" data-question="8">
-                    <div class="answer-option">A</div>
-                    <div class="answer-text">Elles génèrent les régions candidates pour les two-stage detectors.</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, true, 'B', 8)" data-question="8">
-                    <div class="answer-option">B</div>
-                    <div class="answer-text">Elles sont des boîtes prédéfinies de différentes tailles et ratios qui réduisent le nombre de positions à étudier pour le modèle.</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 8)" data-question="8">
-                    <div class="answer-option">C</div>
-                    <div class="answer-text">Elles sont des filtres convolutifs utilisés dans le backbone.</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 8)" data-question="8">
-                    <div class="answer-option">D</div>
-                    <div class="answer-text">Elles remplacent la fonction de perte pour la localisation des objets.</div>
-                </button>
-            
-            </div>
-        </div>
-        
-        <div class="question-container">
-            <div class="question-header">
-                <div class="question-number">9</div>
-                <div class="question-text">Quelle version de YOLO a introduit l’architecture CSPDarknet53 et la technique Mosaic Data Augmentation ?  </div>
-            </div>
-            <div class="answers">
-        
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 9)" data-question="9">
-                    <div class="answer-option">A</div>
-                    <div class="answer-text">YOLOv2</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 9)" data-question="9">
-                    <div class="answer-option">B</div>
-                    <div class="answer-text">YOLOv3</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, true, 'C', 9)" data-question="9">
-                    <div class="answer-option">C</div>
-                    <div class="answer-text">YOLOv4</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 9)" data-question="9">
-                    <div class="answer-option">D</div>
-                    <div class="answer-text">YOLOv5</div>
-                </button>
-            
-            </div>
-        </div>
-        
-        <div class="question-container">
-            <div class="question-header">
-                <div class="question-number">10</div>
-                <div class="question-text">Que permet la version YOLO-World sortie en 2024 ?  </div>
-            </div>
-            <div class="answers">
-        
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 10)" data-question="10">
-                    <div class="answer-option">A</div>
-                    <div class="answer-text">Une détection d’objets en temps réel avec une précision accrue grâce à un nouveau backbone.</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, true, 'B', 10)" data-question="10">
-                    <div class="answer-option">B</div>
-                    <div class="answer-text">Une détection d’objets open-vocabulary grâce à un transformer encoder pour le texte, permettant de détecter des classes non vues pendant l’entraînement.</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 10)" data-question="10">
-                    <div class="answer-option">C</div>
-                    <div class="answer-text">Une segmentation sémantique intégrée dans YOLO.</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 10)" data-question="10">
-                    <div class="answer-option">D</div>
-                    <div class="answer-text">Une réduction drastique du temps d’entraînement grâce à des techniques de régularisation.</div>
+                    <div class="answer-text">Chaque cellule ne peut prédire qu'une seule boîte et une seule classe.</div>
                 </button>
             
             </div>
         </div>
         
     <div class="score-container">
-        <div class="score-text" id="scoreDisplay">Score: 0/10</div>
+        <div class="score-text" id="scoreDisplay">Score: 0/5</div>
     </div>
 </div>
 
 <script>
-    let totalQuestions = 10;
+    let totalQuestions = 5;
     let answeredQuestions = 0;
     let correctAnswers = 0;
 

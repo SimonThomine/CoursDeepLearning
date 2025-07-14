@@ -375,28 +375,28 @@
         <div class="question-container">
             <div class="question-header">
                 <div class="question-number">1</div>
-                <div class="question-text">Quelle est la principale raison d'utiliser des mini-batchs lors de la descente de gradient stochastique ?  </div>
+                <div class="question-text">Quelle est la principale innovation introduite par l'architecture Transformer en 2017 par rapport aux réseaux récurrents (RNN) pour le traitement du langage naturel ?  </div>
             </div>
             <div class="answers">
         
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 1)" data-question="1">
                     <div class="answer-option">A</div>
-                    <div class="answer-text">Pour garantir une diminution de la perte à chaque itération</div>
+                    <div class="answer-text">L'utilisation exclusive de convolutions</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, true, 'B', 1)" data-question="1">
                     <div class="answer-option">B</div>
-                    <div class="answer-text">Pour réduire la consommation mémoire et accélérer l'entraînement sur de grands ensembles de données</div>
+                    <div class="answer-text">L'introduction du mécanisme d'attention sans recourir aux boucles récursives</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 1)" data-question="1">
                     <div class="answer-option">C</div>
-                    <div class="answer-text">Pour augmenter la taille du dataset</div>
+                    <div class="answer-text">L'emploi d'un plus grand nombre de couches récurrentes</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 1)" data-question="1">
                     <div class="answer-option">D</div>
-                    <div class="answer-text">Pour éviter de devoir calculer le gradient</div>
+                    <div class="answer-text">L'intégration de réseaux de neurones à mémoire courte</div>
                 </button>
             
             </div>
@@ -405,28 +405,28 @@
         <div class="question-container">
             <div class="question-header">
                 <div class="question-number">2</div>
-                <div class="question-text">Dans un réseau de neurones, quel est le rôle principal d'un neurone de type régression logistique ?  </div>
+                <div class="question-text">Dans un modèle de langage simple bigramme, comment est prédite la prochaine unité ?  </div>
             </div>
             <div class="answers">
         
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 2)" data-question="2">
                     <div class="answer-option">A</div>
-                    <div class="answer-text">Calculer une somme pondérée des entrées sans activation</div>
+                    <div class="answer-text">En fonction de tous les caractères précédents dans le contexte</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, true, 'B', 2)" data-question="2">
                     <div class="answer-option">B</div>
-                    <div class="answer-text">Appliquer une fonction d'activation non linéaire sigmoïde pour produire une sortie entre 0 et 1</div>
+                    <div class="answer-text">En fonction d'un unique caractère précédent</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 2)" data-question="2">
                     <div class="answer-option">C</div>
-                    <div class="answer-text">Réaliser une convolution sur les données d'entrée</div>
+                    <div class="answer-text">En utilisant un mécanisme d'attention multi-tête</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 2)" data-question="2">
                     <div class="answer-option">D</div>
-                    <div class="answer-text">Mémoriser les états précédents dans les réseaux récurrents</div>
+                    <div class="answer-text">En tenant compte uniquement des caractères suivants</div>
                 </button>
             
             </div>
@@ -435,28 +435,28 @@
         <div class="question-container">
             <div class="question-header">
                 <div class="question-number">3</div>
-                <div class="question-text">Quelle fonction de perte est couramment utilisée pour maximiser la marge entre les classes dans un problème de classification binaire ?  </div>
+                <div class="question-text">Quel est le rôle des vecteurs query, key et value dans le mécanisme de self-attention ?  </div>
             </div>
             <div class="answers">
         
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 3)" data-question="3">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 3)" data-question="3">
                     <div class="answer-option">A</div>
-                    <div class="answer-text">Erreur quadratique moyenne (MSE)</div>
+                    <div class="answer-text">Query contient la valeur réelle, key détermine la pertinence, value recherche les correspondances</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 3)" data-question="3">
+                <button class="answer-button" onclick="checkAnswer(this, true, 'B', 3)" data-question="3">
                     <div class="answer-option">B</div>
-                    <div class="answer-text">Entropie croisée</div>
+                    <div class="answer-text">Query représente ce que la position recherche, key ce qu'elle contient, value la valeur à extraire</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, true, 'C', 3)" data-question="3">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 3)" data-question="3">
                     <div class="answer-option">C</div>
-                    <div class="answer-text">Perte hinge (hinge loss)</div>
+                    <div class="answer-text">Query et key sont identiques, value est la somme des deux</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 3)" data-question="3">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 3)" data-question="3">
                     <div class="answer-option">D</div>
-                    <div class="answer-text">Perte max-margin</div>
+                    <div class="answer-text">Query est utilisé uniquement pour la génération de texte, key et value pour la classification</div>
                 </button>
             
             </div>
@@ -465,28 +465,28 @@
         <div class="question-container">
             <div class="question-header">
                 <div class="question-number">4</div>
-                <div class="question-text">En PyTorch, quelle classe est utilisée pour créer un ensemble de données qui regroupe les entrées et les labels ?  </div>
+                <div class="question-text">Quelle est la fonction de la matrice triangulaire inférieure dans la self-attention d'un décodeur Transformer ?  </div>
             </div>
             <div class="answers">
         
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 4)" data-question="4">
+                <button class="answer-button" onclick="checkAnswer(this, true, 'A', 4)" data-question="4">
                     <div class="answer-option">A</div>
-                    <div class="answer-text">DataLoader</div>
+                    <div class="answer-text">Elle masque les positions futures pour éviter la fuite d'information lors de la génération autoregressive</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, true, 'B', 4)" data-question="4">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'A', 4)" data-question="4">
                     <div class="answer-option">B</div>
-                    <div class="answer-text">TensorDataset</div>
+                    <div class="answer-text">Elle normalise les poids d'attention</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 4)" data-question="4">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'A', 4)" data-question="4">
                     <div class="answer-option">C</div>
-                    <div class="answer-text">DatasetLoader</div>
+                    <div class="answer-text">Elle permet la communication entre tous les tokens sans restriction</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 4)" data-question="4">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'A', 4)" data-question="4">
                     <div class="answer-option">D</div>
-                    <div class="answer-text">BatchSampler</div>
+                    <div class="answer-text">Elle projette les embeddings dans un espace latent</div>
                 </button>
             
             </div>
@@ -495,28 +495,28 @@
         <div class="question-container">
             <div class="question-header">
                 <div class="question-number">5</div>
-                <div class="question-text">Lors de la construction d'un réseau de neurones en PyTorch, quelle fonction permet d'appliquer une couche entièrement connectée ?  </div>
+                <div class="question-text">Quelle différence principale existe entre le bloc encodeur et le bloc décodeur dans l'architecture Transformer ?  </div>
             </div>
             <div class="answers">
         
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 5)" data-question="5">
                     <div class="answer-option">A</div>
-                    <div class="answer-text">nn.Conv2d</div>
+                    <div class="answer-text">Le bloc encodeur utilise un mécanisme d'attention masquée, le décodeur non</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, true, 'B', 5)" data-question="5">
                     <div class="answer-option">B</div>
-                    <div class="answer-text">nn.Linear</div>
+                    <div class="answer-text">Le bloc encodeur permet l'attention non masquée entre tous les tokens, le décodeur masque les futurs tokens</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 5)" data-question="5">
                     <div class="answer-option">C</div>
-                    <div class="answer-text">nn.ReLU</div>
+                    <div class="answer-text">Le bloc décodeur ne contient pas de couche feed-forward</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 5)" data-question="5">
                     <div class="answer-option">D</div>
-                    <div class="answer-text">nn.Dropout</div>
+                    <div class="answer-text">Le bloc encodeur ne traite que les tokens de sortie</div>
                 </button>
             
             </div>
@@ -525,28 +525,28 @@
         <div class="question-container">
             <div class="question-header">
                 <div class="question-number">6</div>
-                <div class="question-text">Quel est l'objectif principal de la régularisation L2 dans l'entraînement des réseaux de neurones ?  </div>
+                <div class="question-text">Quel est le principe d'entraînement du modèle BERT ?  </div>
             </div>
             <div class="answers">
         
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 6)" data-question="6">
                     <div class="answer-option">A</div>
-                    <div class="answer-text">Encourager les poids à devenir grands pour améliorer la précision</div>
+                    <div class="answer-text">Prédiction du prochain token uniquement</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, true, 'B', 6)" data-question="6">
                     <div class="answer-option">B</div>
-                    <div class="answer-text">Ajouter une pénalité proportionnelle au carré des poids pour réduire le surapprentissage</div>
+                    <div class="answer-text">Masquage aléatoire de mots dans une phrase et prédiction de ces mots masqués</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 6)" data-question="6">
                     <div class="answer-option">C</div>
-                    <div class="answer-text">Supprimer certains neurones du réseau aléatoirement</div>
+                    <div class="answer-text">Génération de texte autoregressive de gauche à droite</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 6)" data-question="6">
                     <div class="answer-option">D</div>
-                    <div class="answer-text">Normaliser les entrées de chaque couche</div>
+                    <div class="answer-text">Traduction automatique entre deux langues sans supervision</div>
                 </button>
             
             </div>
@@ -555,28 +555,28 @@
         <div class="question-container">
             <div class="question-header">
                 <div class="question-number">7</div>
-                <div class="question-text">Quel rôle joue la technique du dropout lors de l'entraînement d'un réseau de neurones ?  </div>
+                <div class="question-text">Dans le Vision Transformer (ViT), comment est traitée une image avant d'être donnée en entrée au Transformer ?  </div>
             </div>
             <div class="answers">
         
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 7)" data-question="7">
                     <div class="answer-option">A</div>
-                    <div class="answer-text">Normaliser les activations pour accélérer l'entraînement</div>
+                    <div class="answer-text">L'image est directement utilisée en pixels bruts</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, true, 'B', 7)" data-question="7">
                     <div class="answer-option">B</div>
-                    <div class="answer-text">Désactiver aléatoirement des neurones pour améliorer la généralisation</div>
+                    <div class="answer-text">L'image est découpée en patchs, aplatie, puis projetée linéairement en embeddings</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 7)" data-question="7">
                     <div class="answer-option">C</div>
-                    <div class="answer-text">Réduire la taille du dataset</div>
+                    <div class="answer-text">L'image est transformée en une séquence de mots grâce à un tokenizer</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 7)" data-question="7">
                     <div class="answer-option">D</div>
-                    <div class="answer-text">Augmenter la profondeur du réseau</div>
+                    <div class="answer-text">L'image est traitée par un réseau convolutionnel avant le Transformer</div>
                 </button>
             
             </div>
@@ -585,28 +585,28 @@
         <div class="question-container">
             <div class="question-header">
                 <div class="question-number">8</div>
-                <div class="question-text">Quelle opération effectue la Batch Normalization sur un mini-batch d'activations ?  </div>
+                <div class="question-text">Quel est le rôle du "class token" dans le Vision Transformer ?  </div>
             </div>
             <div class="answers">
         
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 8)" data-question="8">
                     <div class="answer-option">A</div>
-                    <div class="answer-text">Elle applique une fonction d'activation non linéaire</div>
+                    <div class="answer-text">Servir de token pour la génération autoregressive</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, true, 'B', 8)" data-question="8">
                     <div class="answer-option">B</div>
-                    <div class="answer-text">Elle normalise les activations pour avoir une moyenne nulle et une variance unitaire, puis ajuste avec des paramètres apprenables</div>
+                    <div class="answer-text">Agir comme un résumé global de la séquence pour la classification finale</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 8)" data-question="8">
                     <div class="answer-option">C</div>
-                    <div class="answer-text">Elle supprime certains neurones aléatoirement</div>
+                    <div class="answer-text">Remplacer les embeddings de position</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 8)" data-question="8">
                     <div class="answer-option">D</div>
-                    <div class="answer-text">Elle augmente la variance des activations pour plus de robustesse</div>
+                    <div class="answer-text">Permettre de masquer certains patchs durant l'entraînement</div>
                 </button>
             
             </div>
@@ -615,28 +615,28 @@
         <div class="question-container">
             <div class="question-header">
                 <div class="question-number">9</div>
-                <div class="question-text">Parmi les avantages suivants, lequel n'est pas un effet direct de la Batch Normalization ?  </div>
+                <div class="question-text">Quelle caractéristique principale différencie le Swin Transformer du Vision Transformer standard ?  </div>
             </div>
             <div class="answers">
         
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 9)" data-question="9">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 9)" data-question="9">
                     <div class="answer-option">A</div>
-                    <div class="answer-text">Accélération de la convergence de l'entraînement</div>
+                    <div class="answer-text">Utilisation exclusive de convolution</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 9)" data-question="9">
+                <button class="answer-button" onclick="checkAnswer(this, true, 'B', 9)" data-question="9">
                     <div class="answer-option">B</div>
-                    <div class="answer-text">Réduction de la sensibilité à l'initialisation des poids</div>
+                    <div class="answer-text">Application de l'attention hiérarchique sur des fenêtres locales avec fenêtrage glissant</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, true, 'C', 9)" data-question="9">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 9)" data-question="9">
                     <div class="answer-option">C</div>
-                    <div class="answer-text">Suppression complète du surapprentissage</div>
+                    <div class="answer-text">Suppression complète du mécanisme d'attention</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 9)" data-question="9">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 9)" data-question="9">
                     <div class="answer-option">D</div>
-                    <div class="answer-text">Réduction du "Internal Covariate Shift"</div>
+                    <div class="answer-text">Utilisation d'un seul bloc Transformer profond</div>
                 </button>
             
             </div>
@@ -645,28 +645,28 @@
         <div class="question-container">
             <div class="question-header">
                 <div class="question-number">10</div>
-                <div class="question-text">Quelle fonction de perte est utilisée en PyTorch pour un problème de classification multi-classes comme MNIST ?  </div>
+                <div class="question-text">Quel avantage principal apporte le mécanisme de fenêtre glissante (shifted window) dans le Swin Transformer ?  </div>
             </div>
             <div class="answers">
         
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 10)" data-question="10">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 10)" data-question="10">
                     <div class="answer-option">A</div>
-                    <div class="answer-text">MSELoss</div>
+                    <div class="answer-text">Réduction de la complexité à linéaire en nombre de tokens</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, true, 'B', 10)" data-question="10">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 10)" data-question="10">
                     <div class="answer-option">B</div>
-                    <div class="answer-text">CrossEntropyLoss</div>
+                    <div class="answer-text">Suppression des connexions entre patchs adjacents</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 10)" data-question="10">
+                <button class="answer-button" onclick="checkAnswer(this, true, 'C', 10)" data-question="10">
                     <div class="answer-option">C</div>
-                    <div class="answer-text">Hinge Loss</div>
+                    <div class="answer-text">Permet de capturer les interactions entre fenêtres voisines en évitant la coupure des connexions locales</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 10)" data-question="10">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 10)" data-question="10">
                     <div class="answer-option">D</div>
-                    <div class="answer-text">Max-margin loss</div>
+                    <div class="answer-text">Remplacement du class token par un pooling global</div>
                 </button>
             
             </div>

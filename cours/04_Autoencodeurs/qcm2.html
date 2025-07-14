@@ -375,28 +375,28 @@
         <div class="question-container">
             <div class="question-header">
                 <div class="question-number">1</div>
-                <div class="question-text">Quelle est la principale raison d'utiliser des mini-batchs lors de la descente de gradient stochastique ?  </div>
+                <div class="question-text">Quelle est la principale différence entre l'apprentissage supervisé et l'apprentissage non supervisé ?  </div>
             </div>
             <div class="answers">
         
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 1)" data-question="1">
                     <div class="answer-option">A</div>
-                    <div class="answer-text">Pour garantir une diminution de la perte à chaque itération</div>
+                    <div class="answer-text">L'apprentissage supervisé ne nécessite pas de données d'entrée, tandis que l'apprentissage non supervisé en nécessite.</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, true, 'B', 1)" data-question="1">
                     <div class="answer-option">B</div>
-                    <div class="answer-text">Pour réduire la consommation mémoire et accélérer l'entraînement sur de grands ensembles de données</div>
+                    <div class="answer-text">En apprentissage supervisé, les données d'entraînement sont labelisées (x et y), alors qu'en apprentissage non supervisé, seules les entrées (x) sont disponibles sans labels (y).</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 1)" data-question="1">
                     <div class="answer-option">C</div>
-                    <div class="answer-text">Pour augmenter la taille du dataset</div>
+                    <div class="answer-text">L'apprentissage non supervisé utilise uniquement des images, alors que l'apprentissage supervisé utilise uniquement des textes.</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 1)" data-question="1">
                     <div class="answer-option">D</div>
-                    <div class="answer-text">Pour éviter de devoir calculer le gradient</div>
+                    <div class="answer-text">L'apprentissage supervisé ne permet pas de faire de prédictions, contrairement à l'apprentissage non supervisé.</div>
                 </button>
             
             </div>
@@ -405,28 +405,28 @@
         <div class="question-container">
             <div class="question-header">
                 <div class="question-number">2</div>
-                <div class="question-text">Dans un réseau de neurones, quel est le rôle principal d'un neurone de type régression logistique ?  </div>
+                <div class="question-text">Quelle est la fonction principale d'un autoencodeur dans le cadre de la détection d'anomalies non supervisée ?  </div>
             </div>
             <div class="answers">
         
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 2)" data-question="2">
                     <div class="answer-option">A</div>
-                    <div class="answer-text">Calculer une somme pondérée des entrées sans activation</div>
+                    <div class="answer-text">Classifier directement les images en différentes catégories.</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, true, 'B', 2)" data-question="2">
                     <div class="answer-option">B</div>
-                    <div class="answer-text">Appliquer une fonction d'activation non linéaire sigmoïde pour produire une sortie entre 0 et 1</div>
+                    <div class="answer-text">Créer une représentation compressée de la donnée d'entrée et reconstruire cette donnée pour détecter les anomalies par la qualité de reconstruction.</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 2)" data-question="2">
                     <div class="answer-option">C</div>
-                    <div class="answer-text">Réaliser une convolution sur les données d'entrée</div>
+                    <div class="answer-text">Générer des images synthétiques à partir de bruit aléatoire.</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 2)" data-question="2">
                     <div class="answer-option">D</div>
-                    <div class="answer-text">Mémoriser les états précédents dans les réseaux récurrents</div>
+                    <div class="answer-text">Ajouter du bruit aux images pour améliorer la robustesse du modèle.</div>
                 </button>
             
             </div>
@@ -435,28 +435,28 @@
         <div class="question-container">
             <div class="question-header">
                 <div class="question-number">3</div>
-                <div class="question-text">Quelle fonction de perte est couramment utilisée pour maximiser la marge entre les classes dans un problème de classification binaire ?  </div>
+                <div class="question-text">Quelle est la fonction principale de la couche d'encodage dans un autoencodeur ?  </div>
             </div>
             <div class="answers">
         
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 3)" data-question="3">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 3)" data-question="3">
                     <div class="answer-option">A</div>
-                    <div class="answer-text">Erreur quadratique moyenne (MSE)</div>
+                    <div class="answer-text">Générer une image bruitée à partir d'une image nette.</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 3)" data-question="3">
+                <button class="answer-button" onclick="checkAnswer(this, true, 'B', 3)" data-question="3">
                     <div class="answer-option">B</div>
-                    <div class="answer-text">Entropie croisée</div>
+                    <div class="answer-text">Transformer les données d'entrée en une représentation compressée ou codée de plus faible dimension.</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, true, 'C', 3)" data-question="3">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 3)" data-question="3">
                     <div class="answer-option">C</div>
-                    <div class="answer-text">Perte hinge (hinge loss)</div>
+                    <div class="answer-text">Reconvertir la représentation compressée en image d'origine.</div>
                 </button>
             
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 3)" data-question="3">
+                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 3)" data-question="3">
                     <div class="answer-option">D</div>
-                    <div class="answer-text">Perte max-margin</div>
+                    <div class="answer-text">Calculer la perte entre l'entrée et la sortie.</div>
                 </button>
             
             </div>
@@ -465,28 +465,28 @@
         <div class="question-container">
             <div class="question-header">
                 <div class="question-number">4</div>
-                <div class="question-text">En PyTorch, quelle classe est utilisée pour créer un ensemble de données qui regroupe les entrées et les labels ?  </div>
+                <div class="question-text">Quelle est la fonction de perte utilisée lors de l'entraînement d'un autoencodeur pour la reconstruction d'images, et quel est son rôle ?  </div>
             </div>
             <div class="answers">
         
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 4)" data-question="4">
                     <div class="answer-option">A</div>
-                    <div class="answer-text">DataLoader</div>
+                    <div class="answer-text">La fonction Cross-Entropy, qui mesure la différence entre les classes de sortie.</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, true, 'B', 4)" data-question="4">
                     <div class="answer-option">B</div>
-                    <div class="answer-text">TensorDataset</div>
+                    <div class="answer-text">La fonction MSELoss (Mean Squared Error), qui mesure la différence quadratique moyenne entre l'image originale et l'image reconstruite.</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 4)" data-question="4">
                     <div class="answer-option">C</div>
-                    <div class="answer-text">DatasetLoader</div>
+                    <div class="answer-text">La fonction Hinge Loss, utilisée pour la classification binaire.</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 4)" data-question="4">
                     <div class="answer-option">D</div>
-                    <div class="answer-text">BatchSampler</div>
+                    <div class="answer-text">La fonction Entropie Croisée Binaire, utilisée pour segmenter les images.</div>
                 </button>
             
             </div>
@@ -495,190 +495,40 @@
         <div class="question-container">
             <div class="question-header">
                 <div class="question-number">5</div>
-                <div class="question-text">Lors de la construction d'un réseau de neurones en PyTorch, quelle fonction permet d'appliquer une couche entièrement connectée ?  </div>
+                <div class="question-text">Quel est le principe de fonctionnement d'un denoising autoencodeur ?  </div>
             </div>
             <div class="answers">
         
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 5)" data-question="5">
                     <div class="answer-option">A</div>
-                    <div class="answer-text">nn.Conv2d</div>
+                    <div class="answer-text">Il prend en entrée une image nette et produit une image bruitée en sortie.</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, true, 'B', 5)" data-question="5">
                     <div class="answer-option">B</div>
-                    <div class="answer-text">nn.Linear</div>
+                    <div class="answer-text">Il prend en entrée une image bruitée et apprend à reconstruire une image nette en sortie, en supprimant le bruit.</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 5)" data-question="5">
                     <div class="answer-option">C</div>
-                    <div class="answer-text">nn.ReLU</div>
+                    <div class="answer-text">Il génère du bruit aléatoire pour augmenter la taille du dataset.</div>
                 </button>
             
                 <button class="answer-button" onclick="checkAnswer(this, false, 'B', 5)" data-question="5">
                     <div class="answer-option">D</div>
-                    <div class="answer-text">nn.Dropout</div>
-                </button>
-            
-            </div>
-        </div>
-        
-        <div class="question-container">
-            <div class="question-header">
-                <div class="question-number">6</div>
-                <div class="question-text">Quel est l'objectif principal de la régularisation L2 dans l'entraînement des réseaux de neurones ?  </div>
-            </div>
-            <div class="answers">
-        
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 6)" data-question="6">
-                    <div class="answer-option">A</div>
-                    <div class="answer-text">Encourager les poids à devenir grands pour améliorer la précision</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, true, 'B', 6)" data-question="6">
-                    <div class="answer-option">B</div>
-                    <div class="answer-text">Ajouter une pénalité proportionnelle au carré des poids pour réduire le surapprentissage</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 6)" data-question="6">
-                    <div class="answer-option">C</div>
-                    <div class="answer-text">Supprimer certains neurones du réseau aléatoirement</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 6)" data-question="6">
-                    <div class="answer-option">D</div>
-                    <div class="answer-text">Normaliser les entrées de chaque couche</div>
-                </button>
-            
-            </div>
-        </div>
-        
-        <div class="question-container">
-            <div class="question-header">
-                <div class="question-number">7</div>
-                <div class="question-text">Quel rôle joue la technique du dropout lors de l'entraînement d'un réseau de neurones ?  </div>
-            </div>
-            <div class="answers">
-        
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 7)" data-question="7">
-                    <div class="answer-option">A</div>
-                    <div class="answer-text">Normaliser les activations pour accélérer l'entraînement</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, true, 'B', 7)" data-question="7">
-                    <div class="answer-option">B</div>
-                    <div class="answer-text">Désactiver aléatoirement des neurones pour améliorer la généralisation</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 7)" data-question="7">
-                    <div class="answer-option">C</div>
-                    <div class="answer-text">Réduire la taille du dataset</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 7)" data-question="7">
-                    <div class="answer-option">D</div>
-                    <div class="answer-text">Augmenter la profondeur du réseau</div>
-                </button>
-            
-            </div>
-        </div>
-        
-        <div class="question-container">
-            <div class="question-header">
-                <div class="question-number">8</div>
-                <div class="question-text">Quelle opération effectue la Batch Normalization sur un mini-batch d'activations ?  </div>
-            </div>
-            <div class="answers">
-        
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 8)" data-question="8">
-                    <div class="answer-option">A</div>
-                    <div class="answer-text">Elle applique une fonction d'activation non linéaire</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, true, 'B', 8)" data-question="8">
-                    <div class="answer-option">B</div>
-                    <div class="answer-text">Elle normalise les activations pour avoir une moyenne nulle et une variance unitaire, puis ajuste avec des paramètres apprenables</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 8)" data-question="8">
-                    <div class="answer-option">C</div>
-                    <div class="answer-text">Elle supprime certains neurones aléatoirement</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 8)" data-question="8">
-                    <div class="answer-option">D</div>
-                    <div class="answer-text">Elle augmente la variance des activations pour plus de robustesse</div>
-                </button>
-            
-            </div>
-        </div>
-        
-        <div class="question-container">
-            <div class="question-header">
-                <div class="question-number">9</div>
-                <div class="question-text">Parmi les avantages suivants, lequel n'est pas un effet direct de la Batch Normalization ?  </div>
-            </div>
-            <div class="answers">
-        
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 9)" data-question="9">
-                    <div class="answer-option">A</div>
-                    <div class="answer-text">Accélération de la convergence de l'entraînement</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 9)" data-question="9">
-                    <div class="answer-option">B</div>
-                    <div class="answer-text">Réduction de la sensibilité à l'initialisation des poids</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, true, 'C', 9)" data-question="9">
-                    <div class="answer-option">C</div>
-                    <div class="answer-text">Suppression complète du surapprentissage</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, false, 'C', 9)" data-question="9">
-                    <div class="answer-option">D</div>
-                    <div class="answer-text">Réduction du "Internal Covariate Shift"</div>
-                </button>
-            
-            </div>
-        </div>
-        
-        <div class="question-container">
-            <div class="question-header">
-                <div class="question-number">10</div>
-                <div class="question-text">Quelle fonction de perte est utilisée en PyTorch pour un problème de classification multi-classes comme MNIST ?  </div>
-            </div>
-            <div class="answers">
-        
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 10)" data-question="10">
-                    <div class="answer-option">A</div>
-                    <div class="answer-text">MSELoss</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, true, 'B', 10)" data-question="10">
-                    <div class="answer-option">B</div>
-                    <div class="answer-text">CrossEntropyLoss</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 10)" data-question="10">
-                    <div class="answer-option">C</div>
-                    <div class="answer-text">Hinge Loss</div>
-                </button>
-            
-                <button class="answer-button" onclick="checkAnswer(this, false, 'B', 10)" data-question="10">
-                    <div class="answer-option">D</div>
-                    <div class="answer-text">Max-margin loss</div>
+                    <div class="answer-text">Il compresse les images pour réduire leur taille sans perte d'information.</div>
                 </button>
             
             </div>
         </div>
         
     <div class="score-container">
-        <div class="score-text" id="scoreDisplay">Score: 0/10</div>
+        <div class="score-text" id="scoreDisplay">Score: 0/5</div>
     </div>
 </div>
 
 <script>
-    let totalQuestions = 10;
+    let totalQuestions = 5;
     let answeredQuestions = 0;
     let correctAnswers = 0;
 
