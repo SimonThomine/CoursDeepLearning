@@ -173,6 +173,9 @@ markdown_extensions:
   - attr_list
   - pymdownx.arithmatex:
       generic: true
+  - toc:
+      toc_depth: 0
+
 
 extra_javascript:
   - javascripts/katex.js
