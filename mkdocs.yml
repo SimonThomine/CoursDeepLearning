@@ -8,140 +8,136 @@ copyright: Copyright &copy; 2024 Simon Thomine
 site_author: Simon Thomine
 
 nav:
-  - 🏠 Accueil: README.md
+  - 🏠 Accueil: fr/README.md
 
   - 🧮 Fondations:
-    - Dérivées de descente du gradient: 01_Fondations/01_DérivéesEtDescenteDuGradient.ipynb
-    - Régression Logistique: 01_Fondations/02_RégressionLogistique.ipynb
-    - 📝 QCM: 01_Fondations/qcm.html
-  
+    - Dérivées de descente du gradient: fr/01_Fondations/01_DérivéesEtDescenteDuGradient.ipynb
+    - Régression Logistique: fr/01_Fondations/02_RégressionLogistique.ipynb
+    - 📝 QCM: fr/01_Fondations/qcm.html
+
   - 🔗 Réseau Fully Connected:
-    - Mon premier réseau: 02_RéseauFullyConnected/01_MonPremierRéseau.ipynb
-    - Pytorch introduction: 02_RéseauFullyConnected/02_PytorchIntroduction.ipynb
-    - Techniques avancées: 02_RéseauFullyConnected/03_TechniquesAvancées.ipynb
-    - 📝 QCM: 02_RéseauFullyConnected/qcm.html
+    - Mon premier réseau: fr/02_RéseauFullyConnected/01_MonPremierRéseau.ipynb
+    - Pytorch introduction: fr/02_RéseauFullyConnected/02_PytorchIntroduction.ipynb
+    - Techniques avancées: fr/02_RéseauFullyConnected/03_TechniquesAvancées.ipynb
+    - 📝 QCM: fr/02_RéseauFullyConnected/qcm.html
 
   - 🖼️ Réseau Convolutifs:
-    - Couches de convolutions: 03_RéseauConvolutifs/01_CouchesDeConvolutions.ipynb
-    - Réseau Convolutif: 03_RéseauConvolutifs/02_RéseauConvolutif.ipynb
-    - Conv Implementation: 03_RéseauConvolutifs/03_ConvImplementation.ipynb
-    - Réseau Convolutif Pytorch: 03_RéseauConvolutifs/04_RéseauConvolutifPytorch.ipynb
-    - Application Classification: 03_RéseauConvolutifs/05_ApplicationClassification.ipynb
-    - Application Segmentation: 03_RéseauConvolutifs/06_ApplicationSegmentation.ipynb
-    - 📝 QCM: 03_RéseauConvolutifs/qcm.html
+    - Couches de convolutions: fr/03_RéseauConvolutifs/01_CouchesDeConvolutions.ipynb
+    - Réseau Convolutif: fr/03_RéseauConvolutifs/02_RéseauConvolutif.ipynb
+    - Conv Implementation: fr/03_RéseauConvolutifs/03_ConvImplementation.ipynb
+    - Réseau Convolutif Pytorch: fr/03_RéseauConvolutifs/04_RéseauConvolutifPytorch.ipynb
+    - Application Classification: fr/03_RéseauConvolutifs/05_ApplicationClassification.ipynb
+    - Application Segmentation: fr/03_RéseauConvolutifs/06_ApplicationSegmentation.ipynb
+    - 📝 QCM: fr/03_RéseauConvolutifs/qcm.html
 
   - 🔄 Autoencodeurs:
-    - Intuition et premier AE: 04_Autoencodeurs/01_IntuitionEtPremierAE.ipynb
-    - Denoising AE: 04_Autoencodeurs/02_DenoisingAE.ipynb
-    - 📝 QCM: 04_Autoencodeurs/qcm.html
+    - Intuition et premier AE: fr/04_Autoencodeurs/01_IntuitionEtPremierAE.ipynb
+    - Denoising AE: fr/04_Autoencodeurs/02_DenoisingAE.ipynb
+    - 📝 QCM: fr/04_Autoencodeurs/qcm.html
 
   - 📝 NLP:
-    - Introduction: 05_NLP/01_Introduction.ipynb
-    - Bigramme: 05_NLP/02_bigramme.ipynb
-    - Réseau Fully Connected: 05_NLP/03_RéseauFullyConnected.ipynb
-    - WaveNet: 05_NLP/04_WaveNet.ipynb
-    - RNN: 05_NLP/05_Rnn.ipynb
-    - LSTM: 05_NLP/06_Lstm.ipynb
-    - 📝 QCM: 05_NLP/qcm.html
+    - Introduction: fr/05_NLP/01_Introduction.ipynb
+    - Bigramme: fr/05_NLP/02_bigramme.ipynb
+    - Réseau Fully Connected: fr/05_NLP/03_RéseauFullyConnected.ipynb
+    - WaveNet: fr/05_NLP/04_WaveNet.ipynb
+    - RNN: fr/05_NLP/05_Rnn.ipynb
+    - LSTM: fr/05_NLP/06_Lstm.ipynb
+    - 📝 QCM: fr/05_NLP/qcm.html
 
   - 🤗 HuggingFace:
-    - Introduction: 06_HuggingFace/01_introduction.ipynb
-    - Computer vision with transformers: 06_HuggingFace/02_ComputerVisionWithTransformers.ipynb
-    - NLP with transformers: 06_HuggingFace/03_NlpWithTransformers.ipynb
-    - Audio with transformers: 06_HuggingFace/04_AudioWithTransformers.ipynb
-    - Image generation with diffusers: 06_HuggingFace/05_ImageGenerationWithDiffusers.ipynb
-    - Demo avec gradio: 06_HuggingFace/06_DemoAvecGradio.ipynb
+    - Introduction: fr/06_HuggingFace/01_introduction.ipynb
+    - Computer vision with transformers: fr/06_HuggingFace/02_ComputerVisionWithTransformers.ipynb
+    - NLP with transformers: fr/06_HuggingFace/03_NlpWithTransformers.ipynb
+    - Audio with transformers: fr/06_HuggingFace/04_AudioWithTransformers.ipynb
+    - Image generation with diffusers: fr/06_HuggingFace/05_ImageGenerationWithDiffusers.ipynb
+    - Demo avec gradio: fr/06_HuggingFace/06_DemoAvecGradio.ipynb
 
   - ⚡ Transformers:
-    - Introduction: 07_Transformers/01_Introduction.ipynb
-    - GPT from scratch: 07_Transformers/02_GptFromScratch.ipynb
-    - Training our GPT: 07_Transformers/03_TrainingOurGpt.ipynb
-    - Architecture et particularités: 07_Transformers/04_ArchitectureEtParticularités.ipynb
-    - Utilisations possibles: 07_Transformers/05_UtilisationsPossibles.ipynb
-    - Vision Transformer Implementation: 07_Transformers/06_VisionTransformerImplementation.ipynb
-    - Swin Transformer: 07_Transformers/07_SwinTransformer.ipynb
-    - 📝 QCM: 07_Transformers/qcm.html
+    - Introduction: fr/07_Transformers/01_Introduction.ipynb
+    - GPT from scratch: fr/07_Transformers/02_GptFromScratch.ipynb
+    - Training our GPT: fr/07_Transformers/03_TrainingOurGpt.ipynb
+    - Architecture et particularités: fr/07_Transformers/04_ArchitectureEtParticularités.ipynb
+    - Utilisations possibles: fr/07_Transformers/05_UtilisationsPossibles.ipynb
+    - Vision Transformer Implementation: fr/07_Transformers/06_VisionTransformerImplementation.ipynb
+    - Swin Transformer: fr/07_Transformers/07_SwinTransformer.ipynb
+    - 📝 QCM: fr/07_Transformers/qcm.html
 
   - 🎯 Detection Et Yolo:
-    - Introduction: 08_DetectionEtYolo/01_Introduction.ipynb
-    - Yolo en détail: 08_DetectionEtYolo/02_YoloEnDetail.ipynb
-    - Ultralytics: 08_DetectionEtYolo/03_Ultralytics.ipynb
-    - 📝 QCM: 08_DetectionEtYolo/qcm.html
-  
+    - Introduction: fr/08_DetectionEtYolo/01_Introduction.ipynb
+    - Yolo en détail: fr/08_DetectionEtYolo/02_YoloEnDetail.ipynb
+    - Ultralytics: fr/08_DetectionEtYolo/03_Ultralytics.ipynb
+    - 📝 QCM: fr/08_DetectionEtYolo/qcm.html
+
   - 🔍 Entrainement Contrastif:
-    - Face verification: 09_EntrainementContrastif/01_FaceVerification.ipynb
-    - Non supervisé: 09_EntrainementContrastif/02_NonSupervisé.ipynb
-    - 📝 QCM: 09_EntrainementContrastif/qcm.html
+    - Face verification: fr/09_EntrainementContrastif/01_FaceVerification.ipynb
+    - Non supervisé: fr/09_EntrainementContrastif/02_NonSupervisé.ipynb
+    - 📝 QCM: fr/09_EntrainementContrastif/qcm.html
 
   - 🎓 Transfer Learning Et Distillation:
-    - Transfer learning: 10_TransferLearningEtDistillation/01_TransferLearning.ipynb
-    - Transfer learning pytorch: 10_TransferLearningEtDistillation/02_TransferLearningPytorch.ipynb
-    - Distillation: 10_TransferLearningEtDistillation/03_Distillation.ipynb
-    - Distillation Anomalie: 10_TransferLearningEtDistillation/04_DistillationAnomalie.ipynb
-    - Fine Tuning LLM: 10_TransferLearningEtDistillation/05_FineTuningLLM.ipynb
-    - Fine Tuning Bert HF: 10_TransferLearningEtDistillation/06_FineTuningBertHF.ipynb
-    - 📝 QCM: 10_TransferLearningEtDistillation/qcm.html
+    - Transfer learning: fr/10_TransferLearningEtDistillation/01_TransferLearning.ipynb
+    - Transfer learning pytorch: fr/10_TransferLearningEtDistillation/02_TransferLearningPytorch.ipynb
+    - Distillation: fr/10_TransferLearningEtDistillation/03_Distillation.ipynb
+    - Distillation Anomalie: fr/10_TransferLearningEtDistillation/04_DistillationAnomalie.ipynb
+    - Fine Tuning LLM: fr/10_TransferLearningEtDistillation/05_FineTuningLLM.ipynb
+    - Fine Tuning Bert HF: fr/10_TransferLearningEtDistillation/06_FineTuningBertHF.ipynb
+    - 📝 QCM: fr/10_TransferLearningEtDistillation/qcm.html
 
   - 🎨 Modeles Generatifs:
-    - Introduction: 11_ModelesGeneratifs/01_Introduction.ipynb
-    - GAN: 11_ModelesGeneratifs/02_GAN.ipynb
-    - Gan Implementation: 11_ModelesGeneratifs/03_GanImplementation.ipynb
-    - VAE: 11_ModelesGeneratifs/04_VAE.ipynb
-    - Vae Implementation: 11_ModelesGeneratifs/05_VaeImplementation.ipynb
-    - Normalizing Flows: 11_ModelesGeneratifs/06_NormalizingFlows.ipynb
-    - Diffusion Models: 11_ModelesGeneratifs/07_DiffusionModels.ipynb
-    - Diffusion Implementation: 11_ModelesGeneratifs/08_DiffusionImplementation.ipynb
-    - 📝 QCM: 11_ModelesGeneratifs/qcm.html
+    - Introduction: fr/11_ModelesGeneratifs/01_Introduction.ipynb
+    - GAN: fr/11_ModelesGeneratifs/02_GAN.ipynb
+    - Gan Implementation: fr/11_ModelesGeneratifs/03_GanImplementation.ipynb
+    - VAE: fr/11_ModelesGeneratifs/04_VAE.ipynb
+    - Vae Implementation: fr/11_ModelesGeneratifs/05_VaeImplementation.ipynb
+    - Normalizing Flows: fr/11_ModelesGeneratifs/06_NormalizingFlows.ipynb
+    - Diffusion Models: fr/11_ModelesGeneratifs/07_DiffusionModels.ipynb
+    - Diffusion Implementation: fr/11_ModelesGeneratifs/08_DiffusionImplementation.ipynb
+    - 📝 QCM: fr/11_ModelesGeneratifs/qcm.html
 
   - 🎁 Bonus Cours Spécifiques:
     - ✨ Activation et initialisation:
-      - 📖 Cours: Bonus_CoursSpécifiques/01_ActivationEtInitialisation.ipynb
-      - 📝 QCM: Bonus_CoursSpécifiques/qcm_01_ActivationEtInitialisation.html
+      - 📖 Cours: fr/Bonus_CoursSpécifiques/01_ActivationEtInitialisation.ipynb
+      - 📝 QCM: fr/Bonus_CoursSpécifiques/qcm_01_ActivationEtInitialisation.html
     - 📊 BatchNorm:
-      - 📖 Cours: Bonus_CoursSpécifiques/02_BatchNorm.ipynb
-      - 📝 QCM: Bonus_CoursSpécifiques/qcm_02_BatchNorm.html
+      - 📖 Cours: fr/Bonus_CoursSpécifiques/02_BatchNorm.ipynb
+      - 📝 QCM: fr/Bonus_CoursSpécifiques/qcm_02_BatchNorm.html
     - 🔄 Data augmentation:
-      - 📖 Cours: Bonus_CoursSpécifiques/03_DataAugmentation.ipynb
-      - 📝 QCM: Bonus_CoursSpécifiques/qcm_03_DataAugmentation.html
+      - 📖 Cours: fr/Bonus_CoursSpécifiques/03_DataAugmentation.ipynb
+      - 📝 QCM: fr/Bonus_CoursSpécifiques/qcm_03_DataAugmentation.html
     - 📡 Broadcasting:
-      - 📖 Cours: Bonus_CoursSpécifiques/04_Broadcasting.ipynb
-      - 📝 QCM: Bonus_CoursSpécifiques/qcm_04_Broadcasting.html
+      - 📖 Cours: fr/Bonus_CoursSpécifiques/04_Broadcasting.ipynb
+      - 📝 QCM: fr/Bonus_CoursSpécifiques/qcm_04_Broadcasting.html
     - 🚀 Optimizer:
-      - 📖 Cours: Bonus_CoursSpécifiques/05_Optimizer.ipynb
-      - 📝 QCM: Bonus_CoursSpécifiques/qcm_05_Optimizer.html
+      - 📖 Cours: fr/Bonus_CoursSpécifiques/05_Optimizer.ipynb
+      - 📝 QCM: fr/Bonus_CoursSpécifiques/qcm_05_Optimizer.html
     - 🛡️ Régularisation:
-      - 📖 Cours: Bonus_CoursSpécifiques/06_Regularisation.ipynb
-      - 📝 QCM: Bonus_CoursSpécifiques/qcm_06_Regularisation.html
+      - 📖 Cours: fr/Bonus_CoursSpécifiques/06_Regularisation.ipynb
+      - 📝 QCM: fr/Bonus_CoursSpécifiques/qcm_06_Regularisation.html
     - 🔗 Connexions Résiduelles:
-      - 📖 Cours: Bonus_CoursSpécifiques/07_ConnexionsResiduelles.ipynb
-      - 📝 QCM: Bonus_CoursSpécifiques/qcm_07_ConnexionsResiduelles.html
+      - 📖 Cours: fr/Bonus_CoursSpécifiques/07_ConnexionsResiduelles.ipynb
+      - 📝 QCM: fr/Bonus_CoursSpécifiques/qcm_07_ConnexionsResiduelles.html
     - ✅ CrossValidation:
-      - 📖 Cours: Bonus_CoursSpécifiques/08_CrossValidation.ipynb
-      - 📝 QCM: Bonus_CoursSpécifiques/qcm_08_CrossValidation.html
+      - 📖 Cours: fr/Bonus_CoursSpécifiques/08_CrossValidation.ipynb
+      - 📝 QCM: fr/Bonus_CoursSpécifiques/qcm_08_CrossValidation.html
     - 📏 Métriques Evaluation:
-      - 📖 Cours: Bonus_CoursSpécifiques/09_MetriquesEvaluation.ipynb
-      - 📝 QCM: Bonus_CoursSpécifiques/qcm_09_MetriquesEvaluation.html
+      - 📖 Cours: fr/Bonus_CoursSpécifiques/09_MetriquesEvaluation.ipynb
+      - 📝 QCM: fr/Bonus_CoursSpécifiques/qcm_09_MetriquesEvaluation.html
     - 🔤 Tokenization:
-      - 📖 Cours: Bonus_CoursSpécifiques/10_Tokenization.ipynb
-      - 📝 QCM: Bonus_CoursSpécifiques/qcm_10_Tokenization.html
+      - 📖 Cours: fr/Bonus_CoursSpécifiques/10_Tokenization.ipynb
+      - 📝 QCM: fr/Bonus_CoursSpécifiques/qcm_10_Tokenization.html
     - ⚛️ Quantization:
-      - 📖 Cours: Bonus_CoursSpécifiques/11_Quantization.ipynb
-      - 📝 QCM: Bonus_CoursSpécifiques/qcm_11_Quantization.html
-
+      - 📖 Cours: fr/Bonus_CoursSpécifiques/11_Quantization.ipynb
+      - 📝 QCM: fr/Bonus_CoursSpécifiques/qcm_11_Quantization.html
 
 theme:
   name: material
   language: fr
   icon:
     logo: material/rocket-launch
-  # favicon: images/favicon.ico
   palette: 
-    # Auto mode
     - media: "(prefers-color-scheme)"
       toggle:
         icon: material/brightness-auto
         name: Switch to light mode
-    # Light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
       primary: blue grey
@@ -149,7 +145,6 @@ theme:
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
-    # Dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: black
@@ -162,11 +157,38 @@ theme:
     - navigation.logo_text
     
 plugins:
+  - i18n:
+      docs_structure: folder
+      fallback_to_default: true
+      reconfigure_material: true
+      default_language: fr
+      languages:
+        fr:
+          name: Français
+          build: true
+        en:
+          name: English
+          build: true
+          nav_translations:
+            🏠 Accueil: 🏠 Home
+            🧮 Fondations: 🧮 Foundations
+            🔗 Réseau Fully Connected: 🔗 Fully Connected Network
+            🖼️ Réseau Convolutifs: 🖼️ Convolutional Networks
+            🔄 Autoencodeurs: 🔄 Autoencoders
+            📝 NLP: 📝 NLP
+            🤗 HuggingFace: 🤗 HuggingFace
+            ⚡ Transformers: ⚡ Transformers
+            🎯 Detection Et Yolo: 🎯 Detection And Yolo
+            🔍 Entrainement Contrastif: 🔍 Contrastive Training
+            🎓 Transfer Learning Et Distillation: 🎓 Transfer Learning And Distillation
+            🎨 Modeles Generatifs: 🎨 Generative Models
+            🎁 Bonus Cours Spécifiques: 🎁 Bonus Specific Courses
   - mkdocs-jupyter:
       execute: False
       include_source: True
   - search
-
+      
+docs_dir: ./cours
 use_directory_urls: false
 
 markdown_extensions:
@@ -176,6 +198,14 @@ markdown_extensions:
   - toc:
       toc_depth: 0
 
+extra:
+  alternate:
+    - name: Français
+      link: /CoursDeepLearning/fr/ 
+      lang: fr
+    - name: English
+      link: /CoursDeepLearning/en/
+      lang: en
 
 extra_javascript:
   - javascripts/katex.js
