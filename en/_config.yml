@@ -1,0 +1,81 @@
+# English configuration
+title: "Deep Learning Course"
+author: Simon Thomine
+logo: ../logo.png
+
+# Execution settings
+execute:
+  execute_notebooks: off
+
+# Repository information
+repository:
+  url: https://github.com/SimonThomine/CoursDeepLearning
+  path_to_book: "en"
+  branch: main
+
+# HTML theme configuration
+html:
+  use_issues_button: true
+  use_repository_button: true
+  use_edit_page_button: true
+  use_download_button: true
+  announcement: "🚀 Learn Deep Learning from scratch 🚀"
+  extra_footer: |
+    <div id="language-switcher" style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #eee;">
+      <span style="margin-right: 10px;">🌐 Language / Langue:</span>
+      <a href="#" onclick="switchToEnglish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #4CAF50; color: white; border-radius: 5px; font-weight: bold; transition: all 0.3s;">🇺🇸 English</a>
+      <a href="#" onclick="switchToFrench()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #f0f0f0; border-radius: 5px; transition: all 0.3s;">🇫🇷 Français</a>
+    </div>
+    <script>
+    function getBaseUrl() {
+      // Get the base URL without the build path
+      let baseUrl = window.location.origin;
+      let pathname = window.location.pathname;
+      
+      // Remove the build-specific parts
+      if (pathname.includes('_build_fr/_build/html/')) {
+        baseUrl += pathname.split('_build_fr/_build/html/')[0];
+      } else if (pathname.includes('_build_en/_build/html/')) {
+        baseUrl += pathname.split('_build_en/_build/html/')[0];
+      } else {
+        baseUrl += pathname.split('/').slice(0, -1).join('/') + '/';
+      }
+      
+      return baseUrl;
+    }
+    
+    function getCurrentPage() {
+      let pathname = window.location.pathname;
+      if (pathname.includes('_build_fr/_build/html/')) {
+        return pathname.split('_build_fr/_build/html/')[1] || 'index.html';
+      } else if (pathname.includes('_build_en/_build/html/')) {
+        return pathname.split('_build_en/_build/html/')[1] || 'index.html';
+      }
+      return 'index.html';
+    }
+    
+    function switchToEnglish() {
+      const baseUrl = getBaseUrl();
+      const currentPage = getCurrentPage();
+      const newUrl = baseUrl + '_build_en/_build/html/' + currentPage;
+      console.log('Switching to English:', newUrl);
+      window.location.href = newUrl;
+    }
+    
+    function switchToFrench() {
+      const baseUrl = getBaseUrl();
+      const currentPage = getCurrentPage();
+      const newUrl = baseUrl + '_build_fr/_build/html/' + currentPage;
+      console.log('Switching to French:', newUrl);
+      window.location.href = newUrl;
+    }
+    </script>
+
+# MyST configuration
+parse:
+  myst_enable_extensions:
+    - amsmath
+    - dollarmath
+    - html_admonition
+    - linkify
+    - substitution

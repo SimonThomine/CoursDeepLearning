@@ -1,0 +1,734 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Architecture et particularités du transformer &#8212; Cours Deep Learning</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '07_Transformers/04_ArchitectureEtParticularités';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Utilisations possibles de l’architecture Transformers" href="05_UtilisationsPossibles.html" />
+    <link rel="prev" title="Entraînons notre modèle GPT" href="03_TrainingOurGpt.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">🚀 Apprendre le Deep Learning à partir de zéro 🚀</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Cours Deep Learning</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Cours Deep Learning 🚀
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">🧮 Fondations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/01_D%C3%A9riv%C3%A9esEtDescenteDuGradient.html">Dérivée et descente du gradient</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/02_R%C3%A9gressionLogistique.html">Régression logistique</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔗 Réseau Fully Connected</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/01_MonPremierR%C3%A9seau.html">Mon premier réseau</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/02_PytorchIntroduction.html">Introduction à pytorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/03_TechniquesAvanc%C3%A9es.html">Techniques avancées</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🖼️ Réseau Convolutifs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/01_CouchesDeConvolutions.html">Couches de convolutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/02_R%C3%A9seauConvolutif.html">Réseau convolutif</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/03_ConvImplementation.html">Implementation de la couche de convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/04_R%C3%A9seauConvolutifPytorch.html">Réseau Convolutif sur Pytorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/05_ApplicationClassification.html">Application sur un dataset d’images couleur</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/06_ApplicationSegmentation.html">Application segmentation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔄 Autoencodeurs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/01_IntuitionEtPremierAE.html">Introduction aux autoencodeurs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/02_DenoisingAE.html">Denoising Autoencodeur</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📝 NLP</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/01_Introduction.html">Introduction NLP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/02_bigramme.html">Bigramme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/03_R%C3%A9seauFullyConnected.html">Réseau fully connected</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/04_WaveNet.html">Pytorch et WaveNet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/05_Rnn.html">Réseau de neurones récurrents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/06_Lstm.html">Long Short-Term Memory</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_Introduction.html">Introduction aux transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_GptFromScratch.html">Construisons GPT à partir de rien</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_TrainingOurGpt.html">Entraînons notre modèle GPT</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Architecture et particularités du transformer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_UtilisationsPossibles.html">Utilisations possibles de l’architecture Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_VisionTransformerImplementation.html">Vision transformer implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_SwinTransformer.html">Swin transformer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎯 Detection Et Yolo</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/01_Introduction.html">Introduction à la détection d’objets dans les images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/02_YoloEnDetail.html">Yolo en détail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/03_Ultralytics.html">Ultralytics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔍 Entrainement Contrastif</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/01_FaceVerification.html">Face Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/02_NonSupervis%C3%A9.html">Entrainement contrastif non supervisé</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎓 Transfer Learning Et Distillation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/01_TransferLearning.html">Transfer Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/02_TransferLearningPytorch.html">Transfer Learning avec Pytorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/03_Distillation.html">Distillation des connaissances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/04_DistillationAnomalie.html">Distillation des connaissances pour la détection d’anomalies non supervisée</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/05_FineTuningLLM.html">Fine Tuning LLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/06_FineTuningBertHF.html">Fine tuning BERT avec Hugging Face</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎨 Modeles Generatifs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/01_Introduction.html">Introductions aux modèles génératifs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/02_GAN.html">Generative Adversarial Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/03_GanImplementation.html">Implémentation d’un GAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/04_VAE.html">Variational autoencoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/05_VaeImplementation.html">Implémentation d’un VAE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/06_NormalizingFlows.html">Normalizing Flows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/07_DiffusionModels.html">Diffusion Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/08_DiffusionImplementation.html">Implementation Diffusion Model</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎁 Bonus Cours Spécifiques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/01_ActivationEtInitialisation.html">Activations et Initialisations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/02_BatchNorm.html">Batch Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/03_DataAugmentation.html">Data Augmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/04_Broadcasting.html">Broadcasting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/05_Optimizer.html">Comprendre les différents optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/06_Regularisation.html">Régularisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/07_ConnexionsResiduelles.html">Connexions résiduelles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/08_CrossValidation.html">Introduction à la cross validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/09_MetriquesEvaluation.html">Métriques d’évaluation de modèles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/10_Tokenization.html">Introduction à la tokenization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/11_Quantization.html">Quantization</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/edit/main/fr/07_Transformers/04_ArchitectureEtParticularités.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/issues/new?title=Issue%20on%20page%20%2F07_Transformers/04_ArchitectureEtParticularités.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/07_Transformers/04_ArchitectureEtParticularités.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Architecture et particularités du transformer</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#particularite-du-texte">Particularité du texte</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#le-block-encodeur">Le block encodeur</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-complete-avec-cross-attention">Architecture complète avec cross-attention</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formalisation-mathematique">Formalisation mathématique</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exemples-d-utilisation">Exemples d’utilisation</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="architecture-et-particularites-du-transformer">
+<h1>Architecture et particularités du transformer<a class="headerlink" href="#architecture-et-particularites-du-transformer" title="Link to this heading">#</a></h1>
+<p>Jusqu’à présent, nous avons regardé l’architecture décodeur du <em>transformer</em> et uniquement la partie avec la <em>masked multi-head self-attention</em>. Dans cette partie, nous allons voir l’intuition derrière le block encodeur et la <em>multi-head cross-attention</em>.</p>
+<section id="particularite-du-texte">
+<h2>Particularité du texte<a class="headerlink" href="#particularite-du-texte" title="Link to this heading">#</a></h2>
+<p>Avant de présenter le block encodeur, il est nécessaire de bien comprendre pourquoi nous n’avions besoin que du block décodeur les notebooks précédents. Dans la figure suivante, l’encadré rouge indique la partie du modèle que nous avons utilisé (sans la seconde <em>multi-head attention</em>).</p>
+<img src="images/decoderblock.png" alt="arllm" width="400"/><p>Le texte a la particularité de se lire de gauche à droite. Il est donc logique de supposer qu’un modèle qui génére du texte va aussi prendre les informations de gauche à droite. C’est ce qu’on appelle un <a class="reference external" href="https://deepgenerativemodels.github.io/notes/autoregressive/">modèle autoregressif</a>. On va prédire le <em>token</em> suivant compte tenu des <em>tokens</em> précédents (compris dans le contexte).<br />
+C’est pourquoi, lors de l’entraînement, on utilise un masque pour ne pas “voir” les <em>tokens</em> situés après le <em>token</em> actuel.</p>
+<p>Cependant, cette approche n’a du sens que dans des cas de “génération de gauche à droite”. Il y a énormement de cas où l’approche autoregressive n’est pas l’approche optimale. Parmis ces cas, on retrouve certaines approches de NLP comme la traduction ou l’analyse des émotions mais également des approches de vision. Actuellement, l’architecture du <em>transformer</em> a fait ces preuves dans la majorité des domaines utilisant le deep learning et dans bon nombre de cas, il ne s’agit pas de l’approche autogressive.</p>
+<img src="images/ar-llm.png" alt="arllm" width="500"/> 
+<p>AR-LLM signifie <em>auto regressive large language model</em>.</p>
+</section>
+<section id="le-block-encodeur">
+<h2>Le block encodeur<a class="headerlink" href="#le-block-encodeur" title="Link to this heading">#</a></h2>
+<p>Le <em>block</em> encodeur est le <em>block</em> de gauche representé sur la figure de l’architecture (encadré en rouge à nouveau).</p>
+<img src="images/encoderblock.png" alt="arllm" width="400"/><p>La seule différence avec le <em>block</em> utilisé précedemment est que la couche <em>multi-head attention</em> n’est pas <em>masked</em>. Pour faire l’analogie avec les notebooks précédents, cela signifie qu’on utilise une matrice complète au lieu d’une matrice triangulaire inférieure pour le calcul de l’<em>attention</em>.</p>
+<p>Concrétement, cela signifie que chaque <em>token</em> de la séquence d’entrée peut interragir avec tous les autres <em>tokens</em> (situés avant ou après). Dans des cas comme l’analyse de sentiments, c’est l’approche privilégiée car on a une séquence connue en entrée et on cherche à prédire un label (positif, négatif ou neutre).</p>
+<p><strong>Point sur l’analyse de sentiments</strong> : En NLP, l’analyse de sentiments consiste à donner au modèle un texte et lui demander de ressortir le sentiment associé à ce texte. Par exemple, pour une critique de film, on veut que le modèle prédise négatif pour la critique “Ce film est un vrai navet” et positif pour la critique “Pour moi, c’est le meilleur film de tout les temps”.</p>
+<p><strong>Point important à considérer</strong> : Pour prédire le sentiment associé à une phrase, on a besoin de ne passer qu’une seule fois dans le <em>transformer</em>. Pour la génération de texte, on doit faire appel au modèle après chaque token généré (donc on passe 10 fois dans le modèle pour générer 10 tokens).</p>
+<p>Les modèles <em>transformer</em> basés uniquement sur le <em>block</em> encodeur ont de nombreuse utilisations en plus de la détection de sentiments : Détection de spam, classification de documents, extraction d’entitées nommées et recommendation de contenu. Nous verrons aussi que pour le traitement d’images, on utilise une variante du <em>transformer</em> pouvant s’apparenter à un encodeur. Pour résumer, on pourrait dire que le <em>block</em> <em>encoder</em> est adapté aux tâches de classification (détection et segmentation également pour les images).</p>
+</section>
+<section id="architecture-complete-avec-cross-attention">
+<h2>Architecture complète avec cross-attention<a class="headerlink" href="#architecture-complete-avec-cross-attention" title="Link to this heading">#</a></h2>
+<p>Il nous reste à comprendre l’utilité de l’architecture complète. Pour rappel, l’article <a class="reference external" href="https://arxiv.org/pdf/1706.03762">“Attention Is All You Need”</a> qui introduit le transformer est un article de <em>traduction</em> automatique.</p>
+<p>Analysons le problème de traduction avant de comprendre le fonctionnement de l’architecture. En traduction, on dispose d’un texte dans une langue et on veut générer le même texte dans une autre langue. On a donc d’une part, une partie génération (donc décodeur) et d’autre part, une partie d’encodage de l’information que l’on a a disposition.</p>
+<p>Il faut imaginer que la partie décodeur qui génère les <em>tokens</em> va le faire avec d’une part les <em>tokens</em> générés précedemment mais également en interrogeant la partie encodé via la couche de <em>cross-attention</em>.</p>
+<section id="formalisation-mathematique">
+<h3>Formalisation mathématique<a class="headerlink" href="#formalisation-mathematique" title="Link to this heading">#</a></h3>
+<p>L’<em>encoder</em> du <em>transformer</em> prend en entrée la séquence source <span class="math notranslate nohighlight">\(x\)</span> et produit une représentation contextuelle pour chaque <em>token</em> de cette séquence :
+<span class="math notranslate nohighlight">\(E = \text{Encoder}(x)\)</span><br />
+Ici, <span class="math notranslate nohighlight">\(E\)</span> est une matrice de représentations contextuelles pour la séquence source <span class="math notranslate nohighlight">\(x\)</span>. Chaque ligne de <span class="math notranslate nohighlight">\(E\)</span> correspond à une représentation contextuelle <span class="math notranslate nohighlight">\(e_i\)</span> pour le <em>token</em> <span class="math notranslate nohighlight">\(x_i\)</span>.</p>
+<p>Le <em>decoder</em> du <em>transformer</em> prend en entrée les représentations contextuelles <span class="math notranslate nohighlight">\(E\)</span> de l’<em>encoder</em> et génère la séquence cible <span class="math notranslate nohighlight">\(y\)</span>. À chaque étape de génération, le <em>decoder</em> produit un <em>token</em> <span class="math notranslate nohighlight">\(y_t\)</span> en se basant sur les <em>tokens</em> générés précédemment et en interrogeant l’<em>encoder</em> via la couche de c<em>ross-attention</em> :<br />
+<span class="math notranslate nohighlight">\(y_t = \text{Decoder}(y_{&lt;t}, E) \)</span><br />
+Ici, <span class="math notranslate nohighlight">\(y_{&lt;t}\)</span> représente les <em>tokens</em> générés précédemment jusqu’à l’étape <span class="math notranslate nohighlight">\(t-1\)</span>. Le processus de génération utilise à la fois le <em>self-attention</em> (pour capturer les dépendances séquentielles dans la séquence cible) et la <em>cross-attention</em> (pour incorporer des informations de l’<em>encoder</em> <span class="math notranslate nohighlight">\(E\)</span>).</p>
+<p>La <em>cross-attention</em> permet au <em>decoder</em> de consulter les représentations contextuelles <span class="math notranslate nohighlight">\(E\)</span> de l’<em>encoder</em> pour obtenir des informations pertinentes lors de la génération de chaque <em>token</em> <span class="math notranslate nohighlight">\(y_t\)</span>. Elle est calculée comme :<br />
+<span class="math notranslate nohighlight">\( \text{Cross-Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right) V \)</span><br />
+où <span class="math notranslate nohighlight">\(Q\)</span> (<em>query</em>) sont les embeddings des tokens générés précédemment par le <em>decoder</em>, <span class="math notranslate nohighlight">\(K\)</span>(<em>key</em>) et <span class="math notranslate nohighlight">\(V\)</span>(<em>value</em>) sont les <em>embeddings</em> de l’<em>encoder</em> <span class="math notranslate nohighlight">\(E\)</span>, et <span class="math notranslate nohighlight">\(d_k\)</span> est la dimension des <em>embeddings</em> <span class="math notranslate nohighlight">\(K\)</span> pour la normalisation.</p>
+<p>En combinant ces éléments, le modèle <em>transformer</em> peut efficacement traduire une séquence de <em>tokens</em> d’une langue source à une langue cible en utilisant des mécanismes d’attention et des <em>postionnal embedding</em> pour maintenir l’ordre séquentiel et capturer les dépendances à long terme.</p>
+<p><strong>Notes</strong> : Le modèle décodeur essaye de générer un <em>token</em> pertinent compte tenu des <em>tokens</em> de l’encodeur. Il va émettre une requête (<em>query</em>) et regarder les clés (<em>key</em>) et valeurs (<em>value</em>) transmises par l’encodeur via la couche de <em>cross-attention</em>. Dans un deuxième temps, il va émettre une requête, une clé et une valeur pour trouver un <em>token</em> cohérent par rapport aux <em>tokens</em> qu’il a généré précedemment via la couche de <em>self-attention</em>.</p>
+</section>
+<section id="exemples-d-utilisation">
+<h3>Exemples d’utilisation<a class="headerlink" href="#exemples-d-utilisation" title="Link to this heading">#</a></h3>
+<p>L’architecture complète va être utilisée dans des cas où l’on cherche à générer un texte à partir d’un autre texte. Les cas d’applications les plus communs sont : la traduction, le résumé de texte, correction automatique et génération de texte guidée.</p>
+<p><strong>Notes</strong> : Vous avez sans doute constaté que ChatGpt est capable de faire de la traduction et du résumé de texte. En effet, le modèle est tellement puissant qu’il arrive à réaliser des tâches qui sont en théorie difficiles pour lui. Il est entraîné à prédire le prochain <em>token</em> et en y reflechissant un peu, on peut facilement imager que la tâche de prédiction du prochain <em>token</em> permette de réaliser toutes les tâches de NLP.<br />
+Cependant, pour des modèles plus restreints, il faut mieux s’en tenir une architecture adaptée à notre problème.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./07_Transformers"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="03_TrainingOurGpt.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Entraînons notre modèle GPT</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="05_UtilisationsPossibles.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Utilisations possibles de l’architecture Transformers</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#particularite-du-texte">Particularité du texte</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#le-block-encodeur">Le block encodeur</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-complete-avec-cross-attention">Architecture complète avec cross-attention</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formalisation-mathematique">Formalisation mathématique</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exemples-d-utilisation">Exemples d’utilisation</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Simon Thomine
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div id="language-switcher" style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #eee;">
+  <span style="margin-right: 10px;">🌐 Langue / Language:</span>
+  <a href="#" onclick="switchToEnglish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #f0f0f0; border-radius: 5px; transition: all 0.3s;">🇺🇸 English</a>
+  <a href="#" onclick="switchToFrench()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #4CAF50; color: white; border-radius: 5px; font-weight: bold; transition: all 0.3s;">🇫🇷 Français</a>
+</div>
+<script>
+function getBaseUrl() {
+  // Get the base URL without the build path
+  let baseUrl = window.location.origin;
+  let pathname = window.location.pathname;
+  
+  // Remove the build-specific parts
+  if (pathname.includes('_build_fr/_build/html/')) {
+    baseUrl += pathname.split('_build_fr/_build/html/')[0];
+  } else if (pathname.includes('_build_en/_build/html/')) {
+    baseUrl += pathname.split('_build_en/_build/html/')[0];
+  } else {
+    baseUrl += pathname.split('/').slice(0, -1).join('/') + '/';
+  }
+  
+  return baseUrl;
+}
+
+function getCurrentPage() {
+  let pathname = window.location.pathname;
+  if (pathname.includes('_build_fr/_build/html/')) {
+    return pathname.split('_build_fr/_build/html/')[1] || 'index.html';
+  } else if (pathname.includes('_build_en/_build/html/')) {
+    return pathname.split('_build_en/_build/html/')[1] || 'index.html';
+  }
+  return 'index.html';
+}
+
+function switchToEnglish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + '_build_en/_build/html/' + currentPage;
+  console.log('Switching to English:', newUrl);
+  window.location.href = newUrl;
+}
+
+function switchToFrench() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + '_build_fr/_build/html/' + currentPage;
+  console.log('Switching to French:', newUrl);
+  window.location.href = newUrl;
+}
+</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

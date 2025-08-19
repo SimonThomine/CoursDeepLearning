@@ -1,0 +1,1504 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Bigramme &#8212; Cours Deep Learning</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '05_NLP/02_bigramme';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Réseau fully connected" href="03_R%C3%A9seauFullyConnected.html" />
+    <link rel="prev" title="Introduction NLP" href="01_Introduction.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">🚀 Apprendre le Deep Learning à partir de zéro 🚀</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Cours Deep Learning</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Cours Deep Learning 🚀
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">🧮 Fondations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/01_D%C3%A9riv%C3%A9esEtDescenteDuGradient.html">Dérivée et descente du gradient</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/02_R%C3%A9gressionLogistique.html">Régression logistique</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔗 Réseau Fully Connected</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/01_MonPremierR%C3%A9seau.html">Mon premier réseau</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/02_PytorchIntroduction.html">Introduction à pytorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/03_TechniquesAvanc%C3%A9es.html">Techniques avancées</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🖼️ Réseau Convolutifs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/01_CouchesDeConvolutions.html">Couches de convolutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/02_R%C3%A9seauConvolutif.html">Réseau convolutif</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/03_ConvImplementation.html">Implementation de la couche de convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/04_R%C3%A9seauConvolutifPytorch.html">Réseau Convolutif sur Pytorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/05_ApplicationClassification.html">Application sur un dataset d’images couleur</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/06_ApplicationSegmentation.html">Application segmentation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔄 Autoencodeurs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/01_IntuitionEtPremierAE.html">Introduction aux autoencodeurs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/02_DenoisingAE.html">Denoising Autoencodeur</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📝 NLP</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_Introduction.html">Introduction NLP</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Bigramme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_R%C3%A9seauFullyConnected.html">Réseau fully connected</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_WaveNet.html">Pytorch et WaveNet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_Rnn.html">Réseau de neurones récurrents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_Lstm.html">Long Short-Term Memory</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/01_Introduction.html">Introduction aux transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/02_GptFromScratch.html">Construisons GPT à partir de rien</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/03_TrainingOurGpt.html">Entraînons notre modèle GPT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/04_ArchitectureEtParticularit%C3%A9s.html">Architecture et particularités du transformer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/05_UtilisationsPossibles.html">Utilisations possibles de l’architecture Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/06_VisionTransformerImplementation.html">Vision transformer implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/07_SwinTransformer.html">Swin transformer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎯 Detection Et Yolo</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/01_Introduction.html">Introduction à la détection d’objets dans les images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/02_YoloEnDetail.html">Yolo en détail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/03_Ultralytics.html">Ultralytics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔍 Entrainement Contrastif</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/01_FaceVerification.html">Face Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/02_NonSupervis%C3%A9.html">Entrainement contrastif non supervisé</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎓 Transfer Learning Et Distillation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/01_TransferLearning.html">Transfer Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/02_TransferLearningPytorch.html">Transfer Learning avec Pytorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/03_Distillation.html">Distillation des connaissances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/04_DistillationAnomalie.html">Distillation des connaissances pour la détection d’anomalies non supervisée</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/05_FineTuningLLM.html">Fine Tuning LLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/06_FineTuningBertHF.html">Fine tuning BERT avec Hugging Face</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎨 Modeles Generatifs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/01_Introduction.html">Introductions aux modèles génératifs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/02_GAN.html">Generative Adversarial Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/03_GanImplementation.html">Implémentation d’un GAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/04_VAE.html">Variational autoencoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/05_VaeImplementation.html">Implémentation d’un VAE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/06_NormalizingFlows.html">Normalizing Flows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/07_DiffusionModels.html">Diffusion Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/08_DiffusionImplementation.html">Implementation Diffusion Model</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎁 Bonus Cours Spécifiques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/01_ActivationEtInitialisation.html">Activations et Initialisations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/02_BatchNorm.html">Batch Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/03_DataAugmentation.html">Data Augmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/04_Broadcasting.html">Broadcasting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/05_Optimizer.html">Comprendre les différents optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/06_Regularisation.html">Régularisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/07_ConnexionsResiduelles.html">Connexions résiduelles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/08_CrossValidation.html">Introduction à la cross validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/09_MetriquesEvaluation.html">Métriques d’évaluation de modèles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/10_Tokenization.html">Introduction à la tokenization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/11_Quantization.html">Quantization</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/edit/main/fr/05_NLP/02_bigramme.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/issues/new?title=Issue%20on%20page%20%2F05_NLP/02_bigramme.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/05_NLP/02_bigramme.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Bigramme</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analyse-du-dataset">Analyse du dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bigramme-qu-est-ce-que-c-est">Bigramme, qu’est ce que c’est ?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methode-par-comptage">Méthode par comptage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrice-d-occurence">Matrice d’occurence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilites">Probabilités</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generation">Génération</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-du-modele">Evaluation du modèle</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-de-vraisemblance-ou-likelihood">Maximum de vraisemblance ou likelihood</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#log-likelihood">log-likelihood</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approche-par-reseau-de-neurones">Approche par réseau de neurones</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probleme-de-l-approche-comptage">Problème de l’approche “comptage”</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-de-notre-reseau-de-neurones">Dataset de notre réseau de neurones</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notre-reseau-de-neurones">Notre réseau de neurones</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization">Optimization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-supplementaires">Notes supplémentaires</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="bigramme">
+<h1>Bigramme<a class="headerlink" href="#bigramme" title="Link to this heading">#</a></h1>
+<section id="analyse-du-dataset">
+<h2>Analyse du dataset<a class="headerlink" href="#analyse-du-dataset" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">words</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;prenoms.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Les 5 prénoms les plus populaires : &#39;</span><span class="p">,</span><span class="n">words</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Les 5 prénoms les moins populaires : &#39;</span><span class="p">,</span><span class="n">words</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Le prénom le plus long : &#39;</span><span class="p">,</span><span class="nb">max</span><span class="p">(</span><span class="n">words</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Le prénom le plus court : &#39;</span><span class="p">,</span><span class="nb">min</span><span class="p">(</span><span class="n">words</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Les 5 prénoms les plus populaires :  [&#39;MARIE&#39;, &#39;JEAN&#39;, &#39;PIERRE&#39;, &#39;MICHEL&#39;, &#39;ANDRÉ&#39;]
+Les 5 prénoms les moins populaires :  [&#39;ÉLOUEN&#39;, &#39;CHEYNA&#39;, &#39;BLONDIE&#39;, &#39;IMANN&#39;, &#39;GHILAIN&#39;]
+Le prénom le plus long :  GUILLAUME-ALEXANDRE
+Le prénom le plus court :  GUY
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">unique_characters</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+  <span class="c1"># Ajouter chaque caractère de la ligne à l&#39;ensemble des caractères uniques</span>
+  <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">word</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+    <span class="n">unique_characters</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">char</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Nombre de caractères uniques : &#39;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">unique_characters</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Caractères uniques : &#39;</span><span class="p">,</span><span class="n">unique_characters</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Nombre de caractères uniques :  45
+Caractères uniques :  {&#39;Ï&#39;, &#39;Ü&#39;, &#39;Ÿ&#39;, &#39;U&#39;, &#39;Ô&#39;, &#39;S&#39;, &#39;Æ&#39;, &#39;À&#39;, &#39;È&#39;, &#39;-&#39;, &#39;W&#39;, &#39;H&#39;, &#39;Ê&#39;, &#39;É&#39;, &#39;R&#39;, &#39;M&#39;, &#39;E&#39;, &#39;Ë&#39;, &#39;N&#39;, &#39;Î&#39;, &#39;X&#39;, &#39;Ä&#39;, &#39;F&#39;, &#39;Â&#39;, &#39;K&#39;, &#39;D&#39;, &#39;Ö&#39;, &#39;I&#39;, &#39;J&#39;, &#39;Y&#39;, &#39;A&#39;, &#39;C&#39;, &#39;O&#39;, &#39;Û&#39;, &#39;Ù&#39;, &#39;B&#39;, &#39;Z&#39;, &#39;P&#39;, &#39;T&#39;, &quot;&#39;&quot;, &#39;Q&#39;, &#39;Ç&#39;, &#39;G&#39;, &#39;L&#39;, &#39;V&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="bigramme-qu-est-ce-que-c-est">
+<h2>Bigramme, qu’est ce que c’est ?<a class="headerlink" href="#bigramme-qu-est-ce-que-c-est" title="Link to this heading">#</a></h2>
+<p>Je rappelle que l’idée du projet est de prédire le prochain caractère à partir des caractères précédents. Dans le modèle <strong>bigramme</strong>, on se base uniquement sur un seul caractère précédent pour prédire le caractère actuel. C’est la version la plus basique de ce type de modèle.</p>
+<p>Bien entendu, on veut prédire un prénom à partir de rien et pour prédire la première lettre, on a besoin de savoir la probabilité que cette lettre soit la première (et de même pour la dernière lettre). On va donc ajouter un caractère spécial ‘.’ à au début et à la fin de chaque mot avant de construire nos bigrammes.</p>
+<p>Dans chaque prénom, on a en fait plusieurs exemples de bigramme (chacun est indépendant).<br />
+Si on considère le premier prénom, regardons le nombre de bigramme que l’on a :</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">words</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">ch1</span><span class="p">,</span> <span class="n">ch2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">chs</span><span class="p">,</span> <span class="n">chs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+  <span class="n">bigram</span> <span class="o">=</span> <span class="p">(</span><span class="n">ch1</span><span class="p">,</span> <span class="n">ch2</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">bigram</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&#39;.&#39;, &#39;M&#39;)
+(&#39;M&#39;, &#39;A&#39;)
+(&#39;A&#39;, &#39;R&#39;)
+(&#39;R&#39;, &#39;I&#39;)
+(&#39;I&#39;, &#39;E&#39;)
+(&#39;E&#39;, &#39;.&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Le premier prénom Marie contient 6 bigrammes.</p>
+</section>
+<section id="methode-par-comptage">
+<h2>Méthode par comptage<a class="headerlink" href="#methode-par-comptage" title="Link to this heading">#</a></h2>
+<p>Construisons maintenant un dictionnaire python qui regroupe tous les bigrammes du dataset en comptant leurs occurences.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+  <span class="n">chs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span>
+  <span class="k">for</span> <span class="n">ch1</span><span class="p">,</span> <span class="n">ch2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">chs</span><span class="p">,</span> <span class="n">chs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+    <span class="n">bigram</span> <span class="o">=</span> <span class="p">(</span><span class="n">ch1</span><span class="p">,</span> <span class="n">ch2</span><span class="p">)</span>
+    <span class="n">b</span><span class="p">[</span><span class="n">bigram</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">bigram</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="nb">sorted</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">kv</span><span class="p">:</span> <span class="o">-</span><span class="n">kv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Les 5 bigrammes les plus fréquents : &#39;</span><span class="p">,</span><span class="nb">sorted</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">kv</span><span class="p">:</span> <span class="o">-</span><span class="n">kv</span><span class="p">[</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">5</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Les 5 bigrammes les plus fréquents :  [((&#39;A&#39;, &#39;.&#39;), 7537), ((&#39;E&#39;, &#39;.&#39;), 6840), ((&#39;A&#39;, &#39;N&#39;), 6292), ((&#39;N&#39;, &#39;.&#39;), 3741), ((&#39;N&#39;, &#39;E&#39;), 3741)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>On a donc notre dictionnaire de fréquence des bigrammes dans l’intégralité de notre dataset. Comme on peut le voir, il est fréquent que des prénoms se terminent par A,E ou N et que les lettres A et N se suivent ainsi que les lettres N et E.</p>
+<section id="matrice-d-occurence">
+<h3>Matrice d’occurence<a class="headerlink" href="#matrice-d-occurence" title="Link to this heading">#</a></h3>
+<p>Il est beaucoup plus simple de visualiser et de traiter les données sous forme matricielle. On va constuire une matrice de taille 46x46 (45 caractères comptés + le caractère spécial ‘.’) avec la colonne correspondants à la ligne correspondant à la première lettre et la colonne correspondant à la seconde.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="n">N</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">46</span><span class="p">,</span> <span class="mi">46</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>On va trier nos caractères et créer des table de recherche (look-up table) avec l’objet dictionnaire de python.  On veut pouvoir passer de caractère à entier (pour indexer dans la matrice) et inversement (pour reconstruire le prénoms à partir d’entiers).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chars</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">words</span><span class="p">))))</span>
+<span class="n">stoi</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">chars</span><span class="p">)}</span>
+<span class="n">stoi</span><span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">itos</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span><span class="n">i</span> <span class="ow">in</span> <span class="n">stoi</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>On va maintenant remplir notre matrice :</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+  <span class="n">chs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span>
+  <span class="k">for</span> <span class="n">ch1</span><span class="p">,</span> <span class="n">ch2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">chs</span><span class="p">,</span> <span class="n">chs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+    <span class="n">ix1</span> <span class="o">=</span> <span class="n">stoi</span><span class="p">[</span><span class="n">ch1</span><span class="p">]</span>
+    <span class="n">ix2</span> <span class="o">=</span> <span class="n">stoi</span><span class="p">[</span><span class="n">ch2</span><span class="p">]</span>
+    <span class="n">N</span><span class="p">[</span><span class="n">ix1</span><span class="p">,</span> <span class="n">ix2</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Et on peut maintenant afficher la matrice (look-up table).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Code pour dessiner une jolie matrice</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span><span class="mi">32</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">46</span><span class="p">):</span>
+  <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">46</span><span class="p">):</span>
+    <span class="n">chstr</span> <span class="o">=</span> <span class="n">itos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">itos</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">chstr</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">N</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/96ce12bf8300ffce2957c0bdc85dadbf28244c9c48c5c995ed2a013ee17708cf.png" src="../_images/96ce12bf8300ffce2957c0bdc85dadbf28244c9c48c5c995ed2a013ee17708cf.png" />
+</div>
+</div>
+</section>
+<section id="probabilites">
+<h3>Probabilités<a class="headerlink" href="#probabilites" title="Link to this heading">#</a></h3>
+<p>Pour connaître la probabilité qu’un prénom commence par une certaine lettre, il faut regarder la ligne du caractère ‘.’, c’est à dire la ligne 0 et normaliser chaque valeur par la somme des valeurs de cette ligne (pour obtenir des valeurs entre 0 et 1 qui ont une somme égale à 1).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">N</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">/</span> <span class="n">p</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Compte de la première ligne : &quot;</span><span class="p">,</span><span class="n">N</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Probabilités : &quot;</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Compte de la première ligne :  tensor([   0,    0,    0, 3399,  825, 1483, 1208, 1400,  864,  907, 1039,  788,
+        1352, 1503, 2108, 3606, 1501,  546,  620,   32, 1142, 2539, 1185,   72,
+         329,  294,   29,  661,  393,    0,    2,    0,    0,    1,    2,  161,
+           0,    0,    2,    2,    0,    5,    0,    0,    0,    0],
+       dtype=torch.int32)
+Probabilités :  tensor([0.0000e+00, 0.0000e+00, 0.0000e+00, 1.1330e-01, 2.7500e-02, 4.9433e-02,
+        4.0267e-02, 4.6667e-02, 2.8800e-02, 3.0233e-02, 3.4633e-02, 2.6267e-02,
+        4.5067e-02, 5.0100e-02, 7.0267e-02, 1.2020e-01, 5.0033e-02, 1.8200e-02,
+        2.0667e-02, 1.0667e-03, 3.8067e-02, 8.4633e-02, 3.9500e-02, 2.4000e-03,
+        1.0967e-02, 9.8000e-03, 9.6667e-04, 2.2033e-02, 1.3100e-02, 0.0000e+00,
+        6.6667e-05, 0.0000e+00, 0.0000e+00, 3.3333e-05, 6.6667e-05, 5.3667e-03,
+        0.0000e+00, 0.0000e+00, 6.6667e-05, 6.6667e-05, 0.0000e+00, 1.6667e-04,
+        0.0000e+00, 0.0000e+00, 0.0000e+00, 0.0000e+00])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Pour générer des prénoms de manière aléatoires, on ne veut pas prendre la lettre avec le plus de probabilité d’être en premier (car on ne générerait que le même prénom à chaque fois). Ce qu’on voudrait c’est choisir une lettre en fonction de sa probabilité. Si la lettre n a une probabilité de 0.1, on voudrait la choisir 10% du temps.<br />
+Pour faire cela à partir de notre vecteur de probabilité, on va utiliser la fonction torch.multinomial de pytorch.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ix</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">multinomial</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">replacement</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="n">itos</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Z&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>A chaque fois qu’on l’appelle, on va obtenir une lettre différente en fonction de sa probabilité d’apparition dans notre dataset de test.</p>
+<p>Avec tous ces éléments, on est maintenant prêt à générer des prénoms à partir de notre matrice N. L’idéal pour éviter de renormalizer à chaque fois serait de créer une matrice avec directement les probabilités.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># On copie N et on la convertit en float</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">N</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+<span class="c1"># On normalise chaque ligne</span>
+<span class="c1"># On somme sur la première dimension (les colonnes)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Somme des lignes : &quot;</span><span class="p">,</span><span class="n">P</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">P</span> <span class="o">/=</span> <span class="n">P</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># /= est un raccourci pour P = P / P.sum(1, keepdims=True)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matrice normalisée P est de taille : &quot;</span><span class="p">,</span><span class="n">P</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="c1"># On vérifie que la somme d&#39;une ligne est égale à 1</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Somme de la première ligne de P : &quot;</span><span class="p">,</span><span class="n">P</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Somme des lignes :  torch.Size([46, 1])
+Matrice normalisée P est de taille :  torch.Size([46, 46])
+Somme de la première ligne de P :  1.0
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Point sur la division de matrice de taille différente</strong> : Comme vous l’avez remarqué, on divise la matrice de taille (46,46) par une matrice de taille (46,1) ce qui semble être une opération impossible. Avec pytorch, il y a ce qu’on appelle des <a class="reference external" href="https://pytorch.org/docs/stable/notes/broadcasting.html">broadcasting rules</a>. Je vous invite très fortement à vous familiariser à ce qu’il y écrit sur ce lien, c’est une source d’erreur fréquente. Pour comprendre en détails les broadcasting rules, vous pouvez regarder le <a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/04_Broadcasting.html"><span class="std std-doc">cours bonus</span></a>.<br />
+En pratique, diviser la matrice de taille (46,46) par la matrice de taille (46,1) va “broadcaster” la matrice (46,1) en (46,46) en copiant 46 fois la matrice de base. Cela va permettre de réaliser l’opération comme on le souhaite.</p>
+</section>
+<section id="generation">
+<h3>Génération<a class="headerlink" href="#generation" title="Link to this heading">#</a></h3>
+<p>Il est enfin temps de générer des prénoms avec notre méthode bigramme !!!<br />
+Nous allons définir une fonction de génération de prénoms :</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">genName</span><span class="p">():</span>
+  <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">ix</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># On commence par &#39;.&#39;</span>
+  <span class="k">while</span> <span class="kc">True</span><span class="p">:</span> <span class="c1"># Tant qu&#39;on n&#39;a pas généré le caractère &#39;.&#39;</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span> <span class="c1"># On récupère la distribution de probabilité de la ligne correspondant au caractère actuel</span>
+    <span class="n">ix</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">multinomial</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">replacement</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="c1"># On tire un échantillon</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">itos</span><span class="p">[</span><span class="n">ix</span><span class="p">])</span> <span class="c1"># On ajoute le caractère à notre prénom</span>
+    <span class="k">if</span> <span class="n">ix</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">break</span>
+  <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+<span class="n">genName</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;MARAUSUR.&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>On peut par exemple générer 10 prénoms aléatoires :</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">genName</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DA.
+TYEYSE-SSCL.
+DE.
+ANINEDANDVI.
+SOKE.
+RENNA.
+FUXA.
+EROA.
+FA.
+KALEN.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Comme vous pouvez le constater, la génération est assez catastrophique…<br />
+Comment ça se fait ? Et bien, c’est simplement parce que le bigramme est une méthode très limitée. Le fait de se baser uniquement sur le derniere caractère ne permet pas d’avoir une connaissance assez poussée pour permettre la génération de prénoms corrects.</p>
+</section>
+</section>
+<section id="evaluation-du-modele">
+<h2>Evaluation du modèle<a class="headerlink" href="#evaluation-du-modele" title="Link to this heading">#</a></h2>
+<section id="maximum-de-vraisemblance-ou-likelihood">
+<h3>Maximum de vraisemblance ou likelihood<a class="headerlink" href="#maximum-de-vraisemblance-ou-likelihood" title="Link to this heading">#</a></h3>
+<p>On voudrait maintenant évaluer notre modèle sur l’ensemble d’entraînement. Pour ça on va utiliser le maximum de vraisemblance comme dans <a class="reference internal" href="../01_Fondations/02_R%C3%A9gressionLogistique.html"><span class="std std-doc">le second notebook du cours 1</span></a>.<br />
+Le maximum de vraisemblance ou <em>likelihood</em> est une mesure correspondant au produit des probabilités des évenements. Pour avoir un bon modèle, on cherche à maximiser le <em>likelihood</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">productOfProbs</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span><span class="p">[:</span><span class="mi">2</span><span class="p">]:</span>
+  <span class="n">chs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span>
+  <span class="k">for</span> <span class="n">ch1</span><span class="p">,</span> <span class="n">ch2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">chs</span><span class="p">,</span> <span class="n">chs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+    <span class="n">ix1</span> <span class="o">=</span> <span class="n">stoi</span><span class="p">[</span><span class="n">ch1</span><span class="p">]</span>
+    <span class="n">ix2</span> <span class="o">=</span> <span class="n">stoi</span><span class="p">[</span><span class="n">ch2</span><span class="p">]</span>
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="n">ix1</span><span class="p">,</span> <span class="n">ix2</span><span class="p">]</span>
+    <span class="n">productOfProbs</span> <span class="o">*=</span> <span class="n">prob</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;La probabilité de </span><span class="si">{</span><span class="n">ch1</span><span class="si">}</span><span class="s2">-&gt;</span><span class="si">{</span><span class="n">ch2</span><span class="si">}</span><span class="s2"> est </span><span class="si">{</span><span class="n">prob</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Le produit des probabilités est : &quot;</span><span class="p">,</span><span class="n">productOfProbs</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>La probabilité de .-&gt;M est 0.120
+La probabilité de M-&gt;A est 0.431
+La probabilité de A-&gt;R est 0.084
+La probabilité de R-&gt;I est 0.256
+La probabilité de I-&gt;E est 0.119
+La probabilité de E-&gt;. est 0.321
+La probabilité de .-&gt;J est 0.045
+La probabilité de J-&gt;E est 0.232
+La probabilité de E-&gt;A est 0.024
+La probabilité de A-&gt;N est 0.201
+La probabilité de N-&gt;. est 0.212
+Le produit des probabilités est :  4.520583629652464e-10
+</pre></div>
+</div>
+</div>
+</div>
+<p>On voit rapidement que multiplier les probabilités va être un problème, ici on les multiplie sur 2 des 30 000 éléments du dataset et on obtient une valeur très faible. Si on les multiplie sur l’ensemble du dataset, ça sera une valeur non representable par un ordinateur.</p>
+</section>
+<section id="log-likelihood">
+<h3>log-likelihood<a class="headerlink" href="#log-likelihood" title="Link to this heading">#</a></h3>
+<p>Pour résoudre ce problème de précision, on va utiliser le logarithme et ce pour plusieurs raisons:</p>
+<ul class="simple">
+<li><p>La fonction log est monotone, c’est-à-dire que :<br />
+Si <span class="math notranslate nohighlight">\(a&gt;b\)</span> alors <span class="math notranslate nohighlight">\(log(a)&gt;log(b)\)</span>, le fait de maximiser le <em>log likelihood</em> est équivalent à maximiser le <em>likelihood</em> dans un contexte d’optimisation.</p></li>
+<li><p>Une propriété intéressante des logs (qui font que c’est fonction est très souvent utilisée en optimisation et en probabilité) est la règle suivante :<br />
+<span class="math notranslate nohighlight">\(log(a \times b) = log(a) + log(b)\)</span>, cela nous permet d’éviter de multiplier des petites valeurs qui pourraient nous faire sortir de la précision d’un ordinateur.</p></li>
+</ul>
+<p>On peut donc maximiser le <em>log-likelihood</em> plutôt que de maximiser le <em>likelihood</em>. Reprenons la boucle précédente et regardons ce que ça donne :</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sumOfLogs</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span><span class="p">[:</span><span class="mi">2</span><span class="p">]:</span>
+  <span class="n">chs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span>
+  <span class="k">for</span> <span class="n">ch1</span><span class="p">,</span> <span class="n">ch2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">chs</span><span class="p">,</span> <span class="n">chs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+    <span class="n">ix1</span> <span class="o">=</span> <span class="n">stoi</span><span class="p">[</span><span class="n">ch1</span><span class="p">]</span>
+    <span class="n">ix2</span> <span class="o">=</span> <span class="n">stoi</span><span class="p">[</span><span class="n">ch2</span><span class="p">]</span>
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="n">ix1</span><span class="p">,</span> <span class="n">ix2</span><span class="p">]</span>
+    <span class="n">sumOfLogs</span> <span class="o">+=</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La somme des log est : &quot;</span><span class="p">,</span><span class="n">sumOfLogs</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>La somme des log est :  -21.517210006713867
+</pre></div>
+</div>
+</div>
+</div>
+<p>On obtient une valeur beaucoup plus raisonnable. Pour les problèmes d’optimisation, on aime souvent avoir une fonction à minimiser. Dans le cas d’un modèle parfait, chaque probabilité vaut 1 donc chaque log vaut 0 et la somme des logs va donc valoir 0 dans le meilleur cas. Sinon ça sera forcément des valeurs négatives car une probabilité est forcément inférieur à 1 et <span class="math notranslate nohighlight">\(log(a)&lt;0 \text{ si } a&lt;1\)</span>.<br />
+Pour avoir un problème de minimisation, on va donc utiliser le <em>negative log-likelihood</em> qui correspond simplement à l’opposé du <em>log-likelihood</em>.</p>
+<p>Souvent, on va également prendre la moyenne plutôt que la somme car c’est plus lisible et équivalent en terme d’optimisation. Et nous allons le calculer sur l’ensemble des prénoms du dataset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sumOfLogs</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">n</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+  <span class="n">chs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span>
+  <span class="k">for</span> <span class="n">ch1</span><span class="p">,</span> <span class="n">ch2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">chs</span><span class="p">,</span> <span class="n">chs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+    <span class="n">ix1</span> <span class="o">=</span> <span class="n">stoi</span><span class="p">[</span><span class="n">ch1</span><span class="p">]</span>
+    <span class="n">ix2</span> <span class="o">=</span> <span class="n">stoi</span><span class="p">[</span><span class="n">ch2</span><span class="p">]</span>
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="n">ix1</span><span class="p">,</span> <span class="n">ix2</span><span class="p">]</span>
+    <span class="n">sumOfLogs</span> <span class="o">+=</span> <span class="o">-</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span>
+    <span class="n">n</span><span class="o">+=</span><span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La somme des negative log est : &quot;</span><span class="p">,</span><span class="n">sumOfLogs</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La moyenne des negative log est : &quot;</span><span class="p">,</span><span class="n">sumOfLogs</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="o">/</span><span class="n">n</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>La somme des negative log est :  564925.125
+La moyenne des negative log est :  2.4960792002651053
+</pre></div>
+</div>
+</div>
+</div>
+<p>Le <em>negative log likelihood</em> du dataset est donc de 2.49.</p>
+<p>Vous pouvez également voir si votre prénom est commun ou peu commun par rapport à la moyenne du dataset.<br />
+Pour cela, il suffit de remplacer mon prénom “SIMON” par votre prénom (en majuscule).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sumOfLogs</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">n</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="s2">&quot;SIMON&quot;</span><span class="p">:</span>
+  <span class="n">chs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span>
+  <span class="k">for</span> <span class="n">ch1</span><span class="p">,</span> <span class="n">ch2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">chs</span><span class="p">,</span> <span class="n">chs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+    <span class="n">ix1</span> <span class="o">=</span> <span class="n">stoi</span><span class="p">[</span><span class="n">ch1</span><span class="p">]</span>
+    <span class="n">ix2</span> <span class="o">=</span> <span class="n">stoi</span><span class="p">[</span><span class="n">ch2</span><span class="p">]</span>
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="n">ix1</span><span class="p">,</span> <span class="n">ix2</span><span class="p">]</span>
+    <span class="n">sumOfLogs</span> <span class="o">+=</span> <span class="o">-</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span>
+    <span class="n">n</span><span class="o">+=</span><span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La moyenne des negative log est : &quot;</span><span class="p">,</span><span class="n">sumOfLogs</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="o">/</span><span class="n">n</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>La moyenne des negative log est :  2.598056602478027
+</pre></div>
+</div>
+</div>
+</div>
+<p>Si la valeur negative log likelihood correspondant à votre prénom est inférieure à celui du dataset, votre prénom est assez commun sinon il est plutôt peu commun.</p>
+</section>
+</section>
+<section id="approche-par-reseau-de-neurones">
+<h2>Approche par réseau de neurones<a class="headerlink" href="#approche-par-reseau-de-neurones" title="Link to this heading">#</a></h2>
+<section id="probleme-de-l-approche-comptage">
+<h3>Problème de l’approche “comptage”<a class="headerlink" href="#probleme-de-l-approche-comptage" title="Link to this heading">#</a></h3>
+<p>Nous allons maintenant essayer de résoudre le même problème d’une manière différente. Nous avons résolu ce problème en comptant simplement les occurences des bigrammes et en calculant la probabilité par rapport à ça. C’est une méthode qui fonctionne pour des bigrammes mais qui ne fonctionnera pas pour des choses plus complexes comme des N-grammes.</p>
+<p>En effet, notre table de recherche est de taille 46x46 pour deux caractères. Si on considère N caractères (donc N-1 caractères pour prédire le Nième), on a tout de suite beaucoup plus de possibilités. On peut calculer simplement que la table sera de taille <span class="math notranslate nohighlight">\(46^N\)</span>. Pour N=4 ça ferait une table de taille 4477456. Autant dire que pour des valeurs de contexte importantes (les modèles d’aujourd’hui ont un contexte de dizaines de milliers de tokens et il y a plus de 46 possibilités à chaque fois), c’est une approche qui ne fonctionnera pas du tout.</p>
+<p>C’est pour cela que l’approche par réseau de neurones est très intéressante. Dans la suite de cours, nous allons montrer comment résoudre ce même problème à l’aide d’un réseau de neurones ce qui vous donnera une intuition sur les capacités du réseau lorsque le contexte augmente.</p>
+</section>
+<section id="dataset-de-notre-reseau-de-neurones">
+<h3>Dataset de notre réseau de neurones<a class="headerlink" href="#dataset-de-notre-reseau-de-neurones" title="Link to this heading">#</a></h3>
+<p>Notre réseau de neurones va recevoir un caractère en entrée et va devoir prédire le caractère suivant. Comme fonction de loss, on pourra utiliser la fonction <em>negative log likelihood</em> pour essayer de se rapprocher de la valeur du bigramme par “comptage”.</p>
+<p>Commençons par créer notre dataset d’entraînement. On reprend la boucle de parcours des bigrammes de la partie précédente et cette fois on indexe deux listes xs pour les entrées et ys pour les labels.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the training set of bigrams (x,y)</span>
+<span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span><span class="p">[:</span><span class="mi">1</span><span class="p">]:</span>
+  <span class="n">chs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span>
+  <span class="k">for</span> <span class="n">ch1</span><span class="p">,</span> <span class="n">ch2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">chs</span><span class="p">,</span> <span class="n">chs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+    <span class="n">ix1</span> <span class="o">=</span> <span class="n">stoi</span><span class="p">[</span><span class="n">ch1</span><span class="p">]</span>
+    <span class="n">ix2</span> <span class="o">=</span> <span class="n">stoi</span><span class="p">[</span><span class="n">ch2</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ch1</span><span class="p">,</span> <span class="n">ch2</span><span class="p">)</span>
+    <span class="n">xs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ix1</span><span class="p">)</span>
+    <span class="n">ys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ix2</span><span class="p">)</span>
+    
+<span class="n">xs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
+<span class="n">ys</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>. M
+M A
+A R
+R I
+I E
+E .
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;valeurs d&#39;entrée : &quot;</span><span class="p">,</span><span class="n">xs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;valeurs de sortie : &quot;</span><span class="p">,</span><span class="n">ys</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>valeurs d&#39;entrée :  tensor([ 0, 15,  3, 20, 11,  7])
+valeurs de sortie :  tensor([15,  3, 20, 11,  7,  0])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Pour la valeur d’entrée 0 qui correspond à ‘.’, on veut prédire un label 15 qui correspond à ‘M’.</p>
+<p>Le problème de ces listes, c’est que ce sont des entiers et il n’est pas possible de donner un entier en entrée d’un réseau de neurones. Dans le domaine du NLP, on utilise souvent le <em>one hot encoding</em> qui consiste à convertir un index en un vecteur de 0 avec un 1 à la position de l’index. La taille du vecteur correspond au nombre de classe possibles donc ici 46.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn.functional</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">F</span>
+<span class="c1"># one-hot encoding</span>
+<span class="n">xenc</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">46</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span> <span class="c1"># conversion en float pour le NN</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Encodage one-hot des deux premiers caractères: &quot;</span><span class="p">,</span><span class="n">xenc</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Encodage one-hot des deux premiers caractères:  tensor([[1., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+         0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+         0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+        [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 1., 0., 0.,
+         0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+         0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Comme vous le voyez, on a un 1 à la position 0 du premier vecteur et un 1 à la position 15 du second. Ce sont ces vecteurs qui serviront d’entrée à notre réseau de neurones. On peut visualiser à quoi ressemble ces vecteurs pour avoir une intuition plus poussée de ce que le <em>one hot encoding</em> fait.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Les 5 premiers vecteurs one-hot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">xenc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x784579d81f10&gt;
+</pre></div>
+</div>
+<img alt="../_images/ff5371c82572c1f90d9fa93adee2bc0e1c73e24631447002e6deaa6c08c003db.png" src="../_images/ff5371c82572c1f90d9fa93adee2bc0e1c73e24631447002e6deaa6c08c003db.png" />
+</div>
+</div>
+</section>
+<section id="notre-reseau-de-neurones">
+<h3>Notre réseau de neurones<a class="headerlink" href="#notre-reseau-de-neurones" title="Link to this heading">#</a></h3>
+<p>Nous allons maintenant créer notre réseau de neurones. Il va s’agir d’un réseau de neurones extremement simple contenant une seule couche. Pour la taille de la couche, nous prenons en entrée un vecteur de taille <span class="math notranslate nohighlight">\(n \times 46\)</span> il faudra donc une première dimension de taille 46 et en sortie on veut une distribution de probabilité sur l’ensemble des caractères. Notre couche de réseau sera donc de taille <span class="math notranslate nohighlight">\(46 \times 46\)</span></p>
+<p>Commençons par initialiser notre couche avec des valeurs aléatoires :</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># On met le paramètre requires_grad à True pour pouvoir optimiser la matrice par descente de gradient</span>
+<span class="n">W</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">((</span><span class="mi">46</span><span class="p">,</span> <span class="mi">46</span><span class="p">),</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<p>Le <em>forward</em> de notre réseau de neurones va simplement consister en une multiplication matricielle entre l’entrée et la couche. On va ensuite appliquer la fonction <em>softmax</em> (voir cours sur les CNN) pour obtenir une distribution de probabilités.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># One hot encoding sur les entrées</span>
+<span class="n">xenc</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">46</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span> 
+<span class="c1"># Multiplication matricielle (forward pass)</span>
+<span class="n">logits</span> <span class="o">=</span> <span class="n">xenc</span> <span class="o">@</span> <span class="n">W</span>  <span class="c1"># @ est la multiplication matricielle</span>
+<span class="c1">#Softmax pour obtenir des probabilités</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">logits</span><span class="o">.</span><span class="n">exp</span><span class="p">()</span> 
+<span class="n">probs</span> <span class="o">=</span> <span class="n">counts</span> <span class="o">/</span> <span class="n">counts</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="n">probs</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>torch.Size([6, 46])
+</pre></div>
+</div>
+</div>
+</div>
+<p>On obtient une distribution de probabilités pour chacun de nos 6 caractères. On va visualiser les sorties de notre réseau de neurones non-entrainé et calculer le <em>negative log likelihood</em> pour voir où l’on se situe par rapport à notre modèle obtenu par “comptage”.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nlls</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">xs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="c1"># index de l&#39;entrée</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="n">ys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="c1"># index du label</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--------&#39;</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;bigramme actuel </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">itos</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="si">}{</span><span class="n">itos</span><span class="p">[</span><span class="n">y</span><span class="p">]</span><span class="si">}</span><span class="s1"> (indexes </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">,</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;entrée du réseau de neurones :&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sortie du réseau (probabilité) :&#39;</span><span class="p">,</span> <span class="n">probs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;vrai label :&#39;</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+  <span class="n">p</span> <span class="o">=</span> <span class="n">probs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;probabilité donné par le réseau sur le caractère réel :&#39;</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+  <span class="n">logp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+  <span class="n">nll</span> <span class="o">=</span> <span class="o">-</span><span class="n">logp</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;negative log likelihood:&#39;</span><span class="p">,</span> <span class="n">nll</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+  <span class="n">nlls</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">nll</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=========&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;negative log likelihood moyen, i.e. loss =&#39;</span><span class="p">,</span> <span class="n">nlls</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--------
+bigramme actuel 1: .M (indexes 0,15)
+entrée du réseau de neurones : 0
+sortie du réseau (probabilité) : tensor([0.0146, 0.0210, 0.0823, 0.0077, 0.0160, 0.0483, 0.0943, 0.0204, 0.0079,
+        0.0112, 0.0085, 0.0179, 0.0188, 0.0292, 0.0022, 0.0092, 0.0200, 0.0094,
+        0.0097, 0.0191, 0.1091, 0.0122, 0.0092, 0.0287, 0.0120, 0.0088, 0.0053,
+        0.0217, 0.0177, 0.0050, 0.0038, 0.0483, 0.0320, 0.0441, 0.0105, 0.0126,
+        0.0266, 0.0092, 0.0262, 0.0081, 0.0430, 0.0012, 0.0102, 0.0025, 0.0126,
+        0.0116], grad_fn=&lt;SelectBackward0&gt;)
+vrai label : 15
+probabilité donné par le réseau sur le caractère réel : 0.009214116260409355
+negative log likelihood: 4.687018394470215
+--------
+bigramme actuel 2: MA (indexes 15,3)
+entrée du réseau de neurones : 15
+sortie du réseau (probabilité) : tensor([0.0574, 0.1353, 0.0227, 0.0032, 0.1142, 0.0148, 0.1007, 0.0162, 0.0242,
+        0.0089, 0.0040, 0.0459, 0.0023, 0.0081, 0.0064, 0.0124, 0.0083, 0.0112,
+        0.0172, 0.0062, 0.0033, 0.0045, 0.0131, 0.0144, 0.0218, 0.0080, 0.0225,
+        0.0097, 0.0164, 0.0074, 0.0165, 0.0091, 0.0412, 0.0087, 0.0100, 0.0039,
+        0.0080, 0.0036, 0.0377, 0.0150, 0.0345, 0.0048, 0.0253, 0.0036, 0.0164,
+        0.0210], grad_fn=&lt;SelectBackward0&gt;)
+vrai label : 3
+probabilité donné par le réseau sur le caractère réel : 0.0031920599285513163
+negative log likelihood: 5.74708890914917
+--------
+bigramme actuel 3: AR (indexes 3,20)
+entrée du réseau de neurones : 3
+sortie du réseau (probabilité) : tensor([0.0199, 0.0169, 0.0239, 0.0122, 0.0174, 0.0203, 0.0043, 0.0822, 0.0517,
+        0.0228, 0.0118, 0.0121, 0.0210, 0.0088, 0.0063, 0.0128, 0.1041, 0.0100,
+        0.0338, 0.0772, 0.0056, 0.0565, 0.0134, 0.0032, 0.0253, 0.0120, 0.0337,
+        0.0080, 0.0083, 0.0060, 0.0068, 0.0020, 0.0405, 0.0120, 0.0366, 0.0080,
+        0.0111, 0.0135, 0.0164, 0.0038, 0.0133, 0.0029, 0.0094, 0.0047, 0.0504,
+        0.0271], grad_fn=&lt;SelectBackward0&gt;)
+vrai label : 20
+probabilité donné par le réseau sur le caractère réel : 0.005596297327429056
+negative log likelihood: 5.185649871826172
+--------
+bigramme actuel 4: RI (indexes 20,11)
+entrée du réseau de neurones : 20
+sortie du réseau (probabilité) : tensor([0.0030, 0.0300, 0.0056, 0.0311, 0.0361, 0.0294, 0.0462, 0.0163, 0.0369,
+        0.0178, 0.0251, 0.0125, 0.0162, 0.0019, 0.0828, 0.0173, 0.0068, 0.0113,
+        0.0204, 0.0124, 0.0653, 0.0059, 0.0038, 0.0075, 0.0165, 0.0332, 0.0065,
+        0.0354, 0.0169, 0.0062, 0.0683, 0.0203, 0.0189, 0.0179, 0.0113, 0.0119,
+        0.0549, 0.0035, 0.0051, 0.0061, 0.0569, 0.0268, 0.0164, 0.0021, 0.0146,
+        0.0088], grad_fn=&lt;SelectBackward0&gt;)
+vrai label : 11
+probabilité donné par le réseau sur le caractère réel : 0.012452212162315845
+negative log likelihood: 4.385857105255127
+--------
+bigramme actuel 5: IE (indexes 11,7)
+entrée du réseau de neurones : 11
+sortie du réseau (probabilité) : tensor([0.0265, 0.0211, 0.0312, 0.0235, 0.0020, 0.0151, 0.0145, 0.0083, 0.0141,
+        0.0062, 0.0168, 0.0183, 0.0600, 0.0047, 0.0969, 0.0438, 0.0083, 0.0584,
+        0.0572, 0.0061, 0.0159, 0.0475, 0.0079, 0.0116, 0.0331, 0.0043, 0.0049,
+        0.0134, 0.0057, 0.0077, 0.0350, 0.0276, 0.0174, 0.0050, 0.0176, 0.0022,
+        0.0169, 0.0029, 0.0281, 0.0115, 0.0291, 0.0250, 0.0071, 0.0126, 0.0277,
+        0.0491], grad_fn=&lt;SelectBackward0&gt;)
+vrai label : 7
+probabilité donné par le réseau sur le caractère réel : 0.008320074528455734
+negative log likelihood: 4.789083957672119
+--------
+bigramme actuel 6: E. (indexes 7,0)
+entrée du réseau de neurones : 7
+sortie du réseau (probabilité) : tensor([0.0397, 0.0266, 0.0185, 0.0024, 0.0054, 0.0061, 0.0143, 0.0269, 0.0398,
+        0.0084, 0.0134, 0.0247, 0.1220, 0.0039, 0.0062, 0.0829, 0.0452, 0.0086,
+        0.0062, 0.0130, 0.0106, 0.0137, 0.0073, 0.1132, 0.0146, 0.0252, 0.0112,
+        0.0955, 0.0133, 0.0196, 0.0091, 0.0122, 0.0160, 0.0092, 0.0128, 0.0337,
+        0.0058, 0.0112, 0.0070, 0.0029, 0.0033, 0.0073, 0.0052, 0.0049, 0.0125,
+        0.0087], grad_fn=&lt;SelectBackward0&gt;)
+vrai label : 0
+probabilité donné par le réseau sur le caractère réel : 0.0397193469107151
+negative log likelihood: 3.225916862487793
+=========
+negative log likelihood moyen, i.e. loss = 4.670102596282959
+</pre></div>
+</div>
+</div>
+</div>
+<p>Pour le calcul du loss, on va calculer le negative log likelihood de la sortie de notre réseau par rapport au label de la manière suivante :</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calcul de la loss</span>
+<span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">probs</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span> <span class="n">ys</span><span class="p">]</span><span class="o">.</span><span class="n">log</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+<span class="c1"># On remet les gradients à zéro (None est plus efficace)</span>
+<span class="n">W</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="kc">None</span> 
+<span class="c1"># Calcul des gradients automatique de pytorch</span>
+<span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">W</span><span class="o">.</span><span class="n">grad</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.670102596282959
+tensor([[0.0024, 0.0035, 0.0137,  ..., 0.0004, 0.0021, 0.0019],
+        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
+        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
+        ...,
+        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
+        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
+        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Comme vous le voyez, on a calculé les gradients de notre matrice W par rapport au <em>loss</em>. De la même manière que dans les cours précédents, on peut mettre à jour les poids du modèle dans le sens du gradient avec un pas (le <em>learning_rate</em>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># avec un learning_rate de 0.1</span>
+<span class="n">W</span><span class="o">.</span><span class="n">data</span> <span class="o">+=</span> <span class="o">-</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">W</span><span class="o">.</span><span class="n">grad</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="optimization">
+<h3>Optimization<a class="headerlink" href="#optimization" title="Link to this heading">#</a></h3>
+<p>A partir de tout ce que nous venons de voir, nous pouvons maintenant rassembler les morceaux et optimiser notre modèle.</p>
+<p><strong>Création du dataset complet</strong><br />
+On va commencer par créer notre dataset complet en reprenant la boucle précédente mais en parcourant l’ensemble des prénoms.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+  <span class="n">chs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span>
+  <span class="k">for</span> <span class="n">ch1</span><span class="p">,</span> <span class="n">ch2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">chs</span><span class="p">,</span> <span class="n">chs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+    <span class="n">ix1</span> <span class="o">=</span> <span class="n">stoi</span><span class="p">[</span><span class="n">ch1</span><span class="p">]</span>
+    <span class="n">ix2</span> <span class="o">=</span> <span class="n">stoi</span><span class="p">[</span><span class="n">ch2</span><span class="p">]</span>
+    <span class="n">xs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ix1</span><span class="p">)</span>
+    <span class="n">ys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ix2</span><span class="p">)</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
+<span class="n">ys</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span>
+<span class="n">num</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">nelement</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;number of examples: &#39;</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>number of examples:  226325
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Initialisation du modèle</strong><br />
+On peut maintenant initialiser notre modèle comme précédement, choisir le <em>learning_rate</em> le nombre d’itérations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">W</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">((</span><span class="mi">46</span><span class="p">,</span> <span class="mi">46</span><span class="p">),</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">lr</span><span class="o">=</span><span class="mi">50</span> <span class="c1"># en pratique, dans ce petit problème, un learning rate de 50 fonctionne bien ce qui peut sembler étonnant</span>
+<span class="n">iterations</span><span class="o">=</span><span class="mi">100</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Descente du gradient</strong><br />
+Appliquons maintenant l’algorithme de descente du gradient sur notre modèle.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Descente du gradient</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">):</span>
+  
+  <span class="c1"># forward pass</span>
+  <span class="n">xenc</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">46</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span> <span class="c1"># transformation one hot sur les entrées</span>
+  <span class="n">logits</span> <span class="o">=</span> <span class="n">xenc</span> <span class="o">@</span> <span class="n">W</span>
+  <span class="n">probs</span><span class="o">=</span><span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># On applique le softmax</span>
+  <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">probs</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num</span><span class="p">),</span> <span class="n">ys</span><span class="p">]</span><span class="o">.</span><span class="n">log</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># Calcul du negative log likelihood (loss)</span>
+  <span class="k">if</span> <span class="n">k</span><span class="o">%</span><span class="k">10</span>==0:
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;loss iteration &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39; : &#39;</span><span class="p">,</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+  
+  <span class="c1"># retropropagation</span>
+  <span class="n">W</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># Remettre la gradient à zéro à chaque itération (à ne pas oublier !!!!)</span>
+  <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+  
+  <span class="c1"># Mise à jour des poids</span>
+  <span class="n">W</span><span class="o">.</span><span class="n">data</span> <span class="o">+=</span> <span class="o">-</span><span class="mi">50</span> <span class="o">*</span> <span class="n">W</span><span class="o">.</span><span class="n">grad</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>loss iteration 0 :  4.346113204956055
+loss iteration 10 :  2.94492769241333
+loss iteration 20 :  2.7590363025665283
+loss iteration 30 :  2.6798315048217773
+loss iteration 40 :  2.637108087539673
+loss iteration 50 :  2.610524892807007
+loss iteration 60 :  2.5923469066619873
+loss iteration 70 :  2.5791807174682617
+loss iteration 80 :  2.569261074066162
+loss iteration 90 :  2.561541795730591
+</pre></div>
+</div>
+</div>
+</div>
+<p>Après 100 itérations, on obtient un <em>negative log likelihood</em> proche de celui du modèle par “comptage”. C’est en fait la capacité maximum du modèle bigramme sur les données d’entraînement.</p>
+<p><strong>Generation de prénoms avec notre modèle</strong><br />
+On peut maintenant générer des prénoms avec notre modèle.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+  
+  <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">ix</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">xenc</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">ix</span><span class="p">]),</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">46</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+    <span class="n">logits</span> <span class="o">=</span> <span class="n">xenc</span> <span class="o">@</span> <span class="n">W</span> 
+    <span class="c1"># Prédiction des probabilités de la lettre suivante</span>
+    <span class="n">p</span><span class="o">=</span><span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="c1"># On fait un tirage aléatoire de la prochaine lettre en suivante la distribution p </span>
+    <span class="n">ix</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">multinomial</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">replacement</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    <span class="c1"># Conversion en lettre</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">itos</span><span class="p">[</span><span class="n">ix</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">ix</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">break</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>JE.
+S.
+ADJULA.
+M.
+LVERTYÜCI.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="notes-supplementaires">
+<h3>Notes supplémentaires<a class="headerlink" href="#notes-supplementaires" title="Link to this heading">#</a></h3>
+<p>La matrice de poids <span class="math notranslate nohighlight">\(W\)</span> a la même taille que la matrice <span class="math notranslate nohighlight">\(N\)</span> utilisée dans la méthode par comptage. Ce que nous venons de réaliser avec l’approche par réseau de neurones est en fait l’apprentissage de la matrice <span class="math notranslate nohighlight">\(N\)</span>.<br />
+On peut confirmer l’intuition en regardant ce qu’il se passe lorsqu’on fait l’opération xenc &#64; W. Il s’agit d’une multiplication matricielle d’une matrice ligne de taille <span class="math notranslate nohighlight">\(1 \times 46\)</span> par une matrice carré de taille <span class="math notranslate nohighlight">\(46 \times 46\)</span>, de plus la matrice ligne contient uniquement des zeros excepté un 1 à l’index <span class="math notranslate nohighlight">\(i\)</span> à la lettre. Cette multiplication matricielle donne en résultat la ligne <span class="math notranslate nohighlight">\(i\)</span> de la matrice <span class="math notranslate nohighlight">\(W\)</span>.<br />
+Cela correspond exactement à ce qu’on faisait dans la méthode par comptage où l’on récuperait les probabilités de la ligne <span class="math notranslate nohighlight">\(i\)</span> de <span class="math notranslate nohighlight">\(P\)</span>.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./05_NLP"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_Introduction.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introduction NLP</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03_R%C3%A9seauFullyConnected.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Réseau fully connected</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analyse-du-dataset">Analyse du dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bigramme-qu-est-ce-que-c-est">Bigramme, qu’est ce que c’est ?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methode-par-comptage">Méthode par comptage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrice-d-occurence">Matrice d’occurence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilites">Probabilités</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generation">Génération</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-du-modele">Evaluation du modèle</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-de-vraisemblance-ou-likelihood">Maximum de vraisemblance ou likelihood</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#log-likelihood">log-likelihood</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approche-par-reseau-de-neurones">Approche par réseau de neurones</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probleme-de-l-approche-comptage">Problème de l’approche “comptage”</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-de-notre-reseau-de-neurones">Dataset de notre réseau de neurones</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notre-reseau-de-neurones">Notre réseau de neurones</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization">Optimization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-supplementaires">Notes supplémentaires</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Simon Thomine
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div id="language-switcher" style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #eee;">
+  <span style="margin-right: 10px;">🌐 Langue / Language:</span>
+  <a href="#" onclick="switchToEnglish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #f0f0f0; border-radius: 5px; transition: all 0.3s;">🇺🇸 English</a>
+  <a href="#" onclick="switchToFrench()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #4CAF50; color: white; border-radius: 5px; font-weight: bold; transition: all 0.3s;">🇫🇷 Français</a>
+</div>
+<script>
+function getBaseUrl() {
+  // Get the base URL without the build path
+  let baseUrl = window.location.origin;
+  let pathname = window.location.pathname;
+  
+  // Remove the build-specific parts
+  if (pathname.includes('_build_fr/_build/html/')) {
+    baseUrl += pathname.split('_build_fr/_build/html/')[0];
+  } else if (pathname.includes('_build_en/_build/html/')) {
+    baseUrl += pathname.split('_build_en/_build/html/')[0];
+  } else {
+    baseUrl += pathname.split('/').slice(0, -1).join('/') + '/';
+  }
+  
+  return baseUrl;
+}
+
+function getCurrentPage() {
+  let pathname = window.location.pathname;
+  if (pathname.includes('_build_fr/_build/html/')) {
+    return pathname.split('_build_fr/_build/html/')[1] || 'index.html';
+  } else if (pathname.includes('_build_en/_build/html/')) {
+    return pathname.split('_build_en/_build/html/')[1] || 'index.html';
+  }
+  return 'index.html';
+}
+
+function switchToEnglish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + '_build_en/_build/html/' + currentPage;
+  console.log('Switching to English:', newUrl);
+  window.location.href = newUrl;
+}
+
+function switchToFrench() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + '_build_fr/_build/html/' + currentPage;
+  console.log('Switching to French:', newUrl);
+  window.location.href = newUrl;
+}
+</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
