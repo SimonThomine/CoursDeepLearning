@@ -33,10 +33,10 @@ html:
       let pathname = window.location.pathname;
       
       // Remove the build-specific parts
-      if (pathname.includes('_build_fr/_build/html/')) {
-        baseUrl += pathname.split('_build_fr/_build/html/')[0];
-      } else if (pathname.includes('_build_en/_build/html/')) {
-        baseUrl += pathname.split('_build_en/_build/html/')[0];
+      if (pathname.includes('fr/')) {
+        baseUrl += pathname.split('fr/')[0];
+      } else if (pathname.includes('en/')) {
+        baseUrl += pathname.split('en/')[0];
       } else {
         baseUrl += pathname.split('/').slice(0, -1).join('/') + '/';
       }
@@ -46,10 +46,10 @@ html:
     
     function getCurrentPage() {
       let pathname = window.location.pathname;
-      if (pathname.includes('_build_fr/_build/html/')) {
-        return pathname.split('_build_fr/_build/html/')[1] || 'index.html';
-      } else if (pathname.includes('_build_en/_build/html/')) {
-        return pathname.split('_build_en/_build/html/')[1] || 'index.html';
+      if (pathname.includes('fr/')) {
+        return pathname.split('fr/')[1] || 'index.html';
+      } else if (pathname.includes('en/')) {
+        return pathname.split('en/')[1] || 'index.html';
       }
       return 'index.html';
     }
@@ -57,7 +57,7 @@ html:
     function switchToEnglish() {
       const baseUrl = getBaseUrl();
       const currentPage = getCurrentPage();
-      const newUrl = baseUrl + '_build_en/_build/html/' + currentPage;
+      const newUrl = baseUrl + 'en/' + currentPage;
       console.log('Switching to English:', newUrl);
       window.location.href = newUrl;
     }
@@ -65,7 +65,7 @@ html:
     function switchToFrench() {
       const baseUrl = getBaseUrl();
       const currentPage = getCurrentPage();
-      const newUrl = baseUrl + '_build_fr/_build/html/' + currentPage;
+      const newUrl = baseUrl + 'fr/' + currentPage;
       console.log('Switching to French:', newUrl);
       window.location.href = newUrl;
     }

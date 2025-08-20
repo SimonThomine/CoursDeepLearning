@@ -152,11 +152,11 @@ def create_language_selector():
         </p>
         
         <div class="language-buttons">
-            <a href="_build_fr/_build/html/index.html" class="lang-btn french">
+            <a href="fr/index.html" class="lang-btn french">
                 🇫🇷 Français<br>
                 <small>Version Française</small>
             </a>
-            <a href="_build_en/_build/html/index.html" class="lang-btn english">
+            <a href="en/index.html" class="lang-btn english">
                 🇺🇸 English<br>
                 <small>English Version</small>
             </a>

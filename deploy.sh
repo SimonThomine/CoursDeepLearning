@@ -22,6 +22,9 @@ cp -r _build_fr/_build/html docs/fr
 cp -r _build_en/_build/html docs/en
 cp index.html docs/
 
+# remove unnecessary files
+rm -rf _build_fr _build_en
+
 # Create .nojekyll file to prevent Jekyll processing
 touch docs/.nojekyll
 
