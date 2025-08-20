@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Implementation Diffusion Model &#8212; Cours Deep Learning</title>
+    <title>Implémentation d’un modèle de diffusion &#8212; Cours Deep Learning</title>
   
   
   
@@ -62,8 +62,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '11_ModelesGeneratifs/08_DiffusionImplementation';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Activations et Initialisations" href="../Bonus_CoursSp%C3%A9cifiques/01_ActivationEtInitialisation.html" />
-    <link rel="prev" title="Diffusion Models" href="07_DiffusionModels.html" />
+    <link rel="next" title="Activations et initialisations" href="../Bonus_CoursSp%C3%A9cifiques/01_ActivationEtInitialisation.html" />
+    <link rel="prev" title="Modèles de diffusion" href="07_DiffusionModels.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -185,94 +185,94 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🔗 Réseau Fully Connected</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/01_MonPremierR%C3%A9seau.html">Mon premier réseau</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/01_MonPremierR%C3%A9seau.html">Mon premier réseau de neurones</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/02_PytorchIntroduction.html">Introduction à pytorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/03_TechniquesAvanc%C3%A9es.html">Techniques avancées</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🖼️ Réseau Convolutifs</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/01_CouchesDeConvolutions.html">Couches de convolutions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/02_R%C3%A9seauConvolutif.html">Réseau convolutif</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/03_ConvImplementation.html">Implementation de la couche de convolution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/04_R%C3%A9seauConvolutifPytorch.html">Réseau Convolutif sur Pytorch</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/05_ApplicationClassification.html">Application sur un dataset d’images couleur</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/06_ApplicationSegmentation.html">Application segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/01_CouchesDeConvolutions.html">Les couches de convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/02_R%C3%A9seauConvolutif.html">Réseaux convolutifs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/03_ConvImplementation.html">Implémentation de la couche de convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/04_R%C3%A9seauConvolutifPytorch.html">Réseaux convolutifs avec PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/05_ApplicationClassification.html">Application sur un dataset d’images en couleur</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/06_ApplicationSegmentation.html">Application de la segmentation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🔄 Autoencodeurs</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/01_IntuitionEtPremierAE.html">Introduction aux autoencodeurs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/02_DenoisingAE.html">Denoising Autoencodeur</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/02_DenoisingAE.html">Autoencodeur pour le débruitage</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">📝 NLP</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../05_NLP/01_Introduction.html">Introduction NLP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/01_Introduction.html">Introduction au NLP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../05_NLP/02_bigramme.html">Bigramme</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../05_NLP/03_R%C3%A9seauFullyConnected.html">Réseau fully connected</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../05_NLP/04_WaveNet.html">Pytorch et WaveNet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../05_NLP/05_Rnn.html">Réseau de neurones récurrents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/03_R%C3%A9seauFullyConnected.html">Réseau entièrement connecté</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/04_WaveNet.html">PyTorch et WaveNet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/05_Rnn.html">Réseaux de neurones récurrents</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../05_NLP/06_Lstm.html">Long Short-Term Memory</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">Traitement du langage naturel avec Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio avec Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Traitement de l’audio avec Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Génération d’images avec Diffusers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Démo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../07_Transformers/01_Introduction.html">Introduction aux transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/02_GptFromScratch.html">Construisons GPT à partir de rien</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/03_TrainingOurGpt.html">Entraînons notre modèle GPT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/02_GptFromScratch.html">Construisons un GPT à partir de zéro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/03_TrainingOurGpt.html">Entraînement de notre modèle GPT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../07_Transformers/04_ArchitectureEtParticularit%C3%A9s.html">Architecture et particularités du transformer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../07_Transformers/05_UtilisationsPossibles.html">Utilisations possibles de l’architecture Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/06_VisionTransformerImplementation.html">Vision transformer implementation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/07_SwinTransformer.html">Swin transformer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/06_VisionTransformerImplementation.html">Implémentation du Vision Transformer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/07_SwinTransformer.html">Swin Transformer</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🎯 Detection Et Yolo</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/01_Introduction.html">Introduction à la détection d’objets dans les images</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/02_YoloEnDetail.html">Yolo en détail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/02_YoloEnDetail.html">YOLO en détail</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/03_Ultralytics.html">Ultralytics</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🔍 Entrainement Contrastif</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/01_FaceVerification.html">Face Verification</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/02_NonSupervis%C3%A9.html">Entrainement contrastif non supervisé</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/01_FaceVerification.html">Vérification faciale</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/02_NonSupervis%C3%A9.html">Apprentissage contrastif non supervisé</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🎓 Transfer Learning Et Distillation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/01_TransferLearning.html">Transfer Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/02_TransferLearningPytorch.html">Transfer Learning avec Pytorch</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/03_Distillation.html">Distillation des connaissances</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/04_DistillationAnomalie.html">Distillation des connaissances pour la détection d’anomalies non supervisée</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/05_FineTuningLLM.html">Fine Tuning LLM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/06_FineTuningBertHF.html">Fine tuning BERT avec Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/01_TransferLearning.html">Apprentissage par transfert</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/02_TransferLearningPytorch.html">Transfer Learning avec PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/03_Distillation.html">La distillation des connaissances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/04_DistillationAnomalie.html">Distillation de connaissances pour la détection d’anomalies non supervisée</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/05_FineTuningLLM.html">Fine-Tuning des LLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/06_FineTuningBertHF.html">Fine-tuning de BERT avec Hugging Face</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🎨 Modeles Generatifs</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="01_Introduction.html">Introductions aux modèles génératifs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02_GAN.html">Generative Adversarial Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01_Introduction.html">Introduction aux modèles génératifs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_GAN.html">Réseaux antagonistes génératifs (GAN)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03_GanImplementation.html">Implémentation d’un GAN</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04_VAE.html">Variational autoencoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_VAE.html">Autoencodeurs variationnels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="05_VaeImplementation.html">Implémentation d’un VAE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06_NormalizingFlows.html">Normalizing Flows</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07_DiffusionModels.html">Diffusion Models</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Implementation Diffusion Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_NormalizingFlows.html">Normalizing flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_DiffusionModels.html">Modèles de diffusion</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Implémentation d’un modèle de diffusion</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🎁 Bonus Cours Spécifiques</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/01_ActivationEtInitialisation.html">Activations et Initialisations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/01_ActivationEtInitialisation.html">Activations et initialisations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/02_BatchNorm.html">Batch Normalization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/03_DataAugmentation.html">Data Augmentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/04_Broadcasting.html">Broadcasting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/05_Optimizer.html">Comprendre les différents optimizers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/06_Regularisation.html">Régularisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/07_ConnexionsResiduelles.html">Connexions résiduelles</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/08_CrossValidation.html">Introduction à la cross validation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/09_MetriquesEvaluation.html">Métriques d’évaluation de modèles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/08_CrossValidation.html">Introduction à la validation croisée</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/09_MetriquesEvaluation.html">Métriques d’évaluation des modèles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/10_Tokenization.html">Introduction à la tokenization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/11_Quantization.html">Quantization</a></li>
 </ul>
@@ -477,7 +477,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Implementation Diffusion Model</h1>
+    <h1>Implémentation d’un modèle de diffusion</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -487,10 +487,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">Dataset</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#noise-scheduling">Noise scheduling</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modele">Modèle</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entrainement">Entrainement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparation-du-dataset">Préparation du dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#planification-du-bruit">Planification du bruit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-du-modele">Architecture du modèle</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entrainement-du-modele">Entraînement du modèle</a></li>
 </ul>
             </nav>
         </div>
@@ -502,10 +502,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="implementation-diffusion-model">
-<h1>Implementation Diffusion Model<a class="headerlink" href="#implementation-diffusion-model" title="Link to this heading">#</a></h1>
-<p>Dans ce cours, nous allons implémenter pas à pas un modèle de diffusion sur le dataset MNIST.<br />
-Le cours est grandement inspiré du <a class="reference external" href="https://github.com/cloneofsimo/minDiffusion/tree/master">github minDiffusion</a>.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="implementation-d-un-modele-de-diffusion">
+<h1>Implémentation d’un modèle de diffusion<a class="headerlink" href="#implementation-d-un-modele-de-diffusion" title="Link to this heading">#</a></h1>
+<p>Dans ce cours, nous allons implémenter étape par étape un modèle de diffusion sur le dataset MNIST.
+Ce cours s’inspire largement du projet <a class="reference external" href="https://github.com/cloneofsimo/minDiffusion/tree/master">minDiffusion</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tuple</span>
@@ -528,8 +528,8 @@ Le cours est grandement inspiré du <a class="reference external" href="https://
 </div>
 </div>
 </div>
-<section id="dataset">
-<h2>Dataset<a class="headerlink" href="#dataset" title="Link to this heading">#</a></h2>
+<section id="preparation-du-dataset">
+<h2>Préparation du dataset<a class="headerlink" href="#preparation-du-dataset" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">transform</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span><span class="n">T</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Normalize</span><span class="p">((</span><span class="mf">0.5</span><span class="p">,),</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">))])</span>
@@ -550,9 +550,10 @@ Taille d&#39;une image : (1, 28, 28)
 </div>
 </div>
 </section>
-<section id="noise-scheduling">
-<h2>Noise scheduling<a class="headerlink" href="#noise-scheduling" title="Link to this heading">#</a></h2>
-<p>Pour un modèle de diffusion, il faut générer du bruit pour chaque étape de diffusion. Pour cela, on va créer nos plages de valeurs de bruit comprises entre <span class="math notranslate nohighlight">\(\beta_1\)</span> et <span class="math notranslate nohighlight">\(\beta_2\)</span>.</p>
+<section id="planification-du-bruit">
+<h2>Planification du bruit<a class="headerlink" href="#planification-du-bruit" title="Link to this heading">#</a></h2>
+<p>Pour un modèle de diffusion, il est nécessaire de générer du bruit à chaque étape.
+Nous allons donc créer des plages de valeurs de bruit comprises entre <span class="math notranslate nohighlight">\(\beta_1\)</span> et <span class="math notranslate nohighlight">\(\beta_2\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">ddpm_schedules</span><span class="p">(</span><span class="n">beta1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">beta2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">T</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
@@ -589,9 +590,11 @@ Taille d&#39;une image : (1, 28, 28)
 </div>
 </div>
 </section>
-<section id="modele">
-<h2>Modèle<a class="headerlink" href="#modele" title="Link to this heading">#</a></h2>
-<p>On peut maintenant créer notre modèle ! En général, on prend une architecture U-Net mais en pratique, on peut prendre un peu n’importe quoi. Pour plus de simplicité, on va prendre un modèle convolutif tout bête. Aussi, normalement le modèle prend l’étape <span class="math notranslate nohighlight">\(t\)</span> en entrée mais dans notre modèle simplifié, nous n’allons pas le faire.</p>
+<section id="architecture-du-modele">
+<h2>Architecture du modèle<a class="headerlink" href="#architecture-du-modele" title="Link to this heading">#</a></h2>
+<p>Nous allons maintenant créer notre modèle. En général, on utilise une architecture U-Net, mais en pratique, d’autres architectures peuvent convenir.
+Pour simplifier, nous allons utiliser un modèle convolutif basique.
+Notez que normalement, le modèle prend l’étape <span class="math notranslate nohighlight">\(t\)</span> en entrée, mais dans notre version simplifiée, nous ne le ferons pas.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">conv_bn_relu</span><span class="p">(</span><span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
@@ -622,7 +625,7 @@ Taille d&#39;une image : (1, 28, 28)
 </div>
 </div>
 </div>
-<p>Maintenant que l’on a notre modèle pour passer d’une étape à une autre, construisons le modèle global :</p>
+<p>Maintenant que nous avons notre modèle pour passer d’une étape à une autre, construisons le modèle global :</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">DDPM</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
@@ -679,9 +682,10 @@ Taille d&#39;une image : (1, 28, 28)
 </div>
 <p>Et voilà, notre implémentation simple est terminée !</p>
 </section>
-<section id="entrainement">
-<h2>Entrainement<a class="headerlink" href="#entrainement" title="Link to this heading">#</a></h2>
-<p>Passons maintenant à l’entrainement du modèle. On va diminuer grandement la taille du dataset (seulement 1000 éléments) mais l’entraînement sera quand même très long. Je ne vous conseille pas d’essayer sauf si vous avez un très bon GPU à disposition.</p>
+<section id="entrainement-du-modele">
+<h2>Entraînement du modèle<a class="headerlink" href="#entrainement-du-modele" title="Link to this heading">#</a></h2>
+<p>Passons maintenant à l’entraînement du modèle. Nous allons réduire considérablement la taille du dataset (seulement 1000 éléments), mais l’entraînement restera très long.
+Je ne vous conseille pas d’essayer sauf si vous disposez d’un très bon GPU.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epoch</span><span class="o">=</span><span class="mi">100</span>
@@ -770,7 +774,7 @@ Taille d&#39;une image : (1, 28, 28)
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Diffusion Models</p>
+        <p class="prev-next-title">Modèles de diffusion</p>
       </div>
     </a>
     <a class="right-next"
@@ -778,7 +782,7 @@ Taille d&#39;une image : (1, 28, 28)
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Activations et Initialisations</p>
+        <p class="prev-next-title">Activations et initialisations</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -798,10 +802,10 @@ Taille d&#39;une image : (1, 28, 28)
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">Dataset</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#noise-scheduling">Noise scheduling</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modele">Modèle</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entrainement">Entrainement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparation-du-dataset">Préparation du dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#planification-du-bruit">Planification du bruit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-du-modele">Architecture du modèle</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entrainement-du-modele">Entraînement du modèle</a></li>
 </ul>
   </nav></div>
 
