@@ -84,88 +84,275 @@ def create_language_selector():
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deep Learning Course / Cours Deep Learning</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #95a5a6 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px;
+            animation: gradientShift 10s ease infinite;
+            background-size: 400% 400%;
         }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
         .container {
             text-align: center;
-            background: white;
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            max-width: 600px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 4rem 3rem;
+            border-radius: 30px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+            max-width: 900px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
         }
-        h1 {
-            color: #333;
-            margin-bottom: 2rem;
-            font-size: 2.5rem;
-        }
-        .language-buttons {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            margin-top: 2rem;
-        }
-        .lang-btn {
-            display: block;
-            padding: 1.5rem 2rem;
-            text-decoration: none;
-            border-radius: 15px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            min-width: 200px;
-        }
-        .lang-btn.french {
-            background: linear-gradient(45deg, #0055A4, #EF4135, #FFFFFF);
-            color: white;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-        }
-        .lang-btn.english {
-            background: linear-gradient(45deg, #012169, #FFFFFF, #C8102E);
-            color: #012169;
-            font-weight: bold;
-        }
-        .lang-btn:hover {
+        
+        .container:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
+        
+        .header {
+            margin-bottom: 3rem;
+        }
+        
+        h1 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, #2c3e50, #34495e, #95a5a6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            color: #4a5568;
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+        
         .description {
-            color: #666;
-            margin: 1rem 0;
-            font-size: 1.1rem;
+            color: #718096;
+            font-size: 1rem;
+            font-style: italic;
+        }
+        
+        .language-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 3rem 0;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .lang-card {
+            display: block;
+            text-decoration: none;
+            padding: 2rem 1.5rem;
+            border-radius: 20px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .lang-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 18px;
+        }
+        
+        .lang-card.french::before {
+            background: linear-gradient(135deg, #0055A4, #EF4135);
+        }
+        
+        .lang-card.english::before {
+            background: linear-gradient(135deg, #012169, #C8102E);
+        }
+        
+        .lang-card.spanish::before {
+            background: linear-gradient(135deg, #C60B1E, #FFC400);
+        }
+        
+        .lang-card.chinese::before {
+            background: linear-gradient(135deg, #DE2910, #FFDE00);
+        }
+        
+        .lang-card:hover::before {
+            opacity: 0.1;
+        }
+        
+        .lang-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+        
+        .flag {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+        }
+        
+        .lang-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .lang-subtitle {
+            font-size: 0.95rem;
+            color: #718096;
+            font-weight: 400;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .status-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .available {
+            background: #48bb78;
+            color: white;
+        }
+        
+        .coming-soon {
+            background: #ed8936;
+            color: white;
+        }
+        
+        .footer {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .footer-text {
+            color: #718096;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .github-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .github-link:hover {
+            color: #5a67d8;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1.5rem;
+                margin: 10px;
+            }
+            
+            .language-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .lang-card {
+                padding: 1.5rem 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .language-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🚀 Deep Learning Course</h1>
-        <p class="description">
-            Choose your language / Choisissez votre langue
-        </p>
-        
-        <div class="language-buttons">
-            <a href="fr/index.html" class="lang-btn french">
-                🇫🇷 Français<br>
-                <small>Version Française</small>
-            </a>
-            <a href="en/index.html" class="lang-btn english">
-                🇺🇸 English<br>
-                <small>English Version</small>
-            </a>
+        <div class="header">
+            <h1>🚀 AI Course</h1>
+            <p class="subtitle">Interactive Deep Learning Tutorial</p>
         </div>
         
-        <p style="margin-top: 2rem; color: #888; font-size: 0.9rem;">
-            By Simon Thomine | 
-            <a href="https://github.com/SimonThomine/CoursDeepLearning" style="color: #667eea;">GitHub</a>
-        </p>
+        <div class="language-grid">
+            <a href="fr/index.html" class="lang-card french">
+                <span class="status-badge available">Disponible</span>
+                <span class="flag">🇫🇷</span>
+                <div class="lang-name">Français</div>
+                <div class="lang-subtitle">Version française complète</div>
+            </a>
+            
+            <a href="en/index.html" class="lang-card english">
+                <span class="status-badge available">Available</span>
+                <span class="flag">🇺🇸</span>
+                <div class="lang-name">English</div>
+                <div class="lang-subtitle">Complete English version</div>
+            </a>
+            
+            <div class="lang-card spanish" style="cursor: not-allowed; opacity: 0.7;">
+                <span class="status-badge coming-soon">Próximamente</span>
+                <span class="flag">🇪🇸</span>
+                <div class="lang-name">Español</div>
+                <div class="lang-subtitle">Versión en desarrollo</div>
+            </div>
+            
+            <div class="lang-card chinese" style="cursor: not-allowed; opacity: 0.7;">
+                <span class="status-badge coming-soon">即将推出</span>
+                <span class="flag">🇨🇳</span>
+                <div class="lang-name">中文</div>
+                <div class="lang-subtitle">正在开发中</div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p class="footer-text">
+                Created with ❤️ by Simon Thomine
+            </p>
+            <p class="footer-text">
+                <a href="https://github.com/SimonThomine/CoursDeepLearning" class="github-link">
+                    📚 View on GitHub
+                </a>
+            </p>
+        </div>
     </div>
 </body>
 </html>
@@ -174,7 +361,7 @@ def create_language_selector():
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(html_content)
 
-    print("📄 Created language selector: index.html")
+    print("📄 Created beautiful language selector: index.html")
 
 
 if __name__ == "__main__":
