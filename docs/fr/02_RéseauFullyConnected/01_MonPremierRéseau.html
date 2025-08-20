@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -562,7 +564,8 @@ Notons qu’il est nécessaire de faire un changement de variable pour faciliter
 <p>Maintenant, on va initialiser notre réseau de neurones. Notre réseau prend 2 valeurs en entrée et doit nous ressortir un label -1 ou 1.<br />
 Le réseau de neurones que l’on va construire contient 2 couches cachées de 16 neurones chacune. Chaque neurone est une régression logistique, il s’agit donc d’un assemblage non linéaire de plusieurs régressions logistiques.</p>
 <p>Voici un aperçu de l’architecture de ce réseau :</p>
-<img src="images/Mlp.png" alt="Neurone artificiel" width="300"/><div class="cell docutils container">
+<p><img alt="Mlp" src="../_images/Mlp.png" /></p>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialisation du modèle </span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">MLP</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="c1"># Couches d&#39;entrée de taille 2, deux couches cachées de 16 neurones et un neurone de sortie</span>

@@ -62,7 +62,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '05_NLP/06_Lstm';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Hugging Face Library Introduction" href="../06_HuggingFace/01_introduction.html" />
+    <link rel="next" title="Introduction à la bibliothèque Hugging Face" href="../06_HuggingFace/01_introduction.html" />
     <link rel="prev" title="Réseau de neurones récurrents" href="05_Rnn.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -520,7 +522,7 @@ document.write(`
 <li><p><strong>output gate</strong> : Permet d’utiliser l’information présente dans la mémoire</p></li>
 </ul>
 <p>La dernière couche fully connected va créer une “information candidate” pour l’insertion dans la mémoire de la couche LSTM.</p>
-<img src="images/lstm.png" alt="lstm" width="600"/>    
+<p><img alt="LSTM" src="../_images/lstm.png" /></p>
 <p>Figure extraite du <a class="reference external" href="https://medium.com/&#64;ottaviocalzone/an-intuitive-explanation-of-lstm-a035eb6ab42c">blogpost</a>.</p>
 <p>Comme on le voit sur la figure, la couche LSTM reçoit 3 vecteurs en entrée <span class="math notranslate nohighlight">\(H_{t-1}\)</span>, <span class="math notranslate nohighlight">\(C_{t-1}\)</span> et <span class="math notranslate nohighlight">\(X_{t}\)</span>. Les deux premiers viennent du LSTM directement et le troisième correspond à l’entrée au temps <span class="math notranslate nohighlight">\(t\)</span> (le caractère pour nous).</p>
 <p>Pour expliquer le concept sans entrer dans les détails : <span class="math notranslate nohighlight">\(H_{t-1}\)</span> contient la mémoire à court terme (short term) et <span class="math notranslate nohighlight">\(C_{t-1}\)</span> la mémoire à long terme. Cela permet de conserver les informations importantes sur un contexte important tout en ne négligeant pas le contexte plus local.</p>
@@ -824,7 +826,7 @@ Moi, je me suis to
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Hugging Face Library Introduction</p>
+        <p class="prev-next-title">Introduction à la bibliothèque Hugging Face</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

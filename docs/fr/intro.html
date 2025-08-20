@@ -215,11 +215,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -491,7 +493,6 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectifs-du-cours">🎯 Objectifs du cours</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-du-cours">📚 Structure du cours</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequis">🛠️ Prérequis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#versions-linguistiques">🌐 Versions linguistiques</a></li>
 </ul>
             </nav>
         </div>
@@ -519,18 +520,30 @@ document.write(`
 <h2>📚 Structure du cours<a class="headerlink" href="#structure-du-cours" title="Link to this heading">#</a></h2>
 <p>Le cours est organisé en plusieurs parties :</p>
 <ol class="arabic simple">
-<li><p><strong>🧮 Fondations</strong> - Les bases mathématiques et conceptuelles</p></li>
-<li><p><strong>🔗 Réseaux Fully Connected</strong> - Premiers pas avec les réseaux de neurones</p></li>
-<li><p><strong>🖼️ Réseaux Convolutifs</strong> - Vision par ordinateur et CNN</p></li>
-<li><p><strong>🔄 Autoencodeurs</strong> - Apprentissage de représentations</p></li>
-<li><p><strong>📝 NLP</strong> - Traitement du langage naturel</p></li>
-<li><p><strong>🤗 HuggingFace</strong> - Utilisation de modèles pré-entraînés</p></li>
-<li><p><strong>⚡ Transformers</strong> - Architecture révolutionnaire</p></li>
-<li><p><strong>🎯 Détection et YOLO</strong> - Détection d’objets</p></li>
-<li><p><strong>🔍 Entraînement Contrastif</strong> - Techniques avancées</p></li>
-<li><p><strong>🎓 Transfer Learning</strong> - Réutilisation de modèles</p></li>
-<li><p><strong>🎨 Modèles Génératifs</strong> - GANs, VAEs et Diffusion</p></li>
-<li><p><strong>🎁 Bonus</strong> - Sujets spécialisés</p></li>
+<li><p><strong>🏗️ Fondations</strong><br />
+Introduction à l’optimisation par descente de gradient, compréhension intuitive de la règle de la chaîne, et premiers pas avec la régression logistique.</p></li>
+<li><p><strong>🧠 Réseau Fully Connected</strong><br />
+Exploration du fonctionnement d’un réseau de neurones avec <a class="reference external" href="https://github.com/karpathy/micrograd/tree/master">micrograd</a> puis avec PyTorch. Introduction à des techniques avancées d’entraînement pour améliorer les performances.</p></li>
+<li><p><strong>🖼️ Réseaux Convolutifs</strong><br />
+Présentation des couches de convolution et de leur utilisation dans les réseaux de neurones. Exemples pratiques : classification sur MNIST, CIFAR-10 et segmentation d’images.</p></li>
+<li><p><strong>🔄 Autoencodeurs</strong><br />
+Découverte de l’apprentissage non supervisé via les autoencodeurs : détection d’anomalies et débruitage d’images.</p></li>
+<li><p><strong>🗨️ NLP</strong><br />
+Introduction au traitement du langage naturel inspirée de la série <a class="reference external" href="https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ">“Building makemore”</a> : des modèles simples jusqu’aux architectures plus complexes pour la prédiction de texte.</p></li>
+<li><p><strong>🤗 Hugging Face</strong><br />
+Exploration de la plateforme <a class="reference external" href="https://huggingface.co/">Hugging Face</a> : découverte des modèles, datasets et librairies (transformers, diffusers, gradio) pour des cas d’usage variés.</p></li>
+<li><p><strong>🤖 Transformers</strong><br />
+Étude détaillée de l’architecture transformer : implémentation pas à pas, explications mathématiques, applications variées (vision, traduction…), et introduction au vision transformer.</p></li>
+<li><p><strong>🔍 Détection d’objets (YOLO)</strong><br />
+Présentation des méthodes de détection d’objets (two-stage, one-stage), focus sur <a class="reference external" href="https://arxiv.org/pdf/1506.02640">YOLO</a> et utilisation de la librairie <a class="reference external" href="https://www.ultralytics.com/">ultralytics</a>.</p></li>
+<li><p><strong>🎯 Entraînement Contrastif</strong><br />
+Introduction à l’entraînement contrastif : implémentation pour la vérification de visages et applications à l’apprentissage non supervisé.</p></li>
+<li><p><strong>🤝 Transfer Learning et Distillation</strong><br />
+Concepts de transfer learning et distillation des connaissances : implémentations pratiques, distillation pour la détection d’anomalies, et finetuning de LLM avec BERT et Hugging Face.</p></li>
+<li><p><strong>🌀 Modèles Génératifs</strong><br />
+Présentation des grandes familles de modèles génératifs : GAN, VAE, normalizing flows, modèles de diffusion (hors modèles autoregressifs déjà vus en NLP/Transformers).</p></li>
+<li><p><strong>🌟 Bonus – Cours spécifiques</strong><br />
+Concepts avancés et techniques complémentaires : BatchNorm, connexions résiduelles, optimizers, dropout, data augmentation, etc.</p></li>
 </ol>
 </section>
 <section id="prerequis">
@@ -540,15 +553,6 @@ document.write(`
 <li><p>Notions de mathématiques (algèbre linéaire, calcul différentiel)</p></li>
 <li><p>Motivation pour apprendre ! 💪</p></li>
 </ul>
-</section>
-<section id="versions-linguistiques">
-<h2>🌐 Versions linguistiques<a class="headerlink" href="#versions-linguistiques" title="Link to this heading">#</a></h2>
-<p>Ce cours est disponible en :</p>
-<ul class="simple">
-<li><p>🇫🇷 <strong>Français</strong> (version actuelle)</p></li>
-<li><p>🇺🇸 <strong>English</strong> - <a class="reference internal" href="#../en/intro.html"><span class="xref myst">English Version</span></a></p></li>
-</ul>
-<hr class="docutils" />
 <p><em>Commencez votre apprentissage en explorant les fondations du Deep Learning !</em></p>
 </section>
 <div class="toctree-wrapper compound">
@@ -635,7 +639,6 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectifs-du-cours">🎯 Objectifs du cours</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-du-cours">📚 Structure du cours</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequis">🛠️ Prérequis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#versions-linguistiques">🌐 Versions linguistiques</a></li>
 </ul>
   </nav></div>
 

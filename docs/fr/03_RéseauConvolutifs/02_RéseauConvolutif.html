@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -509,13 +511,14 @@ document.write(`
 <p>Pour un problème de classification (MNIST par exemple), les dernières couches du réseau seront souvent des couches entièrement connectées pour adapter la dimension de sortie des couches de convolutions avec le nombre de classes.</p>
 <p>De manière générale, un réseau convolutif est constitué d’une succession de couches de convolution, de couche d’activation (<em>ReLU</em>, <em>sigmoid</em>, <em>tanH</em> etc ) et de couche de <em>pooling</em>. La couche de convolution va permettre de changer le nombre de filtres et d’ajouter des paramètres entraînables, la couche d’activation permet de rendre le réseau non linéaire et la couche de <em>pooling</em> permet de diminuer la résolution spatiale de l’image.</p>
 <p>L’architecture classique d’un réseau de neurones convolutif est la suivante :</p>
-<img src="images/CNN.png" alt="Convolution" width="1000"/></section>
+<p><img alt="Convolution" src="../_images/CNN.png" /></p>
+</section>
 <section id="champ-receptif">
 <h2>Champ réceptif<a class="headerlink" href="#champ-receptif" title="Link to this heading">#</a></h2>
 <p>Comme indiqué dans le notebook précédent, une unique couche de convolution permet uniquement une interaction locale entre les pixels (pour un filtre de taille <span class="math notranslate nohighlight">\(3 \times 3\)</span>, chaque pixel n’est influencé que par ses pixels adjacents). Cela est très problématique lorsqu’il faut détecter un élément qui occupe l’integralité de l’image.</p>
 <p>Cependant, on peut comprendre assez facilement qu’un empilement de couches de convolutions peut conduire à une augmentation de la zone d’influence d’un pixel.<br />
 L’image suivante illustre le principe :</p>
-<img src="images/ReceptiveField.gif" alt="Alt Text" width="500">  
+<p><img alt="Receptive Field" src="../_images/ReceptiveField.gif" /></p>
 <p>Figure extraire de <a class="reference external" href="https://www.linkedin.com/pulse/deep-learning-understanding-receptive-field-computer-n-bhatt/">blogpost</a>.</p>
 <p>Plus formellement, on définit le champ réceptif d’un pixel par la formule suivante :<br />
 <span class="math notranslate nohighlight">\(R_{Eff}=R_{Init} + (k-1)*S\)</span><br />
@@ -527,7 +530,7 @@ Avec <span class="math notranslate nohighlight">\(R_{Eff}\)</span> le champ réc
 <h2>Visualisation de ce que le réseau apprend<a class="headerlink" href="#visualisation-de-ce-que-le-reseau-apprend" title="Link to this heading">#</a></h2>
 <p>Pour appréhender le fonctionnement d’un réseau de neurones convolutifs et le rôle de chaque couche, on peut visualiser les activations des <em>FeatureMaps</em> en fonction de la profondeur.</p>
 <p>Voici une visualisation en fonction de la profondeur du réseau :</p>
-<img src="images/Layers.png" alt="Alt Text" width="800">  
+<p><img alt="Layers" src="../_images/Layers.png" /></p>
 <p>Comment on peut le voir, les couches peu profondes vont plus regarder les informations locales comme les contours et les formes basiques tandis que les couches profondes contiendront plutôt des informations de contexte. Bien sûr, il s’agit d’un continuum et les couches intermédiaires contiendront des informations d’une partie importante de l’image.</p>
 </section>
 </section>

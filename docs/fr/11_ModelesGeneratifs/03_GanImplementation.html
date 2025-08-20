@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -504,7 +506,7 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="implementation-d-un-gan">
 <h1>Implémentation d’un GAN<a class="headerlink" href="#implementation-d-un-gan" title="Link to this heading">#</a></h1>
 <p>Il est temps de passer à l’implémentation d’un GAN. Pour cela, nous allons nous baser sur le papier <a class="reference external" href="https://arxiv.org/pdf/1511.06434">Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks</a> pour générer des images de chiffres 5 ressemblant à ceux du dataset MNIST.</p>
-<img src="images/dcgan.png" alt="dcgan" width="800"/>
+<p><img alt="dcgan" src="../_images/dcgan.png" /></p>
 <p>Architecture du generateur de DCGAN.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -585,7 +587,7 @@ taille d&#39;une image :  (1, 32, 32)
 <section id="creation-de-notre-modele">
 <h2>Création de notre modèle<a class="headerlink" href="#creation-de-notre-modele" title="Link to this heading">#</a></h2>
 <p>On peut maintenant implémenter nos deux modèles. Commençons par regarder les spécificités d’architecture décrites dans la papier.</p>
-<img src="images/dcgan_arch.png" alt="dcgan_arch" width="800"/>
+<p><img alt="dcgan_arch" src="../_images/dcgan_arch.png" /></p>
 <p>A partir de ces informations et de la figure du papier (voir plus haut dans le notebook), on peut construire notre modèle générateur. Comme on travaille sur des images de taille <span class="math notranslate nohighlight">\(28 \times 28\)</span> au lieu de <span class="math notranslate nohighlight">\(64 \times 64\)</span> dans le papier, on va faire une architecture plus réduite.</p>
 <p><strong>Note</strong> : Dans le papier, les auteurs disent utiliser des <em>fractional-strided convolutions</em>. Il s’agit en fait de convolutions transposées et le terme <em>fractional-strided convolutions</em> n’est plus vraiment utilisé de nos jours.</p>
 <div class="cell docutils container">

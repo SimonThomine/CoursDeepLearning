@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -524,14 +526,14 @@ Cependant, il existe deux autres catégories d’analyse d’images : la détect
 <h3>Détection d’objets dans une image<a class="headerlink" href="#detection-d-objets-dans-une-image" title="Link to this heading">#</a></h3>
 <p>La détection d’objet dans une image consiste à encadrer un objet dans une image. Par exemple, si je cherche à détecter les chats et que j’ai un chien et un chat sur l’image, je vais chercher à entraîner un modèle qui va dessiner une boîte autour du chat sur l’image.</p>
 <p>Voici une image pour visualiser l’idée de ce qu’est la détection d’objet :</p>
-<img src="images/detection.png" alt="detection" width="500"/>    
+<p><img alt="Detection" src="../_images/detection.png" /></p>
 <p>Image provenant du <a class="reference external" href="https://machinethink.net/blog/object-detection-with-yolo/">blogpost</a>.</p>
 <p>Comme vous pouvez l’imaginer, c’est une tâche très intéressante pour le domaine du traitement d’images mais ce n’est pas ce que nous allons aborder dans ce notebook.</p>
 </section>
 <section id="segmentation-d-objets-dans-une-image">
 <h3>Segmentation d’objets dans une image<a class="headerlink" href="#segmentation-d-objets-dans-une-image" title="Link to this heading">#</a></h3>
 <p>La segmentation a pour but de trouver la classe d’appartenance de chaque pixel de l’image (le pixel en position (120,300) appartient à un chien par exemple). L’idée étant d’obtenir des informations très précises sur le contenu de l’image à l’échelle du pixel.</p>
-<img src="images/Segmentation.png" alt="detection" width="500"/>    
+<p><img alt="Segmentation" src="../_images/Segmentation.png" /></p>
 <p>Image provenant du <a class="reference external" href="https://towardsai.net/p/l/machine-learning-7">blogpost</a>.</p>
 <p>Il existe plusieurs types de segmentation :</p>
 <ul class="simple">
@@ -545,7 +547,7 @@ Cependant, il existe deux autres catégories d’analyse d’images : la détect
 <section id="dataset-utilise">
 <h2>Dataset utilisé<a class="headerlink" href="#dataset-utilise" title="Link to this heading">#</a></h2>
 <p>Nous utilisons le dataset <a class="reference external" href="https://www.robots.ox.ac.uk/~vgg/data/pets/">Oxford-IIIT Pet Dataset</a> qui contient un total de 7349 images dont 4978 images de chien et 2371 images de chat. Pour chaque image, il y a les annotations de segmentation ainsi que la boîte entourant la tête de l’animal.</p>
-<img src="images/oxford_pet.jpg" alt="oxfordpet" width="500"/>    
+<p><img alt="Oxford Pet" src="../_images/oxford_pet.jpg" /></p>
 <p>Nous utiliserons uniquement l’annotation correspondant à la segmentation de l’animal.</p>
 <p>Pour récuperer et utiliser le dataset, il faut le télécharger directement sur le site car la version proposée par torchvision n’inclue pas les masques de segmentation.</p>
 <p>Lorsque le dataset que vous voulez utiliser n’est pas directement disponible sur torchvision, il est nécessaire de créer une classe héritant de la classe Dataset pour spécifier la gestion des données de ce dataset.</p>
@@ -642,7 +644,7 @@ Cependant, il existe deux autres catégories d’analyse d’images : la détect
 Une architecture classique de réseau convolutifs où la résolution diminue au fur et à mesure des couches jusqu’à une couche fully connected de classification n’est donc pas la bonne méthode.<br />
 A la place, on peut utiliser l’architecture U-Net.</p>
 <p>Voici à quoi ressemble l’architecture U-Net :</p>
-<img src="images/unet.png" alt="oxfordpet" width="600"/>    
+<p><img alt="U-Net" src="../_images/unet.png" /></p>
 <p>Figure extraite de ce <a class="reference external" href="https://datasciencetoday.net/index.php/en-us/deep-learning/228-unet">blogpost</a></p>
 <p>Comme vous pouvez le constaster, l’architecture est plutôt atypique. Elle consiste en un chemin de contraction (appelé encodeur) qui réduit la taille de l’image comme un CNN classique et un chemin d’expansion (appelé décodeur) qui augmenter la taille de l’image jusqu’à une résolution identique à l’entrée. Les connexions indiquées par les flèches noires permettent de conserver une information locale précise tandis que la partie encodeur/décodeur permet de détecter des relations plus abstraites entre différents pixels.<br />
 Cette architecture a été introduite en premier pour la segmentation d’images médicales dans cet <a class="reference external" href="https://arxiv.org/abs/1505.04597">article</a>. Elle est maintenant utilisée dans beaucoup de domaines (segmentation, denoising, diffusion etc …).</p>
@@ -655,7 +657,7 @@ Cependant, on a parfois besoin d’augmenter la résolution de l’image (pour l
 <li><p><strong>Interpolation suivi d’une convolution</strong> : A l’image du pooling mais dans l‘“autre sens”, cette idée consiste à utiliser une fonction d’interpolation non entraînable pour agrandir artificiellement l’image.</p></li>
 <li><p><strong>Convolution tranposée</strong> : Cette opération joue le rôle de l’inverse d’une convolution et permet d’agrandir la taille de l’image. Voici un exemple de convolution transposée avec un kernel de taille <span class="math notranslate nohighlight">\(2 \times 2\)</span>. C’est une opération qui contient des paramètres entraînables.</p></li>
 </ul>
-<img src="images/convT.png" alt="convT" width="600"/>   
+<p><img alt="ConvT" src="../_images/convT.png" /></p>
 <p>Figure extraite de <a class="reference external" href="https://d2l.ai/chapter_computer-vision/transposed-conv.html">blogpost</a>.</p>
 <p>Pour ceux qui veulent entrer dans le détail et savoir les différences principales entre les deux techniques, je vous conseille la lecture de cet <a class="reference external" href="https://distill.pub/2016/deconv-checkerboard/">article</a>.</p>
 <p>Dans notre implémentation, nous allons utiliser la convolution transposée.</p>

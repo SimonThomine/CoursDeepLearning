@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -516,9 +518,9 @@ Ce cours s’inspire du <a class="reference external" href="https://cvpr2022-tut
 <h3>Première étape : diffusion process<a class="headerlink" href="#premiere-etape-diffusion-process" title="Link to this heading">#</a></h3>
 <p>Le première étape d’un modèle de diffusion consiste à prendre une image d’un dataset quelconque. Ce dataset est representé par une distribution de probabilité très complexe. Le processus de <em>diffusion</em> consiste à ajouter un bruit gaussien sur l’image de manière itérative pour réduire petit à petit sa complexité jusqu’à ce que l’on obtienne une simple distribution gaussienne.<br />
 La figure suivante présente le <em>diffusion process</em> :</p>
-<img src="images/diffusion_ddpm.png" alt="diffusion_ddpm" width="800"/>
+<p><img alt="Diffusion DDPM" src="../_images/diffusion_ddpm.png" /></p>
 <p>Et on peut voir la modification de la distribution de cette manière (distribution de moins en moins complexe) :</p>
-<img src="images/distrib_ddpm.png" alt="distrib_ddpm" width="500"/>
+<p><img alt="Distribution DDPM" src="../_images/distrib_ddpm.png" /></p>
 <p>Le <em>diffusion process</em> consiste en fait à détruire de manière itérative la structure de la donnée d’entrée (souvent une image).</p>
 <p>Le <em>diffusion process</em> se fait en plusieurs étapes appelées <em>diffusion step</em>. Chaque étape va ajouter une quantité prédeterminée de bruit gaussien à l’image et plus il y a d’étapes, moins on va ajouter de bruit à chaque étape. En pratique, plus il y a d’étapes, plus le modèle est stable et les images produites de qualité mais plus on va avoir besoin de temps de calcul. Souvent, on va choisir un grand nombre d’étapes (1000 dans le papier original).</p>
 </section>
@@ -528,12 +530,12 @@ La figure suivante présente le <em>diffusion process</em> :</p>
 En fait, le <em>diffusion process</em> va permettre de générer des données d’entraînement pour le <em>reverse process</em>.<br />
 L’idée du <em>reverse process</em> va être d’apprendre à passer de la distribution gaussienne (que l’on a construite avec la <em>diffusion</em>) aux images de base. Donc on veut récuperer notre image à partir du bruit gaussien de la dernière étape de notre <em>diffusion process</em>. De cette manière, on pourra aussi générer des images nouvelles à partir d’un <em>sample</em> de la distribution gaussienne.</p>
 <p><strong>Note</strong> : On peut noter une certain similarité avec les <em>normalizing flow</em> ou les <em>variational autoencoders</em></p>
-<img src="images/reverse_ddpm.png" alt="reverse_ddpm" width="800"/>
+<p><img alt="Reverse DDPM" src="../_images/reverse_ddpm.png" /></p>
 <p>Pour chaque étape de <em>denoising</em>, on va utiliser un réseau de neurones qui prend en entrée l’image à l’étape <span class="math notranslate nohighlight">\(t\)</span> et l’étape de <em>diffusion</em> <span class="math notranslate nohighlight">\(t\)</span> et qui a pour objectif de prédire le bruit gaussien (<span class="math notranslate nohighlight">\(\mu\)</span> et <span class="math notranslate nohighlight">\(\sigma²\)</span>) qui a été ajouté à l’image lors de l’étape <span class="math notranslate nohighlight">\(t-1 \Rightarrow t\)</span>.</p>
 <p><strong>Note</strong> : Le fait de prédire le bruit permet en fait de prédire l’image à l’étape <span class="math notranslate nohighlight">\(t-1\)</span>.</p>
 <p><strong>Note 2</strong> : Le réseau utilisé est le même à chaque étape, il n’y a pas un réseau différent par étape de diffusion.</p>
 <p>Le modèle utilisé est généralement un modèle de type U-Net. Pour en savoir plus sur l’architecture U-Net, vous pouvez vous référer au <a class="reference internal" href="../03_R%C3%A9seauConvolutifs/06_ApplicationSegmentation.html"><span class="std std-doc">cours 3 sur les réseaux convolutifs</span></a>. En pratique, pour les modèles très puissants (stable diffusion), une variante du U-Net incorporant l’architecture des transformers est utilisée.</p>
-<img src="images/unet_ddpm.png" alt="unet_ddpm" width="800"/>
+<p><img alt="U-Net DDPM" src="../_images/unet_ddpm.png" /></p>
 </section>
 <section id="les-diffusion-models-sont-des-hierarchical-vae">
 <h3>Les diffusion models sont des hierarchical VAE ?<a class="headerlink" href="#les-diffusion-models-sont-des-hierarchical-vae" title="Link to this heading">#</a></h3>
@@ -554,7 +556,7 @@ En pratique, il y a quand même quelques différences notables :</p>
 <h2>Problème principal des diffusion models<a class="headerlink" href="#probleme-principal-des-diffusion-models" title="Link to this heading">#</a></h2>
 <p>Comme expliqué précedemment, les processus de <em>diffusion</em> et de <em>denoising</em> vont grandement bénéficier d’un nombre d’étapes important. Chaque étape de <em>denoising</em> va nécessiter le <em>forward</em> du réseau U-Net donc si on a 1000 étapes de <em>diffusion</em>, on va devoir appeler le réseau 1000 fois et ça pour générer une seule image.</p>
 <p>On voit tout de suite le problème des modèles de diffusion : ils sont très très lents.</p>
-<img src="images/generative_trilemma.png" alt="generative_trilemma" width="400"/>
+<p><img alt="Generative Trilemma" src="../_images/generative_trilemma.png" /></p>
 <p>Figure extraite de l’<a class="reference external" href="https://arxiv.org/pdf/2112.07804">article</a>.</p>
 <p>Les <em>diffusion models</em> sont beaucoup plus puissants que les GANs, les VAEs et les <em>normalizing Flows</em> pour la génération d’images, c’est donc ces modèles que l’on voudrait utiliser en priorité.</p>
 <p>Une nécessité est alors de trouver des méthodes pour accélerer ces modèles de diffusion via diverses techniques. Ce cours ne va pas entrer dans le détail sur les techniques existantes pour accélerer ces modèles mais le <a class="reference external" href="https://cvpr2022-tutorial-diffusion-models.github.io/">CVPR 2022 Tutorial</a> couvre très bien le sujet (bien que depuis, des nouvelles techniques ont été introduites).<br />

@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -721,7 +723,8 @@ Cependant, on peut remarquer que, lors de l’entraînement, le loss de training
 <h2>Overfitting et underfitting<a class="headerlink" href="#overfitting-et-underfitting" title="Link to this heading">#</a></h2>
 <p>Un élément clé de l’apprentissage profond est la capacité du modèle à ne pas <strong>overfit</strong> les données d’entraînement. L’<strong>overfitting</strong> correspond à un modèle qui aurait trop bien appris sur les données d’entraînement mais qui ne serait pas capable de généraliser à de nouveaux élèments issus de la même distribution.<br />
 Pour comprendre le principe, voici une figure faisant la différence entre <strong>underfitting</strong> (modèle trop simple incapable d’apprendre la complexité des données), modèle bien entrainé et <strong>overfitting</strong>.</p>
-<img src="images/overfitting.png" alt="overfitting" width="800"/><p>Dans le cas le plus critique de l’<strong>overfitting</strong>, le modèle a une précision presque parfaite sur les données d’entraînement mais est mauvais sur les données de validation et de test.<br />
+<p><img alt="Overfitting" src="../_images/overfitting.png" /></p>
+<p>Dans le cas le plus critique de l’<strong>overfitting</strong>, le modèle a une précision presque parfaite sur les données d’entraînement mais est mauvais sur les données de validation et de test.<br />
 Dans ce cours, nous allons introduire 2 méthodes permettant d’éviter ce problème d’<strong>overfitting</strong>.</p>
 <section id="regularisation-l2">
 <h3>Régularisation L2<a class="headerlink" href="#regularisation-l2" title="Link to this heading">#</a></h3>

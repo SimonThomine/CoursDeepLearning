@@ -212,11 +212,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -517,13 +519,14 @@ document.write(`
 <h3>Denoising, qu’est ce que c’est ?<a class="headerlink" href="#denoising-qu-est-ce-que-c-est" title="Link to this heading">#</a></h3>
 <p>La tâche de denoising consiste à enlever le bruit indésirable d’une image. C’est une tâche très importante dans le domaine du traitement d’images.<br />
 Pour nous, l’idée serait d’avoir en entrée du réseau une image bruitée et en sortie une image nette.</p>
-<img src="images/Denoising.jpg" alt="denoising" width="600"/>  
+<p><img alt="Denoising" src="../_images/Denoising.jpg" /></p>
 <p>Figure extraite de <a class="reference external" href="https://www.researchgate.net/publication/350432472_A_Modified_Heat_Diffusion_Based_Method_for_Enhancing_Physical_Images">article</a>.</p>
 </section>
 <section id="utilisation-d-un-autoencodeur-pour-la-tache-de-denoising">
 <h3>Utilisation d’un autoencodeur pour la tâche de denoising<a class="headerlink" href="#utilisation-d-un-autoencodeur-pour-la-tache-de-denoising" title="Link to this heading">#</a></h3>
 <p>Pour utiliser l’architecture de l’autoencodeur pour ce problème, il suffit de donner en entrée du décodeur une image bruitée (par nos soins), lui faire reconstruire l’image et comparer l’image reconstruite à l’image non bruitée.</p>
-<img src="images/DenoisedLena.png" alt="denoising" width="800"/>  <p>En utilisant ce type d’architecture on cherche à créer un modèle de débruitage robuste qui sera capable de débruiter toutes les images. Bien entendu, pour son entraînement, il faudra une grosse base d’image et il faut aussi veiller à ce que le bruit généré soit du même “type” que le bruit que l’on peut rencontrer sur des images réelles.</p>
+<p><img alt="Denoising" src="../_images/DenoisedLena.png" /></p>
+<p>En utilisant ce type d’architecture on cherche à créer un modèle de débruitage robuste qui sera capable de débruiter toutes les images. Bien entendu, pour son entraînement, il faudra une grosse base d’image et il faut aussi veiller à ce que le bruit généré soit du même “type” que le bruit que l’on peut rencontrer sur des images réelles.</p>
 </section>
 </section>
 <section id="denoising-autoencodeur-en-pytorch">

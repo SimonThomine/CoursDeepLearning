@@ -212,11 +212,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -504,7 +506,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="ultralytics">
 <h1>Ultralytics<a class="headerlink" href="#ultralytics" title="Link to this heading">#</a></h1>
-<img src="images/ultralytics.png" alt="detr" width="500"/> 
+<p><img alt="detr" src="../_images/ultralytics.png" /></p>
 <p><a class="reference external" href="https://docs.ultralytics.com/">Ultralytics</a> est une library python très utile lorsque l’on a besoin d’utiliser ou d’entraîner des modèles YOLO. La documentation sur leur site est très complète mais nous allons quand même présenter deux modèles YOLO dans ce notebook. Nous verrons dans une dernière partie que la library offre aussi la possibilité d’utiliser <a class="reference external" href="https://segment-anything.com/">SAM</a> (<em>segment anything</em>).</p>
 <section id="yolo">
 <h2>YOLO<a class="headerlink" href="#yolo" title="Link to this heading">#</a></h2>
@@ -514,7 +516,7 @@ De manière générale, j’aurai tendance à vous inviter à tester les différ
 <h3><a class="reference external" href="https://sh-tsang.medium.com/review-yolov8-object-detection-5214fa105731">YOLOv8</a><a class="headerlink" href="#yolov8" title="Link to this heading">#</a></h3>
 <p>Pour la plupart des modèles YOLO (sauf YOLO-World), le façon de charger le modèle et de faire l’inférence est la même.<br />
 En arrivant sur le page de <a class="reference external" href="https://docs.ultralytics.com/models/yolov8/#performance-metrics">docs de YOLOv8</a>, vous pourrez constater qu’il y a plusieurs modèles à disposition.</p>
-<img src="images/yolov8.png" alt="yolov8" width="600"/> 
+<p><img alt="yolov8" src="../_images/yolov8.png" /></p>
 <p>YOLOv8 permet de réaliser des tâches autre que la détection :</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://docs.ultralytics.com/tasks/segment/">La segmentation sémantique</a></p></li>
@@ -586,7 +588,8 @@ Speed: 1.1ms preprocess, 79.1ms inference, 0.7ms postprocess per image at shape 
 <section id="yolo-world">
 <h3><a class="reference external" href="https://arxiv.org/pdf/2401.17270">YOLO-World</a><a class="headerlink" href="#yolo-world" title="Link to this heading">#</a></h3>
 <p>YOLO-World est une nouvelle version de YOLO qui permet de faire de la détection d’objets <em>open-vocabulary</em>. Les versions antérieures de YOLO sont entrainées sur des classes spécifiques (en général les 80 classes de <a class="reference external" href="https://cocodataset.org/#home">COCO</a>) et on a donc besoin des les ré-entraîner ou finetuner pour les utiliser sur d’autres classes. YOLO-World est <em>open-vocabulary</em> ce qui signifie qu’il peut détecter des objets de n’importe quelle classe. Il suffit de donner un prompt de la classe que l’on souhaite en même temps que l’image en entrée du modèle.</p>
-<img src="images/yoloworld.png" alt="yolov8" width="600"/> <p>Pour l’utiliser, c’est assez similaire à un autre modèle YOLO mis à part qu’il faut rajouter notre <em>prompt</em> textuel.</p>
+<p><img alt="yolov8" src="../_images/yoloworld.png" /></p>
+<p>Pour l’utiliser, c’est assez similaire à un autre modèle YOLO mis à part qu’il faut rajouter notre <em>prompt</em> textuel.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># On charge le modèle pre-entrainé YOLOv8s-world</span>

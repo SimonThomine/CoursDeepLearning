@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -512,9 +514,9 @@ document.write(`
 <h1>Régularisation<a class="headerlink" href="#regularisation" title="Link to this heading">#</a></h1>
 <p>Nous avons vu, tout au long de ce cours sur le deep learning, que les réseaux de neurones sont très performants pour résoudre tout type de problèmes. Il y a cependant quelques problèmes majeurs qui limitent le potentiel de nos réseaux. Le problème que nous allons adresser ici est l’<em>overfitting</em>.</p>
 <p>L’<em>overfitting</em>, c’est quand le modèle s’adapte trop précisement aux données d’entrainement en capturant les moindres anomalies et bruits ce qui va entraîner une mauvaise performance sur les données de test.</p>
-<img src="images/overfitting.png" alt="overfitting" width="800"/>
+<p><img alt="Overfitting" src="../_images/overfitting1.png" /></p>
 <p>Ce problème est courant lors de l’entraînement des réseaux de neurones. C’est pour surveiller ce phénomène au cours de l’entraînement que l’on utilise un dataset de validation que l’on va évaluer régulièrement pour vérifier que le loss décroit bien. Dans un cas d’<em>overfitting</em>, nos courbes de training et validation vont ressembler à cela :</p>
-<img src="images/overfittingcurve.png" alt="overfittingcurve" width="500"/>
+<p><img alt="Overfitting Curve" src="../_images/overfittingcurve.png" /></p>
 <p>Le <em>loss</em> de training continue de diminuer tandis que le <em>loss</em> de validation augmente : cela traduit un apprentissage des spécificités des données de training ce qui est l’inverse de ce que l’on veut en entraînant notre réseau.</p>
 <p>Si on y réflechit bien, c’est un comportement tout à fait logique de l’optimisation : le modèle va tout faire pour diminuer le <em>loss</em> sur les données d’entraînement.</p>
 <p>Il s’agit d’un élément très important à considérer lors de l’entraînement d’un réseau de neurones.<br />
@@ -575,7 +577,7 @@ Par exemple :</p>
 <section id="dropout">
 <h2>Dropout<a class="headerlink" href="#dropout" title="Link to this heading">#</a></h2>
 <p>Le <em>dropout</em> est une méthode de régularisation qui a été introduite dans le papier <a class="reference external" href="https://arxiv.org/pdf/1207.0580">Improving neural networks by preventing co-adaptation of feature detectors</a>. L’idée est simple et consiste à changer aléatoirement une partie des activations du réseau à zéro à chaque étape de l’entraînement. De cette manière, chaque neurone devient nécessaire pour sortir un <em>output</em> cohérent en fonction de l’<em>input</em>.</p>
-<img src="images/dropout.png" alt="dropout" width="600"/>
+<p><img alt="Dropout" src="../_images/dropout.png" /></p>
 <section id="intuition">
 <h3>Intuition<a class="headerlink" href="#intuition" title="Link to this heading">#</a></h3>
 <p>Pour comprendre comment fonctionne le dropout, on peut reprendre une métaphore de l’auteur du papier (le fameux Geoffrey Hinton) :</p>

@@ -213,11 +213,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -537,16 +539,16 @@ Avec un simple GPU, c’est impossible de charger un modèle aussi gros. Même a
 <h2>Comment représenter les nombres sur un ordinateur ?<a class="headerlink" href="#comment-representer-les-nombres-sur-un-ordinateur" title="Link to this heading">#</a></h2>
 <p>Pour répresenter les nombres flottants sur un ordinateur, on utilise un certain nombre de bits. La norme <a class="reference external" href="https://en.wikipedia.org/wiki/IEEE_754">IEEE_754</a> décrit comment les bits peuvent représenter un nombre. Cela se fait via 3 parties : le signe, l’exposant et la mantisse.</p>
 <p>Voici un exemple de la répresentation FP16 (16 bits) :</p>
-<img src="images/Fp16.png" alt="fp32" width="500"/>
+<p><img alt="FP16" src="../_images/Fp16.png" /></p>
 <p>Le signe permet de déterminer * <em>roulement de tambour</em> * le signe du nombre, l’exposant va donner les chiffres avant la virgule et la mantisse les chiffres après la virgule. Voici un exemple en image de la manière de convertir la representation FP16 en chiffre.</p>
-<img src="images/convert.webp" alt="convert" width="500"/>
+<p><img alt="Convert" src="../_images/convert.webp" /></p>
 <p>De manière générale, plus on utilise de bits pour representer une valeur, plus cette valeur peut être précise ou sur une grande plage de valeur. Par exemple, on peut comparer la précision FP16 et FP32 :</p>
-<img src="images/compareFP.webp" alt="compareFP" width="500"/>
+<p><img alt="Compare FP" src="../_images/compareFP.webp" /></p>
 <p>Une dernière chose importante à savoir. Il y a deux façon de juger une réprésentation. D’une part, la <em>dynamic range</em> qui donne la plage des valeurs que l’on peut représenter et la <em>precision</em> qui décrit l’écart entre deux valeurs voisines.</p>
 <p>Plus l’exposant est important, plus la <em>dynamic range</em> est grande et plus la mantisse est importante, plus la <em>precision</em> est grande (donc 2 valeurs voisines sont proches).</p>
 <p>En deep learning, on préfere souvent utiliser la répresentation BF16 au lieu de FP16. La représentation BF16 a un exposant plus important mais une précision plus faible.</p>
 <p>La figure suivante illustre les différences :</p>
-<img src="images/BF16.webp" alt="BF16" width="500"/>
+<p><img alt="BF16" src="../_images/BF16.webp" /></p>
 <p>Maitenant que l’on comprend les notions de précision des nombres flottants, on peut calculer la place que prend un modèle en mémoire en fonction de la précision. En FP32, un nombre est représenté par 32 bits ce qui correspond à 4 octets (un octet vaut 8 bits pour rappel). Pour obtenir l’utilisation mémoire d’un modèle, on peut faire le calcul suivant :<br />
 <span class="math notranslate nohighlight">\(memory= \frac{n_{bits}}{8}*n_{params}\)</span></p>
 <p>Prenons l’exemple d’un modèle de 70 milliards de paramètres à plusieurs niveau de précision : double(FP64), full-precision(FP32) et half-precision(FP16).<br />
@@ -560,26 +562,29 @@ Pour FP16 : <span class="math notranslate nohighlight">\(\frac{16}{8} \times 70B
 <h2>Introduction à la quantization<a class="headerlink" href="#introduction-a-la-quantization" title="Link to this heading">#</a></h2>
 <p>Le but de la quantization est de réduire la précision d’un modèle en passant d’une précision riche comme FP32 à une précision plus faible comme INT8.</p>
 <p><strong>Note</strong> : INT8 est la façon de représenter les entiers de -127 à 127 sur 8 bits.</p>
-<img src="images/quantization.webp" alt="quantization" width="500"/>
+<p><img alt="Quantization" src="../_images/quantization.webp" /></p>
 <p>Bien sûr, en diminuant le nombre de bits pour représenter les valeurs, on a une perte de précision.<br />
 Pour illustrer cela, on peut regarder sur une image :</p>
-<img src="images/cookies.webp" alt="cookies" width="500"/>
+<p><img alt="Cookies" src="../_images/cookies.webp" /></p>
 <p>On remarque un “grain” dans l’image ce qui est dû à un manque de couleurs disponibles pour représenter l’image.<br />
 Ce que l’on voudrait, c’est réduire le nombre de bits pour représenter l’image en gardant au maximum la précision de l’image de base.</p>
 <p>Il existe plusieurs manière de faire de la quantization : la quantization symétrique et la quantization asymétrique.</p>
 <section id="point-rapide-sur-les-precisions-communes">
 <h3>Point rapide sur les précisions communes<a class="headerlink" href="#point-rapide-sur-les-precisions-communes" title="Link to this heading">#</a></h3>
 <p><strong>FP16</strong> : La <em>precision</em> et la <em>dynamic range</em> diminuent par rapport à FP32.</p>
-<img src="images/fp16.webp" alt="fp16" width="500"/>
+<p><img alt="FP16" src="../_images/fp16.webp" /></p>
 <p><strong>BF16</strong> : La <em>precision</em> diminue fortement mais la <em>dynamic range</em> reste la même par rapport à FP32.</p>
-<img src="images/bf16.webp" alt="bf16" width="500"/>
+<p><img alt="BF16" src="../_images/bf16.webp" /></p>
 <p><strong>INT8</strong> : On passe à une représentation en entier.</p>
-<img src="images/int8.webp" alt="INT8" width="500"/></section>
+<p><img alt="INT8" src="../_images/int8.webp" /></p>
+</section>
 <section id="quantization-symetrique">
 <h3>Quantization symétrique<a class="headerlink" href="#quantization-symetrique" title="Link to this heading">#</a></h3>
 <p>Dans le cas de la quantization symétrique, la plage de valeurs de nos flottants d’origine est mappé de manière symétrique sur la plage de valeur de quantization. C’est à dire que le 0 dans les flottants est mappé sur le 0 dans la précision de quantization.</p>
-<img src="images/symmetricq.webp" alt="symmetricq" width="500"/><p>Une des manières la plus commune et également la plus simple de réaliser cette opération est d’utiliser la méthode <em>absmax (absolute maximum quantization)</em>. On prend la valeur maximale (en valeur absolue) et on réalise le mapping par rapport à cette valeur :</p>
-<img src="images/absmax.webp" alt="absmax" width="500"/><p>La formule est assez basique : Considérons <span class="math notranslate nohighlight">\(b\)</span> le nombre d’octets que l’on veut quantize, <span class="math notranslate nohighlight">\(\alpha\)</span> la plus grande valeur absolue.<br />
+<p><img alt="Symmetric Quantization" src="../_images/symmetricq.webp" /></p>
+<p>Une des manières la plus commune et également la plus simple de réaliser cette opération est d’utiliser la méthode <em>absmax (absolute maximum quantization)</em>. On prend la valeur maximale (en valeur absolue) et on réalise le mapping par rapport à cette valeur :</p>
+<p><img alt="Absmax" src="../_images/absmax.webp" /></p>
+<p>La formule est assez basique : Considérons <span class="math notranslate nohighlight">\(b\)</span> le nombre d’octets que l’on veut quantize, <span class="math notranslate nohighlight">\(\alpha\)</span> la plus grande valeur absolue.<br />
 Alors on peut calculer le <em>scale factor</em> de la manière suivante :<br />
 <span class="math notranslate nohighlight">\(s=\frac{2^{b-1}-1}{\alpha}\)</span><br />
 On peut alors effectuer la quantization de <span class="math notranslate nohighlight">\(x\)</span> comme ceci :<br />
@@ -587,14 +592,16 @@ On peut alors effectuer la quantization de <span class="math notranslate nohighl
 Pour déquantizer et retrouver une valeur FP32, on peut faire comme cela :<br />
 <span class="math notranslate nohighlight">\(x_{dequantized}=\frac{x_{quantized}}{s}\)</span></p>
 <p>Bien entendu, la valeur dequantizé ne sera pas équivalente à la valeur avant quantization :</p>
-<img src="images/absmaxExample.png" alt="absmaxExample" width="500"/>     
+<p><img alt="Absmax Example" src="../_images/absmaxExample.png" /></p>
 <p>et on peut quantifier les erreurs de quantization :</p>
-<img src="images/absmaxError.png" alt="absmaxError" width="500"/></section>
+<p><img alt="Absmax Error" src="../_images/absmaxError.png" /></p>
+</section>
 <section id="quantization-asymetrique">
 <h3>Quantization asymétrique<a class="headerlink" href="#quantization-asymetrique" title="Link to this heading">#</a></h3>
 <p>A l’inverse de la quantization symétrique, la quantization asymétrique n’est pas symétrique autour de 0. Au lieu de ça, on map le minimum <span class="math notranslate nohighlight">\(\beta\)</span> et le maximum <span class="math notranslate nohighlight">\(\alpha\)</span> de la <em>range</em> des flottants d’origine sur le minimum et le maximum de la <em>range</em> quantizé.<br />
 La méthode la plus commune pour cela est appelé <em>zero-point quantization</em>.</p>
-<img src="images/asymetric.png" alt="asymetric" width="500"/><p>Avec cette méthode, le 0 a changé de position et c’est pourquoi cette méthode est appelé asymétrique.</p>
+<p><img alt="Asymetric Quantization" src="../_images/asymetric.png" /></p>
+<p>Avec cette méthode, le 0 a changé de position et c’est pourquoi cette méthode est appelé asymétrique.</p>
 <p>Comme le 0 a été deplacé, on a besoin de calculer la position du 0 (<em>zero-point</em>) pour effectuer le mapping linéaire.</p>
 <p>On peut quantizer de la manière suivante :<br />
 <span class="math notranslate nohighlight">\(s=\frac{128 - - 127}{\alpha- \beta}\)</span><br />
@@ -605,13 +612,15 @@ et :<br />
 Pour déquantizer, on peut alors appliquer la formule suivante :<br />
 <span class="math notranslate nohighlight">\(x_{dequantized}=\frac{x_{quantized}-z}{s}\)</span></p>
 <p>Les deux méthodes ont leurs avantages et inconvénients, on peut les comparer en regardant le comportement sur un <span class="math notranslate nohighlight">\(x\)</span> quelconque :</p>
-<img src="images/compare.png" alt="compare" width="500"/></section>
+<p><img alt="Compare" src="../_images/compare.png" /></p>
+</section>
 <section id="clipping-et-modification-de-range">
 <h3>Clipping et modification de range<a class="headerlink" href="#clipping-et-modification-de-range" title="Link to this heading">#</a></h3>
 <p>Les méthodes que nous avons présenté présentent un défaut majeur. Ces méthodes ne sont pas du tout robustes aux <em>outliers</em>. Imaginons que notre vecteur <span class="math notranslate nohighlight">\(x\)</span> contient les valeurs suivante : [-0.59, -0.21, -0.07, 0.13, 0.28, 0.57, 256]. Si l’on fait notre <em>mapping</em> habituel, on va obtenir des valeurs identiques pour tous les éléments sauf l’<em>outlier</em> (256) :</p>
-<img src="images/outlier.png" alt="outlier" width="500"/><p>C’est très problématique car la perte d’information est colossale.</p>
+<p><img alt="Outlier" src="../_images/outlier.png" /></p>
+<p>C’est très problématique car la perte d’information est colossale.</p>
 <p>En pratique, on peut décider de <em>clip</em> certaines valeurs pour diminuer la <em>range</em> dans l’espace des flottants (avant d’appliquer la quantization). Par exemple, on pourrait décider de limiter les valeurs dans la plage [-5,5] et toutes les valeurs en dehors de cette plage seront mappé aux valeurs maximales ou minimales de quantization (127 ou -127 pour INT8) :</p>
-<img src="images/clipping.png" alt="clipping" width="500"/>
+<p><img alt="Clipping" src="../_images/clipping.png" /></p>
 <p>En faisant cela, on diminue grandement l’erreur sur les non-<em>outliers</em> mais on l’augmente pour les <em>outliers</em> (ce qui peut également être problématique).</p>
 </section>
 <section id="calibration">
@@ -650,14 +659,15 @@ On a deux formes de quantization pour les activations :</p>
 <section id="dynamic-quantization">
 <h3>Dynamic quantization<a class="headerlink" href="#dynamic-quantization" title="Link to this heading">#</a></h3>
 <p>Dans la quantization dynamique, on collecte les activations après que la donnée soit passée dans une couche. La distribution de la couche est ensuite quantizé en calculant le <em>zeropoint</em> et le <em>scale factor</em>.</p>
-<img src="images/dynamicQ.webp" alt="dynamicQ" width="500"/>
+<p><img alt="Dynamic Quantization" src="../_images/dynamicQ.webp" /></p>
 <p>Dans ce processus, chaque couche  ses propres valeurs de <em>zeropoint</em> et de <em>scale factor</em> et donc la quantization n’est pas la même.</p>
-<img src="images/dynamicQ2.webp" alt="dynamicQ" width="500"/><p><strong>Note</strong> : Ce processus de quantization a lieu <strong>pendant</strong> l’inférence.</p>
+<p><img alt="Dynamic Quantization 2" src="../_images/dynamicQ2.webp" /></p>
+<p><strong>Note</strong> : Ce processus de quantization a lieu <strong>pendant</strong> l’inférence.</p>
 </section>
 <section id="static-quantization">
 <h3>Static quantization<a class="headerlink" href="#static-quantization" title="Link to this heading">#</a></h3>
 <p>A l’inverse de la <em>dynamic quantization</em>, la <em>static quantization</em> ne calcule pas le <em>zeropoint</em> et le <em>scale factor</em> pendant l’inférence. En effet, dans la méthode de static quantization, les valeurs de <em>zeropoint</em> et <em>scale factor</em> sont calculés avant l’inférence à l’aide d’un <em>dataset</em> de <em>calibration</em>. Ce <em>dataset</em> est supposé être representatif des données et permet de calculer les distributions potentiels prises par les activations.</p>
-<img src="images/staticQ.png" alt="staticQ" width="500"/>
+<p><img alt="Static Quantization" src="../_images/staticQ.png" /></p>
 <p>Après avoir collecté les valeurs des activations sur l’ensemble du <em>dataset</em> de <em>calibration</em>, on peut les utiliser pour calculer le <em>scale factor</em> et le <em>zeropoint</em> qui seront ensuite utilisé pour toutes les activations.</p>
 </section>
 <section id="difference-entre-dynamic-et-static-quantization">
@@ -678,16 +688,16 @@ On a deux formes de quantization pour les activations :</p>
 <section id="gptq">
 <h3>GPTQ<a class="headerlink" href="#gptq" title="Link to this heading">#</a></h3>
 <p>GPTQ est probablement la méthode la plus utilisée pour la quantization 4-bits. L’idée est d’utiliser la quantization asymétrique sur chaque couche indépendamment :</p>
-<img src="images/GPTQ.png" alt="GPTQ" width="500"/>
+<p><img alt="GPTQ" src="../_images/GPTQ.png" /></p>
 <p>Pendant le processus de quantization, les poids sont convertis en l’inverse de la matrice Hessian (dérivée seconde de la fonction de <em>loss</em>) ce qui nous permet de savoir si la sortie du modèle est sensible aux changements de chaque poids. De manière simplifié, cela permet de calculer l’importance de chaque poids dans une couche. Les poids associés à de petites valeurs dans la Hessian sont les plus importants car un changement de ces poids va affecter le modèle significativement.</p>
-<img src="images/hessian.png" alt="hessian" width="500"/>
+<p><img alt="Hessian" src="../_images/hessian.png" /></p>
 <p>On va ensuite quantizer puis dequantizer les poids pour obtenir notre <em>quantization error</em>. Cette erreur nous permet pondérer l’erreur de quantization par rapport à la vraie erreur et à la matrice Hessian.</p>
-<img src="images/GPTQError.png" alt="GPTQError" width="500"/>
+<p><img alt="GPTQError" src="../_images/GPTQError.png" /></p>
 <p>L’erreur pondérée est calculée comme ceci :<br />
 <span class="math notranslate nohighlight">\(q=\frac{x_1-y_1}{h_1}\)</span> où <span class="math notranslate nohighlight">\(x_1\)</span> est la valeur avant quantization, <span class="math notranslate nohighlight">\(y_1\)</span> est la valeur après quantization/dequantization et <span class="math notranslate nohighlight">\(h_1\)</span> est la valeur correspondante dans la matrice Hessian.</p>
 <p>Ensuite, nous redistribuons cette erreur de quantification pondérée sur les autres poids de la ligne. Cela permet de maintenir la fonction globale et la sortie du réseau. Par exemple, pour <span class="math notranslate nohighlight">\(x_2\)</span>:<br />
 <span class="math notranslate nohighlight">\(x_2=x_2 + q \times h_2\)</span></p>
-<img src="images/GPTQprocess.png" alt="GPTQprocess" width="500"/>
+<p><img alt="GPTQprocess" src="../_images/GPTQprocess.png" /></p>
 <p>On fait ce process jusqu’à ce que toutes les valeurs soient quantizés.<br />
 En pratique, cette méthode marche bien car tous les poids sont corrélés les uns avec les autres donc si un poids a une grosse erreur de quantization, les autres poids sont changés pour compenser l’erreur (en se basant sur la Hessian).</p>
 </section>
@@ -698,7 +708,7 @@ En pratique, cette méthode marche bien car tous les poids sont corrélés les u
 <p>Cette méthode de quantization est changée fréquemment et dépend du niveau de bit quantization que l’on souhaite.</p>
 <p>De manière générale, la méthode fonctionne de la manière suivante :</p>
 <p>D’abord, les poids d’une couche sont divisés en <em>super block</em> où chaque <em>super block</em> est à nouveau divisé en <em>sub blocks</em>. On va ensuite extraire les valeurs <span class="math notranslate nohighlight">\(s\)</span> et <span class="math notranslate nohighlight">\(\alpha\)</span> (<em>absmax</em>) pour chaque <em>block</em> (le <em>super</em> et les <em>sub</em>).</p>
-<img src="images/GGUF.png" alt="GGUF" width="500"/>
+<p><img alt="GGUF" src="../_images/GGUF.png" /></p>
 <p>Les <em>scales factor</em> <span class="math notranslate nohighlight">\(s\)</span> des <em>sub block</em> sont ensuite quantizé à nouveau en utilisant l’information du <em>super block</em> (qui a son propre <em>scale factor</em>). Cette méthode est appelée <em>block-wise quantization</em>.</p>
 <p><strong>Note</strong> : De manière générale, le niveau de quantization est différent entre les <em>sub block</em> et le <em>super block</em> : le <em>super block</em> a une précision supérieure aux <em>sub block</em> le plus souvent.</p>
 </section>
@@ -707,28 +717,28 @@ En pratique, cette méthode marche bien car tous les poids sont corrélés les u
 <h2>Quantization Aware Training (QAT)<a class="headerlink" href="#quantization-aware-training-qat" title="Link to this heading">#</a></h2>
 <p>Au lieu d’effectuer la quantization après l’entraînement, on peut le faire pendant l’entraînement. En effet, faire la quantization après l’entraînement ne tient pas compte du procédé d’entraînement ce qui peut poser des problèmes.</p>
 <p>La <em>quantization aware training</em> est une méthode permettant d’effectuer la quantization pendant l’entraînement et d’apprendre les différents paramètres de quantization pendant la rétropropagation :</p>
-<img src="images/QAT.png" alt="QAT" width="500"/>
+<p><img alt="QAT" src="../_images/QAT.png" /></p>
 <p>En pratique, cette méthode est souvent plus précise que la PTQ parce que la quantization est déjà prévue lors de l’entrainement et on peut donc adapter le modèle spécifiquement dans un objectif futur de quantization.</p>
 <p>Cette approche fonctionne de la manière suivante :<br />
 Pendant l’entraînement, un processus de quantization/dequantization (<em>fake quantization</em>) est introduit (quantize de 32 bits à 4 bits puis dequantize de 4 bits à 32 bits par exemple).</p>
-<img src="images/fakequantize.png" alt="fakequantize" width="500"/>
+<p><img alt="Fake Quantization" src="../_images/fakequantize.png" /></p>
 <p>Cette approche permet au modèle de considérer la quantization pendant l’entraînement et donc d’adapter la mise à jours de poids pour favoriser des bons résultats du modèle quantizé.</p>
 <p>Une façon de voir les choses est d’imaginer que le modèle va converger vers des minimums larges qui minimize l’erreur de quantization plutôt que des minimuns étroits qui pourraient provoquer des erreurs lors de la quantization. Pour un modèle entraîné sans <em>fake quantization</em>, il n’y aurait pas de préférences sur le minimum choisi pour la convergence :</p>
-<img src="images/minimums.png" alt="minimums" width="500"/>
+<p><img alt="Minimums" src="../_images/minimums.png" /></p>
 <p>En pratique, les modèles entrainé de manière classique ont un <em>loss</em> plus faible que les modèle entraîné en QAT lorsque la précision est grande (FP32) mais dès lors que l’on quantize le modèle, le modèle QAT sera bien plus performant qu’un modèle quantizé via une méthode PTQ.</p>
 <section id="bitnet-quantization-1-bit">
 <h3>BitNet : quantization 1-bit<a class="headerlink" href="#bitnet-quantization-1-bit" title="Link to this heading">#</a></h3>
 <p>L’idéal pour réduire la taille d’un modèle serait de quantité en 1 seul bit. Cela parait fou, comment peut-on imaginer représenter un réseau de neurones avec uniquement est 0 et des 1 pour chaque poids.</p>
 <p><a class="reference external" href="https://arxiv.org/pdf/2310.11453">BitNet</a> propose de representer les poids d’un modèle avec un seul bit en utilisant la valeur -1 ou 1 pour un poids. Il faut imaginer que l’on remplace les couches linéaires de l’architecture transformers par des couches BitLinear :</p>
-<img src="images/bitTransformer.png" alt="bitTransformer" width="500"/>
+<p><img alt="BitTransformer" src="../_images/bitTransformer.png" /></p>
 <p>La couche BitLinear marche exactement comme une couche linéaire de base sauf que les poids sont représenté avec un unique bit et les activations en INT8.</p>
 <p>Comme expliqué précedemment, il y a une forme de <em>fake quantization</em> permettant d’apprendre au modèle l’effet de la quantization pour le forcer à s’adapter à cette nouvelle contrainte :</p>
-<img src="images/bitnet.png" alt="bitnet" width="500"/>
+<p><img alt="BitNet" src="../_images/bitnet.png" /></p>
 <p>Analysons cette couche étape par etape :</p>
 <p><strong>Première Etape : Quantization des poids</strong><br />
 Pendant l’entraînement, les poids sont stockés en INT8 et quantizé en 1-bit en utilisant la fonction <em>signum</em>.<br />
 Cette fonction permet simplement de centrer la distribution des poids en 0 et convertit tout ce qui est inférieur à 0 en -1 et tout ce qui est supérieur à 0 en 1.</p>
-<img src="images/weigthquanti.png" alt="weightquanti" width="500"/>
+<p><img alt="Weight Quantization" src="../_images/weigthquanti.png" /></p>
 <p>Une valeur <span class="math notranslate nohighlight">\(\beta\)</span> (valeur moyenne absolue) est également extraite pour le processus de déquantization.</p>
 <p><strong>Deuxième Etape : Quantization des activation</strong><br />
 Pour les activations, la couche BitLinear utilise la quantization <em>absmax</em> pour convertir de FP16 à INT8 et une valeur <span class="math notranslate nohighlight">\(\alpha\)</span> (valeur maximum absolue) est stockée pour la déquantization.</p>
@@ -753,7 +763,7 @@ Avec -1 et 1, lors de la somme, on pouvait décider uniquement d’ajouter la va
 </ul>
 <p>De cette manière, on peut filtrer efficacement les valeurs ce qui permet une bien meilleure représentation.</p>
 <p>Pour réaliser le quantization en 1.58b, on utilise la quantization <em>absmean</em> qui est une variante de <em>absmax</em>. Au lieu de se baser sur le maximum, on se base sur la moyenne en valeur absolue <span class="math notranslate nohighlight">\(\alpha\)</span> et on arrondit ensuite les valeurs à -1, 0 ou 1 :</p>
-<img src="images/bitnet158.png" alt="bitnet158" width="500"/>
+<p><img alt="BitNet 1.58" src="../_images/bitnet158.png" /></p>
 <p>Et voilà, c’est simplement ces deux techniques (representation ternaire et <em>absmean</em> quantization) qui permettent d’améliorer drastiquement la méthode BitNet classique et de proposer des modèles extrémement quantizés et encore performants.</p>
 </section>
 </section>
@@ -766,7 +776,7 @@ Avec -1 et 1, lors de la somme, on pouvait décider uniquement d’ajouter la va
 <section id="lora">
 <h3>LoRA<a class="headerlink" href="#lora" title="Link to this heading">#</a></h3>
 <p>La méthode <a class="reference external" href="https://arxiv.org/pdf/2106.09685">LoRA (low-rank adaptation of large language models)</a> est une technique de <em>fine-tuning</em> permettant d’adapter un LLM à une tâche ou un domaine spécifique. Cette méthode introduit des matrices entraînables de décomposition en rang à chaque couche du transformer ce qui réduit les paramètres entraînables du modèle car les couches de bases sont <em>frozen</em>. La méthode peut potentiellement diminuer le nombre de paramètres entraînables d’un facteur 10 000 tout en réduisant la VRAM nécessaire pour l’entraînement d’un facteur allant jusqu’à 3. Les performances des modèles <em>fine-tune</em> avec cette méthode sont équivalent ou mieux que les modèles <em>fine-tune</em> de manière classique sur de nombreuses tâches.</p>
-<img src="images/LoRA.webp" alt="LoRA" width="350"/>
+<p><img alt="LoRA" src="../_images/LoRA.webp" /></p>
 <p>Au lieu de modifier la matrice <span class="math notranslate nohighlight">\(W\)</span> d’une couche, la méthode LoRA ajoute deux nouvelles matrices <span class="math notranslate nohighlight">\(A\)</span> et <span class="math notranslate nohighlight">\(B\)</span> dont le produit representent les modifications à apporter à la matrice <span class="math notranslate nohighlight">\(W\)</span>.<br />
 <span class="math notranslate nohighlight">\(Y=W+AB\)</span><br />
 Si <span class="math notranslate nohighlight">\(W\)</span> est de taille <span class="math notranslate nohighlight">\(m \times n\)</span> alors <span class="math notranslate nohighlight">\(A\)</span> est de taille <span class="math notranslate nohighlight">\(m \times r\)</span> et <span class="math notranslate nohighlight">\(B\)</span> de taille <span class="math notranslate nohighlight">\(r \times n\)</span> où <span class="math notranslate nohighlight">\(r\)</span> est le rang qui est bien plus petit que <span class="math notranslate nohighlight">\(m\)</span> ou <span class="math notranslate nohighlight">\(n\)</span> (ce qui explique la diminution du nombre de paramètres). Pendant l’entraînement, seulement <span class="math notranslate nohighlight">\(A\)</span> et <span class="math notranslate nohighlight">\(B\)</span> sont modifié ce qui permet au modèle d’apprendre la tâche spécifique.</p>

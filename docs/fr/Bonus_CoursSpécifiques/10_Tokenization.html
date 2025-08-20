@@ -212,11 +212,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -533,7 +535,7 @@ document.write(`
 <li><p>Pourquoi il faut mieux utiliser YAML plutôt que JSON avec les LLM ?</p></li>
 </ul>
 <p><strong>Note</strong> : Le tokenizer est une partie complétement séparée du LLM avec son propre dataset d’entrainement et qui est entrainé différemment :</p>
-<img src="images/tokenizer.png" alt="tokenizer" width="500"/>
+<p><img alt="Tokenizer" src="../_images/tokenizer.png" /></p>
 <section id="tokenizer-de-gpt-2">
 <h2>Tokenizer de GPT-2<a class="headerlink" href="#tokenizer-de-gpt-2" title="Link to this heading">#</a></h2>
 <p>Commençons par analyser la tokenization de GPT-2 via le site internet <a class="reference external" href="https://tiktokenizer.vercel.app/?model=gpt2">Tiktokenizer</a> et essayons de comprendre ce qui peut poser problème. Le tokenizer de GPT-2 a un vocabulaire d’environ 50 000 mots (donc 50 000 tokens distincts).</p>
@@ -541,7 +543,7 @@ document.write(`
 <h3>Arithmétique<a class="headerlink" href="#arithmetique" title="Link to this heading">#</a></h3>
 <p>Dans un premier temps, si on regarde pour la partie arithmétique, on se rend vite compte que les nombres peuvent être séparer en token d’une manière qui semble assez arbitraire.<br />
 Par exemple :</p>
-<img src="images/arith.png" alt="classi" width="100"/>
+<p><img alt="Arithmétique" src="../_images/arith.png" /></p>
 <p>998 est un token à part entière mais 9988 est séparé en deux tokens 99 et 88.<br />
 On peut facilement imaginer que pour le LLM, ça va être compliqué de compter.</p>
 </section>
@@ -549,24 +551,24 @@ On peut facilement imaginer que pour le LLM, ça va être compliqué de compter.
 <h3>Même mots, différents tokens<a class="headerlink" href="#meme-mots-differents-tokens" title="Link to this heading">#</a></h3>
 <p>Pour des mots identiques et en fonction de la manière dont ils sont écrit, on a des tokens différents.<br />
 Par exemple :<br />
-<img src="images/same1.png" alt="classi" width="100"/><br />
-<img src="images/same2.png" alt="classi" width="500"/></p>
+<img alt="Same1" src="../_images/same1.png" /><br />
+<img alt="Same2" src="../_images/same2.png" /></p>
 <p>Les 4 mots identiques sont representées par des tokens différents (le token 198 correspond au retour à la ligne). Le modèle va donc devoir apprendre que ces tokens sont presques les mêmes.</p>
 </section>
 <section id="autres-langues">
 <h3>Autres langues<a class="headerlink" href="#autres-langues" title="Link to this heading">#</a></h3>
 <p>Pour la même phrase dans différentes langues, le nombre de tokens utilisés n’est pas le même :</p>
-<img src="images/langage.png" alt="classi" width="300"/>   
+<p><img alt="Langage" src="../_images/langage.png" /></p>
 <p>Cela est du au fait que le tokenizer de GPT-2 est entrainé majoritairement sur des données en langue anglaise.<br />
 En pratique, cela diminue les capacités du modèle dans les autres langues car le contexte n’est plus le même en terme d’information. On peut mettre un texte beaucoup plus long en anglais qu’en japonais.</p>
 </section>
 <section id="python">
 <h3>Python<a class="headerlink" href="#python" title="Link to this heading">#</a></h3>
 <p>On peut regarder comment le tokenizer se comporte pour le code python :</p>
-<img src="images/python.png" alt="classi" width="200"/>   
+<p><img alt="Python" src="../_images/python.png" /></p>
 <p>Chaque espace de l’indentation est compté comme un token… Si on a un code avec de nombreuses conditions ou boucles, le contexte va augmenter de manière très rapide ce qui rendra le modèle assez peu performant.</p>
 <p><strong>Note</strong> : Ce défaut a été corrigé dans les versions suivantes de GPT (3 et 4), une indentation de 4 tab sera un unique token par exemple.</p>
-<img src="images/python2.png" alt="classi" width="200"/>
+<p><img alt="Python2" src="../_images/python2.png" /></p>
 <p><strong>Note 2</strong> : La façon dont est configuré notre éditeur de code (2 ou 4 espaces pour l’indentation en python) peut également avoir un impact sur la tokenization.</p>
 <p><strong>Note 3</strong> : Un LLM spécialisé dans le code aura aussi un tokenizer spécialisé dans le code ce qui n’est pas négligeable en terme de gain de performance.</p>
 </section>
@@ -919,10 +921,10 @@ La syntaxe est assez compliquée mais nous allons le décomposer petit à petit 
 <p>Lorsqu’on va vouloir faire du traitement <em>multimodal</em> (c’est à la mode en ce moment), il va falloir produire des tokens à partir de modalités différentes du texte comme du son ou des images.<br />
 Ce qu’on voudrait idéalement c’est transformer notre son ou image en tokens et ensuite les donner au transformer comme s’il s’agissait de texte.</p>
 <p>Pour les images, on peut faire ça avec un <a class="reference external" href="https://arxiv.org/pdf/1711.00937">VQVAE</a> ou un <a class="reference external" href="https://arxiv.org/pdf/2012.09841">VQGAN</a>. L’idée est d’utiliser un VAE ou GAN pour générer des valeurs discrètes dans un espace latent. Ces valeurs discrètes vont alors être utilisées comme tokens.</p>
-<img src="images/VQGAN.png" alt="VQGAN" width="800"/>
+<p><img alt="VQGAN" src="../_images/VQGAN.png" /></p>
 <p>Figure extraite de l’<a class="reference external" href="https://arxiv.org/pdf/2012.09841">article</a>.</p>
-<p>Le modèle SORA de OpenAi fait un peu la même chose mais sur des videos :</p>
-<img src="images/SORA.png" alt="SORA" width="800"/>
+<p>Le modèle SORA de OpenAi fait un peu la même chose mais sur des vidéos :</p>
+<p><img alt="SORA" src="../_images/SORA.png" /></p>
 <p>Figure extraite de l’<a class="reference external" href="https://arxiv.org/pdf/2402.17177">article</a></p>
 </section>
 <section id="reponses-aux-questions-du-debut">

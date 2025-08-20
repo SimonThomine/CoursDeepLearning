@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -524,7 +526,7 @@ document.write(`
 <p>Dans ce notebook, nous allons implémenter le <em>vision transformer</em> et la tester le petit dataset CIFAR-10. L’implémentation reprend des éléments du notebook 2 “GptFromScratch” donc il est nécessaire de les faire dans l’ordre.</p>
 <p>L’implémentation se base sur le papier <a class="reference external" href="https://arxiv.org/pdf/2010.11929">An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale</a>.</p>
 <p>Voici la figure importante de cet article que l’on va implémenter petit à petit :</p>
-<img src="images/ViT.png" alt="transformer" width="700"/> 
+<p><img alt="ViT" src="../_images/ViT.png" /></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
@@ -667,7 +669,7 @@ C’est en fait très simple : on avait une multiplication par une matrice trian
 <p>La première étape décrite dans la papier est la division de l’image en <em>patch</em> :<br />
 Chaque image est découpé en <span class="math notranslate nohighlight">\(N\)</span> patchs de taille <span class="math notranslate nohighlight">\(p \times p\)</span> puis les <em>patchs</em> sont ensuite applatis (<em>flatten</em>).<br />
 On passe d’une dimension de l’image <span class="math notranslate nohighlight">\(\mathbf{x} \in \mathbb{R}^{H \times W \times C}\)</span> à une séquence de <em>patch</em> <span class="math notranslate nohighlight">\(\mathbf{x}_p \in \mathbb{R}^{N \times (P^2 \cdot C)}\)</span>.</p>
-<img src="images/patchs.png" alt="patchs" width="400"/> 
+<p><img alt="patchs" src="../_images/patchs.png" /></p>
 <p>Pour réaliser cela, nous allons récuperer une image du dataset CIFAR-10 comme exemple ce qui nous permettra de visualiser si notre code fonctionne.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -785,7 +787,7 @@ torch.Size([16, 192])
 <section id="projection-lineaire-des-patchs">
 <h3>Projection linéaire des patchs<a class="headerlink" href="#projection-lineaire-des-patchs" title="Link to this heading">#</a></h3>
 <p>Il est temps de passer à la deuxième étape qui est la projection linéaire des <em>patchs</em> dans un espace latent.</p>
-<img src="images/linearproj.png" alt="linearproj" width="400"/> 
+<p><img alt="linearproj" src="../_images/linearproj.png" /></p>
 <p>Cette étape est l’équivalent de l’étape de conversion des <em>tokens</em> à l’aide la table d’<em>embedding</em>. Cette fois-ci, on va convertir nos <em>patchs</em> applatis en vecteur de dimension fixe pour que ces vecteurs puissent être traité par le <em>transformer</em>. Définissons notre dimension d’<em>embedding</em> et notre couche de projection :</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -806,7 +808,7 @@ Cette étape contient en fait 2 étapes distinctes :</p>
 <li><p><strong>L’ajout d’un class token</strong> : Cette étape est nouvelle car elle n’était pas nécessaire dans GPT. L’idée vient en fait de <a class="reference external" href="https://arxiv.org/pdf/1810.04805">BERT</a> et est une technique pour faire de la classification à l’aide d’un <em>transformer</em> sans avoir à spécifier de taille de séquence fixe. Sans <em>class token</em>, pour obtenir notre classification, on aurait besoin soit de coller un réseau fully connected à l’ensemble des sorties du <em>transformers</em> (ce qui va imposer une taille de séquence fixe) ou de coller un réseau fully connected à une sortie du <em>transformer</em> choisie au hasard (une sortie correspond à un <em>patch</em>, mais alors comment choisir ce <em>patch</em> sans biais ?). L’ajout du <em>class token</em> permet de répondre à ce problème en ajoutant un <em>token</em> dédié spécifiquement à la classification.</p></li>
 </ul>
 <p><strong>Note</strong> : Pour pour les CNNs, une manière d’éviter le problème de la dimension fixe de l’entrée est d’utiliser un <em>global average pooling</em> en sortie (couche de <em>pooling</em> avec taille de sortie fixe). Cette technique peut aussi être utilisée pour un <em>vision transformer</em> à la place du <em>class token</em>.</p>
-<img src="images/embedclass.png" alt="embedclass" width="400"/> 
+<p><img alt="embedclass" src="../_images/embedclass.png" /></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pour le positional encoding, +1 pour le cls token</span>
@@ -822,7 +824,7 @@ Cette étape contient en fait 2 étapes distinctes :</p>
 <section id="reseau-fully-connected-de-classification">
 <h3>Réseau fully connected de classification<a class="headerlink" href="#reseau-fully-connected-de-classification" title="Link to this heading">#</a></h3>
 <p>Maintenant, passons à la fin du ViT, c’est à dire le réseau MLP de classification. Si vous avez suivi l’intêret du <em>class token</em>, vous comprenez que ce réseau de classification prend en entrée uniquement ce <em>token</em> pour nous sortir la classe prédite.</p>
-<img src="images/fcn.png" alt="fcn" width="400"/>
+<p><img alt="fcn" src="../_images/fcn.png" /></p>
 <p>A nouveau, c’est encore une implémentation assez simple. Dans l’article, ils disent qu’ils utilisent un réseau d’une couche cachée pour l’entraînement et uniquement une couche pour un <em>fine-tuning</em> (voir cours 10 pour des précisions sur le fine tuning). Par soucis de simplicité, nous utilisons une seule couche linéaire pour projeter le class <em>token</em> de sortie dans la dimension du nombre de classes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

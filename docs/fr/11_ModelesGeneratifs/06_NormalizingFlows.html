@@ -212,11 +212,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -507,7 +509,7 @@ document.write(`
 <h2>Comment ça marche ?<a class="headerlink" href="#comment-ca-marche" title="Link to this heading">#</a></h2>
 <p>Un <em>Normalizing Flow</em> peut être décrit comme une série de transformations bijectives. Ces transformations sont utilisées pour modéliser des distributions complexes de données, telles que celles des images, en les transformant en une distribution simple, comme une distribution gaussienne centrée réduite.</p>
 <p>Les <em>Normalizing Flows</em> sont entraînés en maximisant la vraisemblance des données, ce qui est généralement formulé comme la minimisation du <em>negative log-likelihood</em> par rapport à la densité de probabilité réelle des données. En d’autres termes, on ajuste les paramètres des transformations pour que la distribution générée par le flow soit aussi proche que possible de la distribution cible des données.</p>
-<img src="images/NFlow.png" alt="NFlow" width="800"/>
+<p><img alt="NFlow" src="../_images/NFlow.png" /></p>
 <p>Figure extraire de <a class="reference external" href="https://towardsdatascience.com/introduction-to-normalizing-flows-d002af262a4b">blogpost</a>.</p>
 </section>
 <section id="avantages-et-desavantages">

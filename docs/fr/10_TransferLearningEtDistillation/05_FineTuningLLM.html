@@ -212,11 +212,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -525,7 +527,7 @@ Ce transformer a une architecture permettant d’être <em>finetune</em> sur deu
 <h2>Tokens et embeddings<a class="headerlink" href="#tokens-et-embeddings" title="Link to this heading">#</a></h2>
 <p>Tout d’abord, il faut savoir que le token [CLS] est rajouté à chaque séquence d’entrée. Nous verrons son utilisation plus tard dans la partie sur le <em>finetuning</em> du modèle.<br />
 De plus, lors de son pre-entrainement, BERT prend en entrée 2 phrases que l’on va séparer par un [SEP] token. En plus de la séparation, on ajoute également un <em>segment embedding</em>  à chaque <em>token embedding</em> qui indique l’indice de la phrase de provenance (1 ou 2). Bien sur, comme pour GPT, on utilise un <em>position embedding</em> que l’on ajoute également à chaque <em>token embedding</em>.</p>
-<img src="images/embedBert.png" alt="distill" width="800"/>
+<p><img alt="embedBert" src="../_images/embedBert.png" /></p>
 <p><strong>Note</strong> : L’utilisation de phrase n’est pas à comprendre dans le sens linguistique du terme mais plutôt comme une séquence de tokens qui se suivent.</p>
 </section>
 <section id="comment-pre-entrainer-bert">

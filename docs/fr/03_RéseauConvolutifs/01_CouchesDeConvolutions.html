@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -558,7 +560,8 @@ On pourrait envisager d’avoir une première couche cachée avec seulement quel
 <p><strong>Intuition</strong> : Une particularité des images est la présence de motifs récurrents. A partir de cette idée, on peut envisager un partage de poids entre les différents pixels de l’image.</p>
 <p><strong>Principe de base</strong> : Cela nous conduit à l’utilisation des couches de convolutions qui utilisent filtres de convolutions parcourant chaque pixel de l’image. Les valeurs de ces filtres sont entraînables et correspondent aux poids de notre réseau de neurones.</p>
 <p>Voici une illustration du principe de convolution :</p>
-<img src="images/conv.png" alt="Convolution" width="600"/><p><strong>Pourquoi ça marche ?</strong> :</p>
+<p><img alt="Convolution" src="../_images/conv.png" /></p>
+<p><strong>Pourquoi ça marche ?</strong> :</p>
 <ul class="simple">
 <li><p>L’utilisation des couches de convolutions permet de ne pas augmenter le nombre de poids en fonction de la taille de l’image, cela permet donc de traiter des images de résolution importante.</p></li>
 <li><p>La couche de convolution permet une invariance à la translation ce qui est très intéressant pour une image (Une image de chien decalée de 4 pixels reste une image de chien).</p></li>
@@ -582,7 +585,7 @@ On pourrait envisager d’avoir une première couche cachée avec seulement quel
 <p><strong>padding</strong> : Ce paramètre ajoute une bordure de taille <em>padding</em> autour de l’image pour permettre aux filtres d’être appliqués uniformément sur tous les pixels, y compris ceux des bords. Sans <em>padding</em>, les pixels en bordure n’auraient pas de voisins et le filtre ne pourrait pas être appliqués, ce qui réduirait la taille de l’image lors de la convolution. Le <em>padding</em> remédie à cela en ajoutant des valeurs (comme des zéros ou des valeurs réfléchies) autour de l’image avant d’appliquer les filtres (voir <em>zero-padding</em> sur la figure d’explication).</p>
 <p><strong>padding_mode</strong> : Permet de séléctionner le mode de <em>padding</em> (“zeros” pour <em>zero_padding</em> par exemple).</p>
 <p><strong>dilation</strong> : Le paramètre <em>dilation</em> dans une couche de convolution définit l’espacement entre les éléments du filtre, permettant à ce dernier de couvrir une zone plus large sans augmenter la taille du filtre, ce qui capture davantage de contexte spatial dans l’image. La figure suivante illustre la <em>dilation</em> :</p>
-<img src="images/dilation.png" alt="Dilation" width="400"/>    
+<p><img alt="Dilation" src="../_images/dilation.png" /></p>
 <p>Figure extraite de <em>Du, Jinglong &amp; Wang, Lulu &amp; Liu, Yulu &amp; Zhou, Zexun &amp; He, Zhongshi &amp; Jia, Yuanyuan. (2020). Brain MRI Super-Resolution Using 3D Dilated Convolutional Encoder–Decoder Network. IEEE Access. PP. 1-1. 10.1109/ACCESS.2020.2968395.</em></p>
 </section>
 <section id="couche-de-pooling">
@@ -592,7 +595,8 @@ On pourrait envisager d’avoir une première couche cachée avec seulement quel
 <strong>MaxPooling</strong> :  Le <em>MaxPooling</em> est la méthode de pooling qui consiste à prendre la valeur maximum d’un groupe de pixels adjacents et de la définir comme nouvelle valeur de l’image réduite.<br />
 <strong>AveragePooling</strong> : L’<em>AveragePooling</em> prend la valeur moyenne du groupe de pixels adjacent et la définit comme nouvelle valeur de l’image réduite.</p>
 <p>La figure suivante montre les différences entre le <em>MaxPooling</em> et l’<em>AveragePooling</em> :</p>
-<img src="images/pooling.png" alt="pooling" width="500"/>  </section>
+<p><img alt="Pooling" src="../_images/pooling.png" /></p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">

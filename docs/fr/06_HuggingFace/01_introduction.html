@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Hugging Face Library Introduction &#8212; Cours Deep Learning</title>
+    <title>Introduction à la bibliothèque Hugging Face &#8212; Cours Deep Learning</title>
   
   
   
@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '06_HuggingFace/01_introduction';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Computer Vision with Transformers" href="02_ComputerVisionWithTransformers.html" />
+    <link rel="next" title="Vision par ordinateur avec des Transformers" href="02_ComputerVisionWithTransformers.html" />
     <link rel="prev" title="Long Short-Term Memory" href="../05_NLP/06_Lstm.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -212,11 +212,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -475,7 +477,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Hugging Face Library Introduction</h1>
+    <h1>Introduction à la bibliothèque Hugging Face</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -505,12 +507,12 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="hugging-face-library-introduction">
-<h1>Hugging Face Library Introduction<a class="headerlink" href="#hugging-face-library-introduction" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-a-la-bibliotheque-hugging-face">
+<h1>Introduction à la bibliothèque Hugging Face<a class="headerlink" href="#introduction-a-la-bibliotheque-hugging-face" title="Link to this heading">#</a></h1>
 <section id="qu-est-ce-que-c-est">
 <h2>Qu’est ce que c’est ?<a class="headerlink" href="#qu-est-ce-que-c-est" title="Link to this heading">#</a></h2>
-<p>Hugging Face est une entreprise qui a un rôle très important dans la communauté open source en intelligence artificiel. C’est d’une part un site qui regroupe des datasets, des modèles et des “spaces” et d’autre part plusieurs librarys (transformers, diffusers et datasets principalement).<br />
-<img src="images/HG_logo.png" alt="nlp" width="600"/></p>
+<p>Hugging Face est une entreprise qui a un rôle très important dans la communauté open source en intelligence artificiel. C’est d’une part un site qui regroupe des datasets, des modèles et des “spaces” et d’autre part plusieurs librarys (transformers, diffusers et datasets principalement).</p>
+<p><img alt="Hugging Face" src="../_images/HG_logo.png" /></p>
 <p><strong>Pourquoi utiliser Hugging Face ?</strong> Hugging Face permet d’avoir accès à des modèles complexes de l’état de l’art de manière simple et de pouvoir utiliser des modèles complexes rapidement et efficacement. Il est aussi possible de tester des modèles via la catégorie “spaces” de leur site et de télécharger des datasets de la communauté. C’est un peu le “github” du deep learning.</p>
 </section>
 <section id="qu-est-ce-qu-on-va-apprendre-dans-ce-cours">
@@ -530,7 +532,8 @@ document.write(`
 <h3>Spaces<a class="headerlink" href="#spaces" title="Link to this heading">#</a></h3>
 <p>La catégorie la plus ludique et la plus facile d’accès est la catégorie <strong>spaces</strong> qui regroupe des démos de différents modèles.</p>
 <p>La page d’accueil se présente comme cela :</p>
-<img src="images/Spaces.png" alt="nlp" width="800"/><p>Les démos (spaces) sont classé par utilisation et par “trending” mais vous pouvez utiliser la fonction “Search spaces” pour chercher un modèle particulier que vous souhaiteriez tester.<br />
+<p><img alt="Spaces" src="../_images/Spaces.png" /></p>
+<p>Les démos (spaces) sont classé par utilisation et par “trending” mais vous pouvez utiliser la fonction “Search spaces” pour chercher un modèle particulier que vous souhaiteriez tester.<br />
 Je vous conseille également de parcourir régulierement les différents spaces, cela permet de se tenir au courant des nouveautés dans le domaine du deep learning.</p>
 <p>Si vous entraînez vous-même un modèle, vous pouvez ensuite le partager gratuitement dans un space via l’outil de création “Create New Space”. Pour cela, il faut avoir les bases de la library gradio qui nous traiterons dans le dernier notebook de ce cours.</p>
 </section>
@@ -539,26 +542,30 @@ Je vous conseille également de parcourir régulierement les différents spaces,
 <p>Parfois, un modèle que vous voudriez tester n’est pas disponible dans les spaces ou alors il est disponible mais vous voulez l’utiliser dans votre propre code. Pour cela, il faudra passer par la catégorie <strong>Models</strong> du site.
 La page <strong>Models</strong> regroupe énormement de modèles open-source.</p>
 <p>Voici à quoi ressemble la page :</p>
-<img src="images/Models.png" alt="nlp" width="800"/><p>Il y beaucoup d’information sur cette page. D’une part, vous pouvez chercher un modèle particulier dont vous connaissez le nom via “Filter by name”.<br />
+<p><img alt="Models" src="../_images/Models.png" /></p>
+<p>Il y beaucoup d’information sur cette page. D’une part, vous pouvez chercher un modèle particulier dont vous connaissez le nom via “Filter by name”.<br />
 Vous pouvez également utiliser les filtres à gauche pour une recherche de modèles par catégorie.</p>
 <p>Par exemple, imaginons que je cherche un modèle de “zero-shot object detection”, ce qui permet de détecter n’importe quel objet sur l’image à partir d’un <em>prompt</em>.</p>
 <p><strong><em>Prompt</em>, qu’est ce que c’est ?</strong> : Un <em>prompt</em> est une entrée qui permet de guider le modèle dans sa tâche. En NLP, un <em>prompt</em> va simplement être l’entrée du modèle, c’est-à-dire le texte saisi par l’utilisateur. Un <em>prompt</em> peut également être une coordonée sur une image (pour une tâche de segmentation) ou même une image ou encore une vidéo. La plupart du temps, lorsqu’on fait référence à <em>prompt</em>, c’est pour parler d’un ajout de texte en input du modèle.<br />
 Dans le cas du “zero-shot object detection”, si je cherche à détecter les bananes sur un image, l’entrée de mon modèle sera l’image et le texte “banana”.</p>
 <p>Pour chercher un modèle qui pourrait me convenir, j’utilise le filtrage de gauche en séléctionnant la catégorie zero-shot object detection et je consulte les modèles proposés.</p>
-<img src="images/zeroshot.png" alt="nlp" width="800"/><p>Le modèle “IDEA-Research/grounding-dino-tiny” me parait bien, je le selectionne et j’arrive sur la page suivante :</p>
-<img src="images/modelcard.png" alt="nlp" width="800"/><p>La <strong>model card</strong> donne une description précise du modèle (son fonctionnement, ses capacités etc …).<br />
+<p><img alt="Zero-shot" src="../_images/zeroshot.png" /></p>
+<p>Le modèle “IDEA-Research/grounding-dino-tiny” me parait bien, je le selectionne et j’arrive sur la page suivante :</p>
+<p><img alt="Model Card" src="../_images/modelcard.png" /></p>
+<p>La <strong>model card</strong> donne une description précise du modèle (son fonctionnement, ses capacités etc …).<br />
 Pour obtenir le code permettant de l’utiliser directement en python (via la library transformers ou diffusers en fonction du modèle choisi), vous pouvez utiliser le bouton <strong>Use this model</strong>.</p>
 <p>Pour le modèle choisi, on aura le bout de code suivant :</p>
-<img src="images/code.png" alt="nlp" width="500"/>  
+<p><img alt="Code" src="../_images/code.png" /></p>
 <p>Dans les notebooks suivants, nous verrons comment utiliser ce code pour notre tâche.</p>
 </section>
 <section id="datasets">
 <h3>Datasets<a class="headerlink" href="#datasets" title="Link to this heading">#</a></h3>
 <p>Si vous souhaitez entraîner votre propre modèle, il est nécessaire d’avoir un dataset. Vous pouvez choisir de le créer vous-même mais il existe beaucoup de datasets open-source que l’on peut notamment trouver sur Hugging Face.</p>
 <p>La page <strong>Datasets</strong> se présente comme la page <strong>Models</strong> avec les fonctions de filtrage et la fonction de recherche :</p>
-<img src="images/datasets.png" alt="nlp" width="800"/>  
+<p><img alt="Datasets" src="../_images/datasets.png" /></p>
 <p>Vous pouvez sélectionner un dataset et tomber sur la page suivante :</p>
-<img src="images/datasetpage.png" alt="nlp" width="800"/><p>Comme pour les modèles, la <strong>Dataset card</strong> permet de visualiser les données du dataset et d’avoir une description de celui-ci. Pour l’utiliser directement en python, vous pouvez utiliser <strong>Use in Datasets library</strong> pour obtenir le code python correspondant.</p>
+<p><img alt="Dataset Page" src="../_images/datasetpage.png" /></p>
+<p>Comme pour les modèles, la <strong>Dataset card</strong> permet de visualiser les données du dataset et d’avoir une description de celui-ci. Pour l’utiliser directement en python, vous pouvez utiliser <strong>Use in Datasets library</strong> pour obtenir le code python correspondant.</p>
 </section>
 <section id="autres-categories">
 <h3>Autres catégories<a class="headerlink" href="#autres-categories" title="Link to this heading">#</a></h3>
@@ -612,7 +619,7 @@ Dans les notebooks suivants, nous présenterons une vue d’ensemble des types d
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Computer Vision with Transformers</p>
+        <p class="prev-next-title">Vision par ordinateur avec des Transformers</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

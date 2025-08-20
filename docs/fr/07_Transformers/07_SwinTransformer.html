@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -519,14 +521,14 @@ document.write(`
 <h1>Swin transformer<a class="headerlink" href="#swin-transformer" title="Link to this heading">#</a></h1>
 <p>Ce notebook analyse le papier <a class="reference external" href="https://arxiv.org/pdf/2103.14030">Swin Transformer: Hierarchical Vision Transformer using Shifted Windows</a> qui propose une amélioration de l’archicture <em>transformer</em> avec un design hierarchique spécifique aux images pouvant rappeler les réseaux de neurones convolutifs.<br />
 La première partie du notebook explique les propositions de l’article une par une et la seconde partie est une implémentation simplifiée de l’architecture.</p>
-<img src="images/swin.png" alt="swin" width="700"/> 
+<p><img alt="swin" src="../_images/swin.png" /></p>
 <section id="analyse-de-l-article">
 <h2>Analyse de l’article<a class="headerlink" href="#analyse-de-l-article" title="Link to this heading">#</a></h2>
 <p>L’idée principale du papier est d’appliquer l’<em>attention</em> de manière hierarchique sur des parties de plus en plus grande de l’image. Cette approche a plusieurs fondements : Tout d’abord, l’analyse des images en regardant d’abord les détails locaux avant de regarder la relation entre tous les pixels de l’image est intuitivement logique (c’est pourquoi les CNNs sont si performants). Ensuite, le fait que les <em>tokens</em> (<em>patch</em>) ne communique pas avec tous les autres permet d’améliorer le temps de calcul.</p>
 <section id="architecture-hierarchique">
 <h3>Architecture hierarchique<a class="headerlink" href="#architecture-hierarchique" title="Link to this heading">#</a></h3>
 <p>L’architecture hierarchique du <em>swin transformer</em> est résumée dans cette figure :</p>
-<img src="images/hierarchique.png" alt="hierarchique" width="500"/> 
+<p><img alt="hierarchique" src="../_images/hierarchique.png" /></p>
 <p>Nous avons vu, dans notre implémentation, que le modèle ViT convertit les <em>patchs</em> en <em>tokens</em> et applique simplement un <em>transformer encoder</em> sur tous les éléments. C’est une architecture très simple et sans aucun biais sur les données (c’est l’architecture de base du <em>transformer</em> qui peut s’appliquer sur un peu tous les types de données).</p>
 <p>L’architecture <em>swin</em> ajoute un biais destinée à la rendre plus performante sur les images et plus rapide en terme de traitement. Comme on le voit dans la figure, l’image est d’abord séparé en très petits <em>patchs</em> (taille <span class="math notranslate nohighlight">\(4 \times 4\)</span> dans le papier) et les <em>patchs</em> sont regroupés en fenêtre. La couche d’attention est ensuite appliquée uniquement sur chaque fenêtre de manière indépendante. Plus on va profond dans le réseau, plus la dimension C, taille des <em>patchs</em> (relative à l’image) et des fenêtres augmente jusqu’à avoir une fenêtre de toute l’image et le même nombre de <em>patchs</em> que l’architecture ViT. A la manière d’un CNN, le réseau traîte d’abord les informations locales puis au fur et à mesure (avec l’augmentation du <em>receptive field</em>) des informations de plus en plus globales. Cela se fait en augmentant le nombre de filtres et en diminuant la résolution de l’image.</p>
 <p>Les nouveaux <em>blocks</em> de <em>transformer</em> correspondants sont appelés <em>Window Multi-Head Self-Attention</em> (W-MSA dans le papier, attention le M signifie <em>Multi-Head</em> et pas <em>Masked</em>).</p>
@@ -536,10 +538,10 @@ La première partie du notebook explique les propositions de l’article une par
 <p>Dans leur analogie avec le CNN, les auteurs se sont rendu compte qu’il peut être problématique de séparer en fenêtres à des positions arbitraires car cela brise la connexion entre des pixels voisins situés à des extremités de fenêtres.</p>
 <p>Pour corriger ce problème, les auteurs proposent d’utiliser un système de fenêtre glissante (<em>shifting window</em>) dans chaque <em>block swin</em>. Les <em>blocks swin</em> sont agencés par paires comme décrit dans la figure du début du notebook.</p>
 <p>Voici à quoi ressemble la fenêtre glissante :</p>
-<img src="images/shifting.png" alt="shifting" width="500"/>
+<p><img alt="shifting" src="../_images/shifting.png" /></p>
 <p>Comme vous pouvez le constater, avec cette technique, on passe de <span class="math notranslate nohighlight">\(2 \times 2\)</span> patchs à <span class="math notranslate nohighlight">\(3 \times 3\)</span> patchs (de manière générale de <span class="math notranslate nohighlight">\(n \times n\)</span> patchs à <span class="math notranslate nohighlight">\((n+1) \times (n+1)\)</span>) ce qui est problématique pour le traitement par le réseau en particulier en <em>batch</em>.</p>
 <p>Les auteurs proposent d’incorporer un <em>cyclic shift</em> qui consiste à faire cette opération sur l’image pour permettre un traitement plus efficace :</p>
-<img src="images/cyclic.png" alt="cyclic" width="500"/>
+<p><img alt="cyclic" src="../_images/cyclic.png" /></p>
 <p>A noter que pour utiliser cette méthode, il est nécessaire de masquer les informations de <em>patchs</em> ne provenant pas d’une même partie de l’image. Les parties blanches, jaunes, vertes et bleues de la figure ne communique pas ensemble grâce à une couche d’<em>attention</em> masquée.</p>
 </section>
 <section id="relative-position-bias">

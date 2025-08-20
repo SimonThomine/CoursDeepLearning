@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -518,7 +520,8 @@ document.write(`
 </ul>
 <p>Ces deux <em>loss</em> sont combinés avec un facteur de pondération <span class="math notranslate nohighlight">\(\alpha\)</span> que l’on peut choisir. De cette manière, le modèle <em>student</em> dispose d’une part du label de l’image et d’autre part de la prédiction du modèle <em>teacher</em> (qui est une distribution de probabilité).</p>
 <p><strong>Note</strong> : En pratique, pour la première partie du loss, on ne compare pas les probabilités après la fonction <em>softmax</em> mais plutôt les logits avant l’application du <em>softmax</em>. Pour plus de clarté, on continuera à dire “prédictions” au lieu de “logits”.</p>
-<img src="images/distill.png" alt="distill" width="800"/></section>
+<p><img alt="distill" src="../_images/distill.png" /></p>
+</section>
 <section id="pourquoi-est-ce-que-ca-fonctionne">
 <h2>Pourquoi est-ce que ça fonctionne ?<a class="headerlink" href="#pourquoi-est-ce-que-ca-fonctionne" title="Link to this heading">#</a></h2>
 <p>On peut se demander pourquoi est ce que cela fonctionne mieux que d’entraîner directement le student avec le <em>loss</em> classique prédiction/label.<br />
@@ -542,14 +545,14 @@ Il y a plusieurs raisons à cela :</p>
 <h3>Noisy Student<a class="headerlink" href="#noisy-student" title="Link to this heading">#</a></h3>
 <p>Pendant longtemps, la course à la performance sur le dataset <a class="reference external" href="https://www.image-net.org/">ImageNet</a> a été au coeur de la recherche en deep learning. Le but étant d’améliorer encore et encore les performances sur ce fameux dataset. En 2020, l’article <a class="reference external" href="https://arxiv.org/pdf/1911.04252">Self-training with Noisy Student improves ImageNet classification</a> propose une utilisation de la distillation pour entraîné un modèle <em>student</em> plus performant que le <em>teacher</em> à chaque itération.</p>
 <p>Un modèle <em>student</em> est entraîné à partir de <em>pseudo-labels</em> extrait d’un modèle <em>teacher</em> (labels crées par le modèle teacher sur des images non annotées). Lors de l’entraînement, du bruit est ajouté pour augmenter sa robustesse. Une fois que le <em>student</em> est entraîné, on l’utilise pour obtenir de nouveaux pseudo labels et entraîner un autre <em>student</em>. On répéte le processus un certain nombre de fois et on finit par obtenir un modèle bien plus performant que le <em>teacher</em> de base.</p>
-<img src="images/noisystudent.png" alt="noisystudent" width="500"/>
+<p><img alt="noisystudent" src="../_images/noisystudent.png" /></p>
 </section>
 <section id="stpm">
 <h3>STPM<a class="headerlink" href="#stpm" title="Link to this heading">#</a></h3>
 <p>Un exemple très intéressant de l’utilisation de la distillation des connaissances est son utilisation pour la détection d’anomalies non supervisée. L’article <a class="reference external" href="https://arxiv.org/pdf/2103.04257">Student-Teacher Feature Pyramid Matching for Anomaly Detection</a> adapte la distillation des connaissances pour ce cas d’usage.</p>
 <p>Cette fois-ci, le modèle <em>teacher</em> et le modèle <em>student</em> ont la même architecture. Au lieu de regarder les prédictions et d’entraîner le modèle sur cela, on va plutôt s’intéresser aux <em>feature map</em> des couches du milieu du réseau. Dans l’idée, lors de l’entraînement, on dispose de données sans anomalies. Le modèle <em>teacher</em> est pré-entrainé sur ImageNet (par exemple) et est <em>frozen</em> pendant l’entraînement. Le modèle <em>student</em> est initialisé aléatoirement et c’est lui qu’on entraîne. Plus précisement, on l’entraine à reproduire les <em>feature map</em> du <em>teacher</em> sur des données sans défauts. A la fin de l’entrainement, le <em>student</em> et le <em>teacher</em> vont avoir des <em>feature map</em> identiques sur un élément sans défaut.</p>
 <p>Lorsqu’il est temps de tester notre modèle, on teste sur des données sans défaut et des données avec défauts. Sur les données sans défaut, le modèle <em>student</em> va imiter le <em>teacher</em> parfaitement tandis que sur des données defectueuses, les feature map du <em>student</em> et du <em>teacher</em> seront différentes ce qui nous permettra de calculer un score de similarité (qui nous servira de score d’anomalie).</p>
-<img src="images/kdad.png" alt="kdad" width="600"/>
+<p><img alt="kdad" src="../_images/kdad.png" /></p>
 <p>En pratique, cette méthode fait partie des méthodes les plus performantes pour la détection d’anomalies non supervisée. C’est cette méthode que nous allons implémenter dans le notebook suivant.</p>
 </section>
 </section>

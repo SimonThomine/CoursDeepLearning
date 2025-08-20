@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -539,10 +541,11 @@ Pour les paires d’images, deux scénarios sont possibles, soit les deux images
 <span class="math notranslate nohighlight">\(D_W(X_1,X_2) = \lVert G_W(X_1) - G_W(X_2)\rVert \)</span>  petit si <span class="math notranslate nohighlight">\(X_1\)</span> et <span class="math notranslate nohighlight">\(X_2\)</span> sont dans la même catégorie et grand si ils sont dans des catégories différentes.</p>
 <p>Le modèle est entraîné sur des paires d’images et les poids de <span class="math notranslate nohighlight">\(G_W\)</span> sont bien entendu partagés.<br />
 L’architecture ressemble à cela :</p>
-<img src="images/siamese.png" alt="siamese" width="400"/>
+<p><img alt="siamese" src="../_images/siamese.png" /></p>
 <p>Figure extraite de l’article original (le <span class="math notranslate nohighlight">\(E_W\)</span> de la figure correspond à notre <span class="math notranslate nohighlight">\(D_W\)</span>)</p>
 <p>Ou (de manière plus simple) à cela :</p>
-<img src="images/siamese2.png" alt="siamese2" width="500"/></section>
+<p><img alt="siamese2" src="../_images/siamese2.png" /></p>
+</section>
 <section id="loss-contrastif">
 <h3>Loss contrastif<a class="headerlink" href="#loss-contrastif" title="Link to this heading">#</a></h3>
 <p>Mais alors, comment est ce que l’on peut définir notre fonction de <em>loss</em> pour cet objectif ?<br />
@@ -806,7 +809,7 @@ Epoch 30/30 Loss: 0.2643573438559753
 <li><p><strong>Axe des Y</strong> est le taux de vrais positifs (rappel ou sensibilité). C’est le nombre d’éléments positifs correctement classés comme positifs, divisé par le nombre total d’éléments positifs.</p></li>
 </ul>
 <p>Chaque point de la courbe va représenter un seuil de décision différent pour la classification des éléments.</p>
-<img src="images/roc.png" alt="roc" width="500"/>
+<p><img alt="roc" src="../_images/roc.png" /></p>
 <p>Figure extraite de <a class="reference external" href="https://sefiks.com/2020/12/10/a-gentle-introduction-to-roc-curve-and-auc/">blogpost</a>.</p>
 <p>Pour juger la qualité d’un modèle, on peut calculer l’aire sous la courbe ROC (AUROC). Dans le cas du <em>random classifier</em> on aura un AUROC de 0.5 alors que si il s’agit du classifieur parfait, l’AUROC sera de 1.</p>
 <p>On peut le calculer pour notre modèle :</p>
@@ -888,7 +891,7 @@ Pour comprendre la nuance entre les deux, reprenons le cas de notre employé d�
 <p>La fonction du <em>loss</em> est définie comme :<br />
 <span class="math notranslate nohighlight">\(L_{\text{triplet}} = \max\left( d(A, P) - d(A, N) + \alpha, 0 \right)\)</span> où <span class="math notranslate nohighlight">\(d\)</span> est la distance et <span class="math notranslate nohighlight">\(\alpha\)</span> la marge (<em>margin</em>).</p>
 <p>Ce loss minimise la distance entre <span class="math notranslate nohighlight">\(P\)</span> et <span class="math notranslate nohighlight">\(A\)</span> tout en maximisant celle entre <span class="math notranslate nohighlight">\(N\)</span> et <span class="math notranslate nohighlight">\(A\)</span>.</p>
-<img src="images/tripletloss.png" alt="roc" width="600"/>
+<p><img alt="tripletloss" src="../_images/tripletloss.png" /></p>
 <p>Figure extraite de l’article original.</p>
 <p>Cela peut sembler redondant avec le <em>loss</em> contrastif et c’est un peu le cas. Cependant, le <em>triplet loss</em> a demontré des meilleurs résultats lorsqu’il s’agit de faire une distinction fine entre des classes assez similaire (typiquement le cas de la reconnaissance faciale). Aujourd’hui, son utilisation est préférée à celle du loss contrastif pour les tâches de traitement des visages.</p>
 </section>

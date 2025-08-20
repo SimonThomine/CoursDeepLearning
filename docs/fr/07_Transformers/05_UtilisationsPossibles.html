@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -526,7 +528,7 @@ Language Understanding</a> propose une façon d’entraîner un modèle de langa
 <h3>Entraînement du modèle<a class="headerlink" href="#entrainement-du-modele" title="Link to this heading">#</a></h3>
 <p>BERT est un modèle encodeur, c’est à dire qu’il prend en compte le contexte des mots à la fois à droite et à gauche (avant et après le mot actuel). Pour l’entraîner, on ne peut pas faire comme GPT et se contenter de prédire les mots suivants.</p>
 <p><strong>Masked Langage Model (MLM)</strong> : BERT est ce qu’on appelle un <em>Masked Langage Model</em> (MLM), pendant l’entraînement, on va masquer certains mots d’une phrase (à des positions aléatoires) et on va demander au modèle de les prédire en se servant du contexte autour du mot masqué.</p>
-<img src="images/bert.png" alt="transformer" width="500"/> 
+<p><img alt="BERT" src="../_images/bert.png" /></p>
 <p>Figure extraite de <a class="reference external" href="https://towardsdatascience.com/bert-explained-state-of-the-art-language-model-for-nlp-f8b21a9b6270">blogpost</a></p>
 <p><strong>Next Sentence Prediction (NSP)</strong> : BERT est également pré-entraîné à si une phrase B suit une phrase A dans le texte, ce qui aide le modèle à comprendre les relations entre les phrases.</p>
 <p><strong>Note</strong> : Pour en savoir plus sur BERT et pour apprendre à le <em>finetune</em> vous pouvez consulter le <a class="reference internal" href="../10_TransferLearningEtDistillation/05_FineTuningLLM.html"><span class="std std-doc">cours 10 sur BERT</span></a>.</p>
@@ -545,7 +547,8 @@ Le papier <a class="reference external" href="https://arxiv.org/pdf/2010.11929">
 <section id="vit-vision-transformer">
 <h3>ViT : Vision Transformer<a class="headerlink" href="#vit-vision-transformer" title="Link to this heading">#</a></h3>
 <p>Ce papier introduit le <em>Vision Transformer</em> (ViT) qui se base sur une découpe de l’image en <em>patch</em> qui vont être ensuite donné en entrée au <em>transformer</em> comme des <em>tokens</em>.</p>
-<img src="images/ViT.png" alt="transformer" width="700"/> <p>Comme on peut le voir à droite de la figure, l’architecture correspond à une architecture de type encodeur (la seule chose qui change par rapport à <a class="reference external" href="https://arxiv.org/pdf/1706.03762">Attention Is All You Need</a> est l’application des normes avant les couches plutôt qu’après).</p>
+<p><img alt="ViT" src="../_images/ViT.png" /></p>
+<p>Comme on peut le voir à droite de la figure, l’architecture correspond à une architecture de type encodeur (la seule chose qui change par rapport à <a class="reference external" href="https://arxiv.org/pdf/1706.03762">Attention Is All You Need</a> est l’application des normes avant les couches plutôt qu’après).</p>
 <p>Dans le modèle <em>Vision Transformer</em> (ViT), chaque image est découpée en <em>patchs</em> de taille fixe, par exemple 16x16 pixels. Chaque <em>patch</em> est transformé en un vecteur en l’aplatissant, puis ce vecteur est projeté dans un espace d’<em>embedding</em> à l’aide d’une couche de projection linéaire, similaire à celle utilisée dans les modèles de traitement de texte comme BERT ou GPT (couche <em>Embedding</em>). Cette représentation vectorielle capture les informations spatiales et structurelles de l’image, tout comme les <em>embeddings</em> dans les modèles NLP capturent le sens et les relations entre les mots.
 Le titre de l’article “An Image is Worth 16x16 Words” reflète cette analogie : chaque <em>patch</em> d’image est traité comme un “mot” projeté dans un espace d’<em>embedding</em> pour permettre l’apprentissage par avec l’architecture <em>transformer</em>.</p>
 <p><strong>Note</strong> :</p>
@@ -559,13 +562,14 @@ Le titre de l’article “An Image is Worth 16x16 Words” reflète cette analo
 <p>Dans le domaine du NLP, les modèles de fondations (entrainé de manière non supervisée) ont permis des avancées spectaculaires. Créer un modèle de fondation pour les images est aussi une tâche très attrayantes. Cela permettrait d’avoir un modèle que l’on peut <em>finetune</em> simplement sur des tâches précises  et avec de bons résultats. Pour cette tâche, plusieurs approches ont été proposées à partir d’images uniquement. Nous allons en présenter deux dans la suite de cette partie.</p>
 <p><strong>BEIT</strong> : <a class="reference external" href="https://arxiv.org/pdf/2106.08254">BEIT: BERT Pre-Training of Image Transformers</a> propose d’utiliser le même mode d’entraînement que BERT mais dans le contexte des images. Cela va consister à masquer certains <em>patchs</em> de l’image que l’on va essayer de prédire pendant l’entraînement. Cependant, à l’inverse des mots, les possibilités d’images sont presque infinie (si on veut prédire une image RGB de taille <span class="math notranslate nohighlight">\(3 \times 8 \times 8\)</span>, il y a <span class="math notranslate nohighlight">\((256 \times 256 \times 256)^{8 \times 8} = (16777216)^{64}\)</span> de possiblités ce qui est plus que le nombre d’atomes dans l’univers) donc on ne peut pas directement prédire les pixels.<br />
 Pour remedier à ce problème, on utilise un <a class="reference external" href="https://shashank7-iitd.medium.com/understanding-vector-quantized-variational-autoencoders-vq-vae-323d710a888a">VQ-VAE</a> qui permet de discrétiser une representation de l’image. Cette version discrète correspond à des valeurs issues d’un dictionnaire de taille fixe et il est donc possible de prédire cette representation discrète.</p>
-<img src="images/beit.png" alt="transformer" width="700"/>
+<p><img alt="BEIT" src="../_images/beit.png" /></p>
 <p><strong>Image GPT</strong> : L’article <a class="reference external" href="https://cdn.openai.com/papers/Generative_Pretraining_from_Pixels_V2.pdf">Generative Pretraining from Pixels</a> introduit un équivalent de GPT mais pour les pixels. Il s’agit d’un modèle autoregressif qui va générer les pixels d’une image un par un comme le fait un modèle autoregressif de NLP avec les <em>tokens</em>. Cela permet d’avoir un entraînement non supervisé mais il y a quand même de nombreux défauts :</p>
 <ul class="simple">
 <li><p>La génération prend énormement de temps car on génére un pixel à la fois. On doit donc appliquer une réduction de dimension au préalable.</p></li>
 <li><p>Générer de gauche à droite n’a pas de sens pour une image, pourquoi de gauche à droite et pas de droite à gauche ? Ou en commençant du milieu ?</p></li>
 </ul>
-<img src="images/imagegpt.png" alt="transformer" width="900"/><p>Il existe d’autres façons d’entraîner des <em>transformers</em> de vision (ou autre modèle de vision) de manière non supervisée comme les <a class="reference external" href="https://arxiv.org/pdf/2111.06377">Masked Autoencoders</a> ou les modèles associant texte et image.</p>
+<p><img alt="Image GPT" src="../_images/imagegpt.png" /></p>
+<p>Il existe d’autres façons d’entraîner des <em>transformers</em> de vision (ou autre modèle de vision) de manière non supervisée comme les <a class="reference external" href="https://arxiv.org/pdf/2111.06377">Masked Autoencoders</a> ou les modèles associant texte et image.</p>
 </section>
 </section>
 <section id="transformers-associant-texte-et-image">
@@ -577,7 +581,7 @@ Pour remedier à ce problème, on utilise un <a class="reference external" href=
 <p><strong>Architecture de CLIP</strong> : L’entraînement de CLIP repose sur une méthode contrastive. Cette méthode d’entraînement consiste à présenter au modèle deux exemples : un exemple positif qui correspond au label donné et un exemple négatif qui ne correspond pas au label. Le but est de pousser le modèle à associer correctement l’exemple positif au label tout en dissociant l’exemple négatif du label. Ainsi, cette approche permet de définir une frontière claire entre ce qui est pertinent (positif) et ce qui ne l’est pas (négatif), en maximisant la séparation entre les deux.</p>
 <p>En pratique, CLIP utilise à la fois un encodeur textuel et un encodeur d’image, tous deux basés sur des architectures de <em>transformers</em>. Le modèle encode des descriptions textuelles et des images pour ensuite les associer de manière correcte pendant l’entraînement. L’objectif principal est de maximiser la corrélation entre les descriptions et les images correspondantes, tout en minimisant cette corrélation pour les paires qui ne correspondent pas. Cela permet au modèle d’apprendre à représenter efficacement les relations entre texte et image dans un espace d’<em>embedding</em> commun, facilitant ainsi la compréhension et la génération de texte à partir d’images, et vice versa.</p>
 <p>Lors de la phase de test, on peut demander au modèle de générer une description adaptée pour notre image.</p>
-<img src="images/clip.png" alt="transformer" width="800"/>
+<p><img alt="CLIP" src="../_images/clip.png" /></p>
 <p><strong>Utilisation du modèle</strong> : Au délà d’être un simple captionner, CLIP permet aussi de faire de la classification <em>zero-shot</em>, c’est à dire qu’on va pouvoir classifier une image sans avoir entraîné le modèle spécifiquement sur cette tâche. Dans le cas de CLIP, cela va permettre de donner un score à chaque description qu’on lui fournit. On va lui donner deux descriptions “A photo of a cat” et “A photo of a dog” et il va nous renvoyer des scores de probabilités d’association de notre image actuelle avec chacune des deux descriptions.</p>
 <p><strong>Autres utilisations</strong> : Cette méthode d’entraînement a également permis de créer des modèles de détection <em>zero-shot</em> comme <a class="reference external" href="https://arxiv.org/pdf/2205.06230">OWL-ViT</a>, des modèles de transfert de style ou encore des modèles de générations d’images.</p>
 <p><strong>Dataset d’images avec description</strong> : On peut également se demander si une description d’image n’est pas équivalente à un label et qu’on aurait donc besoin d’une annotation laborieuse pour entraîner ce type de modèle (qui demandent des milliards d’images pour être performants). En réalité, il est possible de récolter des images avec description assez simplement sur internet grâce au “alt” de l’image en code HTML. Il s’agit d’une description de l’image que les gens ajoutent à leur image dans le code HTML.<br />

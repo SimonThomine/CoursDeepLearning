@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -520,7 +522,7 @@ On peut simplement la définir de cette manière :<br />
 où <span class="math notranslate nohighlight">\(\theta\)</span> correspond aux paramètres du modèle, <span class="math notranslate nohighlight">\(L(\theta)\)</span> est le loss sur l’ensemble des données et <span class="math notranslate nohighlight">\(\alpha\)</span> est le <em>learning rate</em>.</p>
 <p>On peut résumer cette approche en une phrase simple : A chaque étape d’entraînement, on ajuste les paramètres du modèles pour minimiser le <em>loss</em> sur l’ensemble des données.</p>
 <p>Voici une figure montrant l’idée derrière la descente du gradient :</p>
-<img src="images/gd.png" alt="gd" width="400"/> 
+<p><img alt="GD" src="../_images/gd.png" /></p>
 <p>C’est une approche très simple à implémenter et qui fonctionne très bien sur une petite quantité de données si on a bien choisi notre <em>learning rate</em>. Cependant, comme on calcule le <em>loss</em> sur l’ensemble de nos éléments avant d’ajuster les poids, cette approche est extremement lente pour les gros datasets et inutilisable en pratique. De plus, le choix du <em>learning rate</em> est très important et il faut être précis ce qui n’est pas toujours évident.</p>
 </section>
 <section id="descente-du-gradient-stochastique">
@@ -529,7 +531,7 @@ où <span class="math notranslate nohighlight">\(\theta\)</span> correspond aux 
 <p>La formule est presque identique :<br />
 <span class="math notranslate nohighlight">\(\theta = \theta - \alpha \cdot \nabla L(\theta;x^{(i)};y^{(i)})\)</span><br />
 où <span class="math notranslate nohighlight">\((x^{(i)},y^{(i)})\)</span> est un mini-batch de données.</p>
-<img src="images/sgd.png" alt="sgd" width="400"/> 
+<p><img alt="SGD" src="../_images/sgd.png" /></p>
 <p>Comme on le voit sur la figure, la pente n’est pas une ligne droite mais le modèle finit par converger au minimum global.</p>
 <p>Cette méthode est beaucoup plus rapide que la descente du gradient classique surtout sur les gros datasets. Cela a aussi l’avantage de pouvoir échapper aux minimums locaux plus facilement (dû à l’instabilité du processus). Ce n’est cependant pas parfait à cause justement de l’instabilité et a besoin également d’un <em>learning rate</em> très bien choisi pour fonctionner de manière optimale.</p>
 </section>
@@ -540,7 +542,7 @@ La formule est la suivante :<br />
 <span class="math notranslate nohighlight">\(v = \beta \cdot v + (1 - \beta) \cdot \nabla_\theta L(\theta; x^{(i)}; y^{(i)})\)</span><br />
 <span class="math notranslate nohighlight">\(\theta = \theta - \alpha \cdot v\)</span><br />
 où <span class="math notranslate nohighlight">\(v\)</span> est appelé le vecteur de <em>momentum</em> et <span class="math notranslate nohighlight">\(\beta\)</span> est un hyperparamètre (calculé par <em>exponentially decaying average</em>) ajustant l’impact de la valeur actuelle.</p>
-<img src="images/sgdmoment.png" alt="sgdmoment" width="600"/> 
+<p><img alt="SGD with Momentum" src="../_images/sgdmoment.png" /></p>
 <p>En pratique, cela aide à passer les régions plates de la fonction de <em>loss</em> plus efficacement tout en augmentant la vitesse de convergence. Par contre, le choix du paramètre <em>momentum</em> est important car un <em>momentum</em> trop grand pourrait nous faire sauter la solution optimale. En pratique ce terme est choisi en fonction de la taille de votre <em>mini-batch</em> (<em>batch size</em>).</p>
 <p><em><strong>Exponentially decaying average</strong></em> :  Méthode de lissage des données où chaque nouvelle valeur a un poids décroissant exponentiellement, donnant plus d’importance aux valeurs récentes tout en diminuant progressivement l’impact des valeurs passées.</p>
 </section>
@@ -600,7 +602,7 @@ où <span class="math notranslate nohighlight">\(m\)</span> est le vecteur de <e
 <section id="point-sur-le-choix-du-learning-rate">
 <h2>Point sur le choix du learning rate<a class="headerlink" href="#point-sur-le-choix-du-learning-rate" title="Link to this heading">#</a></h2>
 <p>Le choix du <em>learning rate</em> est très lié avec le choix de l’<em>optimizer</em>. Voici les situations possibles sur lesquelles on peut tomber en fonction du choix du <em>learning rate</em> :</p>
-<img src="images/lr.png" alt="lr" width="600"/> 
+<p><img alt="Learning Rate" src="../_images/lr.png" /></p>
 <ul class="simple">
 <li><p>Dans le premier cas, le <em>learning rate</em> est trop faible et la convergence du modèle va être lente. C’est couteux en terme de temps et d’argent.</p></li>
 <li><p>Dans le second cas, le <em>learning rate</em> est bien choisi et il décroit assez vite pour atteindre le minimum de la fonction de <em>loss</em>. C’est cette valeur là que l’on cherche à trouver.</p></li>

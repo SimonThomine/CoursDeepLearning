@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -618,7 +620,7 @@ torch.Size([22639, 3]) torch.Size([22639])
 <section id="implementation-de-la-batchnorm">
 <h3>Implémentation de la BatchNorm<a class="headerlink" href="#implementation-de-la-batchnorm" title="Link to this heading">#</a></h3>
 <p>Si on reprend l’article, on a les informations suivantes :</p>
-<img src="images/norm.png" alt="norm" width="400"/> 
+<p><img alt="Norm" src="../_images/norm.png" /></p>
 <p>Dans un premier temps, il s’agit simplement de normaliser.</p>
 <p>Pour cela, on va calculer la moyenne et l’écart type de hpreact puis normaliser grâce à ces valeurs :</p>
 <div class="cell docutils container">
@@ -633,7 +635,7 @@ torch.Size([22639, 3]) torch.Size([22639])
 </div>
 <p>On va maintenant pouvoir l’intégrer à notre propagation avant.</p>
 <p>Mais avant cela, on peut remarquer que l’on a pas implementé la partie <em>scale and shift</em> :</p>
-<img src="images/scaleshift.png" alt="scaleshift" width="400"/> 
+<p><img alt="Scale and Shift" src="../_images/scaleshift.png" /></p>
 <p><strong>A quoi ça sert ?</strong> : En appliquant la normalisation, on confine les poids à ne prendre que des valeurs d’une gaussienne centrée réduite. Cela va réduire les capacités d’expression de notre modèle. Les paramètres apprenables <span class="math notranslate nohighlight">\(\gamma\)</span> et <span class="math notranslate nohighlight">\(\beta\)</span> permettent de contourner ce problème en ajoutant d’un part un <em>shift</em> avec <span class="math notranslate nohighlight">\(\beta\)</span> et un <em>scale</em> avec <span class="math notranslate nohighlight">\(\gamma\)</span>.</p>
 <p>Comme il s’agit de paramètres apprenables, on doit aussi les ajouter dans les paramètres du modèle :</p>
 <div class="cell docutils container">
@@ -812,7 +814,7 @@ Néanmoins, si on veut éviter ce problème, on peut utiser d’autres méthodes
 <section id="autres-normalisation">
 <h2>Autres normalisation<a class="headerlink" href="#autres-normalisation" title="Link to this heading">#</a></h2>
 <p>Nous allons faire un tour rapide des autres normalisation qui sont utilisé pour l’entraînement des réseaux de neurones.</p>
-<img src="images/types.png" alt="typesofnorm" width="800"/> 
+<p><img alt="Types of Normalization" src="../_images/types.png" /></p>
 <p>Figure extraite de l’<a class="reference external" href="https://arxiv.org/pdf/1803.08494">article</a></p>
 <p><strong>Layer Normalization</strong> : Cette couche de normalisation est également très fréquemment utilisée notamment dans les modèles de langages (GPT, Llama). Il s’agit simplement de normaliser sur l’ensemble des activations de la couche plutôt que sur l’axe du <em>batch</em>. Dans notre implémentation, cela reviendrait simplement à changer :</p>
 <div class="cell docutils container">

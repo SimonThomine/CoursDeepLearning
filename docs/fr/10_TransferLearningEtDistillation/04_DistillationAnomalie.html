@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -516,7 +518,7 @@ document.write(`
 <p>Dans ce notebook d’application, nous allons mettre en pratique la distillation des connaissances dans le cas particulier de la détection d’anomalies non supervisée.</p>
 <p>Pour cela, nous allons nous inspirer du papier <a class="reference external" href="https://arxiv.org/pdf/2103.04257">Student-Teacher Feature Pyramid Matching for Anomaly Detection</a> et du <a class="reference external" href="https://github.com/xiahaifeng1995/STPM-Anomaly-Detection-Localization-master">code correspondant</a>.<br />
 Voici la figure, extraite de l’article, décrivant le fonctionnement de la méthode :</p>
-<img src="images/stpm.png" alt="stpm" width="700"/>
+<p><img alt="stpm" src="../_images/stpm.png" /></p>
 <section id="choix-du-backbone-student-teacher-et-dataset">
 <h2>Choix du backbone student/teacher et dataset<a class="headerlink" href="#choix-du-backbone-student-teacher-et-dataset" title="Link to this heading">#</a></h2>
 <section id="backbone-et-loss">
@@ -529,7 +531,7 @@ Voici la figure, extraite de l’article, décrivant le fonctionnement de la mé
 <h3>Dataset<a class="headerlink" href="#dataset" title="Link to this heading">#</a></h3>
 <p>Le dataset utilisé dans l’article est le dataset <a class="reference external" href="https://www.mvtec.com/company/research/datasets/mvtec-ad">MVTEC AD</a> qui regroupe 15 catégories dont 10 objets et 5 textures. Il y a environ 350 images sans défauts pour l’entraînement et une centaine d’images défectueuses pour le test (par catégorie bien sûr).<br />
 Voici un aperçu des images du dataset :</p>
-<img src="images/mvtec.png" alt="mvtec" width="700"/>
+<p><img alt="mvtec" src="../_images/mvtec.png" /></p>
 <p>Vous pouvez télécharger le dataset <a class="reference external" href="https://www.mvtec.com/company/research/datasets/mvtec-ad">ici</a>. Pour notre implémentation, nous utiliserons la catégorie <em>hazelnut</em> (noisette).</p>
 </section>
 </section>

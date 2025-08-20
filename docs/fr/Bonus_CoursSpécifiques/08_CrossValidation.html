@@ -212,11 +212,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -510,7 +512,7 @@ document.write(`
 <section id="probleme-des-modeles-de-deep-learning">
 <h2>Problème des modèles de Deep Learning<a class="headerlink" href="#probleme-des-modeles-de-deep-learning" title="Link to this heading">#</a></h2>
 <p>Comme on l’a vu précedemment, un des problèmes des modèles de deep learning est l’<em>overfitting</em>. Pour en apprendre plus sur l’<em>overfitting</em>, vous pouvez vous réferer au <a class="reference internal" href="06_Regularisation.html"><span class="std std-doc">cours bonus sur la régularisation</span></a>. En effet, il ne suffit pas d’avoir un modèle performant sur les données d’entrainement, il faut surtout être performant sur les données de test.</p>
-<img src="images/overfit2.png" alt="overfitting" width="800"/>
+<p><img alt="Overfitting 2" src="../_images/overfit2.png" /></p>
 <p>La <em>cross-validation</em> est une technique permettant de détecter plus facilement l’<em>overfitting</em> et d’ajuster plus précisement les hyperparamètres pour lutter contre l’<em>overfitting</em>.</p>
 </section>
 <section id="la-cross-validation-comment-ca-marche">
@@ -522,19 +524,19 @@ document.write(`
 <li><p>On va finalement tester notre modèle sur le subset que l’on avait écarté pour l’entraînement.</p></li>
 </ul>
 <p>On répete les deux derniers points jusqu’à ce que tous les subsets aient été évalués. Si on sépare notre dataset en 10 subsets, alors il faudra entraîner le modèle 10 fois. Une fois que tous les entraînements sont terminés, on peut évaluer notre modèle en prenant la moyenne de ses performances sur les différents entrainements.</p>
-<img src="images/crossval.png" alt="crossval" width="800"/>
+<p><img alt="Cross Validation" src="../_images/crossval.png" /></p>
 <p>Il existe 3 type de cross-validation qui sont assez proches les uns des autres : le <em>k-fold cross validation</em>, le <em>stratified k-fold cross validation</em> et le <em>leave one out cross validation</em> (LOOCV).</p>
 <section id="k-fold-cross-validation">
 <h3>K-fold cross validation<a class="headerlink" href="#k-fold-cross-validation" title="Link to this heading">#</a></h3>
 <p>Le <em>k-fold cross validation</em> est la version la plus classique. On divise notre dataset en k subsets. On entraîne k modèles à chaque fois avec un différent set de validation et on fait la moyenne des scores pour évaluer le modèle de manière générale.</p>
-<img src="images/kfold.png" alt="kfold" width="500"/>
+<p><img alt="K-Fold" src="../_images/kfold.png" /></p>
 <p><strong>Comment choisir le paramètre k</strong> : En général, on va choisir k de sorte à ce que les subset soit suffisamment important pour representer statistiquement le dataset original. La choix de k va aussi dépendre du temps et des ressources dont l’on dispose car plus k est grand, plus on doit faire d’entrainements.</p>
 <p>En général, k=10 est une bonne valeur.</p>
 </section>
 <section id="stratified-k-fold-cross-validation">
 <h3>Stratified K-fold cross validation<a class="headerlink" href="#stratified-k-fold-cross-validation" title="Link to this heading">#</a></h3>
 <p>Cette méthode est presque identique à la <em>k-fold cross validation</em> de base mais on rajoute une contrainte. On spécifie que chaque subset doit la même distribution de classes. Cela permet de juger chaque subset sur un pied d’égalité en terme performance relative à chaque classe.</p>
-<img src="images/skfold.png" alt="kfold" width="500"/>
+<p><img alt="Stratified K-Fold" src="../_images/skfold.png" /></p>
 </section>
 <section id="leave-one-out-cross-validation">
 <h3>Leave one out cross validation<a class="headerlink" href="#leave-one-out-cross-validation" title="Link to this heading">#</a></h3>

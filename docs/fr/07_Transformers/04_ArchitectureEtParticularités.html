@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -511,16 +513,18 @@ document.write(`
 <section id="particularite-du-texte">
 <h2>Particularité du texte<a class="headerlink" href="#particularite-du-texte" title="Link to this heading">#</a></h2>
 <p>Avant de présenter le block encodeur, il est nécessaire de bien comprendre pourquoi nous n’avions besoin que du block décodeur les notebooks précédents. Dans la figure suivante, l’encadré rouge indique la partie du modèle que nous avons utilisé (sans la seconde <em>multi-head attention</em>).</p>
-<img src="images/decoderblock.png" alt="arllm" width="400"/><p>Le texte a la particularité de se lire de gauche à droite. Il est donc logique de supposer qu’un modèle qui génére du texte va aussi prendre les informations de gauche à droite. C’est ce qu’on appelle un <a class="reference external" href="https://deepgenerativemodels.github.io/notes/autoregressive/">modèle autoregressif</a>. On va prédire le <em>token</em> suivant compte tenu des <em>tokens</em> précédents (compris dans le contexte).<br />
+<p><img alt="Decoder Block" src="../_images/decoderblock.png" /></p>
+<p>Le texte a la particularité de se lire de gauche à droite. Il est donc logique de supposer qu’un modèle qui génére du texte va aussi prendre les informations de gauche à droite. C’est ce qu’on appelle un <a class="reference external" href="https://deepgenerativemodels.github.io/notes/autoregressive/">modèle autoregressif</a>. On va prédire le <em>token</em> suivant compte tenu des <em>tokens</em> précédents (compris dans le contexte).<br />
 C’est pourquoi, lors de l’entraînement, on utilise un masque pour ne pas “voir” les <em>tokens</em> situés après le <em>token</em> actuel.</p>
 <p>Cependant, cette approche n’a du sens que dans des cas de “génération de gauche à droite”. Il y a énormement de cas où l’approche autoregressive n’est pas l’approche optimale. Parmis ces cas, on retrouve certaines approches de NLP comme la traduction ou l’analyse des émotions mais également des approches de vision. Actuellement, l’architecture du <em>transformer</em> a fait ces preuves dans la majorité des domaines utilisant le deep learning et dans bon nombre de cas, il ne s’agit pas de l’approche autogressive.</p>
-<img src="images/ar-llm.png" alt="arllm" width="500"/> 
+<p><img alt="AR-LLM" src="../_images/ar-llm.png" /></p>
 <p>AR-LLM signifie <em>auto regressive large language model</em>.</p>
 </section>
 <section id="le-block-encodeur">
 <h2>Le block encodeur<a class="headerlink" href="#le-block-encodeur" title="Link to this heading">#</a></h2>
 <p>Le <em>block</em> encodeur est le <em>block</em> de gauche representé sur la figure de l’architecture (encadré en rouge à nouveau).</p>
-<img src="images/encoderblock.png" alt="arllm" width="400"/><p>La seule différence avec le <em>block</em> utilisé précedemment est que la couche <em>multi-head attention</em> n’est pas <em>masked</em>. Pour faire l’analogie avec les notebooks précédents, cela signifie qu’on utilise une matrice complète au lieu d’une matrice triangulaire inférieure pour le calcul de l’<em>attention</em>.</p>
+<p><img alt="Encoder Block" src="../_images/encoderblock.png" /></p>
+<p>La seule différence avec le <em>block</em> utilisé précedemment est que la couche <em>multi-head attention</em> n’est pas <em>masked</em>. Pour faire l’analogie avec les notebooks précédents, cela signifie qu’on utilise une matrice complète au lieu d’une matrice triangulaire inférieure pour le calcul de l’<em>attention</em>.</p>
 <p>Concrétement, cela signifie que chaque <em>token</em> de la séquence d’entrée peut interragir avec tous les autres <em>tokens</em> (situés avant ou après). Dans des cas comme l’analyse de sentiments, c’est l’approche privilégiée car on a une séquence connue en entrée et on cherche à prédire un label (positif, négatif ou neutre).</p>
 <p><strong>Point sur l’analyse de sentiments</strong> : En NLP, l’analyse de sentiments consiste à donner au modèle un texte et lui demander de ressortir le sentiment associé à ce texte. Par exemple, pour une critique de film, on veut que le modèle prédise négatif pour la critique “Ce film est un vrai navet” et positif pour la critique “Pour moi, c’est le meilleur film de tout les temps”.</p>
 <p><strong>Point important à considérer</strong> : Pour prédire le sentiment associé à une phrase, on a besoin de ne passer qu’une seule fois dans le <em>transformer</em>. Pour la génération de texte, on doit faire appel au modèle après chaque token généré (donc on passe 10 fois dans le modèle pour générer 10 tokens).</p>

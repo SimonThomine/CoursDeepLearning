@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -523,7 +525,7 @@ document.write(`
 <h3>Inspiration<a class="headerlink" href="#inspiration" title="Link to this heading">#</a></h3>
 <p>Le réseau construit dans ce notebook est basé sur l’article <a class="reference external" href="https://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf">“A Neural Probabilistic Language Model”</a>.</p>
 <p>Voici à quoi ressemble l’architecture de ce réseau :</p>
-<img src="images/bengio.png" alt="bengio" width="400"/>  
+<p><img alt="Bengio" src="../_images/bengio.png" /></p>
 <p>Figure extraite de l’article original.</p>
 <p>Dans l’article, le modèle utilise des mots en entrée (3 mots dans l’exemple illustré) pour prédire le mot suivant. Dans notre cas, nous allons utiliser des caractères, comme nous l’avons fait dans le notebook précédent.</p>
 <p><strong>Matrice d’embedding <span class="math notranslate nohighlight">\(C\)</span></strong> : À première vue, on remarque que le réseau comporte une matrice <span class="math notranslate nohighlight">\(C\)</span> qui va encoder le mot (ou le caractère) dans un espace latent. C’est une pratique presque systématiquement utilisé en NLP car cela permet de rapprocher les mots “similaires” dans un espace latent.<br />

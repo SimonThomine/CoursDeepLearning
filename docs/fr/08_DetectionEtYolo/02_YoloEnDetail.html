@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -548,16 +550,16 @@ document.write(`
 <section id="separation-en-grille">
 <h3>Séparation en grille<a class="headerlink" href="#separation-en-grille" title="Link to this heading">#</a></h3>
 <p>Le principe de base de YOLO est de diviser l’image en plus petites images à l’aide d’une grille de dimension <span class="math notranslate nohighlight">\(S \times S\)</span> de cette manière :</p>
-<img src="images/grid.png" alt="yolo" width="300"/> 
+<p><img alt="yolo" src="../_images/grid.png" /></p>
 <p>La cellule contenant le centre d’un objet (par exemple le chien ou le vélo) est la cellule responsable de la détection de cet objet (pour le calcul du <em>loss</em>). Chaque cellule de la grille va prédire <span class="math notranslate nohighlight">\(B\)</span> <em>bounding boxes</em> (paramètrable, 2 sur le papier original) et un score de confiance pour chacune des <em>bounding box</em> prédites. La <em>bounding box</em> prédite contient les valeurs <span class="math notranslate nohighlight">\(x,y,w,h,c\)</span> ou <span class="math notranslate nohighlight">\((x,y)\)</span> sont la position du centre dans la grille, <span class="math notranslate nohighlight">\((w,h)\)</span> sont la dimension de la <em>box</em> en pourcentage de l’image entière et <span class="math notranslate nohighlight">\(c\)</span> est la confiance du modèle (probabilité).</p>
 <p>Pour calculer la précision de notre <em>bounding box</em> lors de l’entraînement (composante du <em>loss</em>), on utilise l’<em>intersection over union</em> qui est définie comme :<br />
 <span class="math notranslate nohighlight">\(\frac{pred_{box}\cap label_{box}}{pred_{box} \cup label_{box}}\)</span></p>
-<img src="images/iou.png" alt="iou" width="300"/> 
+<p><img alt="iou" src="../_images/iou.png" /></p>
 <p>En plus de prédire la <em>bounding box</em> et la confiance, chaque cellule va aussi prédire la classe de l’objet. Cette classe est representée par un vecteur <em>one_hot</em> (qui contient uniquement des 0 sauf un 1 dans la bonne classe) dans les annotations. Il est important de préciser que chaque cellule peut prédire plusieurs <em>bounding box</em> mais une seule classe. C’est une des limitations de l’algorithme : si il y a plusieurs objets dans la même cellule, le modèle ne pourra pas prédire correctement chaque objet.</p>
 <p>Maitenant qu’on a toutes les informations, on peut calculer la dimension de sortie du réseau. On a <span class="math notranslate nohighlight">\(S \times S\)</span> cellules, chaque cellule va prédire <span class="math notranslate nohighlight">\(B\)</span> <em>bouding box</em> et <span class="math notranslate nohighlight">\(C\)</span> probabilité (avec <span class="math notranslate nohighlight">\(C\)</span> le nombre de classe).<br />
 La prédiction du modèle est donc de taille : <span class="math notranslate nohighlight">\(S \times S \times (C +B \times 5) \)</span></p>
 <p>Cela nous amène à la figure suivante :</p>
-<img src="images/yolo.png" alt="yolo" width="500"/> 
+<p><img alt="yolo" src="../_images/yolo.png" /></p>
 <p>La figure du centre en haut represente les <em>bounding box</em> prédites par le modèle (celles avec un trait plus gros sont les scores de confiance élévés) et la figure du centre en bas représente la classe prédite dans chaque cellule (en bleu la classe chien, en jaune la classe vélo et en rose la classe voiture).</p>
 </section>
 <section id="architecture-du-modele">

@@ -212,11 +212,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -512,7 +514,7 @@ document.write(`
 <li><p><strong>La détection</strong> : Ou se situe un objet sur une image (si celui-ci est présent) ? (Quelle est la position du chien sur cette image ?)</p></li>
 <li><p><strong>La segmentation</strong> : Quels sont les pixels qui appartiennent à un objet ? (Quels sont précisement les pixels du chien sur l’image?)</p></li>
 </ul>
-<img src="images/ClassDetSeg.jpeg" alt="diff ClassiDetSeg" width="600"/> 
+<p><img alt="ClassDetSeg" src="../_images/ClassDetSeg.jpeg" /></p>
 <p>Image extraite de ce <a class="reference external" href="https://docs.ultralytics.com/fr/guides/steps-of-a-cv-project/">site</a>.</p>
 <p>Dans le cours sur les CNN, nous avons vu des problèmes de classification avec une architecture de CNN classique qui se termine par une couche Fully Connected et nous avons également vu un problème de segmentation avec l’utilisation du modèle U-Net.</p>
 <p>La tâche de détection étant un peu plus complexe à expliquer, ce cours est dédié à proposer une description des méthodes existantes et une description précise du modèle <a class="reference external" href="https://arxiv.org/pdf/1506.02640">YOLO</a>.</p>
@@ -528,7 +530,7 @@ document.write(`
 <li><p>Une première étape de proposition de region (<em>region proposal</em>) qui genere des propositions de région où des objets d’intêret pourraient se trouver.</p></li>
 <li><p>Une seconde étape consiste à affiner la détection, c’est à dire associer la classe de l’objet et spécifier la <em>bounding box</em> plus précisement (si un objet est bien présent).</p></li>
 </ul>
-<img src="images/rcnn.png" alt="rcnn" width="600"/> 
+<p><img alt="rcnn" src="../_images/rcnn.png" /></p>
 <p>Image extraite de l’<a class="reference external" href="https://arxiv.org/pdf/1311.2524">article</a>.</p>
 <p>De manière générale, les <em>two-stage detectors</em> sont très précis et permettent des détections complexes mais sont assez lent et ne permettent pas le traîtement en temps réel.</p>
 <p>Les réseaux <em>two-stage</em> les plus connus sont la famille des RCNN. Pour en savoir plus, je vous invite à consulter ce
@@ -537,7 +539,7 @@ document.write(`
 <section id="one-stage-detectors">
 <h2>One-Stage Detectors<a class="headerlink" href="#one-stage-detectors" title="Link to this heading">#</a></h2>
 <p>Le <em>one-stage detector</em> ne nécessite qu’une seule étape pour générer les <em>bounding box</em> avec les labels correspondants. Le réseau divise l’image en une grille et pour chaque cellule de la grille, il va prédire plusieurs <em>bounding box</em> et leurs probabilités correspondantes.</p>
-<img src="images/yolo.png" alt="yolo" width="500"/> 
+<p><img alt="yolo" src="../_images/yolo.png" /></p>
 <p>Figure extraite de l’<a class="reference external" href="https://arxiv.org/pdf/1506.02640">article</a>.</p>
 <p>Les <em>one-stage detectors</em> sont en général moins précis que les <em>two-stage detectors</em> mais ils sont beaucoup plus rapides et permettent un traitement en temps réel. C’est la famille de détecteurs la plus utilisée aujourd’hui.</p>
 </section>
@@ -547,20 +549,21 @@ document.write(`
 <h3>NMS (Non-Maximum Supression)<a class="headerlink" href="#nms-non-maximum-supression" title="Link to this heading">#</a></h3>
 <p>Lorsque l’on fait la détection d’objets avec notre modèle, l’architecture ne permet pas d’éviter que plusieurs <em>bounding box</em> se retrouvent sur le même objet (avec des positions qui se chevauchent). Avant de remonter les détections à l’utilisateur du modèle, on voudrait avoir une unique détection par objet de l’image et que ça soit la plus pertinente.</p>
 <p>C’est là qu’intervient la <em>non-maximum suppression</em>, l’algorithme ne sera pas détaillé dans ce cours mais vous pouvez regarder les ressources suivantes pour entrer dans le détail : <a class="reference external" href="https://towardsdatascience.com/non-maximum-suppression-nms-93ce178e177c">blogpost</a> et <a class="reference external" href="https://learnopencv.com/non-maximum-suppression-theory-and-implementation-in-pytorch/">site</a>.</p>
-<img src="images/nms.png" alt="nms" width="500"/> 
+<p><img alt="nms" src="../_images/nms.png" /></p>
 </section>
 <section id="ancres-anchor-boxes">
 <h3>Ancres (Anchor boxes)<a class="headerlink" href="#ancres-anchor-boxes" title="Link to this heading">#</a></h3>
 <p>Les ancres sont des <em>bounding boxes</em> prédéfinies placées sur une grille régulière qui recouvre l’image. Ces ancres peuvent avoir différents ratio (longueur/hauteur) et sont de taille variable pour couvrir le maximum de taille d’objets possible. Ces ancres permettent en fait de diminuer le nombre de positions à étudier pour le modèle. Ce que le modèle va prédire quand on utilise des ancres, c’est le décalage par rapport à l’ancre pré-générée et la probabilité d’appartenance à un objet.</p>
 <p>Cette méthode a montré de bons résultats pour l’amélioration de la qualité des détections. Pour en savoir plus, vous pouvez consulter le <a class="reference external" href="https://towardsdatascience.com/anchor-boxes-the-key-to-quality-object-detection-ddf9d612d4f9">blogpost</a>.</p>
 <p>En pratique, il y a souvent énormement d’ancres. La figure suivante montre 1% des ancres du modèle <a class="reference external" href="https://arxiv.org/pdf/1708.02002">retinaNet</a> :</p>
-<img src="images/anchors.png" alt="anchor" width="300"/> </section>
+<p><img alt="anchor" src="../_images/anchors.png" /></p>
+</section>
 </section>
 <section id="bonus-detection-d-objets-avec-l-architecture-transformer">
 <h2>Bonus : Detection d’objets avec l’architecture transformer<a class="headerlink" href="#bonus-detection-d-objets-avec-l-architecture-transformer" title="Link to this heading">#</a></h2>
 <p>Plus récemment, l’architecture du <em>transformer</em> a été adaptée pour la détection d’objets. Le modèle <a class="reference external" href="https://arxiv.org/pdf/2005.12872">DETR</a> propose une approche utilisant à la fois un modèle CNN pour l’extraction de caractéristiques visuelles. Ces <em>features</em> sont ensuite passées à travers un <em>transformer</em> <em>encoder</em> (avec l’ajout d’un <em>positional embedding</em>) pour déterminer les relations spatiales entre les caractèristiques grâce au mécanisme d’<em>attention</em>. Enfin, un <em>transformer decoder</em> (pas le même type de decoder qu’en NLP) prend en entrée la sortie de l’<em>encoder</em> (<em>keys</em> et <em>values</em>) et des <em>embeddings</em> de label d’objets (<em>queries</em>) ce qui va convertir les <em>embeddings</em> en prédiction. Finalement, une dernière couche linéaire va traîter la sortie du décodeur et prédire label et <em>bounding box</em>.</p>
 <p>Si vous souhaitez en savoir plus, vous pouvez lire l’<a class="reference external" href="https://arxiv.org/pdf/2005.12872">article</a> ou lire ce <a class="reference external" href="https://medium.com/visionwizard/detr-b677c7016a47">blogpost</a>.</p>
-<img src="images/detr.png" alt="detr" width="800"/> 
+<p><img alt="detr" src="../_images/detr.png" /></p>
 <p>Cette méthode présente de nombreux avantages :</p>
 <ul class="simple">
 <li><p>Pas besoin de NMS, d’ancres ou de <em>region proposal</em>. Cela simplifie grandement l’architecture et le pipeline d’entraînement.</p></li>

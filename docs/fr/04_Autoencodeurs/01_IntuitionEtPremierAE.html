@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -535,13 +537,15 @@ Dans ce cours, nous allons plutôt nous intéresser à la détection d’anomali
 <h3>Architecture<a class="headerlink" href="#architecture" title="Link to this heading">#</a></h3>
 <p>Le modèle de base utilisé pour ce type de tâches se nomme “autoencodeur”. Il a une architecture proche du modèle U-Net que l’on a vu dans le cours précédent.<br />
 Voici l’architecture classique d’un autoencodeur :</p>
-<img src="images/AE.png" alt="AE" width="600"/><p>Comme vous pouvez le voir, il a une forme de “sablier”. L’idée de l’autoencodeur est de créer une representation compressée de la données d’entrée et de la reconstruire à partir de cette representation compressée. On peut d’ailleurs utiliser ce modèle dans un objectif de compression de données.</p>
+<p><img alt="AE" src="../_images/AE.png" /></p>
+<p>Comme vous pouvez le voir, il a une forme de “sablier”. L’idée de l’autoencodeur est de créer une representation compressée de la données d’entrée et de la reconstruire à partir de cette representation compressée. On peut d’ailleurs utiliser ce modèle dans un objectif de compression de données.</p>
 </section>
 <section id="utilisation-pour-la-detection-d-anomalies-non-supervisee">
 <h3>Utilisation pour la détection d’anomalies non supervisée<a class="headerlink" href="#utilisation-pour-la-detection-d-anomalies-non-supervisee" title="Link to this heading">#</a></h3>
 <p>Pour la détection d’anomalies non supervisée, prenons un exemple de ce qu’il va se passer. On entraîne notre autoencodeur à reconstruire des images du chiffre 5 pendant l’entraînement. Une fois que le modèle est entraîné, il pourra reconstruire une image de 5 à la perfection. Si notre objectif est de détecter si une image est une image de 5 ou une image d’un autre chiffre, il suffit de donner l’image à notre autoencodeur et en fonction de la qualité de la reconstruction (<span class="math notranslate nohighlight">\(image_{base} - image_{recons}\)</span>), on pourra savoir si il s’agit d’un 5 ou non.<br />
 L’image suivante illustre cette description :</p>
-<img src="images/AE_mnist.png" alt="AE" width="800"/></section>
+<p><img alt="AE" src="../_images/AE_mnist.png" /></p>
+</section>
 </section>
 <section id="application-pratique-sur-mnist">
 <h2>Application pratique sur MNIST<a class="headerlink" href="#application-pratique-sur-mnist" title="Link to this heading">#</a></h2>

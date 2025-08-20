@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -512,7 +514,7 @@ document.write(`
 <p>Dans ce cours, nous allons introduire les réseaux de neurones récurrents (RNN) dans le cadre de la prédiction du prochain caractère. Pour ce faire, nous allons nous baser sur l’architecture décrite dans le papier <a class="reference external" href="https://www.fit.vutbr.cz/research/groups/speech/publi/2010/mikolov_interspeech2010_IS100722.pdf">Recurrent neural network based language model</a> qui présente une version basique de RNN pour la prédiction du prochain caractère.</p>
 <p>La motivation derrière l’utilisation d’un RNN pour cette tâche est de ne pas avoir à spécifier une taille de contexte pour l’entraînement du modèle contrairement aux deux modèles basées sur des réseaux fully connected que nous avons vu dans les notebooks précédents.</p>
 <p>Les RNN ont pour motivation de garder une information de contexte peu importe la longueur de la séquence. C’est une idée très intéressante sur le papier mais nous verrons, à la fin du cours, qu’il y a de grosses limitations.</p>
-<img src="images/rnn.png" alt="rnn" width="250"/>    
+<p><img alt="RNN" src="../_images/rnn.png" /></p>
 <p>Figure extraite de l’article original.</p>
 <section id="fonctionnement-de-l-architecture-rnn">
 <h2>Fonctionnement de l’architecture RNN<a class="headerlink" href="#fonctionnement-de-l-architecture-rnn" title="Link to this heading">#</a></h2>
@@ -662,7 +664,7 @@ Nombre de caractères différents :  73
 <h3>Création du modèle<a class="headerlink" href="#creation-du-modele" title="Link to this heading">#</a></h3>
 <p>Il est maintenant temps de créer notre modèle !</p>
 <p>Dans l’article, il est indiqué que l’entrée du modèle (le caractère) est encodé en <em>one hot</em> et qu’il est ensuite sommé avec le <em>state</em> à <span class="math notranslate nohighlight">\(t-1\)</span>. On va donc avoir besoin de deux couches fully connected, la première pour transformer l’entrée <span class="math notranslate nohighlight">\(x(t)\)</span> en <em>state</em> au temps <span class="math notranslate nohighlight">\(t\)</span>, <span class="math notranslate nohighlight">\(s(t)\)</span> et la seconde pour transformer <span class="math notranslate nohighlight">\(s(t)\)</span> en <span class="math notranslate nohighlight">\(y(t)\)</span>, notre prédiction.</p>
-<img src="images/rnn_math.png" alt="rnn_math" width="250"/>    
+<p><img alt="RNN" src="../_images/rnn_math.png" /></p>
 <p>Equation extraite de l’article original. <span class="math notranslate nohighlight">\(f\)</span> est la fonction <em>sigmoid</em> et <span class="math notranslate nohighlight">\(g\)</span> la <em>softmax</em>.</p>
 <p><strong>Note</strong> : L’<a class="reference external" href="https://www.fit.vutbr.cz/research/groups/speech/publi/2010/mikolov_interspeech2010_IS100722.pdf">article</a> est très accessible et concis, je vous invite à le lire.</p>
 <div class="cell docutils container">

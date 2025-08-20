@@ -61,7 +61,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Audio with Transformers" href="04_AudioWithTransformers.html" />
-    <link rel="prev" title="Computer Vision with Transformers" href="02_ComputerVisionWithTransformers.html" />
+    <link rel="prev" title="Vision par ordinateur avec des Transformers" href="02_ComputerVisionWithTransformers.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -212,11 +212,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -485,6 +487,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">NLP with Transformers</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#traitement-du-langage-naturel-avec-des-transformers">Traitement du langage naturel avec des Transformers</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chatbot">ChatBot</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implémentation</a></li>
 </ul>
@@ -496,6 +500,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resume-de-texte">Résumé de texte</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#embedding-de-phrase">Embedding de phrase</a></li>
 </ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -508,6 +515,9 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="nlp-with-transformers">
 <h1>NLP with Transformers<a class="headerlink" href="#nlp-with-transformers" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="traitement-du-langage-naturel-avec-des-transformers">
+<h1>Traitement du langage naturel avec des Transformers<a class="headerlink" href="#traitement-du-langage-naturel-avec-des-transformers" title="Link to this heading">#</a></h1>
 <p>Dans ce notebook, nous allons utiliser la library transformers de Hugging Face pour le traitement du langage naturel (NLP). Les modèles de langages les plus performants (GPT, Llama etc…) sont très couteux en terme d’espace mémoire et il est souvent impossible de les faire fonctionner sur un ordinateur portable. Nous allons donc utiliser des modèles de taille réduite (et donc moins performants) dans ce notebook.</p>
 <section id="chatbot">
 <h2>ChatBot<a class="headerlink" href="#chatbot" title="Link to this heading">#</a></h2>
@@ -735,7 +745,7 @@ Avoir un bon modèle extracteur d’<em>embedding</em> est souvent une première
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Computer Vision with Transformers</p>
+        <p class="prev-next-title">Vision par ordinateur avec des Transformers</p>
       </div>
     </a>
     <a class="right-next"
@@ -763,6 +773,8 @@ Avoir un bon modèle extracteur d’<em>embedding</em> est souvent une première
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">NLP with Transformers</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#traitement-du-langage-naturel-avec-des-transformers">Traitement du langage naturel avec des Transformers</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chatbot">ChatBot</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implémentation</a></li>
 </ul>
@@ -774,6 +786,9 @@ Avoir un bon modèle extracteur d’<em>embedding</em> est souvent une première
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resume-de-texte">Résumé de texte</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#embedding-de-phrase">Embedding de phrase</a></li>
 </ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>

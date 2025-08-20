@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -1151,7 +1153,7 @@ tensor([[1.0000, 2.0000],
 <span class="math notranslate nohighlight">\(wei = QK^T\)</span></p>
 <p>Pour obtenir des poids d’attention (somme égale à 1), on applique la <em>softmax</em> et on multiplie par les <em>value</em> V :<br />
 <span class="math notranslate nohighlight">\(Output = \text{softmax}\left(wei\right) \cdot V\)</span></p>
-<img src="images/attention2.png" alt="transformer" width="300"/>   
+<p><img alt="Attention" src="../_images/attention2.png" /></p>
 <p>En python, on l’implémente de cette manière :</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1193,7 +1195,7 @@ tensor([[1.0000, 2.0000],
 <li><p>Ce <em>block</em> d’attention est appelé <em>decoder block</em>. Il a la particularité que chaque élément ne communique qu’avec le passé (grâce à la matrice triangulaire inférieure). Cependant, il existe d’autres couches d’attention (<em>encoder</em>) qui permettent la communication de tous les éléments les uns avec les autres (pour la traduction, l’analyse de sentiments ou encore le traitement d’images)</p></li>
 <li><p>On parle de <em>self-attention</em> parce que les <em>query</em>, <em>key</em> and <em>value</em> viennent de la même source. Il est possible d’avoir des <em>query</em>, <em>key</em> et <em>value</em> qui proviennent de sources différentes, on parle alors de <em>cross-attention</em>.</p></li>
 <li><p>Si vous lisez le papier <a class="reference external" href="https://arxiv.org/pdf/1706.03762">Attention is all you need</a>, vous constaterez qu’il y a une normalisation par la racine de la <em>head_size</em> :<br />
-<img src="images/attention.png" alt="transformer" width="300"/><br />
+<img alt="Attention" src="../_images/attention.png" /><br />
 Cela permet une stabilité de la fonction <em>softmax</em> lors de l’initialisation des poids en particulier.</p></li>
 </ul>
 <p>Implémentons maintenant une classe <em>head</em> qui va effectuer les opération de la <em>self-attention</em>. C’est simplement ce que l’on a vu au dessus sous forme de classe.</p>
@@ -1233,7 +1235,8 @@ Cela permet une stabilité de la fonction <em>softmax</em> lors de l’initialis
 <section id="multi-head-attention">
 <h2>Multi-Head Attention<a class="headerlink" href="#multi-head-attention" title="Link to this heading">#</a></h2>
 <p>Dans la papier <a class="reference external" href="https://arxiv.org/pdf/1706.03762">Attention is all you need</a>, une variante de la <em>self-attention</em> est proposée. Cette variante se nomme <em>multi-head attention</em> et consiste simplement à avoir plusieurs couches de <em>self-attention</em> en parallèle. Le but de cette couche est de paralléliser le traitement pour que celui-ci soit plus rapide sur GPU.</p>
-<img src="images/multihead.png" alt="transformer" width="400"/>   <p>L’implémentation est assez simple puisqu’il s’agit juste de plusieurs couches <em>head</em>.</p>
+<p><img alt="Multi-Head Attention" src="../_images/multihead.png" /></p>
+<p>L’implémentation est assez simple puisqu’il s’agit juste de plusieurs couches <em>head</em>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MultiHeadAttention</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>

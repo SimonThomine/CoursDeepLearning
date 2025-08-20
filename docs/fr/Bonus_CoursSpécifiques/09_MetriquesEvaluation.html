@@ -214,11 +214,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face Library Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction à la bibliothèque Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Vision par ordinateur avec des Transformers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">NLP with Transformers</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio with Transformers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec la library Diffusers</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generation d’image avec Diffusers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo avec Gradio</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
@@ -529,7 +531,7 @@ document.write(`
 <section id="matrice-de-confusion">
 <h3>Matrice de confusion<a class="headerlink" href="#matrice-de-confusion" title="Link to this heading">#</a></h3>
 <p>Dans un cadre de classification binaire, on peut se representer les prédictions du modèle de la manière suivante :</p>
-<img src="images/classi.png" alt="classi" width="600"/>
+<p><img alt="Classification" src="../_images/classi.png" /></p>
 <p>Figure extraite de <a class="reference external" href="https://en.wikipedia.org/wiki/Precision_and_recall">wikipedia</a></p>
 <p>Définissons d’abord les termes de base :</p>
 <ul class="simple">
@@ -539,7 +541,7 @@ document.write(`
 <li><p><strong>Vrai négatif (vn)</strong> : L’élément a été classé comme négatif et il est réellement négatif.</p></li>
 </ul>
 <p>Pour se representer la figure plus haut, on peut créer une matrice de confusion :</p>
-<img src="images/confusion.png" alt="confusion" width="500"/>
+<p><img alt="Confusion" src="../_images/confusion.png" /></p>
 <p><strong>Note</strong> : Pour une classification avec plus de deux classes, on peut aussi construire une matrice de confusion. Cela nous donnera des informations sur les classes que le modèle confond.</p>
 </section>
 <section id="precision-rappel-et-specificite">
@@ -573,7 +575,7 @@ Son équation est la suivante :<br />
 <li><p><strong>Axe des Y</strong> est le taux de vrais positifs (<span class="math notranslate nohighlight">\(rappel\)</span>). C’est le nombre d’éléments positifs correctement classés comme positifs, divisé par le nombre total d’éléments positifs.</p></li>
 </ul>
 <p>Chaque point de la courbe va représenter un seuil de décision différent pour la classification des éléments.</p>
-<img src="images/roc.png" alt="roc" width="500"/>
+<p><img alt="ROC" src="../_images/roc1.png" /></p>
 <p>Figure extraite de <a class="reference external" href="https://sefiks.com/2020/12/10/a-gentle-introduction-to-roc-curve-and-auc/">blogpost</a>.</p>
 <p>Pour juger la qualité d’un modèle, on peut calculer l’aire sous la courbe ROC (AUROC). Dans le cas du <em>random classifier</em> on aura un AUROC de 0.5 alors que si il s’agit du classifieur parfait, l’AUROC sera de 1.</p>
 </section>
