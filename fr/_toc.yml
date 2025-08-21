@@ -1,6 +1,6 @@
 # Table des matières - Cours Deep Learning (Français)
 format: jb-book
-root: intro
+root: README
 options:
   numbered: true
   titlesonly: false

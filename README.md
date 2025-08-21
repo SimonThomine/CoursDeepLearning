@@ -1,63 +1,88 @@
 <p align="center">
-  <h1><center> 	🚀 Apprendre le Deep Learning à partir de zéro 🚀</h1>
+  <h1><center> 	🚀 Learn Deep Learning from Scratch 🚀</h1>
 </p>
 
-<img src="cours/images/banner_comic.webp" alt="banner" width="800" style="display: block; margin-left: auto; margin-right: auto;" />
+<img src="fr/images/banner_comic.webp" alt="banner" width="800" style="display: block; margin-left: auto; margin-right: auto;" />
 
 ## 📚 Description
 
-Ce repository propose des cours d'initiation au deep learning se basant sur des notebooks.
-Pour un débutant, les cours sont à faire dans l'ordre pour une meilleur compréhension globale. 
+This repository offers introductory Deep Learning courses based on interactive notebooks.
+For beginners, the courses should be taken in order for better overall understanding.
 
-Un site internet du cours est disponible pour naviguer plus facilement : [**🌐 Website 🌐**](https://simonthomine.github.io/CoursDeepLearning/)
+A multilingual website is available for easier navigation: [**🌐 Website 🌐**](https://simonthomine.github.io/CoursDeepLearning/)
 
-### 🛠️ Installation de l'environnement de travail 
-L'ensemble des library nécessaires pour le cours sont disponibles dans requirements.txt, vous pouvez choisir d'installer tout d'un coup ou au fur et à mesure de votre avancement dans le cours.   
-Il est conseillé d'utiliser un environnement de travail conda pour éviter tout conflit avec des library déjà installé sur votre ordinateur.  
+### 🌍 Available Languages
 
+- 🇫🇷 **Français** - Version française complète
+- 🇺🇸 **English** - Complete English version  
+- 🇪🇸 **Español** - Versión completa en español
+- 🇨🇳 **中文** - 完整中文版
+
+### 🛠️ Environment Setup 
+All libraries needed for the course are available in requirements.txt. You can choose to install everything at once or progressively as you advance through the course.   
+It is recommended to use a conda environment to avoid conflicts with libraries already installed on your computer.  
+
+```bash
+pip install -r requirements.txt
 ```
-`pip install -r requirements.txt`
-```
 
-## 🗺️ Plan du cours
-### 1. 🏗️ [Fondations](./cours/01_Fondations/README.md)
-Le premier cours "Fondations" introduit les bases de l'optimisation par descente du gradient avec une compréhension intuitive. La règle de la chaîne est introduite puis un premier exemple de regression logistique est présenté. 
+## 🗺️ Course Structure
 
-### 2. 🧠 [Réseau Fully Connected](./cours/02_RéseauFullyConnected/README.md)
-Le deuxième cours "RéseauFullyConnected" introduit le fonctionnement d'un réseau de neurones avec d'abord un exemple d'un réseau codé avec [micrograd](https://github.com/karpathy/micrograd/tree/master) pour permettre d'explorer cette library pour bien comprendre le fonctionnement. Une version française [MicrogradFR](./cours/02_RéseauFullyConnected/MicrogradFR/README.md) est disponible dans le cours.   
-Ensuite, pour introduire la library pytorch, le même exemple est reconstruit mais en utilisant pytorch au lieu de micrograd.  
-Le dernier notebook de cette partie introduit des techniques avancées d'entraînement de réseau de neurones qu'il est utile de connaître pour améliorer les performances de nos réseaux. 
+### 1. 🏗️ Foundations
+Introduction to gradient descent optimization, intuitive understanding of the chain rule, and first steps with logistic regression.
 
-### 3. 🖼️ [Réseaux convolutifs](./cours/03_RéseauConvolutifs/README.md)
-Le troisième cours "RéseauConvolutifs" aborde tout d'abord le principe de fonctionnement des couches de convolution puis montre comment on les utilise au sein d'un réseau de neurones. Plusieurs exemples sont ensuite abordés pour montrer les capacités d'un réseau convolutif : classification sur MNIST, classification sur CIFAR-10 et segmentation sur "Oxford-IIIT Pet Dataset". 
+### 2. 🧠 Fully Connected Networks
+Explore how neural networks work using [micrograd](https://github.com/karpathy/micrograd/tree/master) and then with PyTorch. Introduction to advanced training techniques to improve performance.
 
-### 4. 🔄 [Autoencodeurs](./cours/04_Autoencodeurs/README.md)
-Le quatrième cours "Autoencodeurs" aborde la notion d'entraînement non supervisé en présentant les différences entre supervisé et non supervisé. L'exemple de l'autoencodeur est ensuite abordé ainsi que son application pour la détection d'anomalies non supervisée. Pour finir, un notebook montre le potentiel de l'autoencodeur pour le problème du "denoising". 
+### 3. 🖼️ Convolutional Networks
+Presentation of convolutional layers and their use in neural networks. Practical examples: classification on MNIST, CIFAR-10, and image segmentation.
 
-### 5. 🗨️ [NLP](./cours/05_NLP/README.md)
-Le cinquième cours "NLP" est grandement inspiré de la série de vidéo de Andrej Karpathy ["Building makemore"](https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ) qui traîte les NLP avec une approche de prédiction du prochain token. Le cours aborde d'abord des modèles très simples pour avoir une intuition sur le traîtement de données discrètes avec un réseau neurones puis les modèles se complexifient petit à petit. 
+### 4. 🔄 Autoencoders
+Discover unsupervised learning with autoencoders: anomaly detection and image denoising.
 
-### 6. 🤗 [Hugging Face](./cours/06_HuggingFace/README.md)
-Le sixième cours "HuggingFace" est dédié à une exploration des librarys, des modèles, des datasets et autres de [Hugging Face](https://huggingface.co/). C'est une plateforme regroupant énormement des modèles open source pour une grande variété de tâches avec une library pour les implémenter rapidement et efficacement en python. Le cours présente d'abord le site de Hugging Face pour ensuite présenter les fonctionnalités des différentes librarys (transformers et diffusers principalement) sur différents cas d'usage. Le dernier notebook présente brièvement gradio, une library pour créer des interfaces simples de démo.
+### 5. 🗨️ NLP
+Introduction to natural language processing inspired by the ["Building makemore"](https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ) series: from simple models to more complex architectures for text prediction.
 
-### 7. 🤖 [Transformers](./cours/07_Transformers/README.md)
-Le septième cours "Transformers" est dédié à l'architecture du transformers. Après avoir vu ses applications dans le cours précédent. Nous allons entrer dans le détail de l'architecture pour en comprendre les mécanismes. Le premier notebook est grandement inspiré de la vidéo [Let's build GPT](https://www.youtube.com/watch?v=kCc8FmEb1nY&t=1806s&ab_channel=AndrejKarpathy) de Andrej Karpathy et propose une implémentation pas à pas d'un encodeur transformers. Le but de ce notebook sera de créer un modèle capable de générer du "Molière" automatiquement. La seconde partie est une approche plus mathématique et la présentation de la partie encodeur du transformers. La troisième partie présente des architectures de modèle reposant sur la couche transformers pour de nombreux cas d'applications (Vision, traduction etc ...). Enfin, une dernière partie propose une implémentation du vision transformer à partir de l'article original.
+### 6. 🤗 Hugging Face
+Explore the [Hugging Face](https://huggingface.co/) platform: discover models, datasets, and libraries (transformers, diffusers, gradio) for various use cases.
 
-### 8. 🔍 [Detection](./cours/08_DetectionEtYolo/README.md)
-Le huitième cours "Detection" présente le fonctionnement de la détection d'objets sur des images. L'introduction présente ce qu'est la détection et les deux méthodes classiques (two-stage et one-stage). Le notebook suivant propose une description précise du fonctionnement de [YOLO](https://arxiv.org/pdf/1506.02640) et le dernier notebook présente la library [ultralytics](https://www.ultralytics.com/) qui permet d'accèder aux modèles YOLO très simplement.
+### 7. 🤖 Transformers
+Detailed study of the transformer architecture: step-by-step implementation, mathematical explanations, various applications (vision, translation...), and introduction to vision transformer.
 
-### 9. 🎯 [Entrainement contrastif](./cours/09_EntrainementContrastif/README.md)
-Le neuvième cours "Entrainement contrastif" présente le concept de l'entraînement contrastif. Un premier notebook présente ce qu'est l'entraînement contrastif en se basant sur l'implémentation d'un article de "face verification". Le second notebook présente la place de l'entraînment contrastif dans le deep learning récent et notamment son intêret pour l'entrainement non supervisé. 
+### 8. 🔍 Object Detection (YOLO)
+Presentation of object detection methods (two-stage, one-stage), focus on [YOLO](https://arxiv.org/pdf/1506.02640) and use of the [ultralytics](https://www.ultralytics.com/) library.
 
-### 10. 🤝 [Transfer learning et distillation](./cours/10_TransferLearningEtDistillation/README.md)
-Le dixième cours "Transfer learning et distillation" présente deux concepts majeurs en deep learning : le transfer learning et la distillation des connaissances. La première partie de ce cours présente le transfer learning dans sa globalité puis propose une implémentation pratique. La seconde partie présente le concept de distillation des connaissances et ses variantes puis propose un cas d'application de la distillation des connaissances pour la détection d'anomalies non supervisée. Enfin, une dernière partie parle du *finetuning* sur les LLM en introduisant l'architecture de BERT puis en montrant des exemples de *finetuning* avec transformers du [Hugging Face](https://huggingface.co/).
+### 9. 🎯 Contrastive Training
+Introduction to contrastive training: implementation for face verification and applications to unsupervised learning.
 
-### 11. 🌀 [Modèles génératifs](./cours/11_ModelesGeneratifs/README.md)
-Le onzième cours "Modèles génératifs" introduit le principe de modèles génératifs par opposition aux modèles discriminatifs. Les 4 grandes familles de modèles génératifs sont présentées et certaines sont implémentées : les GAN, les VAE, les normalizing flow et les modèles de diffusion. Les modèles autoregressifs ne sont pas abordés car ceux-ci ont été décrits dans le cours NLP et Transformers.
+### 10. 🤝 Transfer Learning and Distillation
+Transfer learning and knowledge distillation concepts: practical implementations, distillation for anomaly detection, and LLM finetuning with BERT and Hugging Face.
 
-### Bonus 🌟 [Cours spécifiques](./cours/Bonus_CoursSpécifiques/README.md)
-Ce cours présente des concepts très intéressant à comprendre mais non essentiels dans une pratique courante du deep learning. Si vous êtes intéressé par comprendre le fonctionnement d'un réseau de neurones de manière plus approfondie et de découvrir la raison de l'utilisation de techniques comme la BatchNorm, les connexions résiduelles, les optimizers, le dropout, la data augmentation etc ..., ce cours est fait pour vous ! 
+### 11. 🌀 Generative Models
+Presentation of the major families of generative models: GANs, VAEs, normalizing flows, diffusion models (excluding autoregressive models already covered in NLP/Transformers).
+
+### 12. 🌟 Bonus – Specific Courses
+Advanced concepts and complementary techniques: BatchNorm, residual connections, optimizers, dropout, data augmentation, etc.
+
+## 🚀 Getting Started
+
+1. **Choose your language** on the [website](https://simonthomine.github.io/CoursDeepLearning/)
+2. (Optionally) **Install dependencies**: `pip install -r requirements.txt`
+3. **Start with Foundations** and progress through the curriculum
+4. **Practice with the interactive notebooks** in your preferred language
+
+## 📖 Course Navigation
+
+- **Interactive Website**: Browse all courses with multilingual support
+- **GitHub Repository**: Access source notebooks and materials
+- **Language Switching**: Seamlessly switch between French, English, Spanish, and Chinese
+
+---
 
 **License**
 
-Ce travail est mis à disposition selon les termes de la licence MIT
+This work is licensed under the MIT License
+
+---
+
+*Start your learning journey by exploring the foundations of Deep Learning!*

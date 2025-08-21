@@ -1,6 +1,6 @@
 # Table of Contents - Deep Learning Course (English)
 format: jb-book
-root: intro
+root: README
 options:
   numbered: true
   titlesonly: false
