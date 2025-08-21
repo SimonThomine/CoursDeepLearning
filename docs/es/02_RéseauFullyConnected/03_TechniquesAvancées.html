@@ -1,0 +1,1250 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Técnicas avanzadas &#8212; Deep Learning Course</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '02_RéseauFullyConnected/03_TechniquesAvancées';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Las capas de convolución" href="../03_R%C3%A9seauConvolutifs/01_CouchesDeConvolutions.html" />
+    <link rel="prev" title="Introducción a PyTorch" href="02_PytorchIntroduction.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><span style="font-size:2em; font-weight:bold;">🚀 Aprende Deep Learning desde cero 🚀</span></div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Deep Learning Course</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Curso de Deep Learning 🚀
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">🧮 Fundamentos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/01_D%C3%A9riv%C3%A9esEtDescenteDuGradient.html">Derivada y descenso del gradiente</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/02_R%C3%A9gressionLogistique.html">Regresión Logística</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔗 Redes totalmente conectadas</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_MonPremierR%C3%A9seau.html">Mi primer red neuronal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_PytorchIntroduction.html">Introducción a PyTorch</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Técnicas avanzadas</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🖼️ Redes convolucionales</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/01_CouchesDeConvolutions.html">Las capas de convolución</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/02_R%C3%A9seauConvolutif.html">Redes convolucionales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/03_ConvImplementation.html">Implementación de la capa de convolución</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/04_R%C3%A9seauConvolutifPytorch.html">Redes convolucionales con PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/05_ApplicationClassification.html">Aplicación en un conjunto de datos de imágenes en color</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/06_ApplicationSegmentation.html">Aplicación de la segmentación</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔄 Autoencoders</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/01_IntuitionEtPremierAE.html">Introducción a los autoencodificadores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/02_DenoisingAE.html">Autoencoder para desruido</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📝 PLN</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/01_Introduction.html">Introducción al PLN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/02_bigramme.html">Bigrama</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/03_R%C3%A9seauFullyConnected.html">Red neuronal completamente conectada</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/04_WaveNet.html">PyTorch y WaveNet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/05_Rnn.html">Redes neuronales recurrentes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/06_Lstm.html">Memoria a Corto-Largo Plazo (LSTM)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introducción a Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Visión por computadora con Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">Procesamiento del lenguaje natural con Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Procesamiento de audio con Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generación de imágenes con Diffusers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demostración con Gradio</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/01_Introduction.html">Introducción a los transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/02_GptFromScratch.html">Construyamos un GPT desde cero</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/03_TrainingOurGpt.html">Entrenamiento de nuestro modelo GPT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/04_ArchitectureEtParticularit%C3%A9s.html">Arquitectura y particularidades del <em>transformer</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/05_UtilisationsPossibles.html">Posibles usos de la arquitectura Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/06_VisionTransformerImplementation.html">Implementación del Vision Transformer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/07_SwinTransformer.html">Swin Transformer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎯 Detección y YOLO</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/01_Introduction.html">Introducción a la detección de objetos en imágenes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/02_YoloEnDetail.html">YOLO en detalle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/03_Ultralytics.html">Ultralytics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔍 Entrenamiento contrastivo</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/01_FaceVerification.html">Verificación facial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/02_NonSupervis%C3%A9.html">Aprendizaje contrastivo no supervisado</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎓 Transfer Learning y Distillation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/01_TransferLearning.html">Aprendizaje por transferencia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/02_TransferLearningPytorch.html">Transfer Learning con PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/03_Distillation.html">La destilación de conocimientos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/04_DistillationAnomalie.html">Destilación de conocimientos para la detección no supervisada de anomalías</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/05_FineTuningLLM.html">Ajuste fino (Fine-Tuning) de los LLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/06_FineTuningBertHF.html">Ajuste fino de BERT con Hugging Face</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎨 Modelos generativos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/01_Introduction.html">Introducción a los modelos generativos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/02_GAN.html">Redes generativas antagónicas (GAN)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/03_GanImplementation.html">Implementación de una GAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/04_VAE.html">Autoencoders variacionales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/05_VaeImplementation.html">Implementación de un VAE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/06_NormalizingFlows.html">Flujos de normalización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/07_DiffusionModels.html">Modelos de difusión</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/08_DiffusionImplementation.html">Implementación de un modelo de difusión</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎁 Bonus – Cursos específicos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/01_ActivationEtInitialisation.html">Activaciones e inicializaciones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/02_BatchNorm.html">Normalización por lotes (<em>Batch Normalization</em>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/03_DataAugmentation.html">Aumento de datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/04_Broadcasting.html">Difusión (<em>Broadcasting</em>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/05_Optimizer.html">Comprender los diferentes optimizadores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/06_Regularisation.html">Regularización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/07_ConnexionsResiduelles.html">Conexiones residuales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/08_CrossValidation.html">Introducción a la validación cruzada</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/09_MetriquesEvaluation.html">Métricas de evaluación de modelos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/10_Tokenization.html">Introducción a la tokenización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/11_Quantization.html">Cuantización</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/edit/main/en/02_RéseauFullyConnected/03_TechniquesAvancées.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/issues/new?title=Issue%20on%20page%20%2F02_RéseauFullyConnected/03_TechniquesAvancées.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/02_RéseauFullyConnected/03_TechniquesAvancées.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Técnicas avanzadas</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-del-conjunto-de-datos">Creación del conjunto de datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#division-en-entrenamiento-validacion-prueba">División en entrenamiento/validación/prueba</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-y-entrenamiento-de-un-primer-modelo">Creación y entrenamiento de un primer modelo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funcion-de-perdida">Función de pérdida</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hiperparametros-y-entrenamiento">Hiperparámetros y entrenamiento</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verificacion-del-modelo-con-los-datos-de-prueba">Verificación del modelo con los datos de prueba</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overfitting-y-underfitting">Overfitting y underfitting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regularizacion-l2">Regularización L2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dropout">Dropout</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalizacion-por-lotes-batch-normalization">Normalización por lotes (<em>Batch Normalization</em>)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="tecnicas-avanzadas">
+<h1>Técnicas avanzadas<a class="headerlink" href="#tecnicas-avanzadas" title="Link to this heading">#</a></h1>
+<p>En este curso, exploraremos técnicas para mejorar la confiabilidad y facilidad de entrenamiento de las redes neuronales.
+Para ilustrar estas técnicas, utilizaremos el conjunto de datos <a class="reference external" href="https://es.wikipedia.org/wiki/Base_de_datos_MNIST">MNIST</a>, que contiene imágenes de dígitos manuscritos del 0 al 9.
+El objetivo es que la red tome una imagen como entrada y determine qué dígito representa.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn.functional</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">F</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torchvision.transforms</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">T</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torchvision</span><span class="w"> </span><span class="kn">import</span> <span class="n">datasets</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataLoader</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="creacion-del-conjunto-de-datos">
+<h2>Creación del conjunto de datos<a class="headerlink" href="#creacion-del-conjunto-de-datos" title="Link to this heading">#</a></h2>
+<p>Para empezar, descargamos el conjunto de datos MNIST. La biblioteca <em>torchvision</em> permite gestionar imágenes con PyTorch y proporciona herramientas para cargar conjuntos de datos comunes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">transform</span><span class="o">=</span><span class="n">T</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">()</span> <span class="c1"># Pour convertir les éléments en tensor torch directement</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">MNIST</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s1">&#39;./../data&#39;</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">)</span>
+<span class="n">test_dataset</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">MNIST</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s1">&#39;./../data&#39;</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># On peut visualiser les éléments du dataset</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Le chiffre sur l&#39;image est un &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d7968d521d6b3a0056112b461342131517241ef48e5853fd23783e67dd883bf1.png" src="../_images/d7968d521d6b3a0056112b461342131517241ef48e5853fd23783e67dd883bf1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Le chiffre sur l&#39;image est un 5
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="division-en-entrenamiento-validacion-prueba">
+<h2>División en entrenamiento/validación/prueba<a class="headerlink" href="#division-en-entrenamiento-validacion-prueba" title="Link to this heading">#</a></h2>
+<p>Como habrás observado, al cargar el conjunto de datos, contamos con un <em>train_dataset</em> y un <em>test_dataset</em>. Esta es una práctica esencial para entrenar una red neuronal.
+De hecho, una red entrenada con ciertos datos suele tener un buen rendimiento con esos mismos datos. Por lo tanto, es necesario crear un <em>dataset de prueba</em> para evaluar el modelo con datos no vistos durante el entrenamiento.</p>
+<p>En la práctica, se utilizan 3 subconjuntos:</p>
+<ul class="simple">
+<li><p>El <em>training split</em> para entrenar el modelo.</p></li>
+<li><p>El <em>validation split</em> para evaluar el modelo durante el entrenamiento.</p></li>
+<li><p>El <em>test split</em> para evaluar el modelo al final del entrenamiento (este es el resultado más importante).</p></li>
+</ul>
+<p>Una práctica común es utilizar una división 60-20-20, es decir, 60% de los datos para entrenamiento, 20% para validación y 20% para prueba. Sin embargo, esta recomendación no es adecuada para todos los conjuntos de datos. Si el conjunto de datos contiene muchas imágenes, se puede reducir la proporción de datos de validación y prueba. Por ejemplo, para conjuntos de datos con miles de millones de imágenes, se suelen utilizar divisiones como 98-1-1 o incluso 99.8-0.1-0.1.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Le train et test sont déjà séparé, on va donc séparer le train_dataset en train et validation</span>
+<span class="n">train_dataset</span><span class="p">,</span> <span class="n">validation_dataset</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">random_split</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.2</span><span class="p">])</span>
+
+<span class="c1"># Création des dataloaders pour séparer en mini-batch automatiquement</span>
+<span class="n">train_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">val_loader</span><span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">validation_dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">test_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">test_dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="creacion-y-entrenamiento-de-un-primer-modelo">
+<h2>Creación y entrenamiento de un primer modelo<a class="headerlink" href="#creacion-y-entrenamiento-de-un-primer-modelo" title="Link to this heading">#</a></h2>
+<p>Al igual que en el cuaderno anterior, creamos un modelo completamente conectado para el entrenamiento. Dado que los datos de entrada son imágenes de tamaño <span class="math notranslate nohighlight">\(28 \times 28\)</span>, es necesario convertirlas en un vector 1D de tamaño <span class="math notranslate nohighlight">\(28 \times 28 = 784\)</span> para procesarlas en la red.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">mlp</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">784</span><span class="p">,</span><span class="mi">256</span><span class="p">)</span> <span class="c1"># première couche cachée </span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span><span class="mi">256</span><span class="p">)</span> <span class="c1"># seconde couche cachée </span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fc3</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># couche de sortie</span>
+    
+  <span class="c1"># La fonction forward est la fonction appelée lorsqu&#39;on fait model(x)</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">28</span><span class="o">*</span><span class="mi">28</span><span class="p">)</span> <span class="c1"># Pour convertir l&#39;image de taille 28x28 en tensor de taille 784</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="c1"># le F.relu permet d&#39;appliquer la fonction d&#39;activation ReLU sur la sortie de notre couche </span>
+    <span class="n">x</span><span class="o">=</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="n">output</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fc3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">output</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">mlp</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nombre de paramètres&quot;</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mlp(
+  (fc1): Linear(in_features=784, out_features=256, bias=True)
+  (fc2): Linear(in_features=256, out_features=256, bias=True)
+  (fc3): Linear(in_features=256, out_features=10, bias=True)
+)
+Nombre de paramètres 269322
+</pre></div>
+</div>
+</div>
+</div>
+<section id="funcion-de-perdida">
+<h3>Función de pérdida<a class="headerlink" href="#funcion-de-perdida" title="Link to this heading">#</a></h3>
+<p>Para la función de pérdida, utilizamos la <em>cross entropy loss</em> de PyTorch, que corresponde a la función de pérdida de la regresión logística para un número de clases mayor que 2.
+La función de pérdida se expresa de la siguiente manera:
+<span class="math notranslate nohighlight">\(\text{Cross Entropy Loss} = -\frac{1}{N} \sum_{i=1}^{N} \sum_{c=1}^{C} y_{ic} \log(p_{ic})\)</span>
+donde:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(N\)</span> es el número de ejemplos en el <em>mini-batch</em>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(C\)</span> es el número de clases.</p></li>
+<li><p><span class="math notranslate nohighlight">\(y_{ic}\)</span> es el valor objetivo (<span class="math notranslate nohighlight">\(1\)</span> si el ejemplo pertenece a la clase <span class="math notranslate nohighlight">\(c\)</span> y <span class="math notranslate nohighlight">\(0\)</span> en caso contrario).</p></li>
+<li><p><span class="math notranslate nohighlight">\(p_{ic}\)</span> es la predicción de la probabilidad de pertenecer a la clase <span class="math notranslate nohighlight">\(c\)</span>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># En pytorch</span>
+<span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="hiperparametros-y-entrenamiento">
+<h3>Hiperparámetros y entrenamiento<a class="headerlink" href="#hiperparametros-y-entrenamiento" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span><span class="o">=</span><span class="mi">5</span>
+<span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span>
+<span class="n">optimizer</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span><span class="n">lr</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Entrenamiento del modelo (puede tardar unos minutos, dependiendo de la potencia de tu computadora).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+  <span class="n">loss_train</span><span class="o">=</span><span class="mi">0</span>
+  <span class="k">for</span> <span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="n">train_loader</span><span class="p">:</span>
+    <span class="n">preds</span><span class="o">=</span><span class="n">model</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+    <span class="n">loss</span><span class="o">=</span><span class="n">criterion</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    <span class="n">loss_train</span><span class="o">+=</span><span class="n">loss</span>   
+  <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;step </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> train loss </span><span class="si">{</span><span class="n">loss_train</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">train_loader</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+  <span class="n">loss_val</span><span class="o">=</span><span class="mi">0</span>    
+  <span class="k">for</span> <span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="n">val_loader</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span> <span class="c1"># permet de ne pas calculer les gradients</span>
+      <span class="n">preds</span><span class="o">=</span><span class="n">model</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+      <span class="n">loss</span><span class="o">=</span><span class="n">criterion</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span>
+      <span class="n">loss_val</span><span class="o">+=</span><span class="n">loss</span> 
+  <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;step </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> val loss </span><span class="si">{</span><span class="n">loss_val</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">val_loader</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>step 0 train loss 0.29076647758483887
+step 0 val loss 0.15385286509990692
+step 1 train loss 0.10695428401231766
+step 1 val loss 0.10097559541463852
+step 2 train loss 0.07086848467588425
+step 2 val loss 0.09286081790924072
+step 3 train loss 0.05028771981596947
+step 3 val loss 0.08867377787828445
+step 4 train loss 0.04254501312971115
+step 4 val loss 0.0835222601890564
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="verificacion-del-modelo-con-los-datos-de-prueba">
+<h3>Verificación del modelo con los datos de prueba<a class="headerlink" href="#verificacion-del-modelo-con-los-datos-de-prueba" title="Link to this heading">#</a></h3>
+<p>Ahora que el modelo está entrenado, podemos verificar su rendimiento en el <em>test split</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correct</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">images</span><span class="p">,</span><span class="n">labels</span> <span class="ow">in</span> <span class="n">test_loader</span><span class="p">:</span> 
+  <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">preds</span><span class="o">=</span><span class="n">model</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+    
+    <span class="n">_</span><span class="p">,</span> <span class="n">predicted</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">preds</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">total</span> <span class="o">+=</span> <span class="n">labels</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">correct</span> <span class="o">+=</span> <span class="p">(</span><span class="n">predicted</span> <span class="o">==</span> <span class="n">labels</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>     
+<span class="n">test_acc</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">correct</span> <span class="o">/</span> <span class="n">total</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Précision du modèle en phase de test : &quot;</span><span class="p">,</span><span class="n">test_acc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Précision du modèle en phase de test :  97.69
+</pre></div>
+</div>
+</div>
+</div>
+<p>Nuestro modelo obtiene una precisión muy buena en la fase de prueba, lo cual es una buena señal.
+Sin embargo, observamos que durante el entrenamiento, la <em>pérdida de entrenamiento</em> es menor que la <em>pérdida de validación</em>. Este es un punto importante a considerar, ya que indica que el modelo presenta un ligero <em>overfitting</em>.</p>
+</section>
+</section>
+<section id="overfitting-y-underfitting">
+<h2>Overfitting y underfitting<a class="headerlink" href="#overfitting-y-underfitting" title="Link to this heading">#</a></h2>
+<p>Un elemento clave del aprendizaje profundo es la capacidad del modelo para no presentar <em>overfitting</em> con los datos de entrenamiento. El <em>overfitting</em> ocurre cuando un modelo aprende demasiado bien los datos de entrenamiento, pero no es capaz de generalizar a nuevos elementos de la misma distribución.
+Para comprender el principio, aquí hay una figura que muestra la diferencia entre el <em>underfitting</em> (modelo demasiado simple que no puede aprender la complejidad de los datos), un modelo bien entrenado y el <em>overfitting</em>.</p>
+<p><img alt="Overfitting" src="../_images/overfitting.png" /></p>
+<p>En el caso más crítico de <em>overfitting</em>, el modelo tiene una precisión casi perfecta en los datos de entrenamiento, pero un mal rendimiento en los datos de validación y prueba.
+En este curso, introduciremos 2 métodos para evitar este problema de <em>overfitting</em>.</p>
+<section id="regularizacion-l2">
+<h3>Regularización L2<a class="headerlink" href="#regularizacion-l2" title="Link to this heading">#</a></h3>
+<p>La regularización L2 es un método que consiste en añadir una penalización a la pérdida basada en el valor de los pesos del modelo. Esta penalización es proporcional al cuadrado de los valores de los pesos del modelo (cabe señalar que también existe la regularización L1, que es linealmente proporcional a los valores de los pesos del modelo). Esta penalización fomenta que los pesos del modelo permanezcan pequeños y sean menos sensibles al ruido de los datos de entrenamiento.
+Podemos formular la regularización L2 de la siguiente manera:
+<span class="math notranslate nohighlight">\(L(w) = L_0(w) + \lambda \sum_{i=1}^{n} w_i^2\)</span>
+donde:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(L(w)\)</span> es la pérdida regularizada.</p></li>
+<li><p><span class="math notranslate nohighlight">\(L_0(w)\)</span> es la función de pérdida clásica.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\lambda\)</span> es el coeficiente de regularización.</p></li>
+<li><p><span class="math notranslate nohighlight">\(w_i\)</span> es un peso del modelo.</p></li>
+</ul>
+<p>Para aprender más sobre la regularización L2, puedes consultar el <a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/06_Regularisation.html"><span class="std std-doc">curso adicional sobre regularización</span></a> o este <a class="reference external" href="https://towardsdatascience.com/l1-and-l2-regularization-methods-ce25e7fc831c">artículo</a>.</p>
+<p>Volvamos a entrenar añadiendo la regularización. En PyTorch, la regularización se utiliza añadiendo el parámetro <em>weight_decay</em> a nuestro <em>optimizer</em>. El valor de <em>weight_decay</em> corresponde al <span class="math notranslate nohighlight">\(\lambda\)</span> de la ecuación anterior.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_with_reg</span><span class="o">=</span><span class="n">mlp</span><span class="p">()</span>
+<span class="n">epochs</span><span class="o">=</span><span class="mi">5</span>
+<span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span>
+<span class="n">optimizer</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model_with_reg</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span><span class="n">lr</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">,</span><span class="n">weight_decay</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+  <span class="n">loss_train</span><span class="o">=</span><span class="mi">0</span>
+  <span class="k">for</span> <span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="n">train_loader</span><span class="p">:</span>
+    <span class="n">preds</span><span class="o">=</span><span class="n">model_with_reg</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+    <span class="n">loss</span><span class="o">=</span><span class="n">criterion</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    <span class="n">loss_train</span><span class="o">+=</span><span class="n">loss</span>   
+  <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;step </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> train loss </span><span class="si">{</span><span class="n">loss_train</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">train_loader</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+  <span class="n">loss_val</span><span class="o">=</span><span class="mi">0</span>    
+  <span class="k">for</span> <span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="n">val_loader</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span> <span class="c1"># permet de ne pas calculer les gradients</span>
+      <span class="n">preds</span><span class="o">=</span><span class="n">model_with_reg</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+      <span class="n">loss</span><span class="o">=</span><span class="n">criterion</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span>
+      <span class="n">loss_val</span><span class="o">+=</span><span class="n">loss</span> 
+  <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;step </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> val loss </span><span class="si">{</span><span class="n">loss_val</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">val_loader</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>step 0 train loss 0.2986273467540741
+step 0 val loss 0.1439662128686905
+step 1 train loss 0.11165566742420197
+step 1 val loss 0.10781095176935196
+step 2 train loss 0.07492929697036743
+step 2 val loss 0.09555892646312714
+step 3 train loss 0.05378309637308121
+step 3 val loss 0.08672302216291428
+step 4 train loss 0.041800014674663544
+step 4 val loss 0.0883878618478775
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correct</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">images</span><span class="p">,</span><span class="n">labels</span> <span class="ow">in</span> <span class="n">test_loader</span><span class="p">:</span> 
+  <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">preds</span><span class="o">=</span><span class="n">model_with_reg</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+    
+    <span class="n">_</span><span class="p">,</span> <span class="n">predicted</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">preds</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">total</span> <span class="o">+=</span> <span class="n">labels</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">correct</span> <span class="o">+=</span> <span class="p">(</span><span class="n">predicted</span> <span class="o">==</span> <span class="n">labels</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>     
+<span class="n">test_acc</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">correct</span> <span class="o">/</span> <span class="n">total</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Précision du modèle en phase de test : &quot;</span><span class="p">,</span><span class="n">test_acc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Précision du modèle en phase de test :  97.73
+</pre></div>
+</div>
+</div>
+</div>
+<p>La diferencia no es muy notable, pero observamos una disminución en la diferencia entre la pérdida de validación y la pérdida de entrenamiento.</p>
+<p><strong>Intuición</strong>: La regularización L2 funciona porque, al penalizar los coeficientes grandes, favorece soluciones en las que los pesos están distribuidos de manera más uniforme. Esto reduce la sensibilidad del modelo a las variaciones específicas de los datos de entrenamiento y mejora así la robustez y la generalización del modelo.</p>
+</section>
+<section id="dropout">
+<h3>Dropout<a class="headerlink" href="#dropout" title="Link to this heading">#</a></h3>
+<p>Otra técnica de regularización es el <em>dropout</em>. Este método consiste en desactivar aleatoriamente un porcentaje de neuronas en la red en cada paso del entrenamiento (los pesos desactivados cambian durante el entrenamiento). Cada neurona de una capa tiene una probabilidad <span class="math notranslate nohighlight">\(p\)</span> de ser desactivada.</p>
+<p>Esta técnica obliga a la red a no depender de ciertas neuronas, sino a aprender representaciones más robustas y que generalicen mejor. Podemos ver el <em>dropout</em> como una especie de conjunto de modelos donde cada modelo es diferente (porque algunas neuronas están desactivadas). Durante la fase de prueba, se toma el “promedio” de estos diferentes modelos. Durante la fase de prueba, el <em>dropout</em> está desactivado.</p>
+<p>Para aplicar el <em>dropout</em>, es necesario añadirlo directamente en la arquitectura de la red.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">mlp_dropout</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">784</span><span class="p">,</span><span class="mi">256</span><span class="p">)</span> 
+    <span class="bp">self</span><span class="o">.</span><span class="n">dropout1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span> <span class="c1"># on désactive 20% des neurones aléatoirement</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span><span class="mi">256</span><span class="p">)</span> 
+    <span class="bp">self</span><span class="o">.</span><span class="n">dropout2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span> <span class="c1"># on désactive 20% des neurones aléatoirement</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fc3</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span> 
+  
+  <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">28</span><span class="o">*</span><span class="mi">28</span><span class="p">)</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dropout1</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dropout2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+    <span class="n">output</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fc3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">output</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_with_dropout</span><span class="o">=</span><span class="n">mlp_dropout</span><span class="p">()</span>
+<span class="n">epochs</span><span class="o">=</span><span class="mi">5</span>
+<span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span>
+<span class="n">optimizer</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model_with_dropout</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span><span class="n">lr</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+  <span class="n">loss_train</span><span class="o">=</span><span class="mi">0</span>
+  <span class="k">for</span> <span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="n">train_loader</span><span class="p">:</span>
+    <span class="n">preds</span><span class="o">=</span><span class="n">model_with_dropout</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+    <span class="n">loss</span><span class="o">=</span><span class="n">criterion</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    <span class="n">loss_train</span><span class="o">+=</span><span class="n">loss</span>   
+  <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;step </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> train loss </span><span class="si">{</span><span class="n">loss_train</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">train_loader</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+  <span class="n">loss_val</span><span class="o">=</span><span class="mi">0</span>    
+  <span class="k">for</span> <span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="n">val_loader</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span> <span class="c1"># permet de ne pas calculer les gradients</span>
+      <span class="n">preds</span><span class="o">=</span><span class="n">model_with_dropout</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+      <span class="n">loss</span><span class="o">=</span><span class="n">criterion</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span>
+      <span class="n">loss_val</span><span class="o">+=</span><span class="n">loss</span> 
+  <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;step </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> val loss </span><span class="si">{</span><span class="n">loss_val</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">val_loader</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>step 0 train loss 0.3267715573310852
+step 0 val loss 0.19353896379470825
+step 1 train loss 0.13504144549369812
+step 1 val loss 0.14174170792102814
+step 2 train loss 0.10012412816286087
+step 2 val loss 0.13484247028827667
+step 3 train loss 0.07837768644094467
+step 3 val loss 0.10895466059446335
+step 4 train loss 0.0631122887134552
+step 4 val loss 0.10599609464406967
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correct</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">images</span><span class="p">,</span><span class="n">labels</span> <span class="ow">in</span> <span class="n">test_loader</span><span class="p">:</span> 
+  <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">preds</span><span class="o">=</span><span class="n">model_with_dropout</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+    
+    <span class="n">_</span><span class="p">,</span> <span class="n">predicted</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">preds</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">total</span> <span class="o">+=</span> <span class="n">labels</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">correct</span> <span class="o">+=</span> <span class="p">(</span><span class="n">predicted</span> <span class="o">==</span> <span class="n">labels</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>     
+<span class="n">test_acc</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">correct</span> <span class="o">/</span> <span class="n">total</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Précision du modèle en phase de test : &quot;</span><span class="p">,</span><span class="n">test_acc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Précision du modèle en phase de test :  96.96
+</pre></div>
+</div>
+</div>
+</div>
+<p>Observamos nuevamente una ligera mejora en el resultado del entrenamiento.</p>
+<p><strong>Intuición</strong>: El <em>dropout</em> mejora la generalización al desactivar aleatoriamente neuronas durante el entrenamiento. Esto evita que el modelo dependa demasiado de ciertas neuronas y fomenta una distribución más robusta y diversificada de las características aprendidas.</p>
+</section>
+</section>
+<section id="normalizacion-por-lotes-batch-normalization">
+<h2>Normalización por lotes (<em>Batch Normalization</em>)<a class="headerlink" href="#normalizacion-por-lotes-batch-normalization" title="Link to this heading">#</a></h2>
+<p>Otra técnica para mejorar el entrenamiento de una red neuronal es la <em>Normalización por lotes</em> (<em>Batch Normalization</em> o <em>BatchNorm</em>). El principio consiste en normalizar las entradas de cada capa de la red con una distribución que tenga una media nula y una varianza de 1.
+La normalización se realiza en el <em>batch</em> completo de la siguiente manera:</p>
+<p>Para un <em>mini-batch</em> <span class="math notranslate nohighlight">\(B\)</span> con activaciones <span class="math notranslate nohighlight">\(x\)</span>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mu_B = \frac{1}{m} \sum_{i=1}^m x_i\)</span>: la media de las activaciones <span class="math notranslate nohighlight">\(x_i\)</span> de los <span class="math notranslate nohighlight">\(m\)</span> elementos.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma_B^2 = \frac{1}{m} \sum_{i=1}^m (x_i - \mu_B)^2\)</span>: la varianza de las activaciones <span class="math notranslate nohighlight">\(x_i\)</span> de los <span class="math notranslate nohighlight">\(m\)</span> elementos.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{x}_i = \frac{x_i - \mu_B}{\sqrt{\sigma_B^2 + \epsilon}}\)</span>: el valor normalizado de <span class="math notranslate nohighlight">\(x_i\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(y_i = \gamma \hat{x}_i + \beta\)</span>: la adición de los parámetros <span class="math notranslate nohighlight">\(\gamma\)</span> y <span class="math notranslate nohighlight">\(\beta\)</span> permite a la red aprender las distribuciones de activación óptimas.</p></li>
+</ul>
+<p>donde:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(m\)</span> es el tamaño del <em>mini-batch</em> <span class="math notranslate nohighlight">\(B\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\epsilon\)</span> es una pequeña constante añadida para evitar la división por cero.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\gamma\)</span> y <span class="math notranslate nohighlight">\(\beta\)</span> son parámetros aprendibles.</p></li>
+</ul>
+<p>En la práctica, se constatan 4 ventajas principales al utilizar <em>BatchNorm</em>:</p>
+<ul class="simple">
+<li><p><strong>Aceleración del entrenamiento</strong>: La normalización de las entradas de cada capa permite utilizar una <em>tasa de aprendizaje</em> más alta y, por lo tanto, acelerar la convergencia del entrenamiento.</p></li>
+<li><p><strong>Reducción de la sensibilidad a la inicialización de los pesos</strong>: La <em>BatchNorm</em> permite estabilizar la distribución de las activaciones, lo que hace que la red sea menos sensible a la inicialización de los pesos.</p></li>
+<li><p><strong>Mejora de la generalización</strong>: Al igual que el <em>dropout</em> y la regularización L2, la <em>BatchNorm</em> actúa como una forma de regularización. Esto se debe al ruido inducido al normalizar en el <em>batch</em>.</p></li>
+<li><p><strong>Reducción del “Internal Covariate Shift”</strong>: La estabilización de las activaciones a lo largo de la red permite reducir el cambio en las distribuciones de las capas internas, lo que facilita el aprendizaje.</p></li>
+</ul>
+<p>Lo que hay que recordar es que la <em>BatchNorm</em> ofrece numerosas ventajas y, por lo tanto, se recomienda utilizarla sistemáticamente.</p>
+<p>También existen otras técnicas de normalización como <em>LayerNorm</em>, <em>InstanceNorm</em>, <em>GroupNorm</em>, entre otras.
+Para aprender más sobre la <em>normalización por lotes</em>, puedes realizar el <a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/02_BatchNorm.html"><span class="std std-doc">curso adicional sobre <em>batch norm</em></span></a>, leer el <a class="reference external" href="https://arxiv.org/pdf/1502.03167">artículo</a> o este <a class="reference external" href="https://towardsdatascience.com/batch-norm-explained-visually-how-it-works-and-why-neural-networks-need-it-b18919692739">blogpost</a>.
+Para obtener más información sobre la importancia de la normalización en el entrenamiento de redes neuronales, puedes consultar este <a class="reference external" href="https://medium.com/nerd-for-tech/overview-of-normalization-techniques-in-deep-learning-e12a79060daf">blogpost</a>.</p>
+<p>En pratique, on constate 4 principaux avantages lors de l’utilisation de la <em>BatchNorm</em> :</p>
+<ul class="simple">
+<li><p><strong>Accélération de l’entraînement</strong> : La normalisation des entrées de chaque couche permet d’utiliser un <em>learning rate</em> plus élevé et donc d’accélérer la convergence de l’entraînement.</p></li>
+<li><p><strong>Réduction de la sensibilité à l’initialisation des poids</strong> : La <em>BatchNorm</em> permet de stabiliser la distribution des activations, ce qui rend le réseau moins sensible à l’initialisation des poids.</p></li>
+<li><p><strong>Amélioration de la généralisation</strong> : Comme le <em>dropout</em> et la régularisation L2, la <em>BatchNorm</em> agit comme une forme de régularisation. Cela est dû au bruit induit par le fait de normaliser sur le <em>batch</em>.</p></li>
+<li><p><strong>Réduction du “Internal Covariate Shift”</strong> : La stabilisation des activations tout au long du réseau permet de réduire le changement des distributions des couches internes, ce qui facilite l’apprentissage.</p></li>
+</ul>
+<p>Ce qu’il faut retenir, c’est que la <em>BatchNorm</em> offre de nombreux avantages et il est donc conseillé de l’utiliser systématiquement.</p>
+<p>Il existe également d’autres techniques de normalisation comme la <em>LayerNorm</em>, la <em>InstanceNorm</em>, la <em>GroupNorm</em> et d’autres …
+Pour en apprendre plus sur la <em>batch normalization</em>, tu peux faire le <a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/02_BatchNorm.html"><span class="std std-doc">cours bonus sur la <em>batch norm</em></span></a>, lire le <a class="reference external" href="https://arxiv.org/pdf/1502.03167">papier</a> ou le <a class="reference external" href="https://towardsdatascience.com/batch-norm-explained-visually-how-it-works-and-why-neural-networks-need-it-b18919692739">blogpost</a>.
+Pour avoir des informations supplémentaires sur l’intérêt de la normalisation pour l’entraînement des réseaux de neurones, tu peux consulter le <a class="reference external" href="https://medium.com/nerd-for-tech/overview-of-normalization-techniques-in-deep-learning-e12a79060daf">blogpost</a>.</p>
+<p>Para implementar la <em>BatchNorm</em> en PyTorch, es necesario añadirla directamente en la construcción del modelo. Cabe señalar que a menudo se aplica la <em>BatchNorm</em> antes de la función de activación, aunque ambas opciones son posibles (antes o después).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">mlp_bn</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">784</span><span class="p">,</span><span class="mi">256</span><span class="p">)</span> 
+    <span class="bp">self</span><span class="o">.</span><span class="n">bn1</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm1d</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span> <span class="c1"># Batch Normalization</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span><span class="mi">256</span><span class="p">)</span> 
+    <span class="bp">self</span><span class="o">.</span><span class="n">bn2</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm1d</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span> <span class="c1"># Batch Normalization</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fc3</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span> 
+  
+  <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">28</span><span class="o">*</span><span class="mi">28</span><span class="p">)</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bn1</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bn1</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+    <span class="n">output</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fc3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">output</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_with_bn</span><span class="o">=</span><span class="n">mlp_bn</span><span class="p">()</span>
+<span class="n">epochs</span><span class="o">=</span><span class="mi">5</span>
+<span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span>
+<span class="n">optimizer</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model_with_bn</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span><span class="n">lr</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+  <span class="n">loss_train</span><span class="o">=</span><span class="mi">0</span>
+  <span class="k">for</span> <span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="n">train_loader</span><span class="p">:</span>
+    <span class="n">preds</span><span class="o">=</span><span class="n">model_with_bn</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+    <span class="n">loss</span><span class="o">=</span><span class="n">criterion</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    <span class="n">loss_train</span><span class="o">+=</span><span class="n">loss</span>   
+  <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;step </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> train loss </span><span class="si">{</span><span class="n">loss_train</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">train_loader</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+  <span class="n">loss_val</span><span class="o">=</span><span class="mi">0</span>    
+  <span class="k">for</span> <span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="n">val_loader</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span> <span class="c1"># permet de ne pas calculer les gradients</span>
+      <span class="n">preds</span><span class="o">=</span><span class="n">model_with_bn</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+      <span class="n">loss</span><span class="o">=</span><span class="n">criterion</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span>
+      <span class="n">loss_val</span><span class="o">+=</span><span class="n">loss</span> 
+  <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;step </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> val loss </span><span class="si">{</span><span class="n">loss_val</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">val_loader</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>step 0 train loss 0.20796926319599152
+step 0 val loss 0.1327729970216751
+step 1 train loss 0.09048832952976227
+step 1 val loss 0.10177803039550781
+step 2 train loss 0.0635765939950943
+step 2 val loss 0.09861738979816437
+step 3 train loss 0.045849185436964035
+step 3 val loss 0.09643400460481644
+step 4 train loss 0.0397462323307991
+step 4 val loss 0.08524414896965027
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correct</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">images</span><span class="p">,</span><span class="n">labels</span> <span class="ow">in</span> <span class="n">test_loader</span><span class="p">:</span> 
+  <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">preds</span><span class="o">=</span><span class="n">model_with_bn</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+    
+    <span class="n">_</span><span class="p">,</span> <span class="n">predicted</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">preds</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">total</span> <span class="o">+=</span> <span class="n">labels</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">correct</span> <span class="o">+=</span> <span class="p">(</span><span class="n">predicted</span> <span class="o">==</span> <span class="n">labels</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>     
+<span class="n">test_acc</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">correct</span> <span class="o">/</span> <span class="n">total</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Précision du modèle en phase de test : &quot;</span><span class="p">,</span><span class="n">test_acc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Précision du modèle en phase de test :  97.19
+</pre></div>
+</div>
+</div>
+</div>
+<p>Como puedes ver, la <em>BatchNorm</em> permite obtener una mejor puntuación en nuestros datos bajo las mismas condiciones de entrenamiento.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./02_RéseauFullyConnected"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="02_PytorchIntroduction.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introducción a PyTorch</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../03_R%C3%A9seauConvolutifs/01_CouchesDeConvolutions.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Las capas de convolución</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-del-conjunto-de-datos">Creación del conjunto de datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#division-en-entrenamiento-validacion-prueba">División en entrenamiento/validación/prueba</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-y-entrenamiento-de-un-primer-modelo">Creación y entrenamiento de un primer modelo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funcion-de-perdida">Función de pérdida</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hiperparametros-y-entrenamiento">Hiperparámetros y entrenamiento</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verificacion-del-modelo-con-los-datos-de-prueba">Verificación del modelo con los datos de prueba</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overfitting-y-underfitting">Overfitting y underfitting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regularizacion-l2">Regularización L2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dropout">Dropout</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalizacion-por-lotes-batch-normalization">Normalización por lotes (<em>Batch Normalization</em>)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Simon Thomine
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div id="language-switcher" style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #eee;">
+  <span style="margin-right: 10px;">🌐 Language / Langue:</span>
+  <a href="#" onclick="switchToEnglish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #4CAF50; color: white; border-radius: 5px; font-weight: bold; transition: all 0.3s;">🇺🇸 English</a>
+  <a href="#" onclick="switchToFrench()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #f0f0f0; border-radius: 5px; transition: all 0.3s;">🇫🇷 Français</a>
+  <a href="#" onclick="switchToSpanish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ffd700; border-radius: 5px; transition: all 0.3s;">🇪🇸 Español</a>
+  <a href="#" onclick="switchToChinese()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ff4b4b; color: white; border-radius: 5px; transition: all 0.3s;">🇨🇳 中文</a>
+</div>
+<script>
+function getBaseUrl() {
+  let baseUrl = window.location.origin;
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    baseUrl += pathname.split('fr/')[0];
+  } else if (pathname.includes('en/')) {
+    baseUrl += pathname.split('en/')[0];
+  } else if (pathname.includes('es/')) {
+    baseUrl += pathname.split('es/')[0];
+  } else if (pathname.includes('zh/')) {
+    baseUrl += pathname.split('zh/')[0];
+  } else {
+    baseUrl += pathname.split('/').slice(0, -1).join('/') + '/';
+  }
+  return baseUrl;
+}
+
+function getCurrentPage() {
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    return pathname.split('fr/')[1] || 'index.html';
+  } else if (pathname.includes('en/')) {
+    return pathname.split('en/')[1] || 'index.html';
+  } else if (pathname.includes('es/')) {
+    return pathname.split('es/')[1] || 'index.html';
+  } else if (pathname.includes('zh/')) {
+    return pathname.split('zh/')[1] || 'index.html';
+  }
+  return 'index.html';
+}
+
+function switchToEnglish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'en/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToFrench() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'fr/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToSpanish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'es/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToChinese() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'zh/' + currentPage;
+  window.location.href = newUrl;
+}
+</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

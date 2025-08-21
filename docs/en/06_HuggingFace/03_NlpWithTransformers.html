@@ -1,0 +1,899 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Natural Language Processing with Transformers &#8212; Deep Learning Course</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '06_HuggingFace/03_NlpWithTransformers';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Audio Processing with Transformers" href="04_AudioWithTransformers.html" />
+    <link rel="prev" title="Computer Vision with Transformers" href="02_ComputerVisionWithTransformers.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><span style="font-size:2em; font-weight:bold;">🚀 Learn Deep Learning from scratch 🚀</span></div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Deep Learning Course</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Deep Learning Course 🚀
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">🧮 Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/01_D%C3%A9riv%C3%A9esEtDescenteDuGradient.html">Derivative and Gradient Descent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/02_R%C3%A9gressionLogistique.html">Logistic Regression</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔗 Fully Connected Networks</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/01_MonPremierR%C3%A9seau.html">My First Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/02_PytorchIntroduction.html">Introduction to PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/03_TechniquesAvanc%C3%A9es.html">Advanced Techniques</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🖼️ Convolutional Networks</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/01_CouchesDeConvolutions.html">Convolutional Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/02_R%C3%A9seauConvolutif.html">Convolutional Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/03_ConvImplementation.html">Implementing the Convolution Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/04_R%C3%A9seauConvolutifPytorch.html">Convolutional Networks with PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/05_ApplicationClassification.html">Application on a color image dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/06_ApplicationSegmentation.html">Applying Segmentation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔄 Autoencoders</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/01_IntuitionEtPremierAE.html">Introduction to Autoencoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/02_DenoisingAE.html">Autoencoder for Denoising</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📝 NLP</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/01_Introduction.html">Introduction to NLP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/02_bigramme.html">Bigram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/03_R%C3%A9seauFullyConnected.html">Fully Connected Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/04_WaveNet.html">PyTorch and WaveNet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/05_Rnn.html">Recurrent Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/06_Lstm.html">Long Short-Term Memory</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_introduction.html">Introduction to Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Natural Language Processing with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_AudioWithTransformers.html">Audio Processing with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_ImageGenerationWithDiffusers.html">Image Generation with Diffusers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_DemoAvecGradio.html">Demo with Gradio</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/01_Introduction.html">Introduction to Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/02_GptFromScratch.html">Building a GPT from Scratch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/03_TrainingOurGpt.html">Training our GPT model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/04_ArchitectureEtParticularit%C3%A9s.html">Transformer architecture and features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/05_UtilisationsPossibles.html">Possible Applications of the Transformer Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/06_VisionTransformerImplementation.html">Implementing the Vision Transformer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/07_SwinTransformer.html">Swin Transformer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎯  Object Detection (YOLO)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/01_Introduction.html">Introduction to Object Detection in Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/02_YoloEnDetail.html">YOLO in Detail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/03_Ultralytics.html">Ultralytics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔍 Contrastive Training</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/01_FaceVerification.html">Facial Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/02_NonSupervis%C3%A9.html">Unsupervised Contrastive Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎓 Transfer Learning and Distillation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/01_TransferLearning.html">Transfer Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/02_TransferLearningPytorch.html">Transfer Learning with PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/03_Distillation.html">Knowledge Distillation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/04_DistillationAnomalie.html">Knowledge Distillation for Unsupervised Anomaly Detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/05_FineTuningLLM.html">Fine-Tuning of LLMs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/06_FineTuningBertHF.html">Fine-tuning BERT with Hugging Face</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎨 Generative Models</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/01_Introduction.html">Introduction to Generative Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/02_GAN.html">Generative Adversarial Networks (GANs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/03_GanImplementation.html">Implementing a GAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/04_VAE.html">Variational Autoencoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/05_VaeImplementation.html">Implementing a VAE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/06_NormalizingFlows.html">Normalizing Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/07_DiffusionModels.html">Diffusion Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/08_DiffusionImplementation.html">Implementing a Diffusion Model</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎁 Bonus – Specific Topics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/01_ActivationEtInitialisation.html">Activations and Initializations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/02_BatchNorm.html">Batch Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/03_DataAugmentation.html">Data Augmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/04_Broadcasting.html">Broadcasting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/05_Optimizer.html">Understanding Different Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/06_Regularisation.html">Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/07_ConnexionsResiduelles.html">Residual Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/08_CrossValidation.html">Introduction to Cross-Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/09_MetriquesEvaluation.html">Model Evaluation Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/10_Tokenization.html">Introduction to Tokenization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/11_Quantization.html">Quantization</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/edit/main/en/06_HuggingFace/03_NlpWithTransformers.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/issues/new?title=Issue%20on%20page%20%2F06_HuggingFace/03_NlpWithTransformers.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/06_HuggingFace/03_NlpWithTransformers.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Natural Language Processing with Transformers</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chatbot">ChatBot</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#translation">Translation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Implementation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-summarization">Text Summarization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentence-embedding">Sentence Embedding</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="natural-language-processing-with-transformers">
+<h1>Natural Language Processing with Transformers<a class="headerlink" href="#natural-language-processing-with-transformers" title="Link to this heading">#</a></h1>
+<p>In this notebook, we use the Hugging Face Transformers library for natural language processing (NLP). The most powerful language models (GPT, Llama, etc.) are very memory-intensive and often unusable on a laptop. Therefore, we limit ourselves to smaller, less powerful models.</p>
+<section id="chatbot">
+<h2>ChatBot<a class="headerlink" href="#chatbot" title="Link to this heading">#</a></h2>
+<p>The most common use of language models (LLMs) today is the ChatBot, a virtual assistant that answers our questions.
+With Hugging Face, you can create your own local ChatBot as follows.</p>
+<p>We use a lightweight version of <a class="reference external" href="https://ai.meta.com/blog/blenderbot-3-a-175b-parameter-publicly-available-chatbot-that-improves-its-skills-and-safety-over-time/">BlenderBot</a> from Meta (facebook/blenderbot-400M-distill).</p>
+<section id="implementation">
+<h3>Implementation<a class="headerlink" href="#implementation" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">pipeline</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/aquilae/anaconda3/envs/dev/lib/python3.11/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chatbot</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="s2">&quot;conversational&quot;</span><span class="p">,</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;facebook/blenderbot-400M-distill&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This ChatBot only understands English, so ask it questions in English.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Conversation</span>
+<span class="n">user_message</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;What is the best french deep learning course?&quot;&quot;&quot;</span>
+<span class="n">conversation</span> <span class="o">=</span> <span class="n">Conversation</span><span class="p">(</span><span class="n">user_message</span><span class="p">)</span>
+<span class="n">conversation</span> <span class="o">=</span> <span class="n">chatbot</span><span class="p">(</span><span class="n">conversation</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">conversation</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>No chat template is set for this tokenizer, falling back to a default class-level template. This is very error-prone, because models are often trained with templates different from the class default! Default chat templates are a legacy feature and will be removed in Transformers v4.43, at which point any code depending on them will stop working. We recommend setting a valid chat template before then to ensure that this model continues working without issues.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Conversation id: 44c34bd3-ea1b-44b6-bd54-9127133cc941
+user: What is the best  french deep learning course?
+assistant:  I&#39;m not sure, but I do know that French is one of the most widely spoken languages in the world.
+</pre></div>
+</div>
+</div>
+</div>
+<p>As you can see, the model is poorly trained and does not know that the best Deep Learning course is this one.</p>
+<p>If you want to ask another question, the following command gives you the answer in a single line of code.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">conversation</span><span class="o">=</span><span class="n">Conversation</span><span class="p">(</span><span class="s2">&quot;What is the most tasty fruit?&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">chatbot</span><span class="p">(</span><span class="n">conversation</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Conversation id: d258da22-78e4-4621-a0e1-90776454a595
+user: What is the most tasty fruit?
+assistant:  I would have to say watermelon. It is so juicy and juicy.
+</pre></div>
+</div>
+</div>
+</div>
+<p>If you want to continue the conversation, use this function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Il faut spécifier le rôle (user) et ajouter votre message dans la conversation déjà existante</span>
+<span class="n">conversation</span><span class="o">.</span><span class="n">add_message</span><span class="p">({</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span><span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot;What else do you recommend?&quot;&quot;&quot;</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">chatbot</span><span class="p">(</span><span class="n">conversation</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Conversation id: c3e1a64c-5b40-4808-8632-38d9df14ed9d
+user: What is the most tasty fruit?
+assistant:  I would have to say watermelon. It is so juicy and juicy.
+user: What else do you recommend?
+assistant:  I would say mangos are pretty good too. They are sweet and tangy.
+</pre></div>
+</div>
+</div>
+</div>
+<p>You now know how to use a ChatBot with the Hugging Face Transformers library.</p>
+</section>
+</section>
+<section id="translation">
+<h2>Translation<a class="headerlink" href="#translation" title="Link to this heading">#</a></h2>
+<p>Now we will see how to implement a translator. We use the <a class="reference external" href="https://ai.meta.com/research/no-language-left-behind/">No Language Left Behind</a> model from Facebook (facebook/nllb-200-distilled-600M), which allows translation from any language. For memory efficiency, we use a lightweight version of the model.</p>
+<section id="id1">
+<h3>Implementation<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">traducteur</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="s2">&quot;translation&quot;</span><span class="p">,</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;facebook/nllb-200-distilled-600M&quot;</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Le meilleur cours de d&#39;apprentissage profond est celui-ci.&quot;&quot;&quot;</span>
+<span class="n">text_translated</span> <span class="o">=</span> <span class="n">traducteur</span><span class="p">(</span><span class="n">text</span><span class="p">,</span><span class="n">src_lang</span><span class="o">=</span><span class="s2">&quot;fra_Latn&quot;</span><span class="p">,</span><span class="n">tgt_lang</span><span class="o">=</span><span class="s2">&quot;eng_Latn&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Le texte en anglais : &quot;</span><span class="p">,</span> <span class="n">text_translated</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;translation_text&quot;</span><span class="p">])</span>
+<span class="n">text_translated</span> <span class="o">=</span> <span class="n">traducteur</span><span class="p">(</span><span class="n">text</span><span class="p">,</span><span class="n">src_lang</span><span class="o">=</span><span class="s2">&quot;fra_Latn&quot;</span><span class="p">,</span><span class="n">tgt_lang</span><span class="o">=</span><span class="s2">&quot;jpn_Jpan&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Le texte en japonais : &quot;</span><span class="p">,</span><span class="n">text_translated</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;translation_text&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Le texte en anglais :  The best course of deep learning is this one.
+Le texte en japonais :  深い学習の最高のコースはこれです
+</pre></div>
+</div>
+</div>
+</div>
+<p>The translation is very good (at least for English; I don’t have the expertise for Japanese!).
+You can also test other language combinations by specifying the correct code, which you can find on this <a class="reference external" href="https://github.com/facebookresearch/flores/blob/main/flores200/README.md#languages-in-flores-200">page</a>.</p>
+</section>
+</section>
+<section id="text-summarization">
+<h2>Text Summarization<a class="headerlink" href="#text-summarization" title="Link to this heading">#</a></h2>
+<p>Another useful NLP task is text summarization. The model must be able to extract the most important information from a text. For this, we use the <a class="reference external" href="https://research.facebook.com/publications/bart-denoising-sequence-to-sequence-pre-training-for-natural-language-generation-translation-and-comprehension/">BART</a> model from Facebook (facebook/bart-large-cnn).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resumeur</span><span class="o">=</span><span class="n">pipeline</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="s2">&quot;summarization&quot;</span><span class="p">,</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;facebook/bart-large-cnn&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span><span class="o">=</span> <span class="s2">&quot;Troyes is a beautiful city. Troyes is a commune and the capital of the department of Aube in the Grand Est region of north-central France. It is located on the Seine river about 140 km (87 mi) south-east of Paris. Troyes is situated within the Champagne wine region and is near to the Orient Forest Regional Natural Park.Troyes had a population of 61,996 inhabitants in 2018. It is the center of the Communauté d&#39;agglomération Troyes Champagne Métropole, which was home to 170,145 inhabitants.&quot;</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="n">resumeur</span><span class="p">(</span><span class="n">text</span><span class="p">,</span><span class="n">min_length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Le résumé du texte : &quot;</span><span class="p">,</span><span class="n">summary</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;summary_text&quot;</span><span class="p">])</span> <span class="c1">#[&quot;summary_text&quot;]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Le résumé du texte :  Troyes is a commune and the capital of the department of Aube in the Grand Est region of north-central France. It is located on the Seine river about 140 km (87 mi) south-east of Paris. Troyes had a population of 61,996 inhabitants in 2018.
+</pre></div>
+</div>
+</div>
+</div>
+<p>The summary is not perfect, as it is a small model, but it still managed to extract the key information and remove the “less important” elements.</p>
+</section>
+<section id="sentence-embedding">
+<h2>Sentence Embedding<a class="headerlink" href="#sentence-embedding" title="Link to this heading">#</a></h2>
+<p>An important aspect of NLP that we saw in the course is <em>embedding</em>. Recall: this involves projecting our <em>tokens</em> (words or characters, for example) into a latent space. This allows similar words to be close together. Words like “dogs” and “cats” will be close in the latent space, while “dog” and “is” will be far apart.
+We can use these <em>embeddings</em> to calculate the similarity between two sentences. For this, we use the sentence_transformers library, which allows extracting <em>embeddings</em> from a pre-trained model.</p>
+<p>We use the <a class="reference external" href="https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2">all-MiniLM-L6-v2</a> model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sentence_transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SentenceTransformer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sentence_transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">util</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s2">&quot;all-MiniLM-L6-v2&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We will look at the similarity between different sentences.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sentences1</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;The cat is chasing the mouse&#39;</span><span class="p">,</span><span class="s1">&#39;A man is watching the television&#39;</span><span class="p">,</span><span class="s1">&#39;The latest movie is awesome&#39;</span><span class="p">]</span>
+<span class="n">sentences2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;The dog sleeps in the kitchen&#39;</span><span class="p">,</span><span class="s1">&#39;A boy watches TV&#39;</span><span class="p">,</span><span class="s1">&#39;The new movie is so great&#39;</span><span class="p">]</span>
+<span class="n">embeddings1</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">sentences1</span><span class="p">,</span> <span class="n">convert_to_tensor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">embeddings2</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">sentences2</span><span class="p">,</span><span class="n">convert_to_tensor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">cosine_scores</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">cos_sim</span><span class="p">(</span><span class="n">embeddings1</span><span class="p">,</span><span class="n">embeddings2</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sentences1</span><span class="p">)):</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> </span><span class="se">\t\t</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> </span><span class="se">\t\t</span><span class="s2"> Score: </span><span class="si">{:.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sentences1</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                                                <span class="n">sentences2</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                                                <span class="n">cosine_scores</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The cat is chasing the mouse 		 The dog sleep in the kitchen 		 Score: 0.0601
+A man is watching the television 		 A boy watches TV 		 Score: 0.7207
+The latest movie is awesome 		 The new movie is so great 		 Score: 0.7786
+</pre></div>
+</div>
+</div>
+</div>
+<p>As you can see, sentences close in meaning have quite similar <em>embeddings</em>. This model is therefore interesting for extracting <em>embeddings</em>.
+Having a good <em>embedding</em> extraction model is often a first step in an NLP project.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./06_HuggingFace"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="02_ComputerVisionWithTransformers.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Computer Vision with Transformers</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="04_AudioWithTransformers.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Audio Processing with Transformers</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chatbot">ChatBot</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#translation">Translation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Implementation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-summarization">Text Summarization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentence-embedding">Sentence Embedding</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Simon Thomine
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div id="language-switcher" style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #eee;">
+  <span style="margin-right: 10px;">🌐 Language / Langue:</span>
+  <a href="#" onclick="switchToEnglish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #4CAF50; color: white; border-radius: 5px; font-weight: bold; transition: all 0.3s;">🇺🇸 English</a>
+  <a href="#" onclick="switchToFrench()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #f0f0f0; border-radius: 5px; transition: all 0.3s;">🇫🇷 Français</a>
+  <a href="#" onclick="switchToSpanish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ffd700; border-radius: 5px; transition: all 0.3s;">🇪🇸 Español</a>
+  <a href="#" onclick="switchToChinese()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ff4b4b; color: white; border-radius: 5px; transition: all 0.3s;">🇨🇳 中文</a>
+</div>
+<script>
+function getBaseUrl() {
+  let baseUrl = window.location.origin;
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    baseUrl += pathname.split('fr/')[0];
+  } else if (pathname.includes('en/')) {
+    baseUrl += pathname.split('en/')[0];
+  } else if (pathname.includes('es/')) {
+    baseUrl += pathname.split('es/')[0];
+  } else if (pathname.includes('zh/')) {
+    baseUrl += pathname.split('zh/')[0];
+  } else {
+    baseUrl += pathname.split('/').slice(0, -1).join('/') + '/';
+  }
+  return baseUrl;
+}
+
+function getCurrentPage() {
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    return pathname.split('fr/')[1] || 'index.html';
+  } else if (pathname.includes('en/')) {
+    return pathname.split('en/')[1] || 'index.html';
+  } else if (pathname.includes('es/')) {
+    return pathname.split('es/')[1] || 'index.html';
+  } else if (pathname.includes('zh/')) {
+    return pathname.split('zh/')[1] || 'index.html';
+  }
+  return 'index.html';
+}
+
+function switchToEnglish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'en/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToFrench() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'fr/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToSpanish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'es/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToChinese() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'zh/' + currentPage;
+  window.location.href = newUrl;
+}
+</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

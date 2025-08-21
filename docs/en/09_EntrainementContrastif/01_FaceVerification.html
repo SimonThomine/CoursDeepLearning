@@ -1,0 +1,1107 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Facial Verification &#8212; Deep Learning Course</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '09_EntrainementContrastif/01_FaceVerification';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Unsupervised Contrastive Learning" href="02_NonSupervis%C3%A9.html" />
+    <link rel="prev" title="Ultralytics" href="../08_DetectionEtYolo/03_Ultralytics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><span style="font-size:2em; font-weight:bold;">🚀 Learn Deep Learning from scratch 🚀</span></div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Deep Learning Course</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Deep Learning Course 🚀
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">🧮 Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/01_D%C3%A9riv%C3%A9esEtDescenteDuGradient.html">Derivative and Gradient Descent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/02_R%C3%A9gressionLogistique.html">Logistic Regression</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔗 Fully Connected Networks</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/01_MonPremierR%C3%A9seau.html">My First Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/02_PytorchIntroduction.html">Introduction to PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/03_TechniquesAvanc%C3%A9es.html">Advanced Techniques</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🖼️ Convolutional Networks</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/01_CouchesDeConvolutions.html">Convolutional Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/02_R%C3%A9seauConvolutif.html">Convolutional Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/03_ConvImplementation.html">Implementing the Convolution Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/04_R%C3%A9seauConvolutifPytorch.html">Convolutional Networks with PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/05_ApplicationClassification.html">Application on a color image dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/06_ApplicationSegmentation.html">Applying Segmentation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔄 Autoencoders</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/01_IntuitionEtPremierAE.html">Introduction to Autoencoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/02_DenoisingAE.html">Autoencoder for Denoising</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📝 NLP</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/01_Introduction.html">Introduction to NLP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/02_bigramme.html">Bigram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/03_R%C3%A9seauFullyConnected.html">Fully Connected Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/04_WaveNet.html">PyTorch and WaveNet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/05_Rnn.html">Recurrent Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/06_Lstm.html">Long Short-Term Memory</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction to Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">Natural Language Processing with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio Processing with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Image Generation with Diffusers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo with Gradio</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/01_Introduction.html">Introduction to Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/02_GptFromScratch.html">Building a GPT from Scratch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/03_TrainingOurGpt.html">Training our GPT model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/04_ArchitectureEtParticularit%C3%A9s.html">Transformer architecture and features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/05_UtilisationsPossibles.html">Possible Applications of the Transformer Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/06_VisionTransformerImplementation.html">Implementing the Vision Transformer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/07_SwinTransformer.html">Swin Transformer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎯  Object Detection (YOLO)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/01_Introduction.html">Introduction to Object Detection in Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/02_YoloEnDetail.html">YOLO in Detail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/03_Ultralytics.html">Ultralytics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔍 Contrastive Training</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Facial Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_NonSupervis%C3%A9.html">Unsupervised Contrastive Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎓 Transfer Learning and Distillation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/01_TransferLearning.html">Transfer Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/02_TransferLearningPytorch.html">Transfer Learning with PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/03_Distillation.html">Knowledge Distillation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/04_DistillationAnomalie.html">Knowledge Distillation for Unsupervised Anomaly Detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/05_FineTuningLLM.html">Fine-Tuning of LLMs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/06_FineTuningBertHF.html">Fine-tuning BERT with Hugging Face</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎨 Generative Models</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/01_Introduction.html">Introduction to Generative Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/02_GAN.html">Generative Adversarial Networks (GANs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/03_GanImplementation.html">Implementing a GAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/04_VAE.html">Variational Autoencoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/05_VaeImplementation.html">Implementing a VAE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/06_NormalizingFlows.html">Normalizing Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/07_DiffusionModels.html">Diffusion Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/08_DiffusionImplementation.html">Implementing a Diffusion Model</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎁 Bonus – Specific Topics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/01_ActivationEtInitialisation.html">Activations and Initializations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/02_BatchNorm.html">Batch Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/03_DataAugmentation.html">Data Augmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/04_Broadcasting.html">Broadcasting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/05_Optimizer.html">Understanding Different Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/06_Regularisation.html">Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/07_ConnexionsResiduelles.html">Residual Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/08_CrossValidation.html">Introduction to Cross-Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/09_MetriquesEvaluation.html">Model Evaluation Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/10_Tokenization.html">Introduction to Tokenization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/11_Quantization.html">Quantization</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/edit/main/en/09_EntrainementContrastif/01_FaceVerification.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/issues/new?title=Issue%20on%20page%20%2F09_EntrainementContrastif/01_FaceVerification.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/09_EntrainementContrastif/01_FaceVerification.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Facial Verification</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theoretical-analysis-of-the-article">Theoretical Analysis of the Article</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intuition">Intuition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contrastive-loss-function">Contrastive Loss Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-architecture-and-training">Model Architecture and Training</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Contrastive Loss Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-our-model">Creating Our Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-training">Model Training</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">Model Evaluation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#triplet-loss">Triplet Loss</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#facial-recognition">Facial Recognition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#facenet">FaceNet</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="facial-verification">
+<h1>Facial Verification<a class="headerlink" href="#facial-verification" title="Link to this heading">#</a></h1>
+<p>Facial verification involves confirming a person’s identity using a reference photo. For example, a company can store a photo of each employee in a database. When an employee presents their badge at the entrance, the system compares their photo with the stored one to verify their identity.</p>
+<p>This task presents several challenges:</p>
+<ul class="simple">
+<li><p>We don’t always have access to many photos of each employee for training.</p></li>
+<li><p>It’s preferable to avoid retraining the model every time a new employee joins the company.</p></li>
+</ul>
+<p>To address this issue, we will use the method described in the article <a class="reference external" href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;amp;arnumber=1467314">Learning a Similarity Metric Discriminatively, with Application to Face Verification</a>. This method trains a similarity measure from the data.</p>
+<p>It is particularly effective for datasets containing a large number of categories (each person is a category for faces) and/or when not all categories are available during training (new employee).</p>
+<p>Let’s start by analyzing some theoretical points from the article to understand how the method works, then we will move on to the implementation.</p>
+<section id="theoretical-analysis-of-the-article">
+<h2>Theoretical Analysis of the Article<a class="headerlink" href="#theoretical-analysis-of-the-article" title="Link to this heading">#</a></h2>
+<section id="intuition">
+<h3>Intuition<a class="headerlink" href="#intuition" title="Link to this heading">#</a></h3>
+<p>The main idea of the article is to train the model contrastively on pairs of images. Two scenarios are possible:</p>
+<ul class="simple">
+<li><p>Both images come from the same category.</p></li>
+<li><p>Both images come from different categories.</p></li>
+</ul>
+<p>The goal is to have a model <span class="math notranslate nohighlight">\(G_w\)</span> that maps an image into a latent space where the Euclidean (or cosine) distance effectively differentiates the elements.</p>
+<p>More formally, we want:
+<span class="math notranslate nohighlight">\(D_W(X_1,X_2) = \lVert G_W(X_1) - G_W(X_2)\rVert \)</span> to be small if <span class="math notranslate nohighlight">\(X_1\)</span> and <span class="math notranslate nohighlight">\(X_2\)</span> are in the same category and large if they are in different categories.</p>
+<p>The model is trained on pairs of images, and the weights of <span class="math notranslate nohighlight">\(G_W\)</span> are shared.</p>
+<p>The architecture looks like this:</p>
+<p><img alt="siamese" src="../_images/siamese.png" /></p>
+<p>Figure extracted from the original article (the <span class="math notranslate nohighlight">\(E_W\)</span> in the figure corresponds to our <span class="math notranslate nohighlight">\(D_W\)</span>).</p>
+<p>Or, more simply, like this:</p>
+<p><img alt="siamese2" src="../_images/siamese2.png" /></p>
+</section>
+<section id="contrastive-loss-function">
+<h3>Contrastive Loss Function<a class="headerlink" href="#contrastive-loss-function" title="Link to this heading">#</a></h3>
+<p>How do we define our loss function for this objective? Let <span class="math notranslate nohighlight">\(Y\)</span> be the label of our image pair. If <span class="math notranslate nohighlight">\(Y\)</span> is 0, the images come from the same category; otherwise, <span class="math notranslate nohighlight">\(Y\)</span> is 1.</p>
+<p>The contrastive loss function is expressed as follows:
+<span class="math notranslate nohighlight">\(L(Y,X_1,X_2)= (1-Y)\frac{1}{2}(D_W)^2 + (Y)\frac{1}{2}(max(0,m-D_W))²\)</span></p>
+<p>This function may seem complex, but it is actually quite simple. Let’s examine the two possible values of <span class="math notranslate nohighlight">\(Y\)</span>:</p>
+<ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\(Y = 0\)</span>, then <span class="math notranslate nohighlight">\(L(Y,X_1,X_2)= \frac{1}{2}(D_W)^2\)</span>, which simply corresponds to the distance <span class="math notranslate nohighlight">\(D_W\)</span> defined earlier.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(Y = 1\)</span>, then <span class="math notranslate nohighlight">\(L(Y,X_1,X_2)= \frac{1}{2}(max(0,m-D_W))²\)</span>. This part requires further explanation. One might assume that simply using <span class="math notranslate nohighlight">\(\frac{1}{D_W}\)</span> would maximize the distance (which we want). In practice, this doesn’t work because the model could learn to separate elements with a very small margin, which could cause generalization issues. The parameter <span class="math notranslate nohighlight">\(m\)</span> (margin) allows specifying a minimum separation margin between different elements. This makes the model more robust and stabilizes training.</p></li>
+</ul>
+<p><strong>Note</strong>: Why not simply minimize <span class="math notranslate nohighlight">\(D_W(X_1,X_2)\)</span> on pairs of images from the same category only? If we do this, the model can “collapse” and learn a trivial solution that makes <span class="math notranslate nohighlight">\(G_W\)</span> a constant function, so the loss will always be 0. In practice, the model will always seek the simplest solution, so we must carefully define our loss functions to prevent the model from finding a trivial shortcut.</p>
+</section>
+<section id="model-architecture-and-training">
+<h3>Model Architecture and Training<a class="headerlink" href="#model-architecture-and-training" title="Link to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(G_W\)</span> can be any neural network. The article suggests using a convolutional network for its capabilities with images and its robustness to geometric distortions (common in facial verification).</p>
+<p>We will not strictly reproduce the architecture of the article, but rather design our own architecture and train it on a more substantial dataset than those in the article.</p>
+<p>For training, the article recommends using 50% positive pairs and 50% negative pairs.</p>
+</section>
+</section>
+<section id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span> 
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn.functional</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">F</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torchvision.datasets</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">datasets</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torchvision.transforms</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">T</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataLoader</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s1">&#39;cpu&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>It’s time to implement our model!</p>
+<section id="dataset">
+<h3>Dataset<a class="headerlink" href="#dataset" title="Link to this heading">#</a></h3>
+<p>We use the <a class="reference external" href="https://vis-www.cs.umass.edu/lfw/">LFW</a> dataset, which contains 13,233 images of 5,749 people, with 1,680 having at least 2 images (necessary for positive examples). We use <a class="reference external" href="https://pytorch.org/vision/main/generated/torchvision.datasets.LFWPairs.html">LFWPairs</a> from torchvision, which already groups images into positive or negative pairs in equal proportions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">transform</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
+    <span class="n">T</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+    <span class="n">T</span><span class="o">.</span><span class="n">Resize</span><span class="p">((</span><span class="mi">128</span><span class="p">,</span><span class="mi">128</span><span class="p">)),</span> <span class="c1"># On réduit la taille des images pour accélérer l&#39;entraînement</span>
+<span class="p">])</span>
+<span class="n">train_data</span><span class="o">=</span><span class="n">datasets</span><span class="o">.</span><span class="n">LFWPairs</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s1">&#39;./../data&#39;</span><span class="p">,</span><span class="n">download</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">split</span><span class="o">=</span> <span class="s1">&#39;train&#39;</span><span class="p">,</span><span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">)</span>
+<span class="n">test_data</span><span class="o">=</span><span class="n">datasets</span><span class="o">.</span><span class="n">LFWPairs</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s1">&#39;./../data&#39;</span><span class="p">,</span><span class="n">download</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">split</span><span class="o">=</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span><span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Nombre de paires pour le training: &#39;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Nombre de paires pour le test:&#39;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">test_data</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Taille image&#39;</span><span class="p">,</span><span class="n">train_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">train_data</span><span class="p">:</span>
+  <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+    <span class="k">break</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Paire positive&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Paire négative&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Nombre de paires pour le training:  2200
+Nombre de paires pour le test: 1000
+Taille image torch.Size([3, 128, 128])
+</pre></div>
+</div>
+<img alt="../_images/546a1789cebeeb72ba1d9479d4b5c0b971b1cdcaf01496dd1244e15a0504bb72.png" src="../_images/546a1789cebeeb72ba1d9479d4b5c0b971b1cdcaf01496dd1244e15a0504bb72.png" />
+</div>
+</div>
+<p>Note that in the dataset, <span class="math notranslate nohighlight">\(Y=1\)</span> corresponds to a positive pair while <span class="math notranslate nohighlight">\(Y=0\)</span> corresponds to a negative pair. This is the opposite of the article’s notation. We will invert this for clarity.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># On ne peut pas modifier les données directement, on doit les transformer en listes</span>
+<span class="c1"># Pour les données de training</span>
+<span class="n">train_data_list</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">train_data</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">train_data_list</span><span class="p">:</span>
+    <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">train_data_list</span><span class="p">]</span>
+
+<span class="c1"># Pour les données de test</span>
+<span class="n">test_data_list</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">test_data</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">test_data_list</span><span class="p">:</span>
+    <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">test_data_list</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can now create our dataloaders:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">test_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h3>Contrastive Loss Function<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>It’s time to define our loss function. For this, we will simply reuse the formula we introduced earlier. For <span class="math notranslate nohighlight">\(D_W\)</span>, we take the Euclidean distance:
+<span class="math notranslate nohighlight">\(D_W (X_1,X_2) = \lVert X_1 - X_2 \rVert_2 = \sqrt{\sum_{i=1}^{n} (X_{1,i} - X_{2,i})^2}\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ContrastiveLoss</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ContrastiveLoss</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">margin</span> <span class="o">=</span> <span class="n">margin</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output1</span><span class="p">,</span> <span class="n">output2</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="c1"># Distance euclidienne entre les deux sorties du réseau</span>
+        <span class="n">euclidean_distance</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">pairwise_distance</span><span class="p">(</span><span class="n">output1</span><span class="p">,</span> <span class="n">output2</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="c1"># Calcul du loss contrastif</span>
+        <span class="n">loss_contrastive</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
+            <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">label</span><span class="p">)</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">euclidean_distance</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span>
+            <span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">margin</span> <span class="o">-</span> <span class="n">euclidean_distance</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">loss_contrastive</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="creating-our-model">
+<h3>Creating Our Model<a class="headerlink" href="#creating-our-model" title="Link to this heading">#</a></h3>
+<p>For this task, we will build a classic and relatively small convolutional network. The goal of the model is to project the data into a space where the Euclidean distance is relevant.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SiameseNetwork</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SiameseNetwork</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="c1"># Extraction des features pertinentes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv_net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="p">)</span>
+        
+        <span class="c1"># Projection des features dans un espace de dimension réduite</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linear</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">128</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">256</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> 
+            <span class="p">)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_net</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_net</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="n">x1</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">x1</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="n">x2</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">x2</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">x1</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>
+        <span class="n">x2</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x1</span><span class="p">,</span><span class="n">x2</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="model-training">
+<h3>Model Training<a class="headerlink" href="#model-training" title="Link to this heading">#</a></h3>
+<p>Let’s define our training hyperparameters:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">lr</span> <span class="o">=</span> <span class="mf">0.001</span>
+<span class="n">margin</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">SiameseNetwork</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">)</span>
+<span class="n">criterion</span><span class="o">=</span><span class="n">ContrastiveLoss</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="n">margin</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+  <span class="n">loss_train</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">for</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">train_loader</span><span class="p">:</span>
+    <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">x1</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">x2</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">label</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="n">out1</span><span class="p">,</span> <span class="n">out2</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">out1</span><span class="p">,</span> <span class="n">out2</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+    <span class="n">loss_train</span><span class="o">+=</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">epochs</span><span class="si">}</span><span class="s2"> Loss: </span><span class="si">{</span><span class="n">loss_train</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">train_loader</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/30 Loss: 0.4855058027998261
+Epoch 2/30 Loss: 0.47506297098985617
+Epoch 3/30 Loss: 0.44379603841166565
+Epoch 4/30 Loss: 0.36472982092612033
+Epoch 5/30 Loss: 0.31656959955243097
+Epoch 6/30 Loss: 0.3091158025722573
+Epoch 7/30 Loss: 0.2988005231903947
+Epoch 8/30 Loss: 0.2873344306928524
+Epoch 9/30 Loss: 0.28030256138763565
+Epoch 10/30 Loss: 0.27428370077108993
+Epoch 11/30 Loss: 0.27216234900381253
+Epoch 12/30 Loss: 0.2714559338662935
+Epoch 13/30 Loss: 0.2713507852260617
+Epoch 14/30 Loss: 0.27069854628348694
+Epoch 15/30 Loss: 0.26960040553324466
+Epoch 16/30 Loss: 0.26909896256267163
+Epoch 17/30 Loss: 0.2681442526155624
+Epoch 18/30 Loss: 0.26780268636302673
+Epoch 19/30 Loss: 0.2663887916267782
+Epoch 20/30 Loss: 0.26515361407528754
+Epoch 21/30 Loss: 0.26577359880658163
+Epoch 22/30 Loss: 0.266544328543587
+Epoch 23/30 Loss: 0.2644324919235879
+Epoch 24/30 Loss: 0.26508791971465817
+Epoch 25/30 Loss: 0.26529018699690915
+Epoch 26/30 Loss: 0.26407808313767117
+Epoch 27/30 Loss: 0.26463793779628864
+Epoch 28/30 Loss: 0.26539979831895966
+Epoch 29/30 Loss: 0.264066638721936
+Epoch 30/30 Loss: 0.2643573438559753
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="model-evaluation">
+<h3>Model Evaluation<a class="headerlink" href="#model-evaluation" title="Link to this heading">#</a></h3>
+<p>Now that training is complete, we need to evaluate the model. But how? This is not the type of model we are used to evaluating.</p>
+<p>We have our test dataset and can calculate the distances between each pair in this dataset. Thus, we can obtain a similarity score for each element in the test dataset.</p>
+<p><strong>The ROC Curve</strong>: The ROC curve (<em>Receiver Operating Characteristic</em>) is a graph that illustrates the performance of a binary classification model (positive or negative in our case) at different decision thresholds. The ROC curve includes the following:</p>
+<ul class="simple">
+<li><p><strong>X-axis</strong>: the false positive rate (or false alarm rate). This is the number of negative elements incorrectly classified as positive, divided by the total number of negative elements.</p></li>
+<li><p><strong>Y-axis</strong>: the true positive rate (recall or sensitivity). This is the number of positive elements correctly classified as positive, divided by the total number of positive elements.</p></li>
+</ul>
+<p>Each point on the curve represents a different decision threshold for classifying elements.</p>
+<p><img alt="roc" src="../_images/roc.png" /></p>
+<p>Figure extracted from <a class="reference external" href="https://sefiks.com/2020/12/10/a-gentle-introduction-to-roc-curve-and-auc/">blogpost</a>.</p>
+<p>To judge the quality of a model, we can calculate the area under the ROC curve (AUROC). In the case of a random classifier, we get an AUROC of 0.5, while for a perfect classifier, the AUROC is 1.</p>
+<p>We can calculate it for our model:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">roc_curve</span><span class="p">,</span> <span class="n">auc</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">distances</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">test_loader</span><span class="p">:</span>
+        <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">x1</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">x2</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">label</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">out1</span><span class="p">,</span> <span class="n">out2</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+        <span class="n">dist</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">pairwise_distance</span><span class="p">(</span><span class="n">out1</span><span class="p">,</span> <span class="n">out2</span><span class="p">)</span>
+        <span class="n">distances</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+        <span class="n">labels</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">label</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+        
+<span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">thresholds</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">distances</span><span class="p">)</span>
+<span class="n">roc_auc</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ROC AUC: </span><span class="si">{</span><span class="n">roc_auc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ROC AUC: 0.6163399999999999
+</pre></div>
+</div>
+</div>
+</div>
+<p>We get an AUROC of approximately 0.62, which is really not great. We can also plot the curve to see what it looks like.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkorange&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ROC curve (area = </span><span class="si">%0.2f</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="n">roc_auc</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;navy&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Taux de faux positifs&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Taux de vrais positifs&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Receiver Operating Characteristic&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/92a63e19d1fcd86a118a750bc0b076ca556a5f2e784d5631e357a536fc499f61.png" src="../_images/92a63e19d1fcd86a118a750bc0b076ca556a5f2e784d5631e357a536fc499f61.png" />
+</div>
+</div>
+<p>We can see that the model is not very performant. The dataset is probably too complex compared to the size of our model. You can try improving the model’s performance by adjusting the architecture and training parameters.</p>
+</section>
+</section>
+<section id="triplet-loss">
+<h2>Triplet Loss<a class="headerlink" href="#triplet-loss" title="Link to this heading">#</a></h2>
+<section id="facial-recognition">
+<h3>Facial Recognition<a class="headerlink" href="#facial-recognition" title="Link to this heading">#</a></h3>
+<p>In the field of face processing, there are two main categories: facial verification and facial recognition.</p>
+<p>To understand the nuance between the two, let’s revisit the case of our company employee:</p>
+<ul class="simple">
+<li><p><strong>Facial Verification</strong>: In facial verification, an employee wants to enter the building with their badge. They swipe their badge, and the facial verification model checks that it is indeed the employee who owns that badge.</p></li>
+<li><p><strong>Facial Recognition</strong>: Here, imagine the employee goes to the building without their badge, and the model is able to recognize them from the database of all employees to let them in.</p></li>
+</ul>
+<p>As you can imagine, the second task is more complex, whether in terms of pure difficulty or even processing time constraints (we’re not going to make the employee wait at the door for an hour while comparing their photo to hundreds of photos in our database).</p>
+</section>
+<section id="facenet">
+<h3>FaceNet<a class="headerlink" href="#facenet" title="Link to this heading">#</a></h3>
+<p>For the task of facial recognition, an article <a class="reference external" href="https://arxiv.org/pdf/1503.03832">FaceNet: A Unified Embedding for Face Recognition and Clustering</a> introduced a new type of loss that resembles the contrastive loss. This is the triplet loss, which we will briefly describe.</p>
+<p>The goal of this loss is similar to that of the contrastive loss: it aims to learn a representation so that the feature vectors (or <em>embeddings</em>) of similar points are brought closer together in the latent space, while those of different points are moved apart.</p>
+<p>Unlike the contrastive loss, which is based on pairs of examples, the triplet loss is based on triplets of examples!</p>
+<p>Each example has a specific role:</p>
+<ul class="simple">
+<li><p><strong>Anchor (A)</strong>: The reference example for which we want to learn a representation.</p></li>
+<li><p><strong>Positive (P)</strong>: An example similar to the <em>anchor</em> (same person, for example).</p></li>
+<li><p><strong>Negative (N)</strong>: An example different from the <em>anchor</em> (a different person).</p></li>
+</ul>
+<p>The loss function is defined as follows:
+<span class="math notranslate nohighlight">\(L_{\text{triplet}} = \max\left( d(A, P) - d(A, N) + \alpha, 0 \right)\)</span> where <span class="math notranslate nohighlight">\(d\)</span> is the distance and <span class="math notranslate nohighlight">\(\alpha\)</span> is the margin (<em>margin</em>).</p>
+<p>This loss minimizes the distance between <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(A\)</span> while maximizing that between <span class="math notranslate nohighlight">\(N\)</span> and <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p><img alt="tripletloss" src="../_images/tripletloss.png" /></p>
+<p>Figure extracted from the original article.</p>
+<p>This may seem redundant with the contrastive loss, and it is somewhat the case. However, the triplet loss has shown better results when it comes to making fine distinctions between quite similar classes (typically the case of facial recognition). Today, its use is preferred over the contrastive loss for face processing tasks.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./09_EntrainementContrastif"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../08_DetectionEtYolo/03_Ultralytics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Ultralytics</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02_NonSupervis%C3%A9.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Unsupervised Contrastive Learning</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theoretical-analysis-of-the-article">Theoretical Analysis of the Article</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intuition">Intuition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contrastive-loss-function">Contrastive Loss Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-architecture-and-training">Model Architecture and Training</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Contrastive Loss Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-our-model">Creating Our Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-training">Model Training</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">Model Evaluation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#triplet-loss">Triplet Loss</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#facial-recognition">Facial Recognition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#facenet">FaceNet</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Simon Thomine
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div id="language-switcher" style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #eee;">
+  <span style="margin-right: 10px;">🌐 Language / Langue:</span>
+  <a href="#" onclick="switchToEnglish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #4CAF50; color: white; border-radius: 5px; font-weight: bold; transition: all 0.3s;">🇺🇸 English</a>
+  <a href="#" onclick="switchToFrench()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #f0f0f0; border-radius: 5px; transition: all 0.3s;">🇫🇷 Français</a>
+  <a href="#" onclick="switchToSpanish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ffd700; border-radius: 5px; transition: all 0.3s;">🇪🇸 Español</a>
+  <a href="#" onclick="switchToChinese()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ff4b4b; color: white; border-radius: 5px; transition: all 0.3s;">🇨🇳 中文</a>
+</div>
+<script>
+function getBaseUrl() {
+  let baseUrl = window.location.origin;
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    baseUrl += pathname.split('fr/')[0];
+  } else if (pathname.includes('en/')) {
+    baseUrl += pathname.split('en/')[0];
+  } else if (pathname.includes('es/')) {
+    baseUrl += pathname.split('es/')[0];
+  } else if (pathname.includes('zh/')) {
+    baseUrl += pathname.split('zh/')[0];
+  } else {
+    baseUrl += pathname.split('/').slice(0, -1).join('/') + '/';
+  }
+  return baseUrl;
+}
+
+function getCurrentPage() {
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    return pathname.split('fr/')[1] || 'index.html';
+  } else if (pathname.includes('en/')) {
+    return pathname.split('en/')[1] || 'index.html';
+  } else if (pathname.includes('es/')) {
+    return pathname.split('es/')[1] || 'index.html';
+  } else if (pathname.includes('zh/')) {
+    return pathname.split('zh/')[1] || 'index.html';
+  }
+  return 'index.html';
+}
+
+function switchToEnglish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'en/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToFrench() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'fr/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToSpanish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'es/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToChinese() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'zh/' + currentPage;
+  window.location.href = newUrl;
+}
+</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

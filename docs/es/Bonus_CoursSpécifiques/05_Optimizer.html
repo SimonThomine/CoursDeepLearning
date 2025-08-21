@@ -1,0 +1,808 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Comprender los diferentes optimizadores &#8212; Deep Learning Course</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Bonus_CoursSpécifiques/05_Optimizer';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Regularización" href="06_Regularisation.html" />
+    <link rel="prev" title="Difusión (Broadcasting)" href="04_Broadcasting.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><span style="font-size:2em; font-weight:bold;">🚀 Aprende Deep Learning desde cero 🚀</span></div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Deep Learning Course</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Curso de Deep Learning 🚀
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">🧮 Fundamentos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/01_D%C3%A9riv%C3%A9esEtDescenteDuGradient.html">Derivada y descenso del gradiente</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/02_R%C3%A9gressionLogistique.html">Regresión Logística</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔗 Redes totalmente conectadas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/01_MonPremierR%C3%A9seau.html">Mi primer red neuronal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/02_PytorchIntroduction.html">Introducción a PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/03_TechniquesAvanc%C3%A9es.html">Técnicas avanzadas</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🖼️ Redes convolucionales</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/01_CouchesDeConvolutions.html">Las capas de convolución</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/02_R%C3%A9seauConvolutif.html">Redes convolucionales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/03_ConvImplementation.html">Implementación de la capa de convolución</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/04_R%C3%A9seauConvolutifPytorch.html">Redes convolucionales con PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/05_ApplicationClassification.html">Aplicación en un conjunto de datos de imágenes en color</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/06_ApplicationSegmentation.html">Aplicación de la segmentación</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔄 Autoencoders</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/01_IntuitionEtPremierAE.html">Introducción a los autoencodificadores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/02_DenoisingAE.html">Autoencoder para desruido</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📝 PLN</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/01_Introduction.html">Introducción al PLN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/02_bigramme.html">Bigrama</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/03_R%C3%A9seauFullyConnected.html">Red neuronal completamente conectada</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/04_WaveNet.html">PyTorch y WaveNet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/05_Rnn.html">Redes neuronales recurrentes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/06_Lstm.html">Memoria a Corto-Largo Plazo (LSTM)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introducción a Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Visión por computadora con Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">Procesamiento del lenguaje natural con Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Procesamiento de audio con Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generación de imágenes con Diffusers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demostración con Gradio</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/01_Introduction.html">Introducción a los transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/02_GptFromScratch.html">Construyamos un GPT desde cero</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/03_TrainingOurGpt.html">Entrenamiento de nuestro modelo GPT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/04_ArchitectureEtParticularit%C3%A9s.html">Arquitectura y particularidades del <em>transformer</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/05_UtilisationsPossibles.html">Posibles usos de la arquitectura Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/06_VisionTransformerImplementation.html">Implementación del Vision Transformer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/07_SwinTransformer.html">Swin Transformer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎯 Detección y YOLO</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/01_Introduction.html">Introducción a la detección de objetos en imágenes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/02_YoloEnDetail.html">YOLO en detalle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/03_Ultralytics.html">Ultralytics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔍 Entrenamiento contrastivo</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/01_FaceVerification.html">Verificación facial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/02_NonSupervis%C3%A9.html">Aprendizaje contrastivo no supervisado</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎓 Transfer Learning y Distillation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/01_TransferLearning.html">Aprendizaje por transferencia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/02_TransferLearningPytorch.html">Transfer Learning con PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/03_Distillation.html">La destilación de conocimientos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/04_DistillationAnomalie.html">Destilación de conocimientos para la detección no supervisada de anomalías</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/05_FineTuningLLM.html">Ajuste fino (Fine-Tuning) de los LLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/06_FineTuningBertHF.html">Ajuste fino de BERT con Hugging Face</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎨 Modelos generativos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/01_Introduction.html">Introducción a los modelos generativos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/02_GAN.html">Redes generativas antagónicas (GAN)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/03_GanImplementation.html">Implementación de una GAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/04_VAE.html">Autoencoders variacionales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/05_VaeImplementation.html">Implementación de un VAE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/06_NormalizingFlows.html">Flujos de normalización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/07_DiffusionModels.html">Modelos de difusión</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/08_DiffusionImplementation.html">Implementación de un modelo de difusión</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎁 Bonus – Cursos específicos</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_ActivationEtInitialisation.html">Activaciones e inicializaciones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_BatchNorm.html">Normalización por lotes (<em>Batch Normalization</em>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_DataAugmentation.html">Aumento de datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_Broadcasting.html">Difusión (<em>Broadcasting</em>)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Comprender los diferentes optimizadores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_Regularisation.html">Regularización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_ConnexionsResiduelles.html">Conexiones residuales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_CrossValidation.html">Introducción a la validación cruzada</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_MetriquesEvaluation.html">Métricas de evaluación de modelos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_Tokenization.html">Introducción a la tokenización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_Quantization.html">Cuantización</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/edit/main/en/Bonus_CoursSpécifiques/05_Optimizer.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/issues/new?title=Issue%20on%20page%20%2FBonus_CoursSpécifiques/05_Optimizer.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Bonus_CoursSpécifiques/05_Optimizer.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Comprender los diferentes optimizadores</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descenso-del-gradiente">Descenso del gradiente</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descenso-del-gradiente-estocastico">Descenso del gradiente estocástico</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descenso-del-gradiente-estocastico-con-momentum">Descenso del gradiente estocástico con <em>momentum</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adagrad">Adagrad</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmsprop">RMSProp</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adadelta">AdaDelta</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adam">Adam</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consideraciones-sobre-la-eleccion-de-la-tasa-de-aprendizaje">Consideraciones sobre la elección de la tasa de aprendizaje</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="comprender-los-diferentes-optimizadores">
+<h1>Comprender los diferentes optimizadores<a class="headerlink" href="#comprender-los-diferentes-optimizadores" title="Link to this heading">#</a></h1>
+<p>En el primer curso, presentamos el <strong>descenso del gradiente</strong>, el optimizador más sencillo para entrenar modelos de <em>deep learning</em>. Posteriormente, utilizamos el <strong>descenso del gradiente estocástico por <em>mini-batch</em></strong> o <a class="reference external" href="https://arxiv.org/pdf/1412.6980">Adam</a>, según los escenarios.</p>
+<p>El <strong>optimizador</strong> ajusta los parámetros del modelo durante el entrenamiento para minimizar la <strong>función de pérdida</strong>. La elección de un buen optimizador afecta tanto al rendimiento como a la velocidad de convergencia del modelo.</p>
+<p>Este curso presenta los diferentes optimizadores existentes (lista no exhaustiva), junto con sus ventajas e inconvenientes. En la práctica, <strong>Adam suele ser la mejor opción</strong>, pero puedes probar otros optimizadores y diferentes valores de <strong>tasa de aprendizaje</strong> (el valor óptimo varía según el optimizador elegido).</p>
+<p>Este curso se inspira en este <a class="reference external" href="https://www.scaler.com/topics/deep-learning/optimizers-in-deep-learning/">artículo</a> para las explicaciones e incluye sus figuras.</p>
+<section id="descenso-del-gradiente">
+<h2>Descenso del gradiente<a class="headerlink" href="#descenso-del-gradiente" title="Link to this heading">#</a></h2>
+<p>Comencemos con un repaso del algoritmo de <strong>descenso del gradiente</strong>. Puede definirse simplemente mediante la siguiente ecuación:
+<span class="math notranslate nohighlight">\(\theta = \theta - \alpha \cdot \nabla L(\theta)\)</span>
+donde <span class="math notranslate nohighlight">\(\theta\)</span> representa los parámetros del modelo, <span class="math notranslate nohighlight">\(L(\theta)\)</span> es la <strong>pérdida</strong> sobre el conjunto de datos y <span class="math notranslate nohighlight">\(\alpha\)</span> es la <strong>tasa de aprendizaje</strong>.</p>
+<p>En resumen, en cada paso del entrenamiento, se ajustan los parámetros del modelo para minimizar la <strong>pérdida</strong> en todo el conjunto de datos.</p>
+<p>A continuación, se muestra una figura que ilustra el principio del descenso del gradiente:</p>
+<p><img alt="GD" src="../_images/gd.png" /></p>
+<p>Este enfoque es sencillo de implementar y funciona bien con pequeñas cantidades de datos si la <strong>tasa de aprendizaje</strong> se elige correctamente. Sin embargo, dado que se calcula la <strong>pérdida</strong> sobre todo el conjunto de datos antes de ajustar los pesos, este método es muy lento para grandes conjuntos de datos y, en la práctica, resulta inutilizable. Además, la elección de la <strong>tasa de aprendizaje</strong> es crucial y debe ser precisa, lo cual no siempre es evidente.</p>
+</section>
+<section id="descenso-del-gradiente-estocastico">
+<h2>Descenso del gradiente estocástico<a class="headerlink" href="#descenso-del-gradiente-estocastico" title="Link to this heading">#</a></h2>
+<p>Este método adapta el <strong>descenso del gradiente</strong> para conjuntos de datos voluminosos. En lugar de modificar los parámetros después de procesar todos los datos, se calcula la <strong>pérdida</strong> sobre una parte de los datos (un <em>mini-batch</em>) y se ajustan los pesos en función de esta pérdida. Por eso se habla de un método <strong>estocástico</strong>: los ajustes se realizan sobre una porción de los datos, lo que no siempre reduce la <strong>pérdida global</strong>. En la práctica, tras varias iteraciones, la <strong>pérdida global</strong> disminuye y el modelo converge más rápidamente.</p>
+<p>La fórmula es casi idéntica:
+<span class="math notranslate nohighlight">\(\theta = \theta - \alpha \cdot \nabla L(\theta;x^{(i)};y^{(i)})\)</span>
+donde <span class="math notranslate nohighlight">\((x^{(i)},y^{(i)})\)</span> representa un <em>mini-batch</em> de datos.</p>
+<p><img alt="SGD" src="../_images/sgd.png" /></p>
+<p>Como muestra la figura, la pendiente no es una línea recta, pero el modelo termina convergiendo hacia el mínimo global.</p>
+<p>Este método es mucho más rápido que el descenso del gradiente clásico, especialmente en grandes conjuntos de datos. Además, permite evitar más fácilmente los mínimos locales gracias a la inestabilidad del proceso. Sin embargo, esta inestabilidad requiere una <strong>tasa de aprendizaje</strong> bien elegida para funcionar de manera óptima.</p>
+</section>
+<section id="descenso-del-gradiente-estocastico-con-momentum">
+<h2>Descenso del gradiente estocástico con <em>momentum</em><a class="headerlink" href="#descenso-del-gradiente-estocastico-con-momentum" title="Link to this heading">#</a></h2>
+<p>Este optimizador retoma el principio del <strong>descenso del gradiente estocástico</strong>, añadiendo un término llamado <em><strong>momentum</strong></em>. Como su nombre indica, este término permite “recordar” la dirección de la optimización previa y empuja a la optimización actual a continuar en la misma dirección. Este término se calcula y actualiza mediante un <strong>promedio exponencialmente decreciente</strong>. Es muy útil para resolver el problema de los gradientes débiles (regiones planas).</p>
+<p>La fórmula es la siguiente:
+<span class="math notranslate nohighlight">\(v = \beta \cdot v + (1 - \beta) \cdot \nabla_\theta L(\theta; x^{(i)}; y^{(i)})\)</span>
+<span class="math notranslate nohighlight">\(\theta = \theta - \alpha \cdot v\)</span>
+donde <span class="math notranslate nohighlight">\(v\)</span> es el vector de <em>momentum</em> y <span class="math notranslate nohighlight">\(\beta\)</span> es un hiperparámetro (calculado mediante un <strong>promedio exponencialmente decreciente</strong>) que ajusta el impacto del valor actual.</p>
+<p><img alt="SGD with Momentum" src="../_images/sgdmoment.png" /></p>
+<p>En la práctica, esto ayuda a atravesar las regiones planas de la función de <strong>pérdida</strong> de manera más eficiente, al tiempo que aumenta la velocidad de convergencia. Sin embargo, la elección del parámetro <em>momentum</em> es importante, ya que un valor demasiado grande podría hacer que “saltemos” la solución óptima. En la práctica, este término se elige en función del tamaño del <em>mini-batch</em> (<em>batch size</em>).</p>
+<p><em><strong>Promedio exponencialmente decreciente</strong></em>: Método de suavizado de datos en el que cada nuevo valor tiene un peso que decrece exponencialmente, dando más importancia a los valores recientes mientras se reduce progresivamente el impacto de los valores pasados.</p>
+</section>
+<section id="adagrad">
+<h2>Adagrad<a class="headerlink" href="#adagrad" title="Link to this heading">#</a></h2>
+<p><strong>Adagrad</strong> es un optimizador que ajusta la <strong>tasa de aprendizaje</strong> por parámetro durante el entrenamiento. La tasa de aprendizaje de cada parámetro se basa en el historial de los gradientes. La idea es que los parámetros que se ajustan con frecuencia tendrán una tasa de aprendizaje más pequeña que aquellos que se ajustan rara vez.</p>
+<p>La fórmula se expresa de la siguiente manera:
+<span class="math notranslate nohighlight">\(g = \nabla_\theta L(\theta; x^{(i)}; y^{(i)})\)</span>
+<span class="math notranslate nohighlight">\(G = G + g \odot g\)</span>
+<span class="math notranslate nohighlight">\(\theta = \theta - \frac{\alpha}{\sqrt{G + \epsilon}} \odot g\)</span>
+donde <span class="math notranslate nohighlight">\(G\)</span> es la matriz que acumula el cuadrado de los gradientes (para evitar valores negativos) y <span class="math notranslate nohighlight">\(\epsilon\)</span> es un valor pequeño para evitar la división por cero.</p>
+<p>Este método es eficiente cuando los datos de entrenamiento son muy diferentes entre sí, ya que ajusta los parámetros según su frecuencia de aparición. Sin embargo, la <strong>tasa de aprendizaje</strong> disminuye continuamente, lo que puede provocar una convergencia muy lenta o incluso una no convergencia si la tasa de aprendizaje se vuelve demasiado pequeña antes de que finalice la optimización.</p>
+</section>
+<section id="rmsprop">
+<h2>RMSProp<a class="headerlink" href="#rmsprop" title="Link to this heading">#</a></h2>
+<p><strong>RMSProp</strong> se basa en la misma idea que Adagrad, pero corrige algunos de sus inconvenientes. En lugar de disminuir la <strong>tasa de aprendizaje</strong> progresivamente durante el entrenamiento, RMSProp utiliza un <strong>promedio exponencialmente decreciente</strong> sobre los cuadrados de los gradientes, a diferencia de Adagrad, que los suma. Esto soluciona el principal problema de Adagrad: la disminución continua de la tasa de aprendizaje sin posibilidad de retroceder.</p>
+<p>La fórmula de RMSProp es la siguiente:
+<span class="math notranslate nohighlight">\(g = \nabla_\theta L(\theta; x^{(i)}; y^{(i)})\)</span>
+<span class="math notranslate nohighlight">\(G = \beta \cdot G + (1 - \beta) \cdot g \odot g\)</span>
+<span class="math notranslate nohighlight">\(\theta = \theta - \frac{\alpha}{\sqrt{G + \epsilon}} \odot g\)</span>
+donde <span class="math notranslate nohighlight">\(\beta\)</span> es el parámetro para gestionar el <strong>promedio exponencialmente decreciente</strong>.</p>
+<p>Las ventajas son las mismas que con Adagrad, excepto que la convergencia es más rápida. Sin embargo, a veces esto no es suficiente y la convergencia sigue siendo demasiado lenta.</p>
+</section>
+<section id="adadelta">
+<h2>AdaDelta<a class="headerlink" href="#adadelta" title="Link to this heading">#</a></h2>
+<p><strong>AdaDelta</strong> es un optimizador bastante similar a RMSProp, pero <strong>no requiere una tasa de aprendizaje como hiperparámetro</strong>. Para compensar esto, AdaDelta utiliza un <strong>promedio exponencialmente decreciente</strong> sobre los gradientes y los cuadrados de los gradientes para determinar un valor de ajuste coherente.</p>
+<p>La fórmula de AdaDelta es la siguiente:
+<span class="math notranslate nohighlight">\(g = \nabla_\theta L(\theta; x^{(i)}; y^{(i)})\)</span>
+<span class="math notranslate nohighlight">\(G = \beta \cdot G + (1 - \beta) \cdot g \odot g\)</span>
+<span class="math notranslate nohighlight">\(\Delta\theta = - \frac{\sqrt{S + \epsilon}}{\sqrt{G + \epsilon}} \odot g\)</span>
+<span class="math notranslate nohighlight">\(S = \beta \cdot S + (1 - \beta) \cdot \Delta\theta \odot \Delta\theta\)</span>
+<span class="math notranslate nohighlight">\(\theta = \theta + \Delta\theta\)</span>
+donde <span class="math notranslate nohighlight">\(G\)</span> es la matriz que acumula los gradientes y <span class="math notranslate nohighlight">\(S\)</span> es la matriz que acumula el cuadrado de los ajustes.</p>
+<p>Este método es interesante porque <strong>no requiere elegir una tasa de aprendizaje</strong>. Sin embargo, puede converger lentamente y la tasa de aprendizaje calculada puede volverse demasiado pequeña, lo que provocaría la detención del entrenamiento.</p>
+</section>
+<section id="adam">
+<h2>Adam<a class="headerlink" href="#adam" title="Link to this heading">#</a></h2>
+<p><strong>Adam</strong> es probablemente el optimizador más utilizado en la actualidad. Combina las ideas del <strong>descenso del gradiente con <em>momentum</em></strong> y de <strong>RMSProp</strong>. Adam utiliza un <strong>promedio exponencialmente decreciente</strong> sobre los gradientes y los cuadrados de los gradientes para ajustar la <strong>tasa de aprendizaje</strong>, al igual que RMSProp. Además, calcula un término de <em>momentum</em> para acelerar la optimización.</p>
+<p>La fórmula es la siguiente:
+<span class="math notranslate nohighlight">\(g = \nabla_\theta L(\theta; x^{(i)}; y^{(i)})\)</span>
+<span class="math notranslate nohighlight">\(m = \beta_1 \cdot m + (1 - \beta_1) \cdot g\)</span>
+<span class="math notranslate nohighlight">\(v = \beta_2 \cdot v + (1 - \beta_2) \cdot g \odot g\)</span>
+<span class="math notranslate nohighlight">\(\hat{m} = \frac{m}{1 - \beta_1^t}\)</span>
+<span class="math notranslate nohighlight">\(\hat{v} = \frac{v}{1 - \beta_2^t}\)</span>
+<span class="math notranslate nohighlight">\(\theta = \theta - \frac{\alpha}{\sqrt{\hat{v}} + \epsilon} \odot \hat{m}\)</span>
+donde <span class="math notranslate nohighlight">\(m\)</span> es el vector de <em>momentum</em>, <span class="math notranslate nohighlight">\(v\)</span> es el vector de <em>velocidad</em>, <span class="math notranslate nohighlight">\(\beta_1\)</span> es el factor de decaimiento para el <em>momentum</em> y <span class="math notranslate nohighlight">\(\beta_2\)</span> es el factor de decaimiento para la <em>velocidad</em>.</p>
+<p>Se trata del optimizador <strong>más rápido para la convergencia</strong> y funciona bien con datos ruidosos. Sin embargo, requiere definir tres hiperparámetros, lo que puede resultar algo complejo.</p>
+<p>En la práctica, <strong>Adam funciona extremadamente bien</strong> y, por lo general, solo es necesario modificar el parámetro de la <strong>tasa de aprendizaje</strong>. Las valores por defecto de <span class="math notranslate nohighlight">\(\beta_1\)</span> y <span class="math notranslate nohighlight">\(\beta_2\)</span> rara vez necesitan ser modificados (en PyTorch, por defecto son <span class="math notranslate nohighlight">\(\beta_1=0.9\)</span> y <span class="math notranslate nohighlight">\(\beta_2=0.999\)</span>). Además, a diferencia del <strong>descenso del gradiente estocástico</strong>, no es indispensable elegir una tasa de aprendizaje precisa para obtener una buena optimización.</p>
+<p><strong>Nota</strong>: En general, recomiendo utilizar <strong>Adam</strong> o <strong>AdamW</strong> (versión mejorada de Adam) como optimizador por defecto. Según el problema, es posible que debas probar otros optimizadores.</p>
+<p><strong>Otra nota</strong>: Según el optimizador elegido, el espacio de memoria necesario durante el entrenamiento del modelo varía. En la era de los modelos grandes como los LLM, es importante tener esto en cuenta. Aquí tienes algunas indicaciones sobre el costo en memoria según el optimizador (<span class="math notranslate nohighlight">\(n\)</span> es el número de parámetros del modelo):</p>
+<ul class="simple">
+<li><p>Costo en memoria <strong>n</strong>: Descenso del gradiente estocástico (SGD)</p></li>
+<li><p>Costo en memoria <strong>2n</strong>: SGD con <em>momentum</em>, Adagrad, RMSProp</p></li>
+<li><p>Costo en memoria <strong>3n</strong>: Adam y sus variantes (AdamW, AdaMax, Nadam)</p></li>
+</ul>
+</section>
+<section id="consideraciones-sobre-la-eleccion-de-la-tasa-de-aprendizaje">
+<h2>Consideraciones sobre la elección de la tasa de aprendizaje<a class="headerlink" href="#consideraciones-sobre-la-eleccion-de-la-tasa-de-aprendizaje" title="Link to this heading">#</a></h2>
+<p>La elección de la <strong>tasa de aprendizaje</strong> está estrechamente ligada a la del optimizador. A continuación, se presentan las situaciones posibles según la elección de la tasa de aprendizaje:</p>
+<p><img alt="Learning Rate" src="../_images/lr.png" /></p>
+<ul class="simple">
+<li><p>En el primer caso, la <strong>tasa de aprendizaje</strong> es demasiado baja, lo que ralentiza la convergencia del modelo. Esto resulta costoso en tiempo y recursos.</p></li>
+<li><p>En el segundo caso, la <strong>tasa de aprendizaje</strong> está bien elegida y disminuye lo suficientemente rápido como para alcanzar el mínimo de la función de <strong>pérdida</strong>. Este es el valor que buscamos encontrar.</p></li>
+<li><p>En el último caso, la <strong>tasa de aprendizaje</strong> es demasiado alta, lo que provoca ajustes excesivos en los parámetros. Esto puede llevar a una no convergencia o incluso a una divergencia del modelo.</p></li>
+</ul>
+<p>Estas consideraciones son cruciales para elegir la <strong>tasa de aprendizaje</strong> cuando se utiliza el <strong>descenso del gradiente estocástico</strong>. Para <strong>Adam</strong>, este es un hiperparámetro importante, pero el margen de error es mayor, ya que la tasa de aprendizaje se adapta dentro del optimizador.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Bonus_CoursSpécifiques"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="04_Broadcasting.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Difusión (<em>Broadcasting</em>)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="06_Regularisation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Regularización</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descenso-del-gradiente">Descenso del gradiente</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descenso-del-gradiente-estocastico">Descenso del gradiente estocástico</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descenso-del-gradiente-estocastico-con-momentum">Descenso del gradiente estocástico con <em>momentum</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adagrad">Adagrad</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmsprop">RMSProp</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adadelta">AdaDelta</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adam">Adam</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consideraciones-sobre-la-eleccion-de-la-tasa-de-aprendizaje">Consideraciones sobre la elección de la tasa de aprendizaje</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Simon Thomine
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div id="language-switcher" style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #eee;">
+  <span style="margin-right: 10px;">🌐 Language / Langue:</span>
+  <a href="#" onclick="switchToEnglish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #4CAF50; color: white; border-radius: 5px; font-weight: bold; transition: all 0.3s;">🇺🇸 English</a>
+  <a href="#" onclick="switchToFrench()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #f0f0f0; border-radius: 5px; transition: all 0.3s;">🇫🇷 Français</a>
+  <a href="#" onclick="switchToSpanish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ffd700; border-radius: 5px; transition: all 0.3s;">🇪🇸 Español</a>
+  <a href="#" onclick="switchToChinese()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ff4b4b; color: white; border-radius: 5px; transition: all 0.3s;">🇨🇳 中文</a>
+</div>
+<script>
+function getBaseUrl() {
+  let baseUrl = window.location.origin;
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    baseUrl += pathname.split('fr/')[0];
+  } else if (pathname.includes('en/')) {
+    baseUrl += pathname.split('en/')[0];
+  } else if (pathname.includes('es/')) {
+    baseUrl += pathname.split('es/')[0];
+  } else if (pathname.includes('zh/')) {
+    baseUrl += pathname.split('zh/')[0];
+  } else {
+    baseUrl += pathname.split('/').slice(0, -1).join('/') + '/';
+  }
+  return baseUrl;
+}
+
+function getCurrentPage() {
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    return pathname.split('fr/')[1] || 'index.html';
+  } else if (pathname.includes('en/')) {
+    return pathname.split('en/')[1] || 'index.html';
+  } else if (pathname.includes('es/')) {
+    return pathname.split('es/')[1] || 'index.html';
+  } else if (pathname.includes('zh/')) {
+    return pathname.split('zh/')[1] || 'index.html';
+  }
+  return 'index.html';
+}
+
+function switchToEnglish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'en/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToFrench() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'fr/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToSpanish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'es/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToChinese() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'zh/' + currentPage;
+  window.location.href = newUrl;
+}
+</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

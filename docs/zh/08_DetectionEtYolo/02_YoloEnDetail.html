@@ -1,0 +1,874 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>YOLO 详解 &#8212; Deep Learning Course</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '08_DetectionEtYolo/02_YoloEnDetail';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Ultralytics" href="03_Ultralytics.html" />
+    <link rel="prev" title="图像中的目标检测简介" href="01_Introduction.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><span style="font-size:2em; font-weight:bold;">🚀 从零开始学习深度学习 🚀</span></div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Deep Learning Course</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    深度学习课程 🚀
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">🧮 基础</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/01_D%C3%A9riv%C3%A9esEtDescenteDuGradient.html">导数与梯度下降</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/02_R%C3%A9gressionLogistique.html">逻辑回归</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔗 全连接网络</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/01_MonPremierR%C3%A9seau.html">我的第一个神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/02_PytorchIntroduction.html">PyTorch 简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/03_TechniquesAvanc%C3%A9es.html">高级技术</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🖼️ 卷积网络</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/01_CouchesDeConvolutions.html">卷积层</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/02_R%C3%A9seauConvolutif.html">卷积神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/03_ConvImplementation.html">卷积层的实现</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/04_R%C3%A9seauConvolutifPytorch.html">使用 PyTorch 构建卷积神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/05_ApplicationClassification.html">在彩色图像数据集上的应用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/06_ApplicationSegmentation.html">图像分割的应用</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔄 自编码器</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/01_IntuitionEtPremierAE.html">自编码器简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/02_DenoisingAE.html">使用自编码器进行图像去噪</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📝 自然语言处理 (NLP)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/01_Introduction.html">自然语言处理（NLP）简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/02_bigramme.html">二元模型（Bigram）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/03_R%C3%A9seauFullyConnected.html">全连接神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/04_WaveNet.html">使用 PyTorch 实现 WaveNet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/05_Rnn.html">循环神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/06_Lstm.html">长短期记忆网络（LSTM）</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face 简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">使用 Transformer 的计算机视觉</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">使用 Transformers 进行自然语言处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">使用 Transformers 处理音频</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">使用 Diffusers 生成图像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">使用 Gradio 进行演示</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/01_Introduction.html">Transformer 模型简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/02_GptFromScratch.html">从零开始构建 GPT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/03_TrainingOurGpt.html">训练我们的 GPT 模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/04_ArchitectureEtParticularit%C3%A9s.html">变压器的结构和特性</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/05_UtilisationsPossibles.html">Transformer架构的可能应用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/06_VisionTransformerImplementation.html">Vision Transformer 的实现</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/07_SwinTransformer.html">Swin Transformer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎯 目标检测 (YOLO)</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_Introduction.html">图像中的目标检测简介</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">YOLO 详解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_Ultralytics.html">Ultralytics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔍 对比学习训练</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/01_FaceVerification.html">人脸验证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/02_NonSupervis%C3%A9.html">无监督对比学习</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎓 迁移学习与蒸馏</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/01_TransferLearning.html">迁移学习</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/02_TransferLearningPytorch.html">使用 PyTorch 进行迁移学习</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/03_Distillation.html">知识蒸馏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/04_DistillationAnomalie.html">无监督异常检测的知识蒸馏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/05_FineTuningLLM.html">大型语言模型的微调</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/06_FineTuningBertHF.html">使用 Hugging Face 对 BERT 进行微调</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎨 生成模型</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/01_Introduction.html">生成模型简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/02_GAN.html">生成对抗网络（GAN）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/03_GanImplementation.html">生成对抗网络（GAN）的实现</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/04_VAE.html">变分自编码器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/05_VaeImplementation.html">变分自编码器（VAE）的实现</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/06_NormalizingFlows.html">归一化流</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/07_DiffusionModels.html">扩散模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/08_DiffusionImplementation.html">扩散模型的实现</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎁 拓展专题</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/01_ActivationEtInitialisation.html">激活函数与初始化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/02_BatchNorm.html">批量归一化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/03_DataAugmentation.html">数据增强</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/04_Broadcasting.html">广播机制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/05_Optimizer.html">理解不同的优化器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/06_Regularisation.html">正则化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/07_ConnexionsResiduelles.html">残差连接</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/08_CrossValidation.html">交叉验证简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/09_MetriquesEvaluation.html">模型评估指标</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/10_Tokenization.html">词元化介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/11_Quantization.html">模型量化</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/edit/main/en/08_DetectionEtYolo/02_YoloEnDetail.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/issues/new?title=Issue%20on%20page%20%2F08_DetectionEtYolo/02_YoloEnDetail.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/08_DetectionEtYolo/02_YoloEnDetail.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>YOLO 详解</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">目标检测</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">目标检测的历史</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#you-only-look-once-yolo">You Only Look Once（YOLO）</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">YOLO：如何工作？</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">网格划分</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">模型架构</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">模型训练</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">YOLO 的局限性</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">YOLO 的改进</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov2-2017-yolo9000">YOLOv2（2017）——也称为 YOLO9000</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov3-2018">YOLOv3（2018）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov4-2020">YOLOv4（2020）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov5-2020">YOLOv5（2020）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov6-2022">YOLOv6（2022）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov7-2022">YOLOv7（2022）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov8-2023">YOLOv8（2023）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolo-world-2024">YOLO-World（2024）</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="yolo">
+<h1>YOLO 详解<a class="headerlink" href="#yolo" title="Link to this heading">#</a></h1>
+<p>此笔记本将详细探讨 YOLO 模型的工作原理。</p>
+<section id="id1">
+<h2>目标检测<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<section id="id2">
+<h3>目标检测的历史<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>在深度学习的开创性论文 <a class="reference external" href="https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf">《ImageNet Classification with Deep Convolutional Neural Networks》</a> 发表后不久，图像处理领域的研究人员开始开发深度学习模型。</p>
+<p>如前一篇笔记本所述，图像处理算法主要分为三大类：分类、检测和分割。</p>
+<p>使用深度学习模型进行图像分类相对简单，只要有足够的计算资源即可。然而，目标检测需要更多的创新。</p>
+<p>2014 年，一组研究人员提出了论文 <a class="reference external" href="https://arxiv.org/pdf/1311.2524">《Rich feature hierarchies for accurate object detection and semantic segmentation》</a>，更为人熟知的名称为 R-CNN。这篇具有影响力的论文引入了一个两阶段的目标检测架构，并提供了显著的性能。该方法的主要缺点是处理速度过慢，无法实现实时检测。许多方法尝试通过不同的架构来解决这个问题，例如 <a class="reference external" href="https://arxiv.org/pdf/1504.08083">fast R-CNN</a>、<a class="reference external" href="https://arxiv.org/pdf/1506.01497">faster R-CNN</a> 和 <a class="reference external" href="https://arxiv.org/pdf/1703.06870">mask R-CNN</a>。这些方法大大改进了基础的 R-CNN，但在大多数情况下仍不足以实现实时检测。</p>
+<p>2015 年，一篇论文在目标检测领域引发了重大变革。这篇论文是 <a class="reference external" href="https://arxiv.org/pdf/1506.02640">《You Only Look Once: Unified, Real-Time Object Detection》</a>。</p>
+</section>
+<section id="you-only-look-once-yolo">
+<h3>You Only Look Once（YOLO）<a class="headerlink" href="#you-only-look-once-yolo" title="Link to this heading">#</a></h3>
+<p>之前的方法使用区域建议后跟分类。换句话说，它们利用强大的分类器进行目标检测。</p>
+<p>YOLO（You Only Look Once）论文提出通过一个单一的神经网络直接预测边界框和类别归属概率。这种架构更快，可以达到每秒处理 45 张图像的速度。</p>
+<p>这是目标检测领域的一次革命！</p>
+<p>那么，它是如何工作的呢？</p>
+</section>
+</section>
+<section id="id3">
+<h2>YOLO：如何工作？<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>这一部分将介绍 YOLO 架构，参考了 <a class="reference external" href="https://medium.com/analytics-vidhya/yolo-explained-5b6f4564f31">《YOLO Explained》</a> 这篇博客文章。建议查看该文章。使用的图片来自博客文章或原始论文。</p>
+<section id="id4">
+<h3>网格划分<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>YOLO 的基本原理是将图像划分为更小的部分，使用一个 <span class="math notranslate nohighlight">\(S \times S\)</span> 的网格：</p>
+<p>包含对象中心的单元格（例如狗或自行车）负责对象的检测（用于计算损失）。网格中的每个单元格预测 <span class="math notranslate nohighlight">\(B\)</span> 个边界框（可配置，原始论文中为 2）和每个框的置信分数。预测的边界框包含值 <span class="math notranslate nohighlight">\(x, y, w, h, c\)</span>，其中 <span class="math notranslate nohighlight">\((x, y)\)</span> 是网格中的中心位置，<span class="math notranslate nohighlight">\( (w, h)\)</span> 是边界框相对于整个图像的尺寸百分比，<span class="math notranslate nohighlight">\( c\)</span> 是模型的置信度（概率）。</p>
+<p>在训练过程中计算边界框的精度（损失的组成部分）时，使用交并比（IoU），定义为：</p>
+<p><span class="math notranslate nohighlight">\(\frac{pred_{box}\cap label_{box}}{pred_{box} \cup label_{box}}\)</span></p>
+<p><img alt="iou" src="../_images/iou.png" /></p>
+<p>除了预测边界框和置信度外，每个单元格还预测对象的类别。该类别在注释中由 one-hot 向量表示（仅包含 0，除了正确类别中的 1）。需要注意的是，每个单元格可以预测多个边界框，但只能预测一个类别。这是算法的一个局限性：如果同一单元格中有多个对象，模型将无法正确预测它们。</p>
+<p>现在我们有了所有信息，可以计算网络的输出维度。我们有 <span class="math notranslate nohighlight">\(S \times S\)</span> 个单元格，每个单元格预测 <span class="math notranslate nohighlight">\(B\)</span> 个边界框和 <span class="math notranslate nohighlight">\(C\)</span> 个概率（<span class="math notranslate nohighlight">\(C\)</span> 为类别数）。</p>
+<p>因此，模型的预测维度为：<span class="math notranslate nohighlight">\(S \times S \times (C + B \times 5)\)</span>。</p>
+<p>这导致了以下图示：</p>
+<p><img alt="yolo" src="../_images/yolo.png" /></p>
+<p>顶部中间的图示显示了模型预测的边界框（线条更粗的边界框具有较高的置信分数）。底部中间的图示显示了每个单元格预测的类别（蓝色表示狗类，黄色表示自行车类，粉色表示汽车类）。</p>
+</section>
+<section id="id5">
+<h3>模型架构<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>从层的排列方式来看，YOLO 模型的架构也很特殊。它包括三个主要组件：头部（head）、颈部（neck）和主干（backbone）。</p>
+<ul class="simple">
+<li><p><strong>主干（Backbone）</strong>：这是网络中最重要的部分，由一系列卷积层组成，用于检测最重要的特征。此部分通常在分类数据集上进行预训练。</p></li>
+<li><p><strong>颈部和头部（Neck and Head）</strong>：这些层处理卷积层的输出，以生成 <span class="math notranslate nohighlight">\(S \times S \times (C + B \times 5)\)</span> 大小的预测。</p></li>
+</ul>
+<p>在 YOLO 原始论文中，网格大小为 7x7，有 20 个类别（<a class="reference external" href="http://host.robots.ox.ac.uk/pascal/VOC/">Pascal VOC</a>），每个单元格预测两个边界框。这导致预测大小为：</p>
+<p><span class="math notranslate nohighlight">\(7 \times 7 \times (20 + 2 \times 5) = 1470\)</span></p>
+</section>
+<section id="id6">
+<h3>模型训练<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>模型的训练参数（图像大小、epoch 数、层数、batch_size 等）在原始论文中有详细说明，我们这里不深入讨论。</p>
+<p>然而，了解一下损失函数是很有趣的。基础的逻辑想法是简单地使用预测值与标签之间的 MSE 损失。然而，这样做不行，因为模型会对定位质量和预测精度给予相同的重要性。实际上，我们使用 <span class="math notranslate nohighlight">\(\lambda_{coord}\)</span> 和 <span class="math notranslate nohighlight">\(\lambda_{noobj}\)</span> 对损失进行加权。原始论文中 <span class="math notranslate nohighlight">\(\lambda_{coord}\)</span> 的值为 5，<span class="math notranslate nohighlight">\(\lambda_{noobj}\)</span> 的值为 0.5。需要注意的是，<span class="math notranslate nohighlight">\(\lambda_{noobj}\)</span> 仅用于没有对象的单元格，以避免其接近 0 的置信分数过多影响包含对象的单元格。</p>
+</section>
+<section id="id7">
+<h3>YOLO 的局限性<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>我们已经提到其主要局限性：每个单元格只能预测有限数量的边界框，并且不能在同一单元格中检测不同类别的对象。例如，当想要在人群中检测人时，这会带来问题。</p>
+</section>
+</section>
+<section id="id8">
+<h2>YOLO 的改进<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<p>我们已经看到，YOLO 是一个在图像中检测对象时非常高效且快速的模型。因此，许多研究人员通过提出各种优化来改进它。即使到今天，YOLO 的新版本仍在不断推出。</p>
+<p>这一部分将按时间顺序介绍 YOLO 的不同版本。</p>
+<section id="yolov2-2017-yolo9000">
+<h3>YOLOv2（2017）——也称为 YOLO9000<a class="headerlink" href="#yolov2-2017-yolo9000" title="Link to this heading">#</a></h3>
+<p><strong>论文：<a class="reference external" href="https://arxiv.org/pdf/1612.08242">YOLO9000: Better, Faster, Stronger</a></strong></p>
+<p><strong>创新点：</strong></p>
+<ul class="simple">
+<li><p>引入锚框（anchors）的概念，以提高边界框预测的精度。</p></li>
+<li><p>将输入分辨率从 224x224 提高到 416x416，以提高小物体检测的性能。</p></li>
+</ul>
+</section>
+<section id="yolov3-2018">
+<h3>YOLOv3（2018）<a class="headerlink" href="#yolov3-2018" title="Link to this heading">#</a></h3>
+<p><strong>论文：<a class="reference external" href="https://arxiv.org/abs/1804.02767">YOLOv3: An Incremental Improvement</a></strong></p>
+<p><strong>创新点：</strong></p>
+<ul class="simple">
+<li><p>使用更深的模型，采用 Darknet-53 架构，这是一个残差卷积神经网络。</p></li>
+<li><p>多尺度检测，在三个不同粒度级别（不同大小的特征图）上进行预测。</p></li>
+</ul>
+</section>
+<section id="yolov4-2020">
+<h3>YOLOv4（2020）<a class="headerlink" href="#yolov4-2020" title="Link to this heading">#</a></h3>
+<p><strong>论文：<a class="reference external" href="https://arxiv.org/abs/2004.10934">YOLOv4: Optimal Speed and Accuracy of Object Detection</a></strong></p>
+<p><strong>创新点：</strong></p>
+<ul class="simple">
+<li><p>使用 CSPDarknet53 主干以提高性能。</p></li>
+<li><p>通过 PANet（路径聚合网络）改进检测头，以改善信息流。</p></li>
+<li><p>引入马赛克数据增强（Mosaic Data Augmentation）的概念，以丰富训练数据的多样性。</p></li>
+<li><p>添加各种现代技术，如 DropBlock、Mish 激活函数和 SPP（空间金字塔池化）。</p></li>
+</ul>
+</section>
+<section id="yolov5-2020">
+<h3>YOLOv5（2020）<a class="headerlink" href="#yolov5-2020" title="Link to this heading">#</a></h3>
+<p><strong>由 Ultralytics 开发</strong></p>
+<p><strong>创新点：</strong></p>
+<ul class="simple">
+<li><p>没有官方论文，但实现和性能方面有实用的改进。</p></li>
+<li><p>模型更轻量，更容易训练，并具有更好的依赖项管理。</p></li>
+</ul>
+</section>
+<section id="yolov6-2022">
+<h3>YOLOv6（2022）<a class="headerlink" href="#yolov6-2022" title="Link to this heading">#</a></h3>
+<p><strong>创新点：</strong></p>
+<ul class="simple">
+<li><p>新的 YOLOv6S 主干，优化用于实时性能。</p></li>
+<li><p>先进的延迟降低技术。</p></li>
+<li><p>在数据增强方法和超参数优化方面的改进。</p></li>
+</ul>
+</section>
+<section id="yolov7-2022">
+<h3>YOLOv7（2022）<a class="headerlink" href="#yolov7-2022" title="Link to this heading">#</a></h3>
+<p><strong>论文：<a class="reference external" href="https://arxiv.org/abs/2207.02696">YOLOv7: Trainable bag-of-freebies sets new state-of-the-art for real-time object detectors</a></strong></p>
+<p><strong>创新点：</strong></p>
+<ul class="simple">
+<li><p>集成免费技术包（bag of freebies）以提高精度，而不增加推理时间。</p></li>
+<li><p>优化架构以实现速度和精度之间的最佳折衷。</p></li>
+<li><p>添加各种正则化技术以提高整体性能。</p></li>
+</ul>
+</section>
+<section id="yolov8-2023">
+<h3>YOLOv8（2023）<a class="headerlink" href="#yolov8-2023" title="Link to this heading">#</a></h3>
+<p><strong>由 Ultralytics 开发</strong></p>
+<p><strong>创新点：</strong></p>
+<ul class="simple">
+<li><p>进一步优化用于实时性能和移动集成。</p></li>
+<li><p>灵活的架构，允许根据各种用例调整，包括检测、分割和分类。</p></li>
+</ul>
+</section>
+<section id="yolo-world-2024">
+<h3>YOLO-World（2024）<a class="headerlink" href="#yolo-world-2024" title="Link to this heading">#</a></h3>
+<p><strong>论文：<a class="reference external" href="https://arxiv.org/pdf/2401.17270">YOLO-World: Real-Time Open-Vocabulary Object Detection</a></strong></p>
+<p><strong>创新点：</strong></p>
+<ul class="simple">
+<li><p>使用文本的 transformer encoder 以实现开放词汇检测。</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./08_DetectionEtYolo"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_Introduction.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">图像中的目标检测简介</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03_Ultralytics.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Ultralytics</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">目标检测</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">目标检测的历史</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#you-only-look-once-yolo">You Only Look Once（YOLO）</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">YOLO：如何工作？</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">网格划分</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">模型架构</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">模型训练</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">YOLO 的局限性</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">YOLO 的改进</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov2-2017-yolo9000">YOLOv2（2017）——也称为 YOLO9000</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov3-2018">YOLOv3（2018）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov4-2020">YOLOv4（2020）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov5-2020">YOLOv5（2020）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov6-2022">YOLOv6（2022）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov7-2022">YOLOv7（2022）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov8-2023">YOLOv8（2023）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolo-world-2024">YOLO-World（2024）</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Simon Thomine
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div id="language-switcher" style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #eee;">
+  <span style="margin-right: 10px;">🌐 Language / Langue:</span>
+  <a href="#" onclick="switchToEnglish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #4CAF50; color: white; border-radius: 5px; font-weight: bold; transition: all 0.3s;">🇺🇸 English</a>
+  <a href="#" onclick="switchToFrench()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #f0f0f0; border-radius: 5px; transition: all 0.3s;">🇫🇷 Français</a>
+  <a href="#" onclick="switchToSpanish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ffd700; border-radius: 5px; transition: all 0.3s;">🇪🇸 Español</a>
+  <a href="#" onclick="switchToChinese()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ff4b4b; color: white; border-radius: 5px; transition: all 0.3s;">🇨🇳 中文</a>
+</div>
+<script>
+function getBaseUrl() {
+  let baseUrl = window.location.origin;
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    baseUrl += pathname.split('fr/')[0];
+  } else if (pathname.includes('en/')) {
+    baseUrl += pathname.split('en/')[0];
+  } else if (pathname.includes('es/')) {
+    baseUrl += pathname.split('es/')[0];
+  } else if (pathname.includes('zh/')) {
+    baseUrl += pathname.split('zh/')[0];
+  } else {
+    baseUrl += pathname.split('/').slice(0, -1).join('/') + '/';
+  }
+  return baseUrl;
+}
+
+function getCurrentPage() {
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    return pathname.split('fr/')[1] || 'index.html';
+  } else if (pathname.includes('en/')) {
+    return pathname.split('en/')[1] || 'index.html';
+  } else if (pathname.includes('es/')) {
+    return pathname.split('es/')[1] || 'index.html';
+  } else if (pathname.includes('zh/')) {
+    return pathname.split('zh/')[1] || 'index.html';
+  }
+  return 'index.html';
+}
+
+function switchToEnglish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'en/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToFrench() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'fr/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToSpanish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'es/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToChinese() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'zh/' + currentPage;
+  window.location.href = newUrl;
+}
+</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

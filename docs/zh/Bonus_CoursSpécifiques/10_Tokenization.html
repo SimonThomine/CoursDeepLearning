@@ -1,0 +1,1160 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>词元化介绍 &#8212; Deep Learning Course</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Bonus_CoursSpécifiques/10_Tokenization';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="模型量化" href="11_Quantization.html" />
+    <link rel="prev" title="模型评估指标" href="09_MetriquesEvaluation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><span style="font-size:2em; font-weight:bold;">🚀 从零开始学习深度学习 🚀</span></div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Deep Learning Course</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    深度学习课程 🚀
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">🧮 基础</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/01_D%C3%A9riv%C3%A9esEtDescenteDuGradient.html">导数与梯度下降</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/02_R%C3%A9gressionLogistique.html">逻辑回归</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔗 全连接网络</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/01_MonPremierR%C3%A9seau.html">我的第一个神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/02_PytorchIntroduction.html">PyTorch 简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/03_TechniquesAvanc%C3%A9es.html">高级技术</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🖼️ 卷积网络</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/01_CouchesDeConvolutions.html">卷积层</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/02_R%C3%A9seauConvolutif.html">卷积神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/03_ConvImplementation.html">卷积层的实现</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/04_R%C3%A9seauConvolutifPytorch.html">使用 PyTorch 构建卷积神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/05_ApplicationClassification.html">在彩色图像数据集上的应用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/06_ApplicationSegmentation.html">图像分割的应用</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔄 自编码器</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/01_IntuitionEtPremierAE.html">自编码器简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/02_DenoisingAE.html">使用自编码器进行图像去噪</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📝 自然语言处理 (NLP)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/01_Introduction.html">自然语言处理（NLP）简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/02_bigramme.html">二元模型（Bigram）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/03_R%C3%A9seauFullyConnected.html">全连接神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/04_WaveNet.html">使用 PyTorch 实现 WaveNet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/05_Rnn.html">循环神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/06_Lstm.html">长短期记忆网络（LSTM）</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face 简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">使用 Transformer 的计算机视觉</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">使用 Transformers 进行自然语言处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">使用 Transformers 处理音频</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">使用 Diffusers 生成图像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">使用 Gradio 进行演示</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/01_Introduction.html">Transformer 模型简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/02_GptFromScratch.html">从零开始构建 GPT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/03_TrainingOurGpt.html">训练我们的 GPT 模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/04_ArchitectureEtParticularit%C3%A9s.html">变压器的结构和特性</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/05_UtilisationsPossibles.html">Transformer架构的可能应用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/06_VisionTransformerImplementation.html">Vision Transformer 的实现</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/07_SwinTransformer.html">Swin Transformer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎯 目标检测 (YOLO)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/01_Introduction.html">图像中的目标检测简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/02_YoloEnDetail.html">YOLO 详解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/03_Ultralytics.html">Ultralytics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔍 对比学习训练</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/01_FaceVerification.html">人脸验证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/02_NonSupervis%C3%A9.html">无监督对比学习</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎓 迁移学习与蒸馏</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/01_TransferLearning.html">迁移学习</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/02_TransferLearningPytorch.html">使用 PyTorch 进行迁移学习</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/03_Distillation.html">知识蒸馏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/04_DistillationAnomalie.html">无监督异常检测的知识蒸馏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/05_FineTuningLLM.html">大型语言模型的微调</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/06_FineTuningBertHF.html">使用 Hugging Face 对 BERT 进行微调</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎨 生成模型</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/01_Introduction.html">生成模型简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/02_GAN.html">生成对抗网络（GAN）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/03_GanImplementation.html">生成对抗网络（GAN）的实现</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/04_VAE.html">变分自编码器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/05_VaeImplementation.html">变分自编码器（VAE）的实现</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/06_NormalizingFlows.html">归一化流</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/07_DiffusionModels.html">扩散模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/08_DiffusionImplementation.html">扩散模型的实现</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎁 拓展专题</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_ActivationEtInitialisation.html">激活函数与初始化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_BatchNorm.html">批量归一化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_DataAugmentation.html">数据增强</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_Broadcasting.html">广播机制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_Optimizer.html">理解不同的优化器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_Regularisation.html">正则化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_ConnexionsResiduelles.html">残差连接</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_CrossValidation.html">交叉验证简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_MetriquesEvaluation.html">模型评估指标</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">词元化介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_Quantization.html">模型量化</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/edit/main/en/Bonus_CoursSpécifiques/10_Tokenization.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/issues/new?title=Issue%20on%20page%20%2FBonus_CoursSpécifiques/10_Tokenization.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Bonus_CoursSpécifiques/10_Tokenization.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>词元化介绍</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gpt-2">GPT-2的词元化器</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">算术</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">相同的单词，不同的词元</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">其他语言</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python">Python</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">创建我们自己的词元化器</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unicode">Unicode</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utf-8">UTF-8</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">字节对编码算法</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">字节对编码的应用</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">解码/编码</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">正则表达式模式</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">特殊词元</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">其他类型的词元化器</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">在其他模态上的词元化？</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">对开头问题的回答</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>词元化介绍<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>语言模型（LLM）的关键组成部分是<strong>词元化</strong>。这是Transformer网络的第一步，将文本转换为整数序列。本课程大量参考了Andrej Karpathy的视频《Let’s build the GPT Tokenizer》。</p>
+<p>在实现我们的GPT时，我们使用了一个非常简单的词元化器，它将每个字符编码为不同的整数。实际上，我们更倾向于编码字符块，即字符的组合。</p>
+<p>理解词元化器的工作原理对于理解语言模型的运作至关重要。</p>
+<p>课程结束时，我们将能够回答以下问题：</p>
+<ul class="simple">
+<li><p>为什么LLM难以拼写单词？</p></li>
+<li><p>为什么LLM难以执行简单的字符串操作（如反转字符串）？</p></li>
+<li><p>为什么LLM在英语上表现更好？</p></li>
+<li><p>为什么LLM在算术上表现不佳？</p></li>
+<li><p>为什么GPT-2在Python上表现不佳？</p></li>
+<li><p>为什么我的LLM在接收字符串”<endoftext>”时会立即停止？</p></li>
+<li><p>为什么LLM在提到SolidGoldMagiKarp时会崩溃？</p></li>
+<li><p>为什么使用YAML比使用JSON更有利于LLM？</p></li>
+</ul>
+<p><strong>注意</strong>：词元化器是LLM的一个完全独立部分，它有自己的训练数据集，并且是以不同方式训练的。</p>
+<p><img alt="Tokenizer" src="../_images/tokenizer.png" /></p>
+<section id="gpt-2">
+<h2>GPT-2的词元化器<a class="headerlink" href="#gpt-2" title="Link to this heading">#</a></h2>
+<p>我们可以通过<a class="reference external" href="https://tiktokenizer.vercel.app/?model=gpt2">Tiktokenizer</a>网站来分析GPT-2的词元化过程，以了解可能存在的问题。GPT-2的词元化器拥有大约50,000个单词的词汇量，这意味着有50,000个不同的词元。</p>
+<section id="id2">
+<h3>算术<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>首先，如果我们来看算术部分，会发现数字可以以相当任意的方式分割成词元。
+例如：</p>
+<p><img alt="Arithmetic" src="../_images/arith.png" /></p>
+<p>998是一个完整的词元，但9988被分成两个词元：99和88。
+可以轻松想象，对于LLM来说，计数变得复杂。</p>
+</section>
+<section id="id3">
+<h3>相同的单词，不同的词元<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>对于相同的单词，根据其书写方式，我们会得到不同的词元。
+例如：
+<img alt="Same1" src="../_images/same1.png" />
+<img alt="Same2" src="../_images/same2.png" /></p>
+<p>这四个相同的单词由不同的词元表示（词元198对应换行）。因此，模型必须学习这些词元几乎是相同的。</p>
+</section>
+<section id="id4">
+<h3>其他语言<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>对于相同的句子在不同的语言中，使用的词元数量不同：</p>
+<p><img alt="Language" src="../_images/langage.png" /></p>
+<p>这是因为GPT-2的词元化器主要在英语数据上进行训练。
+实际上，这会降低模型在其他语言中的能力，因为信息上的上下文不再相同。可以插入比日语更长的英语文本。</p>
+</section>
+<section id="python">
+<h3>Python<a class="headerlink" href="#python" title="Link to this heading">#</a></h3>
+<p>我们可以观察词元化器如何处理Python代码：</p>
+<p><img alt="Python" src="../_images/python.png" /></p>
+<p>每个缩进的空格都被计为一个词元。如果代码包含大量条件或循环，上下文会迅速增加，这使得模型性能不佳。</p>
+<p><strong>注意</strong>：此缺陷在GPT的后续版本（3和4）中已修复，例如四个制表符的缩进是一个唯一的词元。</p>
+<p><img alt="Python2" src="../_images/python2.png" /></p>
+<p><strong>注意2</strong>：我们的代码编辑器的配置（Python缩进使用2或4个空格）也会影响词元化。</p>
+<p><strong>注意3</strong>：专门用于代码的LLM也会有专门的词元化器，这提高了性能。</p>
+</section>
+</section>
+<section id="id5">
+<h2>创建我们自己的词元化器<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>要创建我们自己的词元化器，首先看看如何将字符串转换为整数。</p>
+<section id="unicode">
+<h3>Unicode<a class="headerlink" href="#unicode" title="Link to this heading">#</a></h3>
+<p>一个可能的方法是使用<a class="reference external" href="https://fr.wikipedia.org/wiki/Unicode">Unicode</a>。这允许将每个字符转换为整数。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sentence</span><span class="o">=</span><span class="s2">&quot;Ce cours de deep learning est génial !&quot;</span>
+<span class="c1"># ord() permet de récupérer le code unicode d&#39;un caractère</span>
+<span class="n">unicode</span><span class="o">=</span><span class="p">[</span><span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">)</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">unicode</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[67, 101, 32, 99, 111, 117, 114, 115, 32, 100, 101, 32, 100, 101, 101, 112, 32, 108, 101, 97, 114, 110, 105, 110, 103, 32, 101, 115, 116, 32, 103, 233, 110, 105, 97, 108]
+</pre></div>
+</div>
+</div>
+</div>
+<p>实际上，我们不能使用这个方法，原因有以下几点：</p>
+<ul class="simple">
+<li><p>目前有大约150,000个字符，这作为词汇量的大小太大了。</p></li>
+<li><p>每年都有定期更新，这将使基于Unicode的词元化器在一年后过时。</p></li>
+</ul>
+</section>
+<section id="utf-8">
+<h3>UTF-8<a class="headerlink" href="#utf-8" title="Link to this heading">#</a></h3>
+<p>另一种可能性是使用UTF-8编码（16或32位也是可能的，但不太实际），它允许将Unicode编码为4到8位。这样做，我们的基本词汇量将是256。</p>
+<p>我们保留UTF-8的想法，但希望增加词汇量，因为256太小，会迫使LLM拥有巨大的上下文大小。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sentence</span><span class="o">=</span><span class="s2">&quot;Bonjour&quot;</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">sentence</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[66, 111, 110, 106, 111, 117, 114]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h3>字节对编码算法<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>为了增加我们的词汇量，我们使用字节对编码算法。
+该算法的工作原理很简单：以迭代方式找到最频繁的字节对，并将其替换为一个新的词元（这增加了词汇量1）。
+例如，考虑以下序列：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aaabdaaabac</span>
+</pre></div>
+</div>
+<p>在第一次迭代中，我们发现“aa”是最频繁的对，因此将其替换为Z：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ZabdZabac</span>
+<span class="n">Z</span><span class="o">=</span><span class="n">aa</span>
+</pre></div>
+</div>
+<p>在第二次迭代中，我们将“ab”替换为Y：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ZYdZYac</span>
+<span class="n">Y</span><span class="o">=</span><span class="n">ab</span>
+<span class="n">Z</span><span class="o">=</span><span class="n">aa</span>
+</pre></div>
+</div>
+<p>最后，在第三次迭代中，我们可以将ZY替换为X：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">XdXac</span>
+<span class="n">X</span><span class="o">=</span><span class="n">ZY</span>
+<span class="n">Y</span><span class="o">=</span><span class="n">ab</span>
+<span class="n">Z</span><span class="o">=</span><span class="n">aa</span>
+</pre></div>
+</div>
+<p>这样，我们增加了词汇量，同时减少了序列的大小（因此减少了处理所需的上下文）。</p>
+<p><strong>注意</strong>：训练数据的选择对词元化器至关重要。必须根据我们的目标来选择它们。</p>
+<p>该算法的优点在于，我们可以根据需要应用多次，直到获得满意的上下文大小。</p>
+<p><strong>注意</strong>：训练数据的选择对词元化器至关重要。必须根据我们的目标来选择它们。</p>
+</section>
+<section id="id7">
+<h3>字节对编码的应用<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>为了说明字节对编码的使用，我们以一大段文本为例并计算对。为此，我们使用巴尔扎克《人间喜剧》第一卷的第一章。该文本来自<a class="reference external" href="https://www.gutenberg.org/ebooks/41211">古腾堡</a>。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;balzac.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+  <span class="n">text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">[:</span><span class="mi">1000</span><span class="p">])</span>
+
+<span class="n">tokens</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">tokens</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Au milieu de la rue Saint-Denis, presque au coin de la rue du
+Petit-Lion, existait naguère une de ces maisons précieuses qui donnent
+aux historiens la facilité de reconstruire par analogie l&#39;ancien Paris.
+Les murs menaçants de cette bicoque semblaient avoir été bariolés
+d&#39;hiéroglyphes. Quel autre nom le flâneur pouvait-il donner aux X et aux
+V que traçaient sur la façade les pièces de bois transversales ou
+diagonales dessinées dans le badigeon par de petites lézardes
+parallèles? Évidemment, au passage de toutes les voitures, chacune de
+ces solives s&#39;agitait dans sa mortaise. Ce vénérable édifice était
+surmonté d&#39;un toit triangulaire dont aucun modèle ne se verra bientôt
+plus à Paris. Cette couverture, tordue par les intempéries du climat
+parisien, s&#39;avançait de trois pieds sur la rue, autant pour garantir des
+eaux pluviales le seuil de la porte, que pour abriter le mur d&#39;un
+grenier et sa lucarne sans appui. Ce dernier étage était construit en
+planches clouées l&#39;une sur l&#39;autre comme de
+[65, 117, 32, 109, 105, 108, 105, 101, 117, 32, 100, 101, 32, 108, 97, 32, 114, 117, 101, 32, 83, 97, 105, 110, 116, 45, 68, 101, 110, 105, 115, 44, 32, 112, 114, 101, 115, 113, 117, 101, 32, 97, 117, 32, 99, 111, 105, 110, 32, 100, 101, 32, 108, 97, 32, 114, 117, 101, 32, 100, 117, 10, 80, 101, 116, 105, 116, 45, 76, 105, 111, 110, 44, 32, 101, 120, 105, 115, 116, 97, 105, 116, 32, 110, 97, 103, 117, 195, 168, 114, 101, 32, 117, 110, 101, 32, 100, 101, 32, 99, 101, 115, 32, 109, 97, 105, 115, 111, 110, 115, 32, 112, 114, 195, 169, 99, 105, 101, 117, 115, 101, 115, 32, 113, 117, 105, 32, 100, 111, 110, 110, 101, 110, 116, 10, 97, 117, 120, 32, 104, 105, 115, 116, 111, 114, 105, 101, 110, 115, 32, 108, 97, 32, 102, 97, 99, 105, 108, 105, 116, 195, 169, 32, 100, 101, 32, 114, 101, 99, 111, 110, 115, 116, 114, 117, 105, 114, 101, 32, 112, 97, 114, 32, 97, 110, 97, 108, 111, 103, 105, 101, 32, 108, 39, 97, 110, 99, 105, 101, 110, 32, 80, 97, 114, 105, 115, 46, 10, 76, 101, 115, 32, 109, 117, 114, 115, 32, 109, 101, 110, 97, 195, 167, 97, 110, 116, 115, 32, 100, 101, 32, 99, 101, 116, 116, 101, 32, 98, 105, 99, 111, 113, 117, 101, 32, 115, 101, 109, 98, 108, 97, 105, 101, 110, 116, 32, 97, 118, 111, 105, 114, 32, 195, 169, 116, 195, 169, 32, 98, 97, 114, 105, 111, 108, 195, 169, 115, 10, 100, 39, 104, 105, 195, 169, 114, 111, 103, 108, 121, 112, 104, 101, 115, 46, 32, 81, 117, 101, 108, 32, 97, 117, 116, 114, 101, 32, 110, 111, 109, 32, 108, 101, 32, 102, 108, 195, 162, 110, 101, 117, 114, 32, 112, 111, 117, 118, 97, 105, 116, 45, 105, 108, 32, 100, 111, 110, 110, 101, 114, 32, 97, 117, 120, 32, 88, 32, 101, 116, 32, 97, 117, 120, 10, 86, 32, 113, 117, 101, 32, 116, 114, 97, 195, 167, 97, 105, 101, 110, 116, 32, 115, 117, 114, 32, 108, 97, 32, 102, 97, 195, 167, 97, 100, 101, 32, 108, 101, 115, 32, 112, 105, 195, 168, 99, 101, 115, 32, 100, 101, 32, 98, 111, 105, 115, 32, 116, 114, 97, 110, 115, 118, 101, 114, 115, 97, 108, 101, 115, 32, 111, 117, 10, 100, 105, 97, 103, 111, 110, 97, 108, 101, 115, 32, 100, 101, 115, 115, 105, 110, 195, 169, 101, 115, 32, 100, 97, 110, 115, 32, 108, 101, 32, 98, 97, 100, 105, 103, 101, 111, 110, 32, 112, 97, 114, 32, 100, 101, 32, 112, 101, 116, 105, 116, 101, 115, 32, 108, 195, 169, 122, 97, 114, 100, 101, 115, 10, 112, 97, 114, 97, 108, 108, 195, 168, 108, 101, 115, 63, 32, 195, 137, 118, 105, 100, 101, 109, 109, 101, 110, 116, 44, 32, 97, 117, 32, 112, 97, 115, 115, 97, 103, 101, 32, 100, 101, 32, 116, 111, 117, 116, 101, 115, 32, 108, 101, 115, 32, 118, 111, 105, 116, 117, 114, 101, 115, 44, 32, 99, 104, 97, 99, 117, 110, 101, 32, 100, 101, 10, 99, 101, 115, 32, 115, 111, 108, 105, 118, 101, 115, 32, 115, 39, 97, 103, 105, 116, 97, 105, 116, 32, 100, 97, 110, 115, 32, 115, 97, 32, 109, 111, 114, 116, 97, 105, 115, 101, 46, 32, 67, 101, 32, 118, 195, 169, 110, 195, 169, 114, 97, 98, 108, 101, 32, 195, 169, 100, 105, 102, 105, 99, 101, 32, 195, 169, 116, 97, 105, 116, 10, 115, 117, 114, 109, 111, 110, 116, 195, 169, 32, 100, 39, 117, 110, 32, 116, 111, 105, 116, 32, 116, 114, 105, 97, 110, 103, 117, 108, 97, 105, 114, 101, 32, 100, 111, 110, 116, 32, 97, 117, 99, 117, 110, 32, 109, 111, 100, 195, 168, 108, 101, 32, 110, 101, 32, 115, 101, 32, 118, 101, 114, 114, 97, 32, 98, 105, 101, 110, 116, 195, 180, 116, 10, 112, 108, 117, 115, 32, 195, 160, 32, 80, 97, 114, 105, 115, 46, 32, 67, 101, 116, 116, 101, 32, 99, 111, 117, 118, 101, 114, 116, 117, 114, 101, 44, 32, 116, 111, 114, 100, 117, 101, 32, 112, 97, 114, 32, 108, 101, 115, 32, 105, 110, 116, 101, 109, 112, 195, 169, 114, 105, 101, 115, 32, 100, 117, 32, 99, 108, 105, 109, 97, 116, 10, 112, 97, 114, 105, 115, 105, 101, 110, 44, 32, 115, 39, 97, 118, 97, 110, 195, 167, 97, 105, 116, 32, 100, 101, 32, 116, 114, 111, 105, 115, 32, 112, 105, 101, 100, 115, 32, 115, 117, 114, 32, 108, 97, 32, 114, 117, 101, 44, 32, 97, 117, 116, 97, 110, 116, 32, 112, 111, 117, 114, 32, 103, 97, 114, 97, 110, 116, 105, 114, 32, 100, 101, 115, 10, 101, 97, 117, 120, 32, 112, 108, 117, 118, 105, 97, 108, 101, 115, 32, 108, 101, 32, 115, 101, 117, 105, 108, 32, 100, 101, 32, 108, 97, 32, 112, 111, 114, 116, 101, 44, 32, 113, 117, 101, 32, 112, 111, 117, 114, 32, 97, 98, 114, 105, 116, 101, 114, 32, 108, 101, 32, 109, 117, 114, 32, 100, 39, 117, 110, 10, 103, 114, 101, 110, 105, 101, 114, 32, 101, 116, 32, 115, 97, 32, 108, 117, 99, 97, 114, 110, 101, 32, 115, 97, 110, 115, 32, 97, 112, 112, 117, 105, 46, 32, 67, 101, 32, 100, 101, 114, 110, 105, 101, 114, 32, 195, 169, 116, 97, 103, 101, 32, 195, 169, 116, 97, 105, 116, 32, 99, 111, 110, 115, 116, 114, 117, 105, 116, 32, 101, 110, 10, 112, 108, 97, 110, 99, 104, 101, 115, 32, 99, 108, 111, 117, 195, 169]
+</pre></div>
+</div>
+</div>
+</div>
+<p>现在计算对：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_stats</span><span class="p">(</span><span class="n">ids</span><span class="p">):</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="n">ids</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span> 
+        <span class="n">counts</span><span class="p">[</span><span class="n">pair</span><span class="p">]</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pair</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">counts</span>
+
+<span class="n">stats</span> <span class="o">=</span> <span class="n">get_stats</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Les 5 paires les plus fréquentes : &quot;</span><span class="p">,</span><span class="nb">sorted</span><span class="p">(((</span><span class="n">v</span><span class="p">,</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">stats</span><span class="o">.</span><span class="n">items</span><span class="p">()),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)[:</span><span class="mi">5</span><span class="p">])</span>
+
+<span class="n">top_pair</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">stats</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La paire la plus fréquente est : &quot;</span><span class="p">,</span> <span class="n">top_pair</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Les 5 paires les plus fréquentes :  [(5025, (101, 32)), (2954, (115, 32)), (2429, (32, 100)), (2332, (116, 32)), (2192, (101, 115))]
+La paire la plus fréquente est :  (101, 32)
+</pre></div>
+</div>
+</div>
+</div>
+<p>现在定义一个函数来合并最频繁的对：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fonction pour fusionner les paires les plus fréquentes, on donne en entrée la liste des tokens, la paire à fusionner et le nouvel index</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">merge</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="n">pair</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+  <span class="n">newids</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">):</span>
+    <span class="c1"># Si on est pas à la dernière position et que la paire correspond, on la remplace</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+      <span class="n">newids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+      <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">newids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+      <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+  <span class="k">return</span> <span class="n">newids</span>
+
+<span class="c1"># Test de la fonction merge</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">merge</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="mi">99</span><span class="p">))</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;taille du texte avant :&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">))</span>
+<span class="c1"># On fusionne la paire la plus fréquente et on lui donne un nouvel index (256 car on a déjà les caractères de 0 à 255)</span>
+<span class="n">tokens2</span> <span class="o">=</span> <span class="n">merge</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="n">top_pair</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tokens2</span><span class="p">[:</span><span class="mi">100</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;taille du texte après :&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[5, 6, 99, 9, 1]
+taille du texte avant : 128987
+[65, 117, 32, 109, 105, 108, 105, 101, 117, 32, 100, 256, 108, 97, 32, 114, 117, 256, 83, 97, 105, 110, 116, 45, 68, 101, 110, 105, 115, 44, 32, 112, 114, 101, 115, 113, 117, 256, 97, 117, 32, 99, 111, 105, 110, 32, 100, 256, 108, 97, 32, 114, 117, 256, 100, 117, 10, 80, 101, 116, 105, 116, 45, 76, 105, 111, 110, 44, 32, 101, 120, 105, 115, 116, 97, 105, 116, 32, 110, 97, 103, 117, 195, 168, 114, 256, 117, 110, 256, 100, 256, 99, 101, 115, 32, 109, 97, 105, 115, 111]
+taille du texte après : 123962
+</pre></div>
+</div>
+</div>
+</div>
+<p>仅通过一次合并，我们已经大大减小了文本的编码大小。
+现在，我们将定义所需的词汇量大小，并根据需要合并多次！</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vocab_size</span> <span class="o">=</span> <span class="mi">276</span> <span class="c1"># La taille du vocabulaire que l&#39;on souhaite</span>
+<span class="n">num_merges</span> <span class="o">=</span> <span class="n">vocab_size</span> <span class="o">-</span> <span class="mi">256</span>
+<span class="n">tokens_merged</span><span class="o">=</span><span class="n">tokens</span>
+
+
+<span class="n">merges</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1"># (int, int) -&gt; int</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_merges</span><span class="p">):</span>
+  <span class="n">stats</span> <span class="o">=</span> <span class="n">get_stats</span><span class="p">(</span><span class="n">tokens_merged</span><span class="p">)</span>
+  <span class="n">pair</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">stats</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+  <span class="n">idx</span> <span class="o">=</span> <span class="mi">256</span> <span class="o">+</span> <span class="n">i</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;merging </span><span class="si">{</span><span class="n">pair</span><span class="si">}</span><span class="s2"> into a new token </span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+  <span class="n">tokens_merged</span> <span class="o">=</span> <span class="n">merge</span><span class="p">(</span><span class="n">tokens_merged</span><span class="p">,</span> <span class="n">pair</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
+  <span class="n">merges</span><span class="p">[</span><span class="n">pair</span><span class="p">]</span> <span class="o">=</span> <span class="n">idx</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>merging (101, 32) into a new token 256
+merging (115, 32) into a new token 257
+merging (116, 32) into a new token 258
+merging (195, 169) into a new token 259
+merging (101, 110) into a new token 260
+merging (97, 105) into a new token 261
+merging (44, 32) into a new token 262
+merging (111, 110) into a new token 263
+merging (101, 257) into a new token 264
+merging (111, 117) into a new token 265
+merging (114, 32) into a new token 266
+merging (97, 110) into a new token 267
+merging (113, 117) into a new token 268
+merging (100, 256) into a new token 269
+merging (97, 32) into a new token 270
+merging (101, 117) into a new token 271
+merging (101, 115) into a new token 272
+merging (108, 256) into a new token 273
+merging (105, 110) into a new token 274
+merging (46, 32) into a new token 275
+</pre></div>
+</div>
+</div>
+</div>
+<p>现在我们可以看到两个词元序列之间的区别：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Taille de base:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Taille après merge:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens_merged</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;compression ratio: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">tokens_merged</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">X&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Taille de base: 128987
+Taille après merge: 98587
+compression ratio: 1.31X
+</pre></div>
+</div>
+</div>
+</div>
+<p>我们已经压缩了序列的大小，同时仅增加了20个词汇量。
+GPT-2将词汇量增加到50,000，因此可以想象这大大减小了序列的大小。</p>
+</section>
+<section id="id8">
+<h3>解码/编码<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>现在我们已经构建了词元化器，我们希望能够在整数（词元）和文本之间相互转换。</p>
+<p>为此，首先构建解码函数：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vocab</span> <span class="o">=</span> <span class="p">{</span><span class="n">idx</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">([</span><span class="n">idx</span><span class="p">])</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">256</span><span class="p">)}</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">),</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">merges</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">vocab</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">vocab</span><span class="p">[</span><span class="n">p0</span><span class="p">]</span> <span class="o">+</span> <span class="n">vocab</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span>
+
+<span class="c1"># Fonction pour décoder les ids en texte, prend en entrée une liste d&#39;entiers et retourne une chaine de caractères</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">decode</span><span class="p">(</span><span class="n">ids</span><span class="p">):</span>
+  <span class="n">tokens</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">vocab</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">)</span>
+  <span class="n">text</span> <span class="o">=</span> <span class="n">tokens</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">)</span> <span class="c1"># errors=&quot;replace&quot; permet de remplacer les caractères non reconnus par le caractére spécial �</span>
+  <span class="k">return</span> <span class="n">text</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">decode</span><span class="p">([</span><span class="mi">87</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>W
+</pre></div>
+</div>
+</div>
+</div>
+<p>以及编码函数：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fonction pour encoder le texte en ids, prend en entrée une chaine de caractères et retourne une liste d&#39;entiers </span>
+<span class="k">def</span><span class="w"> </span><span class="nf">encode</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+  <span class="n">tokens</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+  <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="n">stats</span> <span class="o">=</span> <span class="n">get_stats</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+    <span class="n">pair</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">merges</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="n">pair</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">merges</span><span class="p">:</span>
+      <span class="k">break</span> 
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">merges</span><span class="p">[</span><span class="n">pair</span><span class="p">]</span>
+    <span class="n">tokens</span> <span class="o">=</span> <span class="n">merge</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="n">pair</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">tokens</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;Bonjour&quot;</span><span class="p">))</span>
+
+<span class="c1"># On eut véifier que l&#39;encodage et le décodage fonctionne correctement</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">decode</span><span class="p">(</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;Bonjour&quot;</span><span class="p">)))</span>
+
+<span class="c1"># Et sur le text en entier</span>
+<span class="n">text2</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">encode</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text2</span> <span class="o">==</span> <span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[66, 263, 106, 265, 114]
+Bonjour
+True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id9">
+<h3>正则表达式模式<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>GPT系列使用正则表达式模式来分隔文本以创建词汇表。这允许我们对生成的词元类型有更多的控制（例如，避免“狗”、“狗!”和“狗?”有不同的词元）。在Tiktoken（GPT的词元化器）的源代码中，我们可以找到以下模式：<strong>’s|’t|’re|’ve|’m|’ll|’d| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+</strong>。</p>
+<p>语法相当复杂，但我们将其分解以理解其作用：</p>
+<ul class="simple">
+<li><p><strong>‘s|’t|’re|’ve|’m|’ll|’d</strong>：对应于英语的缩略形式，如“is”、“it”、“are”、“have”、“am”、“will”和“had”。这些词元在自然语言处理中通常需要被隔离。</p></li>
+<li><p><strong>?\p{L}+</strong>：对应于由字母组成的单词。开头的“?”表示单词可以前面有一个空格，这允许捕获带或不带初始空格的单词。</p></li>
+<li><p><strong>?\p{N}+</strong>：对应于数字序列（数字）。同样，一个可选的空格可以在数字序列之前。</p></li>
+<li><p><strong>?[^\s\p{L}\p{N}]+</strong>：对应于一个或多个字符，这些字符既不是空格，也不是字母，也不是数字。这捕获了符号和标点符号，开头有一个可选的空格。</p></li>
+<li><p><strong>\s+(?!\S)</strong>：对应于一个或多个空格，后面只有空格（因此是字符串末尾或换行符之前的空格序列）。</p></li>
+<li><p><strong>\s+</strong>：对应于一个或多个空格。这是一个通用的匹配，用于单词之间的多个空格。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">regex</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">re</span>
+<span class="n">gpt2pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&quot;&quot;&#39;s|&#39;t|&#39;re|&#39;ve|&#39;m|&#39;ll|&#39;d| ?\p</span><span class="si">{L}</span><span class="s2">+| ?\p</span><span class="si">{N}</span><span class="s2">+| ?[^\s\p</span><span class="si">{L}</span><span class="s2">\p</span><span class="si">{N}</span><span class="s2">]+|\s+(?!\S)|\s+&quot;&quot;&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">gpt2pat</span><span class="p">,</span> <span class="s2">&quot;Hello&#39;ve world123 how&#39;s are you!!!?&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Hello&#39;, &quot;&#39;ve&quot;, &#39; world&#39;, &#39;123&#39;, &#39; how&#39;, &quot;&#39;s&quot;, &#39; are&#39;, &#39; you&#39;, &#39;!!!?&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>文本已根据正则表达式模式中描述的条件进行分隔。</p>
+</section>
+<section id="id10">
+<h3>特殊词元<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>训练和微调时还会添加特殊词元：</p>
+<ul class="simple">
+<li><p><strong>&lt;|endoftext|&gt;</strong>：此词元用于在训练数据中分隔不同文档。</p></li>
+<li><p><strong>&lt;|im_start|&gt;<strong>和</strong>&lt;|im_end|&gt;</strong>：这些词元标记用户消息的开始和结束，例如聊天机器人。</p></li>
+</ul>
+<p><strong>注意</strong>：在微调期间，可以添加特定于要执行的任务的词元（例如**&lt;|im_start|&gt;<strong>和</strong>&lt;|im_end|&gt;**）。当然，这将需要修改嵌入矩阵并重新训练它。</p>
+</section>
+<section id="id11">
+<h3>其他类型的词元化器<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>我们实现的词元化器基于OpenAI的<a class="reference external" href="https://github.com/openai/tiktoken">tiktoken</a>，用于GPT模型。另一个常见的词元化器是<a class="reference external" href="https://github.com/google/sentencepiece">sentencepiece</a>，用于Google和Meta的模型等。</p>
+<p><strong>注意</strong>：Sentencepiece比tiktoken复杂得多，并且有许多参数需要设置。实际上，它可能是因为代码是开源的（而tiktoken的训练代码不是开源的，我们只能访问编码和解码的代码）。</p>
+</section>
+</section>
+<section id="id12">
+<h2>在其他模态上的词元化？<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<p>当我们想进行多模态处理（这目前很流行）时，我们需要从不同于文本的模态（如声音或图像）中生成词元。
+理想情况下，我们将将声音或图像转换为词元，并将其提供给Transformer，就好像它们是文本一样。</p>
+<p>对于图像，我们可以使用<a class="reference external" href="https://arxiv.org/pdf/1711.00937">VQVAE</a>或<a class="reference external" href="https://arxiv.org/pdf/2012.09841">VQGAN</a>。其思想是使用VAE或GAN在潜在空间中生成离散值。这些离散值然后被用作词元。</p>
+<p><img alt="VQGAN" src="../_images/VQGAN.png" /></p>
+<p>图片来自<a class="reference external" href="https://arxiv.org/pdf/2012.09841">论文</a>。</p>
+<p>OpenAI的SORA模型在视频上做了类似的事情：</p>
+<p><img alt="SORA" src="../_images/SORA.png" /></p>
+<p>图片来自<a class="reference external" href="https://arxiv.org/pdf/2402.17177">论文</a></p>
+</section>
+<section id="id13">
+<h2>对开头问题的回答<a class="headerlink" href="#id13" title="Link to this heading">#</a></h2>
+<p>现在我们将利用所学知识来回答课程开头提出的问题：</p>
+<ul class="simple">
+<li><p><strong>为什么LLM难以拼写单词？</strong>
+词元的分割使得每个单词不被分解成所有字符，而是分解成字符块。这样，模型难以将其分解。</p></li>
+<li><p><strong>为什么LLM难以执行简单的字符串操作（如反转字符串）？</strong>
+这与前一个问题的原因大致相同。要反转一个单词，仅反转表示该单词的词元是不够的。</p></li>
+<li><p><strong>为什么LLM在英语上表现更好？</strong>
+这有几个原因：Transformer的训练数据和词元化器的训练数据。对于Transformer，更多的英语数据使其能够更好地学习语言及其细微差别。对于词元化器，如果它在英语数据上进行训练，生成的词元将主要适用于英语单词，因此需要比其他语言更少的上下文。</p></li>
+<li><p><strong>为什么LLM在算术上表现不佳？</strong>
+数字根据训练数据以相当任意的方式表示。在这些词元上执行操作对LLM来说并不容易。</p></li>
+<li><p><strong>为什么GPT-2在Python上表现不佳？</strong>
+如前所述，GPT-2的词元化器将简单的空格转换为一个词元。在Python中，由于缩进和多个条件/循环，很快会有很多空格，这会显著影响上下文。</p></li>
+<li><p><strong>为什么我的LLM在接收字符串”<endoftext>”时会立即停止？</strong>
+这是一个在训练数据中添加的特殊词元，用于分隔文本。当LLM遇到它时，必须停止生成。</p></li>
+<li><p><strong>为什么LLM在提到SolidGoldMagiKarp时会崩溃？</strong>
+这个问题稍微不太明显，我建议阅读这篇<a class="reference external" href="https://www.lesswrong.com/posts/aPeJE8bSo6rAFoLqg/solidgoldmagikarp-plus-prompt-generation">博客文章</a>。简单来说，如果单词出现在词元化器的训练数据中但不在LLM的训练数据中，那么该词元的嵌入将根本没有训练，LLM在遇到该词元时会表现出随机行为。SolidGoldMagiKarp是一个Reddit用户，应该经常出现在词元化器的训练数据中，但不在Transformer的训练数据中。</p></li>
+<li><p><strong>为什么使用YAML比使用JSON更有利于LLM？</strong>
+这与Python的情况类似。GPT-2的词元化器（以及大多数模型）将JSON文档转换为比其YAML等效项更多的词元。因此，从JSON转换为YAML会减少处理文档所需的上下文。</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Bonus_CoursSpécifiques"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="09_MetriquesEvaluation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">模型评估指标</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="11_Quantization.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">模型量化</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gpt-2">GPT-2的词元化器</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">算术</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">相同的单词，不同的词元</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">其他语言</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python">Python</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">创建我们自己的词元化器</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unicode">Unicode</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utf-8">UTF-8</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">字节对编码算法</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">字节对编码的应用</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">解码/编码</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">正则表达式模式</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">特殊词元</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">其他类型的词元化器</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">在其他模态上的词元化？</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">对开头问题的回答</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Simon Thomine
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div id="language-switcher" style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #eee;">
+  <span style="margin-right: 10px;">🌐 Language / Langue:</span>
+  <a href="#" onclick="switchToEnglish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #4CAF50; color: white; border-radius: 5px; font-weight: bold; transition: all 0.3s;">🇺🇸 English</a>
+  <a href="#" onclick="switchToFrench()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #f0f0f0; border-radius: 5px; transition: all 0.3s;">🇫🇷 Français</a>
+  <a href="#" onclick="switchToSpanish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ffd700; border-radius: 5px; transition: all 0.3s;">🇪🇸 Español</a>
+  <a href="#" onclick="switchToChinese()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ff4b4b; color: white; border-radius: 5px; transition: all 0.3s;">🇨🇳 中文</a>
+</div>
+<script>
+function getBaseUrl() {
+  let baseUrl = window.location.origin;
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    baseUrl += pathname.split('fr/')[0];
+  } else if (pathname.includes('en/')) {
+    baseUrl += pathname.split('en/')[0];
+  } else if (pathname.includes('es/')) {
+    baseUrl += pathname.split('es/')[0];
+  } else if (pathname.includes('zh/')) {
+    baseUrl += pathname.split('zh/')[0];
+  } else {
+    baseUrl += pathname.split('/').slice(0, -1).join('/') + '/';
+  }
+  return baseUrl;
+}
+
+function getCurrentPage() {
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    return pathname.split('fr/')[1] || 'index.html';
+  } else if (pathname.includes('en/')) {
+    return pathname.split('en/')[1] || 'index.html';
+  } else if (pathname.includes('es/')) {
+    return pathname.split('es/')[1] || 'index.html';
+  } else if (pathname.includes('zh/')) {
+    return pathname.split('zh/')[1] || 'index.html';
+  }
+  return 'index.html';
+}
+
+function switchToEnglish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'en/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToFrench() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'fr/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToSpanish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'es/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToChinese() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'zh/' + currentPage;
+  window.location.href = newUrl;
+}
+</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -52,23 +52,22 @@ def main():
     print("🚀 Building Multilingual Jupyter Book")
 
     # Ensure we're in the right directory
-    if not Path("fr").exists() or not Path("en").exists():
-        print("Error: fr/ and en/ directories not found!")
-        sys.exit(1)
+    for lang in ["fr", "en", "es", "zh"]:
+        if not Path(lang).exists():
+            print(f"Error: {lang}/ directory not found!")
+            sys.exit(1)
 
-    # Build French version
-    if not build_language_version("fr", "_build_fr"):
-        print("❌ Failed to build French version")
-        sys.exit(1)
+    # Build each language version
+    for lang, build_dir in [("fr", "_build_fr"), ("en", "_build_en"), ("es", "_build_es"), ("zh", "_build_zh")]:
+        if not build_language_version(lang, build_dir):
+            print(f"❌ Failed to build {lang} version")
+            sys.exit(1)
 
-    # Build English version
-    if not build_language_version("en", "_build_en"):
-        print("❌ Failed to build English version")
-        sys.exit(1)
-
-    print("\n✅ Successfully built both language versions!")
+    print("\n✅ Successfully built all language versions!")
     print("📁 French version: _build_fr/_build/html/")
     print("📁 English version: _build_en/_build/html/")
+    print("📁 Spanish version: _build_es/_build/html/")
+    print("📁 Chinese version: _build_zh/_build/html/")
 
     # Create index page for language selection
     create_language_selector()
@@ -328,19 +327,19 @@ def create_language_selector():
                 <div class="lang-subtitle">Complete English version</div>
             </a>
             
-            <div class="lang-card spanish" style="cursor: not-allowed; opacity: 0.7;">
-                <span class="status-badge coming-soon">Próximamente</span>
+            <a href="es/index.html" class="lang-card spanish">
+                <span class="status-badge available">Disponible</span>
                 <span class="flag">🇪🇸</span>
                 <div class="lang-name">Español</div>
-                <div class="lang-subtitle">Versión en desarrollo</div>
-            </div>
+                <div class="lang-subtitle">Versión completa en español</div>
+            </a>
             
-            <div class="lang-card chinese" style="cursor: not-allowed; opacity: 0.7;">
-                <span class="status-badge coming-soon">即将推出</span>
+            <a href="zh/index.html" class="lang-card chinese">
+                <span class="status-badge available">可用</span>
                 <span class="flag">🇨🇳</span>
                 <div class="lang-name">中文</div>
-                <div class="lang-subtitle">正在开发中</div>
-            </div>
+                <div class="lang-subtitle">完整中文版</div>
+            </a>
         </div>
         
         <div class="footer">

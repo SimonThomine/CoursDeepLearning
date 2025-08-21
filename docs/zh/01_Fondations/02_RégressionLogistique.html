@@ -1,0 +1,978 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>逻辑回归 &#8212; Deep Learning Course</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '01_Fondations/02_RégressionLogistique';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="我的第一个神经网络" href="../02_R%C3%A9seauFullyConnected/01_MonPremierR%C3%A9seau.html" />
+    <link rel="prev" title="导数与梯度下降" href="01_D%C3%A9riv%C3%A9esEtDescenteDuGradient.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><span style="font-size:2em; font-weight:bold;">🚀 从零开始学习深度学习 🚀</span></div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Deep Learning Course</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    深度学习课程 🚀
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">🧮 基础</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_D%C3%A9riv%C3%A9esEtDescenteDuGradient.html">导数与梯度下降</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">逻辑回归</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔗 全连接网络</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/01_MonPremierR%C3%A9seau.html">我的第一个神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/02_PytorchIntroduction.html">PyTorch 简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/03_TechniquesAvanc%C3%A9es.html">高级技术</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🖼️ 卷积网络</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/01_CouchesDeConvolutions.html">卷积层</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/02_R%C3%A9seauConvolutif.html">卷积神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/03_ConvImplementation.html">卷积层的实现</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/04_R%C3%A9seauConvolutifPytorch.html">使用 PyTorch 构建卷积神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/05_ApplicationClassification.html">在彩色图像数据集上的应用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/06_ApplicationSegmentation.html">图像分割的应用</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔄 自编码器</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/01_IntuitionEtPremierAE.html">自编码器简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/02_DenoisingAE.html">使用自编码器进行图像去噪</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📝 自然语言处理 (NLP)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/01_Introduction.html">自然语言处理（NLP）简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/02_bigramme.html">二元模型（Bigram）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/03_R%C3%A9seauFullyConnected.html">全连接神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/04_WaveNet.html">使用 PyTorch 实现 WaveNet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/05_Rnn.html">循环神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/06_Lstm.html">长短期记忆网络（LSTM）</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face 简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">使用 Transformer 的计算机视觉</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">使用 Transformers 进行自然语言处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">使用 Transformers 处理音频</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">使用 Diffusers 生成图像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">使用 Gradio 进行演示</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/01_Introduction.html">Transformer 模型简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/02_GptFromScratch.html">从零开始构建 GPT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/03_TrainingOurGpt.html">训练我们的 GPT 模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/04_ArchitectureEtParticularit%C3%A9s.html">变压器的结构和特性</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/05_UtilisationsPossibles.html">Transformer架构的可能应用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/06_VisionTransformerImplementation.html">Vision Transformer 的实现</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/07_SwinTransformer.html">Swin Transformer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎯 目标检测 (YOLO)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/01_Introduction.html">图像中的目标检测简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/02_YoloEnDetail.html">YOLO 详解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/03_Ultralytics.html">Ultralytics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔍 对比学习训练</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/01_FaceVerification.html">人脸验证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/02_NonSupervis%C3%A9.html">无监督对比学习</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎓 迁移学习与蒸馏</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/01_TransferLearning.html">迁移学习</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/02_TransferLearningPytorch.html">使用 PyTorch 进行迁移学习</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/03_Distillation.html">知识蒸馏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/04_DistillationAnomalie.html">无监督异常检测的知识蒸馏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/05_FineTuningLLM.html">大型语言模型的微调</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/06_FineTuningBertHF.html">使用 Hugging Face 对 BERT 进行微调</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎨 生成模型</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/01_Introduction.html">生成模型简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/02_GAN.html">生成对抗网络（GAN）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/03_GanImplementation.html">生成对抗网络（GAN）的实现</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/04_VAE.html">变分自编码器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/05_VaeImplementation.html">变分自编码器（VAE）的实现</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/06_NormalizingFlows.html">归一化流</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/07_DiffusionModels.html">扩散模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/08_DiffusionImplementation.html">扩散模型的实现</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎁 拓展专题</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/01_ActivationEtInitialisation.html">激活函数与初始化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/02_BatchNorm.html">批量归一化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/03_DataAugmentation.html">数据增强</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/04_Broadcasting.html">广播机制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/05_Optimizer.html">理解不同的优化器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/06_Regularisation.html">正则化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/07_ConnexionsResiduelles.html">残差连接</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/08_CrossValidation.html">交叉验证简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/09_MetriquesEvaluation.html">模型评估指标</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/10_Tokenization.html">词元化介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/11_Quantization.html">模型量化</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/edit/main/en/01_Fondations/02_RégressionLogistique.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/issues/new?title=Issue%20on%20page%20%2F01_Fondations/02_RégressionLogistique.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/01_Fondations/02_RégressionLogistique.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>逻辑回归</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">人工神经元</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">激活函数</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">应用</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">代价函数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">导数计算</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">逻辑回归</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>逻辑回归<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<section id="id2">
+<h2>人工神经元<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>现在进入核心内容：人工神经元！</p>
+<p>下图展示了人工神经元的工作原理：</p>
+<p><img alt="人工神经元" src="../_images/NeuroneArtificiel.png" /></p>
+<p>人工神经元接收一个输入向量 <span class="math notranslate nohighlight">\(\mathbf{x}=(x_1, x_2, ..., x_n)\)</span>。向量中的每个元素 <span class="math notranslate nohighlight">\(x_i\)</span> 会乘以一个权重 <span class="math notranslate nohighlight">\(w_i\)</span>，然后将所有乘积相加并加上一个偏置 <span class="math notranslate nohighlight">\(b\)</span>。这个总和会经过一个称为<strong>激活函数</strong> <span class="math notranslate nohighlight">\(\phi\)</span> 的函数处理。
+输出结果为：<span class="math notranslate nohighlight">\(输出 = \phi(\sum_{i=0}^{n} w_i x_i  + b)\)</span>。
+之所以称为人工神经元，是因为它模仿了<a class="reference external" href="https://en.wikipedia.org/wiki/Artificial_neuron">生物神经元</a>的工作方式。</p>
+</section>
+<section id="id3">
+<h2>激活函数<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p><strong>Heaviside 阶跃函数：</strong> 最早的人工神经元（<a class="reference external" href="https://fr.wikipedia.org/wiki/Perceptron">感知器</a>）使用阈值函数作为激活函数。该函数根据加权和与预定阈值进行决策（输出 0 或 1）。
+<span class="math notranslate nohighlight">\(heaviside(x) = \left\{
+    \begin{array}{ll}
+        1 &amp; \text{如果 } x &gt; 0 \\
+        0 &amp; \text{否则}
+    \end{array}
+\right. \text{，其中 } x=\sum_{i=0}^{n} w_i x_i  + b\)</span>
+这种激活函数适用于二分类问题，但不适用于多类别问题。此外，该函数不可导，因此难以使用梯度下降算法来优化神经元的权重 <span class="math notranslate nohighlight">\(w_i\)</span>。</p>
+<p>近代的激活函数更适合通过梯度下降训练神经网络。首先，它们是可导的，因此可以应用梯度下降算法。其次，它们是非线性的，使得神经网络能够学习复杂的表示。此外，每种激活函数还有其特定的优势。</p>
+<p>其中一种“近代”激活函数是 Sigmoid 函数，我们将在这里详细介绍：</p>
+<p><strong>Sigmoid 函数：</strong> Sigmoid 函数是一种特别有用的激活函数，因为它的输出可以类比为概率。该函数通过以下公式将输入值转换为 0 到 1 之间的值：
+<span class="math notranslate nohighlight">\(sigmoid(x) = \frac{1}{1 + e^{-x}} \text{，其中 } x=\sum_{i=0}^{n} w_i x_i  + b\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tracé de la fonction sigmoïde</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Fonction sigmoïde&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;sigmoid(x)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/cb2a6b5327d1de2209c0b7d14fce71c47416801bce8208628ada2d92dc021e7c.png" src="../_images/cb2a6b5327d1de2209c0b7d14fce71c47416801bce8208628ada2d92dc021e7c.png" />
+</div>
+</div>
+<p>该函数是可导的，其导数为：
+<span class="math notranslate nohighlight">\(sigmoid'(x) = sigmoid(x) \cdot (1 - sigmoid(x))\)</span>
+因此，当使用该激活函数时，我们可以对人工神经元应用梯度下降算法。</p>
+<p>还有许多其他<a class="reference external" href="https://fr.wikipedia.org/wiki/Fonction_d%27activation">激活函数</a>，每种都有其特定用途。我们将在后续课程中介绍它们（如 <span class="math notranslate nohighlight">\(Tanh\)</span>、<span class="math notranslate nohighlight">\(ReLU\)</span>、<span class="math notranslate nohighlight">\(Softmax\)</span>）。</p>
+</section>
+<section id="id4">
+<h2>应用<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>为了更好地理解逻辑回归，我们通过一个具体的例子来学习。</p>
+<p>在这个例子中，我们将根据三个信息来判断一名学生是否能被其理想大学录取：入学考试成绩、前一年的平均成绩以及推荐信的质量。</p>
+<p>虽然我们不知道学校录取或拒绝学生的具体计算方法，但我们拥有相关的数据和对应的录取决定。</p>
+<p>输入信息的取值范围在 0 到 1 之间，1 表示最佳成绩。录取 = 1 表示被录取，录取 = 0 表示被拒绝。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tabulate</span><span class="w"> </span><span class="kn">import</span> <span class="n">tabulate</span>
+
+<span class="c1"># Définition des données d&#39;entraînement</span>
+<span class="n">values_train</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">]]</span>
+<span class="n">labels_train</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Ajout des noms de colonnes</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;Examen&#39;</span><span class="p">,</span> <span class="s1">&#39;Moyenne&#39;</span><span class="p">,</span> <span class="s1">&#39;Motivation&#39;</span><span class="p">,</span> <span class="s1">&#39;Admis&#39;</span><span class="p">]]</span>
+<span class="n">data</span><span class="o">.</span><span class="n">extend</span><span class="p">([[</span><span class="n">values_train</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">values_train</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">values_train</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span> <span class="n">labels_train</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">values_train</span><span class="p">))])</span>
+
+<span class="c1"># Affichage du tableau</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="s2">&quot;firstrow&quot;</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s2">&quot;fancy_grid&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>╒══════════╤═══════════╤══════════════╤═════════╕
+│   Examen │   Moyenne │   Motivation │   Admis │
+╞══════════╪═══════════╪══════════════╪═════════╡
+│      0.7 │       0.8 │          0.1 │       1 │
+├──────────┼───────────┼──────────────┼─────────┤
+│      0.4 │       0.9 │          0.5 │       0 │
+├──────────┼───────────┼──────────────┼─────────┤
+│      0.2 │       0.3 │          0.9 │       0 │
+├──────────┼───────────┼──────────────┼─────────┤
+│      0.9 │       0.9 │          0.6 │       1 │
+╘══════════╧═══════════╧══════════════╧═════════╛
+</pre></div>
+</div>
+</div>
+</div>
+<p>在这个问题中，我们的目标是判断得分为 <span class="math notranslate nohighlight">\([考试=0.8, 平均成绩=0.7, 动机=0.2]\)</span> 和 <span class="math notranslate nohighlight">\([考试=0.4, 平均成绩=0.5, 动机=0.9]\)</span> 的学生是否被录取。</p>
+<p>可以看出，<span class="math notranslate nohighlight">\(考试\)</span>、<span class="math notranslate nohighlight">\(平均成绩\)</span> 和 <span class="math notranslate nohighlight">\(动机\)</span> 对应于我们的输入 <span class="math notranslate nohighlight">\(x_i\)</span>。通过逻辑回归，我们的目标是找到与训练数据相符的最优权重 <span class="math notranslate nohighlight">\(w_i\)</span>。</p>
+<p>为了简化，我们设定：
+<span class="math notranslate nohighlight">\(x_0=考试\)</span>，<span class="math notranslate nohighlight">\(x_1=平均成绩\)</span>，<span class="math notranslate nohighlight">\(x_2=动机\)</span>，<span class="math notranslate nohighlight">\(y_{true}=录取\)</span>。</p>
+<section id="id5">
+<h3>代价函数<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>在梯度下降的例子中，我们的目标是找到一个函数的最小值。梯度下降算法在这些场景中表现优异。对于我们的新问题，我们需要找到一个函数，当我们最小化该函数时，可以提高预测的准确性。</p>
+<p>在二分类问题中，<span class="math notranslate nohighlight">\(y_{true}\)</span> 的值为 1 表示学生被录取，0 表示未被录取。</p>
+<p>我们的目标是预测学生是否被录取，即预测输出 <span class="math notranslate nohighlight">\(pred\)</span>。</p>
+<p>在训练过程中，我们希望训练逻辑回归模型，使其预测值 <span class="math notranslate nohighlight">\(pred\)</span> 接近 <span class="math notranslate nohighlight">\(y_{true}\)</span>。</p>
+<p>为此，我们使用负对数似然函数，其表达式如下：
+<span class="math notranslate nohighlight">\(\text{loss} = - \left( y_{\text{true}} \cdot \log(\text{pred}) + (1 - y_{\text{true}}) \cdot \log(1 - \text{pred}) \right)\)</span></p>
+<p>关于逻辑回归和负对数似然损失的更多细节，请参阅此<a class="reference external" href="https://blog.demir.io/understanding-logistic-regression-26802c0da856">链接</a>。</p>
+<p>重要的是理解该函数如何根据我们的预测 <span class="math notranslate nohighlight">\(pred\)</span> 和标签 <span class="math notranslate nohighlight">\(y_{true}\)</span> 变化。</p>
+<p>我们以 <span class="math notranslate nohighlight">\(y_{true}=1\)</span> 为例，分析两种情况：</p>
+<p>如果 <span class="math notranslate nohighlight">\(pred=0.9\)</span>，即模型预测学生有 90% 的概率被录取（一个好的预测），那么：
+<span class="math notranslate nohighlight">\(\text{loss} = - \left( 1.0 \cdot \log(0.9) + (1 - 1.0) \cdot \log(1 - 0.9) \right)\)</span>
+<span class="math notranslate nohighlight">\(\text{loss} = - \left( 1.0 \cdot \log(0.9) + 0 \cdot \log(0.1) \right)\)</span>
+<span class="math notranslate nohighlight">\(\text{loss} = - \left( 1.0 \cdot \log(0.9) \right)\)</span>
+<span class="math notranslate nohighlight">\(\text{loss} = 0.046\)</span>
+损失值较小，说明这是一个好的预测。</p>
+<p>如果 <span class="math notranslate nohighlight">\(pred=0.2\)</span>，即模型预测学生只有 20% 的概率被录取（一个不好的预测），那么：
+<span class="math notranslate nohighlight">\(\text{loss} = - \left( 1.0 \cdot \log(0.2) + (1 - 1.0) \cdot \log(1 - 0.2) \right)\)</span>
+<span class="math notranslate nohighlight">\(\text{loss} = - \left( 1.0 \cdot \log(0.2) + 0 \cdot \log(0.8) \right)\)</span>
+<span class="math notranslate nohighlight">\(\text{loss} = - \left( 1.0 \cdot \log(0.2) \right)\)</span>
+<span class="math notranslate nohighlight">\(\text{loss} = 0.70\)</span>
+损失值较大，说明这是一个不好的预测。</p>
+<p>对于 <span class="math notranslate nohighlight">\(y_{true}=0\)</span> 的情况，当 <span class="math notranslate nohighlight">\(pred\)</span> 接近 0 时损失值较小，当 <span class="math notranslate nohighlight">\(pred\)</span> 接近 1 时损失值较大（可自行计算验证）。</p>
+</section>
+<section id="id6">
+<h3>导数计算<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>现在我们有一个需要最小化的函数，因此需要计算该函数关于每个权重 <span class="math notranslate nohighlight">\(w_0\)</span>、<span class="math notranslate nohighlight">\(w_1\)</span>、<span class="math notranslate nohighlight">\(w_2\)</span> 和偏置 <span class="math notranslate nohighlight">\(b\)</span> 的导数。</p>
+<p>因此，我们需要计算 <span class="math notranslate nohighlight">\(\frac{\partial loss}{\partial w_0}\)</span>、<span class="math notranslate nohighlight">\(\frac{\partial loss}{\partial w_1}\)</span>、<span class="math notranslate nohighlight">\(\frac{\partial loss}{\partial w_2}\)</span> 和 <span class="math notranslate nohighlight">\(\frac{\partial loss}{\partial b}\)</span>。</p>
+<p>对于权重 <span class="math notranslate nohighlight">\(w_0\)</span>、<span class="math notranslate nohighlight">\(w_1\)</span> 和 <span class="math notranslate nohighlight">\(w_2\)</span>，导数的计算方式是相同的。</p>
+<p>使用链式法则，对于 <span class="math notranslate nohighlight">\(w_0\)</span>，我们有：
+<span class="math notranslate nohighlight">\(\frac{\partial loss}{\partial w_0} = \frac{\partial loss}{\partial pred} \cdot \frac{\partial pred}{\partial w_0}\)</span></p>
+<p>需要注意的是，我们的预测 <span class="math notranslate nohighlight">\(pred\)</span> 是逻辑回归的输出，使用 Sigmoid 激活函数。</p>
+<p>对于第一项，损失关于 <span class="math notranslate nohighlight">\(pred\)</span> 的导数为：
+<span class="math notranslate nohighlight">\(\frac{\partial loss}{\partial pred} = -(\frac{y_{true}}{pred} - \frac{1-y_{true}}{1-pred})\)</span>
+这里不详细展开计算过程，但你可以自行验证。</p>
+<p>对于第二项，<span class="math notranslate nohighlight">\(pred\)</span> 关于 <span class="math notranslate nohighlight">\(w_0\)</span> 的导数为：
+<span class="math notranslate nohighlight">\(\frac{\partial pred}{\partial w_0} = pred \cdot (1-pred) \cdot x_0\)</span></p>
+<p>结合这两项，我们得到：
+<span class="math notranslate nohighlight">\(\frac{\partial loss}{\partial w_0} = -(\frac{y_{true}}{pred} - \frac{1-y_{true}}{1-pred}) \cdot pred \cdot (1-pred) \cdot x_0\)</span></p>
+<p>经过简化（魔法般的简化），得到：
+<span class="math notranslate nohighlight">\(\frac{\partial loss}{\partial w_0} = (pred-y_{true}) \cdot x_0\)</span></p>
+<p>不详细展开计算，我们同样可以得到：
+<span class="math notranslate nohighlight">\(\frac{\partial loss}{\partial b} = pred-y_{true}\)</span></p>
+</section>
+<section id="id7">
+<h3>逻辑回归<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>现在我们已经具备了所有必要的元素，
+我们可以用 Python 定义逻辑回归函数：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Notre classe de regression logistique</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">logistic_regression</span><span class="p">():</span>
+  <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">w0</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">w1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">w2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="o">=</span><span class="mi">0</span>
+  <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x0</span><span class="p">,</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">):</span>
+    <span class="c1"># Somme pondérée et ajout du biais</span>
+    <span class="n">pond</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">w0</span><span class="o">*</span><span class="n">x0</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">w1</span><span class="o">*</span><span class="n">x1</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">w2</span><span class="o">*</span><span class="n">x2</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+    <span class="c1"># Application de la sigmoïde</span>
+    <span class="n">pred</span><span class="o">=</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">pond</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pred</span>
+    
+<span class="k">def</span><span class="w"> </span><span class="nf">loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+  <span class="c1"># Calcul du loss (log vraisemblance négative)</span>
+  <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span> <span class="p">(</span><span class="n">y_true</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y_true</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">))</span>
+  <span class="k">return</span> <span class="n">loss</span>
+    
+
+<span class="k">def</span><span class="w"> </span><span class="nf">update_weights</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">pred</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">):</span>
+       
+  <span class="c1"># On calcule les dérivées en fonction des poids et du biais </span>
+  <span class="n">dL_dw0</span> <span class="o">=</span> <span class="p">(</span><span class="n">pred</span> <span class="o">-</span> <span class="n">y_true</span><span class="p">)</span> <span class="o">*</span> <span class="n">x0</span>
+  <span class="n">dL_dw1</span> <span class="o">=</span> <span class="p">(</span><span class="n">pred</span> <span class="o">-</span> <span class="n">y_true</span><span class="p">)</span> <span class="o">*</span> <span class="n">x1</span>
+  <span class="n">dL_dw2</span> <span class="o">=</span> <span class="p">(</span><span class="n">pred</span> <span class="o">-</span> <span class="n">y_true</span><span class="p">)</span> <span class="o">*</span> <span class="n">x2</span>
+  <span class="n">dL_db</span> <span class="o">=</span> <span class="n">pred</span> <span class="o">-</span> <span class="n">y_true</span>
+      
+  <span class="c1"># On modifie les paramètres pour réduire le loss </span>
+  <span class="c1"># La modification des poids dépend du learning rate, du signe de la dérivée et de la valeur de la dérivée</span>
+  <span class="n">model</span><span class="o">.</span><span class="n">w0</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">dL_dw0</span>
+  <span class="n">model</span><span class="o">.</span><span class="n">w1</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">dL_dw1</span>
+  <span class="n">model</span><span class="o">.</span><span class="n">w2</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">dL_dw2</span>
+  <span class="n">model</span><span class="o">.</span><span class="n">b</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">dL_db</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialisation du modèle et des hyperparamètres</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.01</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">1000</span> <span class="c1"># le nombre d&#39;itérations d&#39;entrainement</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">logistic_regression</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>在训练模型之前，我们先测试一下对两名学生录取结果的预测。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">values_test</span><span class="o">=</span><span class="p">[[</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.7</span><span class="p">,</span><span class="mf">0.7</span><span class="p">],[</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.9</span><span class="p">]]</span>
+<span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values_test</span><span class="p">:</span>
+  <span class="n">x0</span><span class="p">,</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="o">=</span><span class="n">value</span>
+  <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;L&#39;élève avec Examen = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span><span class="o">+</span> <span class="s2">&quot;, Moyenne = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot; et Motivation = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span><span class="o">+</span> <span class="s2">&quot; a &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">pred</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">% d</span><span class="s2">e chance d&#39;être admis&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>L&#39;élève avec Examen = 0.8, Moyenne = 0.7 et Motivation = 0.7 a 60% de chance d&#39;être admis
+L&#39;élève avec Examen = 0.4, Moyenne = 0.5 et Motivation = 0.9 a 59% de chance d&#39;être admis
+</pre></div>
+</div>
+</div>
+</div>
+<p>可以看到模型非常不确定，给出的概率是随机的，这是因为模型的权重是随机初始化的。</p>
+<p>现在，我们在训练数据上训练模型。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Entraînement</span>
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+  <span class="c1"># Mise à jour des poids pour chaque exemple</span>
+  <span class="n">total_loss</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">),</span> <span class="n">y_true</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">values_train</span><span class="p">,</span> <span class="n">labels_train</span><span class="p">):</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+    <span class="n">update_weights</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">pred</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">)</span>
+    <span class="n">total_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
+
+  <span class="n">avg_loss</span> <span class="o">=</span> <span class="n">total_loss</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels_train</span><span class="p">)</span>
+  
+  <span class="c1"># Affichage de la perte pour suivre la progression de l&#39;entraînement</span>
+  <span class="k">if</span> <span class="p">((</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">5000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">epoch</span><span class="o">==</span><span class="mi">0</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">epochs</span><span class="si">}</span><span class="s2">, Loss: </span><span class="si">{</span><span class="n">avg_loss</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/40000, Loss: 0.01468091027998586
+Epoch 5000/40000, Loss: 0.013032955086147595
+Epoch 10000/40000, Loss: 0.011715352279809266
+Epoch 15000/40000, Loss: 0.010638348324912276
+Epoch 20000/40000, Loss: 0.009741762611763436
+Epoch 25000/40000, Loss: 0.008983896958517028
+Epoch 30000/40000, Loss: 0.008334957514714105
+Epoch 35000/40000, Loss: 0.007773096000082178
+Epoch 40000/40000, Loss: 0.007281930357182074
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">w0</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">w1</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">w2</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values_test</span><span class="p">:</span>
+  <span class="n">x0</span><span class="p">,</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="o">=</span><span class="n">value</span>
+  <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;L&#39;élève avec Examen = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span><span class="o">+</span> <span class="s2">&quot;, Moyenne = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot; et Motivation = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span><span class="o">+</span> <span class="s2">&quot; a &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">pred</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">% d</span><span class="s2">e chance d&#39;être admis&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>19.464301071981186 -3.27230109363944 -8.244865180820856 -4.903197398150705
+L&#39;élève avec Examen = 0.8, Moyenne = 0.7 et Motivation = 0.7 a 93% de chance d&#39;être admis
+L&#39;élève avec Examen = 0.4, Moyenne = 0.5 et Motivation = 0.9 a 0% de chance d&#39;être admis
+</pre></div>
+</div>
+</div>
+</div>
+<p>可以看到，现在我们的模型对其预测更加自信，并且给出了与训练数据相符的预测结果。</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./01_Fondations"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_D%C3%A9riv%C3%A9esEtDescenteDuGradient.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">导数与梯度下降</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../02_R%C3%A9seauFullyConnected/01_MonPremierR%C3%A9seau.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">我的第一个神经网络</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">人工神经元</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">激活函数</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">应用</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">代价函数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">导数计算</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">逻辑回归</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Simon Thomine
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div id="language-switcher" style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #eee;">
+  <span style="margin-right: 10px;">🌐 Language / Langue:</span>
+  <a href="#" onclick="switchToEnglish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #4CAF50; color: white; border-radius: 5px; font-weight: bold; transition: all 0.3s;">🇺🇸 English</a>
+  <a href="#" onclick="switchToFrench()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #f0f0f0; border-radius: 5px; transition: all 0.3s;">🇫🇷 Français</a>
+  <a href="#" onclick="switchToSpanish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ffd700; border-radius: 5px; transition: all 0.3s;">🇪🇸 Español</a>
+  <a href="#" onclick="switchToChinese()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ff4b4b; color: white; border-radius: 5px; transition: all 0.3s;">🇨🇳 中文</a>
+</div>
+<script>
+function getBaseUrl() {
+  let baseUrl = window.location.origin;
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    baseUrl += pathname.split('fr/')[0];
+  } else if (pathname.includes('en/')) {
+    baseUrl += pathname.split('en/')[0];
+  } else if (pathname.includes('es/')) {
+    baseUrl += pathname.split('es/')[0];
+  } else if (pathname.includes('zh/')) {
+    baseUrl += pathname.split('zh/')[0];
+  } else {
+    baseUrl += pathname.split('/').slice(0, -1).join('/') + '/';
+  }
+  return baseUrl;
+}
+
+function getCurrentPage() {
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    return pathname.split('fr/')[1] || 'index.html';
+  } else if (pathname.includes('en/')) {
+    return pathname.split('en/')[1] || 'index.html';
+  } else if (pathname.includes('es/')) {
+    return pathname.split('es/')[1] || 'index.html';
+  } else if (pathname.includes('zh/')) {
+    return pathname.split('zh/')[1] || 'index.html';
+  }
+  return 'index.html';
+}
+
+function switchToEnglish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'en/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToFrench() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'fr/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToSpanish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'es/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToChinese() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'zh/' + currentPage;
+  window.location.href = newUrl;
+}
+</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

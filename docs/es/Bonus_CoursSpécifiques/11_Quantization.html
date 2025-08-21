@@ -1,0 +1,1002 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Cuantización &#8212; Deep Learning Course</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Bonus_CoursSpécifiques/11_Quantization';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Introducción a la tokenización" href="10_Tokenization.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><span style="font-size:2em; font-weight:bold;">🚀 Aprende Deep Learning desde cero 🚀</span></div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Deep Learning Course</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Curso de Deep Learning 🚀
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">🧮 Fundamentos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/01_D%C3%A9riv%C3%A9esEtDescenteDuGradient.html">Derivada y descenso del gradiente</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/02_R%C3%A9gressionLogistique.html">Regresión Logística</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔗 Redes totalmente conectadas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/01_MonPremierR%C3%A9seau.html">Mi primer red neuronal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/02_PytorchIntroduction.html">Introducción a PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/03_TechniquesAvanc%C3%A9es.html">Técnicas avanzadas</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🖼️ Redes convolucionales</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/01_CouchesDeConvolutions.html">Las capas de convolución</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/02_R%C3%A9seauConvolutif.html">Redes convolucionales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/03_ConvImplementation.html">Implementación de la capa de convolución</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/04_R%C3%A9seauConvolutifPytorch.html">Redes convolucionales con PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/05_ApplicationClassification.html">Aplicación en un conjunto de datos de imágenes en color</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/06_ApplicationSegmentation.html">Aplicación de la segmentación</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔄 Autoencoders</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/01_IntuitionEtPremierAE.html">Introducción a los autoencodificadores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/02_DenoisingAE.html">Autoencoder para desruido</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📝 PLN</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/01_Introduction.html">Introducción al PLN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/02_bigramme.html">Bigrama</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/03_R%C3%A9seauFullyConnected.html">Red neuronal completamente conectada</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/04_WaveNet.html">PyTorch y WaveNet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/05_Rnn.html">Redes neuronales recurrentes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/06_Lstm.html">Memoria a Corto-Largo Plazo (LSTM)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introducción a Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Visión por computadora con Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">Procesamiento del lenguaje natural con Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Procesamiento de audio con Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generación de imágenes con Diffusers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demostración con Gradio</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/01_Introduction.html">Introducción a los transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/02_GptFromScratch.html">Construyamos un GPT desde cero</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/03_TrainingOurGpt.html">Entrenamiento de nuestro modelo GPT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/04_ArchitectureEtParticularit%C3%A9s.html">Arquitectura y particularidades del <em>transformer</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/05_UtilisationsPossibles.html">Posibles usos de la arquitectura Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/06_VisionTransformerImplementation.html">Implementación del Vision Transformer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/07_SwinTransformer.html">Swin Transformer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎯 Detección y YOLO</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/01_Introduction.html">Introducción a la detección de objetos en imágenes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/02_YoloEnDetail.html">YOLO en detalle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/03_Ultralytics.html">Ultralytics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔍 Entrenamiento contrastivo</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/01_FaceVerification.html">Verificación facial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/02_NonSupervis%C3%A9.html">Aprendizaje contrastivo no supervisado</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎓 Transfer Learning y Distillation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/01_TransferLearning.html">Aprendizaje por transferencia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/02_TransferLearningPytorch.html">Transfer Learning con PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/03_Distillation.html">La destilación de conocimientos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/04_DistillationAnomalie.html">Destilación de conocimientos para la detección no supervisada de anomalías</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/05_FineTuningLLM.html">Ajuste fino (Fine-Tuning) de los LLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/06_FineTuningBertHF.html">Ajuste fino de BERT con Hugging Face</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎨 Modelos generativos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/01_Introduction.html">Introducción a los modelos generativos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/02_GAN.html">Redes generativas antagónicas (GAN)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/03_GanImplementation.html">Implementación de una GAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/04_VAE.html">Autoencoders variacionales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/05_VaeImplementation.html">Implementación de un VAE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/06_NormalizingFlows.html">Flujos de normalización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/07_DiffusionModels.html">Modelos de difusión</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/08_DiffusionImplementation.html">Implementación de un modelo de difusión</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎁 Bonus – Cursos específicos</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_ActivationEtInitialisation.html">Activaciones e inicializaciones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_BatchNorm.html">Normalización por lotes (<em>Batch Normalization</em>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_DataAugmentation.html">Aumento de datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_Broadcasting.html">Difusión (<em>Broadcasting</em>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_Optimizer.html">Comprender los diferentes optimizadores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_Regularisation.html">Regularización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_ConnexionsResiduelles.html">Conexiones residuales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_CrossValidation.html">Introducción a la validación cruzada</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_MetriquesEvaluation.html">Métricas de evaluación de modelos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_Tokenization.html">Introducción a la tokenización</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Cuantización</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/edit/main/en/Bonus_CoursSpécifiques/11_Quantization.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/issues/new?title=Issue%20on%20page%20%2FBonus_CoursSpécifiques/11_Quantization.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Bonus_CoursSpécifiques/11_Quantization.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Cuantización</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-representar-los-numeros-en-una-computadora">¿Cómo representar los números en una computadora?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion-a-la-cuantizacion">Introducción a la cuantización</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#punto-rapido-sobre-las-precisiones-comunes">Punto rápido sobre las precisiones comunes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cuantizacion-simetrica">Cuantización simétrica</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cuantizacion-asimetrica">Cuantización asimétrica</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recorte-y-modificacion-de-rango">Recorte y modificación de rango</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibracion">Calibración</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cuantizacion-post-entrenamiento-ptq">Cuantización Post-Entrenamiento (PTQ)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cuantizacion-dinamica">Cuantización dinámica</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cuantizacion-estatica">Cuantización estática</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diferencia-entre-cuantizacion-dinamica-y-estatica">Diferencia entre cuantización dinámica y estática</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ptq-la-cuantizacion-en-4-bits">PTQ: la cuantización en 4 bits</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gptq">GPTQ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gguf">GGUF</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-con-conocimiento-de-cuantizacion-qat">Entrenamiento con Conocimiento de Cuantización (QAT)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bitnet-cuantizacion-de-1-bit">BitNet: cuantización de 1 bit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bitnet-1-58-necesitamos-el-cero">BitNet 1.58: ¡Necesitamos el cero!</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning-de-los-modelos-de-lenguaje">Fine-Tuning de los modelos de lenguaje</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lora">LoRA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qlora">QLoRA</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="cuantizacion">
+<h1>Cuantización<a class="headerlink" href="#cuantizacion" title="Link to this heading">#</a></h1>
+<p>Los modelos de Deep Learning se están volviendo cada vez más potentes y voluminosos. Tomemos como ejemplo los LLM (Large Language Models): los mejores modelos de código abierto, como Llama 3.1, ahora tienen cientos de miles de millones de parámetros.</p>
+<p>Cargar un modelo así en una sola GPU es imposible. Incluso con la GPU más potente del mercado (H100, con 80 GB de VRAM), se necesitan varias GPU para la inferencia y aún más para el entrenamiento.</p>
+<p>En la práctica, se observa que cuanto más parámetros tiene un modelo, mejores son sus resultados. Por lo tanto, no queremos reducir el tamaño de los modelos. Sin embargo, buscamos disminuir el espacio de memoria que ocupan.</p>
+<p>Este curso se inspira fuertemente en dos artículos: <a class="reference external" href="https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-quantization?utm_source=ainews&amp;amp;utm_medium=email&amp;amp;utm_campaign=ainews-to-be-named-5098">una guía visual sobre la cuantización</a> y <a class="reference external" href="https://medium.com/&#64;dillipprasad60/qlora-explained-a-deep-dive-into-parametric-efficient-fine-tuning-in-large-language-models-llms-c1a4794b1766">una explicación detallada de QLoRA</a>. Las imágenes utilizadas también provienen de estos dos artículos.</p>
+<section id="como-representar-los-numeros-en-una-computadora">
+<h2>¿Cómo representar los números en una computadora?<a class="headerlink" href="#como-representar-los-numeros-en-una-computadora" title="Link to this heading">#</a></h2>
+<p>Para representar los números de punto flotante en una computadora, se utiliza un cierto número de bits. La norma <a class="reference external" href="https://en.wikipedia.org/wiki/IEEE_754">IEEE 754</a> describe cómo los bits pueden representar un número. Esto se hace mediante tres partes: el signo, el exponente y la mantisa.</p>
+<p>Aquí tienes un ejemplo de representación FP16 (16 bits):</p>
+<p><img alt="FP16" src="../_images/Fp16.png" /></p>
+<p>El signo determina el signo del número, el exponente da los dígitos antes del punto decimal y la mantisa los dígitos después del punto decimal. Aquí tienes un ejemplo en imagen de cómo convertir la representación FP16 a un número.</p>
+<p><img alt="Convertir" src="../_images/convert.webp" /></p>
+<p>En general, cuanto más bits se utilizan para representar un valor, más preciso puede ser o cubrir un rango más amplio de valores. Por ejemplo, podemos comparar la precisión FP16 y FP32:</p>
+<p><img alt="Comparar FP" src="../_images/compareFP.webp" /></p>
+<p>Una última cosa importante a saber: hay dos formas de evaluar una representación. Por un lado, el <em>rango dinámico</em> que indica el rango de valores que se pueden representar, y la <em>precisión</em> que describe la diferencia entre dos valores cercanos.</p>
+<p>Cuanto mayor es el exponente, mayor es el <em>rango dinámico</em>, y cuanto mayor es la mantisa, mayor es la <em>precisión</em> (por lo tanto, dos valores cercanos son cercanos).</p>
+<p>En el aprendizaje profundo, a menudo preferimos usar la representación BF16 en lugar de FP16. La representación BF16 tiene un exponente más grande pero una precisión más baja.</p>
+<p>La figura siguiente ilustra las diferencias:</p>
+<p><img alt="BF16" src="../_images/BF16.webp" /></p>
+<p>Ahora que entendemos los conceptos de precisión de los números de punto flotante, podemos calcular el espacio que ocupa un modelo en memoria según la precisión. En FP32, un número se representa con 32 bits, lo que equivale a 4 bytes (un byte vale 8 bits). Para obtener el uso de memoria de un modelo, podemos hacer el siguiente cálculo:
+<span class="math notranslate nohighlight">\(memory= \frac{n_{bits}}{8}*n_{params}\)</span></p>
+<p>Tomemos el ejemplo de un modelo de 70 mil millones de parámetros a diferentes niveles de precisión: doble (FP64), full-precision (FP32) y half-precision (FP16).
+Para FP64: <span class="math notranslate nohighlight">\(\frac{64}{8} \times 70B = 560GB\)</span>
+Para FP32: <span class="math notranslate nohighlight">\(\frac{32}{8} \times 70B = 280GB\)</span>
+Para FP16: <span class="math notranslate nohighlight">\(\frac{16}{8} \times 70B = 140GB\)</span></p>
+<p>Nos damos cuenta de que es necesario encontrar una manera de reducir el tamaño de los modelos. Aquí, incluso el modelo en half-precision ocupa 140 GB, lo que equivale a 2 GPU H100.</p>
+<p><strong>Nota</strong>: Aquí hablamos de la precisión para la inferencia. Para el entrenamiento, como hay que mantener las activaciones en memoria para el descenso de gradiente, terminamos con muchos más parámetros (ver parte sobre QLoRA más adelante en el curso).</p>
+</section>
+<section id="introduccion-a-la-cuantizacion">
+<h2>Introducción a la cuantización<a class="headerlink" href="#introduccion-a-la-cuantizacion" title="Link to this heading">#</a></h2>
+<p>El objetivo de la cuantización es reducir la precisión de un modelo pasando de una precisión alta como FP32 a una precisión más baja como INT8.</p>
+<p><strong>Nota</strong>: INT8 es la forma de representar enteros de -127 a 127 en 8 bits.</p>
+<p><img alt="Cuantización" src="../_images/quantization.webp" /></p>
+<p>Por supuesto, al reducir el número de bits para representar los valores, perdemos precisión.
+Para ilustrar esto, veamos una imagen:</p>
+<p><img alt="Galletas" src="../_images/cookies.webp" /></p>
+<p>Notamos un “grano” en la imagen, debido a la falta de colores disponibles para representarla.
+Lo que queremos es reducir el número de bits para representar la imagen mientras conservamos al máximo la precisión de la imagen original.</p>
+<p>Existen varias formas de hacer cuantización: la cuantización simétrica y la cuantización asimétrica.</p>
+<section id="punto-rapido-sobre-las-precisiones-comunes">
+<h3>Punto rápido sobre las precisiones comunes<a class="headerlink" href="#punto-rapido-sobre-las-precisiones-comunes" title="Link to this heading">#</a></h3>
+<p><strong>FP16</strong>: La <em>precisión</em> y el <em>rango dinámico</em> disminuyen en comparación con FP32.</p>
+<p><img alt="FP16" src="../_images/fp16.webp" /></p>
+<p><strong>BF16</strong>: La <em>precisión</em> disminuye fuertemente, pero el <em>rango dinámico</em> se mantiene igual en comparación con FP32.</p>
+<p><img alt="BF16" src="../_images/bf16.webp" /></p>
+<p><strong>INT8</strong>: Pasamos a una representación en entero.</p>
+<p><img alt="INT8" src="../_images/int8.webp" /></p>
+</section>
+<section id="cuantizacion-simetrica">
+<h3>Cuantización simétrica<a class="headerlink" href="#cuantizacion-simetrica" title="Link to this heading">#</a></h3>
+<p>En el caso de la cuantización simétrica, el rango de valores de nuestros flotantes originales se mapea de manera simétrica en el rango de valores de cuantización. Esto significa que el 0 en los flotantes se mapea en el 0 en la precisión de cuantización.</p>
+<p><img alt="Cuantización simétrica" src="../_images/symmetricq.webp" /></p>
+<p>Una de las formas más comunes y simples de realizar esta operación es usar el método <em>absmax (cuantización de máximo absoluto)</em>. Tomamos el valor máximo (en valor absoluto) y realizamos el mapeo en relación con este valor:</p>
+<p><img alt="Absmax" src="../_images/absmax.webp" /></p>
+<p>La fórmula es bastante básica: consideremos <span class="math notranslate nohighlight">\(b\)</span> el número de bytes que queremos cuantizar, <span class="math notranslate nohighlight">\(\alpha\)</span> el valor absoluto más grande.
+Entonces podemos calcular el <em>factor de escala</em> de la siguiente manera:
+<span class="math notranslate nohighlight">\(s=\frac{2^{b-1}-1}{\alpha}\)</span>
+Luego podemos realizar la cuantización de <span class="math notranslate nohighlight">\(x\)</span> de esta manera:
+<span class="math notranslate nohighlight">\(x_{quantized}=round(s \times x)\)</span>
+Para desquantizar y recuperar un valor FP32, podemos hacerlo así:
+<span class="math notranslate nohighlight">\(x_{dequantized}=\frac{x_{quantized}}{s}\)</span></p>
+<p>Por supuesto, el valor desquantizado no será equivalente al valor antes de la cuantización:</p>
+<p><img alt="Ejemplo Absmax" src="../_images/absmaxExample.png" /></p>
+<p>y podemos cuantizar los errores de cuantización:</p>
+<p><img alt="Error Absmax" src="../_images/absmaxError.png" /></p>
+</section>
+<section id="cuantizacion-asimetrica">
+<h3>Cuantización asimétrica<a class="headerlink" href="#cuantizacion-asimetrica" title="Link to this heading">#</a></h3>
+<p>A diferencia de la cuantización simétrica, la cuantización asimétrica no es simétrica alrededor de 0. En su lugar, mapeamos el mínimo <span class="math notranslate nohighlight">\(\beta\)</span> y el máximo <span class="math notranslate nohighlight">\(\alpha\)</span> del <em>rango</em> de los flotantes originales al mínimo y máximo del <em>rango</em> cuantizado.
+El método más común para esto se llama <em>cuantización de punto cero</em>.</p>
+<p><img alt="Cuantización asimétrica" src="../_images/asymetric.png" /></p>
+<p>Con este método, el 0 ha cambiado de posición, por eso este método se llama asimétrico.</p>
+<p>Como el 0 ha sido desplazado, necesitamos calcular la posición del 0 (<em>punto cero</em>) para realizar el mapeo lineal.</p>
+<p>Podemos cuantizar de la siguiente manera:
+<span class="math notranslate nohighlight">\(s=\frac{128 - - 127}{\alpha- \beta}\)</span>
+Calculamos el <em>punto cero</em>:
+<span class="math notranslate nohighlight">\(z=round(-s \times \beta)-2^{b-1}\)</span>
+y:
+<span class="math notranslate nohighlight">\(x_{quantized}=round(s \times x + z)\)</span>
+Para desquantizar, podemos aplicar la siguiente fórmula:
+<span class="math notranslate nohighlight">\(x_{dequantized}=\frac{x_{quantized}-z}{s}\)</span></p>
+<p>Ambos métodos tienen sus ventajas y desventajas, podemos compararlos mirando el comportamiento en un <span class="math notranslate nohighlight">\(x\)</span> cualquiera:</p>
+<p><img alt="Comparación" src="../_images/compare.png" /></p>
+</section>
+<section id="recorte-y-modificacion-de-rango">
+<h3>Recorte y modificación de rango<a class="headerlink" href="#recorte-y-modificacion-de-rango" title="Link to this heading">#</a></h3>
+<p>Los métodos que hemos presentado tienen un defecto mayor. Estos métodos no son en absoluto robustos a los <em>valores atípicos</em>. Imaginemos que nuestro vector <span class="math notranslate nohighlight">\(x\)</span> contiene los siguientes valores: [-0.59, -0.21, -0.07, 0.13, 0.28, 0.57, 256]. Si hacemos nuestro <em>mapeo</em> habitual, obtendremos valores idénticos para todos los elementos excepto para el <em>valor atípico</em> (256):</p>
+<p><img alt="Valor atípico" src="../_images/outlier.png" /></p>
+<p>Esto es muy problemático porque la pérdida de información es colosal.</p>
+<p>En la práctica, podemos decidir <em>recortar</em> ciertos valores para disminuir el <em>rango</em> en el espacio de los flotantes (antes de aplicar la cuantización). Por ejemplo, podríamos decidir limitar los valores en el rango [-5,5] y todos los valores fuera de este rango se mapearán a los valores máximos o mínimos de cuantización (127 o -127 para INT8):</p>
+<p><img alt="Recorte" src="../_images/clipping.png" /></p>
+<p>Al hacer esto, reducimos enormemente el error en los no-<em>valores atípicos</em> pero lo aumentamos para los <em>valores atípicos</em> (lo que también puede ser problemático).</p>
+</section>
+<section id="calibracion">
+<h3>Calibración<a class="headerlink" href="#calibracion" title="Link to this heading">#</a></h3>
+<p>En la parte anterior, usamos arbitrariamente un rango de valores de [-5,5]. La selección de este rango de valores no es aleatoria y está determinada por un método llamado <em>calibración</em>. La idea es encontrar un rango de valores que minimice el error de cuantización para el conjunto de valores. Los métodos de <em>calibración</em> utilizados son diferentes según el tipo de parámetros que queremos cuantificar.</p>
+<p><strong>Calibración para los pesos y los sesgos</strong>:
+Los pesos y los sesgos son valores estáticos (fijos después del entrenamiento del modelo). Son valores que conocemos antes de realizar la inferencia.
+A menudo, como hay muchos más pesos que sesgos, conservamos la precisión base en los sesgos y realizamos la cuantización solo en los pesos.</p>
+<p>Para los pesos, hay varios métodos de calibración posibles:</p>
+<ul class="simple">
+<li><p>Podemos elegir manualmente un porcentaje del rango de entrada</p></li>
+<li><p>Podemos optimizar la distancia MSE entre los pesos base y los pesos cuantizados</p></li>
+<li><p>Podemos minimizar la entropía (con la divergencia KL) entre los pesos base y los pesos cuantizados</p></li>
+</ul>
+<p>El método con porcentaje es similar al método que hemos utilizado anteriormente. Los otros dos métodos son más rigurosos y eficaces.</p>
+<p><strong>Calibración para las activaciones</strong>:
+A diferencia de los pesos y los sesgos, las activaciones dependen del valor de entrada del modelo. Por lo tanto, es muy complicado cuantificarlas de manera eficiente. Estos valores se actualizan después de cada capa y solo podemos conocer sus valores durante la inferencia cuando la capa del modelo procesa los valores.
+Esto nos lleva a la siguiente parte que trata sobre dos métodos diferentes para la cuantización de las activaciones (y también de los pesos).
+Estos métodos son:</p>
+<ul class="simple">
+<li><p>La <em>cuantización post-entrenamiento</em> (PTQ): la cuantización ocurre después del entrenamiento del modelo</p></li>
+<li><p>El <em>entrenamiento con conocimiento de cuantización</em> (QAT): la cuantización se realiza durante el entrenamiento o el <em>fine-tuning</em> del modelo.</p></li>
+</ul>
+</section>
+</section>
+<section id="cuantizacion-post-entrenamiento-ptq">
+<h2>Cuantización Post-Entrenamiento (PTQ)<a class="headerlink" href="#cuantizacion-post-entrenamiento-ptq" title="Link to this heading">#</a></h2>
+<p>Una de las formas más frecuentes de hacer cuantización es realizarla después del entrenamiento del modelo. Desde un punto de vista práctico, esto es bastante lógico porque no requiere entrenar o <em>fine-tunear</em> el modelo.</p>
+<p>La cuantización de los pesos se realiza utilizando ya sea la cuantización simétrica o la cuantización asimétrica.</p>
+<p>Para las activaciones, no es lo mismo ya que no conocemos el rango de valores tomados por la distribución de las activaciones.
+Tenemos dos formas de cuantización para las activaciones:</p>
+<ul class="simple">
+<li><p>La cuantización dinámica</p></li>
+<li><p>La cuantización estática</p></li>
+</ul>
+<section id="cuantizacion-dinamica">
+<h3>Cuantización dinámica<a class="headerlink" href="#cuantizacion-dinamica" title="Link to this heading">#</a></h3>
+<p>En la cuantización dinámica, recopilamos las activaciones después de que los datos pasen por una capa. La distribución de la capa se cuantiza luego calculando el <em>punto cero</em> y el <em>factor de escala</em>.</p>
+<p><img alt="Cuantización dinámica" src="../_images/dynamicQ.webp" /></p>
+<p>En este proceso, cada capa tiene sus propios valores de <em>punto cero</em> y <em>factor de escala</em> y, por lo tanto, la cuantización no es la misma.</p>
+<p><img alt="Cuantización dinámica 2" src="../_images/dynamicQ2.webp" /></p>
+<p><strong>Nota</strong>: Este proceso de cuantización ocurre <strong>durante</strong> la inferencia.</p>
+<p><strong>Nota</strong>: Este proceso de cuantización ocurre <strong>durante</strong> la inferencia.</p>
+</section>
+<section id="cuantizacion-estatica">
+<h3>Cuantización estática<a class="headerlink" href="#cuantizacion-estatica" title="Link to this heading">#</a></h3>
+<p>A diferencia de la <em>cuantización dinámica</em>, la <em>cuantización estática</em> no calcula el <em>punto cero</em> y el <em>factor de escala</em> durante la inferencia. De hecho, en el método de cuantización estática, los valores de <em>punto cero</em> y <em>factor de escala</em> se calculan antes de la inferencia utilizando un <em>conjunto de datos</em> de <em>calibración</em>. Este <em>conjunto de datos</em> se supone que es representativo de los datos y permite calcular las distribuciones potenciales tomadas por las activaciones.</p>
+<p><img alt="Cuantización estática" src="../_images/staticQ.png" /></p>
+<p>Después de recopilar los valores de las activaciones en todo el <em>conjunto de datos</em> de <em>calibración</em>, podemos usarlos para calcular el <em>factor de escala</em> y el <em>punto cero</em> que luego se utilizarán para todas las activaciones.</p>
+</section>
+<section id="diferencia-entre-cuantizacion-dinamica-y-estatica">
+<h3>Diferencia entre cuantización dinámica y estática<a class="headerlink" href="#diferencia-entre-cuantizacion-dinamica-y-estatica" title="Link to this heading">#</a></h3>
+<p>En general, la <em>cuantización dinámica</em> es un poco más precisa porque calcula los valores de <em>factor de escala</em> y <em>punto cero</em> para cada capa, pero este proceso también tiende a ralentizar el tiempo de inferencia.</p>
+<p>A la inversa, la <em>cuantización estática</em> es menos precisa pero más rápida.</p>
+</section>
+</section>
+<section id="ptq-la-cuantizacion-en-4-bits">
+<h2>PTQ: la cuantización en 4 bits<a class="headerlink" href="#ptq-la-cuantizacion-en-4-bits" title="Link to this heading">#</a></h2>
+<p>En el ideal, nos gustaría llevar la cuantización al máximo, es decir, 4 bits en lugar de 8 bits. En la práctica, esto no es fácil porque aumenta drásticamente el error si usamos simplemente los métodos que hemos visto hasta ahora.</p>
+<p>Sin embargo, hay algunos métodos que permiten reducir el número de bits hasta 2 bits (se recomienda quedarse en 4 bits).</p>
+<p>Entre estos métodos, encontramos dos principales:</p>
+<ul class="simple">
+<li><p>GPTQ (usa solo la GPU)</p></li>
+<li><p>GGUF (también puede usar la CPU en parte)</p></li>
+</ul>
+<section id="gptq">
+<h3>GPTQ<a class="headerlink" href="#gptq" title="Link to this heading">#</a></h3>
+<p>GPTQ es probablemente el método más utilizado para la cuantización de 4 bits. La idea es usar la cuantización asimétrica en cada capa de manera independiente:</p>
+<p><img alt="GPTQ" src="../_images/GPTQ.png" /></p>
+<p>Durante el proceso de cuantización, los pesos se convierten en el inverso de la matriz Hessian (segunda derivada de la función de <em>pérdida</em>) lo que nos permite saber si la salida del modelo es sensible a los cambios de cada peso. De manera simplificada, esto permite calcular la importancia de cada peso en una capa. Los pesos asociados a valores pequeños en la Hessian son los más importantes porque un cambio de estos pesos afectará significativamente al modelo.</p>
+<p><img alt="Hessian" src="../_images/hessian.png" /></p>
+<p>Luego cuantificamos y desquantificamos los pesos para obtener nuestro <em>error de cuantización</em>. Este error nos permite ponderar el error de cuantización en relación con el error real y la matriz Hessian.</p>
+<p><img alt="Error GPTQ" src="../_images/GPTQError.png" /></p>
+<p>El error ponderado se calcula de la siguiente manera:
+<span class="math notranslate nohighlight">\(q=\frac{x_1-y_1}{h_1}\)</span> donde <span class="math notranslate nohighlight">\(x_1\)</span> es el valor antes de la cuantización, <span class="math notranslate nohighlight">\(y_1\)</span> es el valor después de la cuantización/descuantización y <span class="math notranslate nohighlight">\(h_1\)</span> es el valor correspondiente en la matriz Hessian.</p>
+<p>Luego redistribuimos este error de cuantización ponderado en los otros pesos de la línea. Esto permite mantener la función global y la salida de la red. Por ejemplo, para <span class="math notranslate nohighlight">\(x_2\)</span>:
+<span class="math notranslate nohighlight">\(x_2=x_2 + q \times h_2\)</span></p>
+<p><img alt="Proceso GPTQ" src="../_images/GPTQprocess.png" /></p>
+<p>Hacemos este proceso hasta que todos los valores estén cuantizados.
+En la práctica, este método funciona bien porque todos los pesos están correlacionados entre sí, por lo que si un peso tiene un gran error de cuantización, los otros pesos se cambian para compensar el error (basado en la Hessian).</p>
+</section>
+<section id="gguf">
+<h3>GGUF<a class="headerlink" href="#gguf" title="Link to this heading">#</a></h3>
+<p>GPTQ es un muy buen método para ejecutar un LLM en una GPU. Sin embargo, incluso con esta cuantización, a veces no tenemos suficiente memoria GPU para ejecutar un modelo LLM profundo. El método GGUF permite mover cualquier capa del LLM a la CPU.</p>
+<p>De esta manera, podemos usar la memoria RAM y la memoria de video (VRAM) al mismo tiempo.</p>
+<p>Este método de cuantización se cambia con frecuencia y depende del nivel de bits de cuantización que queramos.</p>
+<p>En general, el método funciona de la siguiente manera:</p>
+<p>Primero, los pesos de una capa se dividen en <em>bloques super</em> donde cada <em>bloque super</em> se divide nuevamente en <em>bloques sub</em>. Luego extraemos los valores <span class="math notranslate nohighlight">\(s\)</span> y <span class="math notranslate nohighlight">\(\alpha\)</span> (<em>absmax</em>) para cada <em>bloque</em> (el <em>super</em> y los <em>sub</em>).</p>
+<p><img alt="GGUF" src="../_images/GGUF.png" /></p>
+<p>Los <em>factores de escala</em> <span class="math notranslate nohighlight">\(s\)</span> de los <em>bloques sub</em> luego se cuantizan nuevamente usando la información del <em>bloque super</em> (que tiene su propio <em>factor de escala</em>). Este método se llama <em>cuantización por bloques</em>.</p>
+<p><strong>Nota</strong>: En general, el nivel de cuantización es diferente entre los <em>bloques sub</em> y el <em>bloque super</em>: el <em>bloque super</em> tiene una precisión superior a los <em>bloques sub</em> la mayoría de las veces.</p>
+</section>
+</section>
+<section id="entrenamiento-con-conocimiento-de-cuantizacion-qat">
+<h2>Entrenamiento con Conocimiento de Cuantización (QAT)<a class="headerlink" href="#entrenamiento-con-conocimiento-de-cuantizacion-qat" title="Link to this heading">#</a></h2>
+<p>En lugar de realizar la cuantización después del entrenamiento, podemos hacerlo durante el entrenamiento. De hecho, hacer la cuantización después del entrenamiento no tiene en cuenta el proceso de entrenamiento, lo que puede causar problemas.</p>
+<p>El <em>entrenamiento con conocimiento de cuantización</em> es un método que permite realizar la cuantización durante el entrenamiento y aprender los diferentes parámetros de cuantización durante la retropropagación:</p>
+<p><img alt="QAT" src="../_images/QAT.png" /></p>
+<p>En la práctica, este método a menudo es más preciso que la PTQ porque la cuantización ya está prevista durante el entrenamiento y, por lo tanto, podemos adaptar el modelo específicamente con el objetivo de cuantizarlo en el futuro.</p>
+<p>Este enfoque funciona de la siguiente manera:
+Durante el entrenamiento, se introduce un proceso de cuantización/descuantización (<em>cuantización falsa</em>) (cuantización de 32 bits a 4 bits y luego descuantización de 4 bits a 32 bits, por ejemplo).</p>
+<p><img alt="Cuantización falsa" src="../_images/fakequantize.png" /></p>
+<p>Este enfoque permite que el modelo considere la cuantización durante el entrenamiento y, por lo tanto, adapte la actualización de los pesos para favorecer buenos resultados del modelo cuantizado.</p>
+<p>Una forma de ver las cosas es imaginar que el modelo convergerá hacia mínimos amplios que minimizan el error de cuantización en lugar de mínimos estrechos que podrían causar errores durante la cuantización. Para un modelo entrenado sin <em>cuantización falsa</em>, no habría preferencias sobre el mínimo elegido para la convergencia:</p>
+<p><img alt="Mínimos" src="../_images/minimums.png" /></p>
+<p>En la práctica, los modelos entrenados de manera clásica tienen un <em>pérdida</em> más baja que los modelos entrenados con QAT cuando la precisión es alta (FP32), pero tan pronto como cuantizamos el modelo, el modelo QAT será mucho más potente que un modelo cuantizado mediante un método PTQ.</p>
+<section id="bitnet-cuantizacion-de-1-bit">
+<h3>BitNet: cuantización de 1 bit<a class="headerlink" href="#bitnet-cuantizacion-de-1-bit" title="Link to this heading">#</a></h3>
+<p>Lo ideal para reducir el tamaño de un modelo sería cuantizarlo en un solo bit. Esto parece una locura, ¿cómo podemos imaginar representar una red neuronal con solo 0 y 1 para cada peso?</p>
+<p><a class="reference external" href="https://arxiv.org/pdf/2310.11453">BitNet</a> propone representar los pesos de un modelo con un solo bit usando el valor -1 o 1 para un peso. Hay que imaginar que reemplazamos las capas lineales de la arquitectura transformers por capas BitLinear:</p>
+<p><img alt="BitTransformer" src="../_images/bitTransformer.png" /></p>
+<p>La capa BitLinear funciona exactamente como una capa lineal básica, excepto que los pesos se representan con un único bit y las activaciones en INT8.</p>
+<p>Como se explicó anteriormente, hay una forma de <em>cuantización falsa</em> que permite al modelo aprender el efecto de la cuantización para forzarlo a adaptarse a esta nueva restricción:</p>
+<p><img alt="BitNet" src="../_images/bitnet.png" /></p>
+<p>Analicemos esta capa paso a paso:</p>
+<p><strong>Primer paso: Cuantización de los pesos</strong>
+Durante el entrenamiento, los pesos se almacenan en INT8 y se cuantizan en 1-bit usando la función <em>signo</em>.
+Esta función simplemente centra la distribución de los pesos en 0 y convierte todo lo que es menor a 0 en -1 y todo lo que es mayor a 0 en 1.</p>
+<p><img alt="Cuantización de los pesos" src="../_images/weigthquanti.png" /></p>
+<p>También se extrae un valor <span class="math notranslate nohighlight">\(\beta\)</span> (valor absoluto promedio) para el proceso de descuantización.</p>
+<p><strong>Segundo paso: Cuantización de las activaciones</strong>
+Para las activaciones, la capa BitLinear usa la cuantización <em>absmax</em> para convertir de FP16 a INT8 y un valor <span class="math notranslate nohighlight">\(\alpha\)</span> (valor absoluto máximo) se almacena para la descuantización.</p>
+<p><strong>Tercer paso: Descuantización</strong>
+A partir de los <span class="math notranslate nohighlight">\(\alpha\)</span> y <span class="math notranslate nohighlight">\(\beta\)</span> que hemos guardado, podemos usar estos valores para descuantizar y volver a la precisión FP16.</p>
+<p>Y eso es todo, el procedimiento es bastante simple y permite que el modelo se represente con solo -1 y 1.</p>
+<p>Los autores del artículo notaron que, usando esta técnica, obtenemos buenos resultados en modelos bastante profundos (más de 30B), pero los resultados son bastante mediocres para modelos más pequeños.</p>
+</section>
+<section id="bitnet-1-58-necesitamos-el-cero">
+<h3>BitNet 1.58: ¡Necesitamos el cero!<a class="headerlink" href="#bitnet-1-58-necesitamos-el-cero" title="Link to this heading">#</a></h3>
+<p>El método <a class="reference external" href="https://arxiv.org/pdf/2402.17764">BitNet1.58</a> fue introducido para mejorar el modelo anterior, especialmente para el caso de modelos más pequeños.
+En este método, los autores proponen agregar el valor 0 además de -1 y 1. Esto no parece ser un gran cambio, pero este método permite mejorar enormemente el modelo BitNet original.</p>
+<p><strong>Nota</strong>: El modelo se apoda 1.58 bits porque <span class="math notranslate nohighlight">\(log_2(3)=1.58\)</span>, por lo tanto, teóricamente, una representación de 3 valores usa 1.58 bits.</p>
+<p>Pero entonces, ¿por qué es útil el 0?
+En realidad, solo necesitamos volver a lo básico y mirar la multiplicación matricial.
+Una multiplicación matricial se puede descomponer en dos operaciones: la multiplicación de los pesos dos por dos y la suma de todos estos pesos.
+Con -1 y 1, al sumar, solo podíamos decidir agregar el valor o restarlo. Con la adición del 0, ahora podemos ignorar el valor:</p>
+<ul class="simple">
+<li><p>1: Quiero agregar este valor</p></li>
+<li><p>0: Quiero ignorar este valor</p></li>
+<li><p>-1: Quiero restar este valor</p></li>
+</ul>
+<p>De esta manera, podemos filtrar eficazmente los valores, lo que permite una mejor representación.</p>
+<p>Para realizar la cuantización en 1.58 bits, usamos la cuantización <em>absmean</em> que es una variante de <em>absmax</em>. En lugar de basarnos en el máximo, nos basamos en el promedio en valor absoluto <span class="math notranslate nohighlight">\(\alpha\)</span> y luego redondeamos los valores a -1, 0 o 1:</p>
+<p><img alt="BitNet 1.58" src="../_images/bitnet158.png" /></p>
+<p>Y eso es todo, son simplemente estas dos técnicas (representación ternaria y cuantización <em>absmean</em>) las que permiten mejorar drásticamente el método BitNet clásico y proponer modelos extremadamente cuantizados y aún potentes.</p>
+</section>
+</section>
+<section id="fine-tuning-de-los-modelos-de-lenguaje">
+<h2>Fine-Tuning de los modelos de lenguaje<a class="headerlink" href="#fine-tuning-de-los-modelos-de-lenguaje" title="Link to this heading">#</a></h2>
+<p>Cuando calculamos la VRAM necesaria para un modelo, solo miramos para la inferencia. Si queremos entrenar el modelo, la VRAM necesaria es mucho mayor y dependerá del optimizador que usemos (ver <a class="reference internal" href="#../Bonus_CursosEspec%C3%ADficos/05_Optimizador.ipynb"><span class="xref myst">curso sobre optimizadores</span></a>). Entonces podemos imaginar que los LLM necesitan una enorme cantidad de memoria para ser entrenados o <em>fine-tunados</em>.</p>
+<p>Para reducir esta necesidad de memoria, se han propuesto métodos de <em>fine-tuning</em> eficiente en parámetros (PEFT) y permiten reentrenar solo una parte del modelo. Además de permitir <em>fine-tunear</em> los modelos, esto también tiene el efecto de evitar el <em>olvido catastrófico</em> porque solo entrenamos una pequeña parte de los parámetros totales del modelo.</p>
+<p>Existen muchas métodos para el PEFT: LoRA, <em>Adapter</em>, <em>Prefix Tuning</em>, <em>Prompt Tuning</em>, QLoRA, etc.</p>
+<p>La idea con los métodos de tipo <em>Adapter</em>, LoRA y QLoRA es agregar una capa entrenable que permite adaptar el valor de los pesos (sin necesidad de reentrenar las capas base del modelo).</p>
+<section id="lora">
+<h3>LoRA<a class="headerlink" href="#lora" title="Link to this heading">#</a></h3>
+<p>El método <a class="reference external" href="https://arxiv.org/pdf/2106.09685">LoRA (adaptación de rango bajo de grandes modelos de lenguaje)</a> es una técnica de <em>fine-tuning</em> que permite adaptar un LLM a una tarea o dominio específico. Este método introduce matrices entrenables de descomposición en rango en cada capa del transformer, lo que reduce los parámetros entrenables del modelo porque las capas base están <em>congeladas</em>. El método puede potencialmente disminuir el número de parámetros entrenables en un factor de 10,000 mientras reduce la VRAM necesaria para el entrenamiento en un factor de hasta 3. El rendimiento de los modelos <em>fine-tunados</em> con este método es equivalente o mejor que los modelos <em>fine-tunados</em> de manera clásica en muchas tareas.</p>
+<p><img alt="LoRA" src="../_images/LoRA.webp" /></p>
+<p>En lugar de modificar la matriz <span class="math notranslate nohighlight">\(W\)</span> de una capa, el método LoRA agrega dos nuevas matrices <span class="math notranslate nohighlight">\(A\)</span> y <span class="math notranslate nohighlight">\(B\)</span> cuyo producto representa las modificaciones a aplicar a la matriz <span class="math notranslate nohighlight">\(W\)</span>.
+<span class="math notranslate nohighlight">\(Y=W+AB\)</span>
+Si <span class="math notranslate nohighlight">\(W\)</span> es de tamaño <span class="math notranslate nohighlight">\(m \times n\)</span>, entonces <span class="math notranslate nohighlight">\(A\)</span> es de tamaño <span class="math notranslate nohighlight">\(m \times r\)</span> y <span class="math notranslate nohighlight">\(B\)</span> de tamaño <span class="math notranslate nohighlight">\(r \times n\)</span>, donde <span class="math notranslate nohighlight">\(r\)</span> es el rango que es mucho más pequeño que <span class="math notranslate nohighlight">\(m\)</span> o <span class="math notranslate nohighlight">\(n\)</span> (lo que explica la disminución del número de parámetros). Durante el entrenamiento, solo <span class="math notranslate nohighlight">\(A\)</span> y <span class="math notranslate nohighlight">\(B\)</span> se modifican, lo que permite que el modelo aprenda la tarea específica.</p>
+</section>
+<section id="qlora">
+<h3>QLoRA<a class="headerlink" href="#qlora" title="Link to this heading">#</a></h3>
+<p>QLoRA es una versión mejorada de LoRA que permite agregar la cuantización de 4 bits para los parámetros del modelo preentrenado. Como hemos visto anteriormente, la cuantización permite reducir drásticamente la memoria necesaria para ejecutar el modelo. Al combinar LoRA y la cuantización, ahora podemos imaginar entrenar un LLM en una simple GPU de consumo, lo que parecía imposible hace solo unos años.</p>
+<p><strong>Nota</strong>: QLoRA cuantiza los pesos en <em>Normal Float</em> 4 (NF4), que es un método de cuantización específico para los modelos de deep learning. Para obtener más información, puede consultar este <a class="reference external" href="https://www.youtube.com/watch?v=TPcXVJ1VSRI&amp;amp;t=563s">video</a> en el tiempo indicado. El NF4 está diseñado específicamente para representar distribuciones gaussianas (y las redes neuronales se supone que tienen pesos que siguen una distribución gaussiana).</p>
+<p>QLoRA es una versión mejorada de LoRA que permite agregar la cuantización de 4 bits para los parámetros del modelo preentrenado. Como hemos visto anteriormente, la cuantización permite reducir drásticamente la memoria necesaria para ejecutar el modelo. Al combinar LoRA y la cuantización, ahora podemos imaginar entrenar un LLM en una simple GPU de consumo, lo que parecía imposible hace solo unos años.</p>
+<p><strong>Nota</strong>: QLoRA cuantiza los pesos en <em>Normal Float</em> 4 (NF4), que es un método de cuantización específico para los modelos de deep learning. Para obtener más información, puede consultar este <a class="reference external" href="https://www.youtube.com/watch?v=TPcXVJ1VSRI&amp;amp;t=563s">video</a> en el tiempo indicado. El NF4 está diseñado específicamente para representar distribuciones gaussianas (y las redes neuronales se supone que tienen pesos que siguen una distribución gaussiana).</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Bonus_CoursSpécifiques"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="10_Tokenization.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introducción a la tokenización</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-representar-los-numeros-en-una-computadora">¿Cómo representar los números en una computadora?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion-a-la-cuantizacion">Introducción a la cuantización</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#punto-rapido-sobre-las-precisiones-comunes">Punto rápido sobre las precisiones comunes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cuantizacion-simetrica">Cuantización simétrica</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cuantizacion-asimetrica">Cuantización asimétrica</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recorte-y-modificacion-de-rango">Recorte y modificación de rango</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibracion">Calibración</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cuantizacion-post-entrenamiento-ptq">Cuantización Post-Entrenamiento (PTQ)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cuantizacion-dinamica">Cuantización dinámica</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cuantizacion-estatica">Cuantización estática</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diferencia-entre-cuantizacion-dinamica-y-estatica">Diferencia entre cuantización dinámica y estática</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ptq-la-cuantizacion-en-4-bits">PTQ: la cuantización en 4 bits</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gptq">GPTQ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gguf">GGUF</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-con-conocimiento-de-cuantizacion-qat">Entrenamiento con Conocimiento de Cuantización (QAT)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bitnet-cuantizacion-de-1-bit">BitNet: cuantización de 1 bit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bitnet-1-58-necesitamos-el-cero">BitNet 1.58: ¡Necesitamos el cero!</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning-de-los-modelos-de-lenguaje">Fine-Tuning de los modelos de lenguaje</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lora">LoRA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qlora">QLoRA</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Simon Thomine
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div id="language-switcher" style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #eee;">
+  <span style="margin-right: 10px;">🌐 Language / Langue:</span>
+  <a href="#" onclick="switchToEnglish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #4CAF50; color: white; border-radius: 5px; font-weight: bold; transition: all 0.3s;">🇺🇸 English</a>
+  <a href="#" onclick="switchToFrench()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #f0f0f0; border-radius: 5px; transition: all 0.3s;">🇫🇷 Français</a>
+  <a href="#" onclick="switchToSpanish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ffd700; border-radius: 5px; transition: all 0.3s;">🇪🇸 Español</a>
+  <a href="#" onclick="switchToChinese()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ff4b4b; color: white; border-radius: 5px; transition: all 0.3s;">🇨🇳 中文</a>
+</div>
+<script>
+function getBaseUrl() {
+  let baseUrl = window.location.origin;
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    baseUrl += pathname.split('fr/')[0];
+  } else if (pathname.includes('en/')) {
+    baseUrl += pathname.split('en/')[0];
+  } else if (pathname.includes('es/')) {
+    baseUrl += pathname.split('es/')[0];
+  } else if (pathname.includes('zh/')) {
+    baseUrl += pathname.split('zh/')[0];
+  } else {
+    baseUrl += pathname.split('/').slice(0, -1).join('/') + '/';
+  }
+  return baseUrl;
+}
+
+function getCurrentPage() {
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    return pathname.split('fr/')[1] || 'index.html';
+  } else if (pathname.includes('en/')) {
+    return pathname.split('en/')[1] || 'index.html';
+  } else if (pathname.includes('es/')) {
+    return pathname.split('es/')[1] || 'index.html';
+  } else if (pathname.includes('zh/')) {
+    return pathname.split('zh/')[1] || 'index.html';
+  }
+  return 'index.html';
+}
+
+function switchToEnglish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'en/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToFrench() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'fr/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToSpanish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'es/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToChinese() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'zh/' + currentPage;
+  window.location.href = newUrl;
+}
+</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

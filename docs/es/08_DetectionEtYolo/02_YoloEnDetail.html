@@ -1,0 +1,875 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>YOLO en detalle &#8212; Deep Learning Course</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '08_DetectionEtYolo/02_YoloEnDetail';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Ultralytics" href="03_Ultralytics.html" />
+    <link rel="prev" title="Introducción a la detección de objetos en imágenes" href="01_Introduction.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><span style="font-size:2em; font-weight:bold;">🚀 Aprende Deep Learning desde cero 🚀</span></div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Deep Learning Course</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Curso de Deep Learning 🚀
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">🧮 Fundamentos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/01_D%C3%A9riv%C3%A9esEtDescenteDuGradient.html">Derivada y descenso del gradiente</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/02_R%C3%A9gressionLogistique.html">Regresión Logística</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔗 Redes totalmente conectadas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/01_MonPremierR%C3%A9seau.html">Mi primer red neuronal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/02_PytorchIntroduction.html">Introducción a PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/03_TechniquesAvanc%C3%A9es.html">Técnicas avanzadas</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🖼️ Redes convolucionales</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/01_CouchesDeConvolutions.html">Las capas de convolución</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/02_R%C3%A9seauConvolutif.html">Redes convolucionales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/03_ConvImplementation.html">Implementación de la capa de convolución</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/04_R%C3%A9seauConvolutifPytorch.html">Redes convolucionales con PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/05_ApplicationClassification.html">Aplicación en un conjunto de datos de imágenes en color</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/06_ApplicationSegmentation.html">Aplicación de la segmentación</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔄 Autoencoders</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/01_IntuitionEtPremierAE.html">Introducción a los autoencodificadores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/02_DenoisingAE.html">Autoencoder para desruido</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📝 PLN</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/01_Introduction.html">Introducción al PLN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/02_bigramme.html">Bigrama</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/03_R%C3%A9seauFullyConnected.html">Red neuronal completamente conectada</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/04_WaveNet.html">PyTorch y WaveNet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/05_Rnn.html">Redes neuronales recurrentes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/06_Lstm.html">Memoria a Corto-Largo Plazo (LSTM)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introducción a Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Visión por computadora con Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">Procesamiento del lenguaje natural con Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Procesamiento de audio con Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generación de imágenes con Diffusers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demostración con Gradio</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/01_Introduction.html">Introducción a los transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/02_GptFromScratch.html">Construyamos un GPT desde cero</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/03_TrainingOurGpt.html">Entrenamiento de nuestro modelo GPT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/04_ArchitectureEtParticularit%C3%A9s.html">Arquitectura y particularidades del <em>transformer</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/05_UtilisationsPossibles.html">Posibles usos de la arquitectura Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/06_VisionTransformerImplementation.html">Implementación del Vision Transformer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/07_SwinTransformer.html">Swin Transformer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎯 Detección y YOLO</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_Introduction.html">Introducción a la detección de objetos en imágenes</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">YOLO en detalle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_Ultralytics.html">Ultralytics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔍 Entrenamiento contrastivo</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/01_FaceVerification.html">Verificación facial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/02_NonSupervis%C3%A9.html">Aprendizaje contrastivo no supervisado</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎓 Transfer Learning y Distillation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/01_TransferLearning.html">Aprendizaje por transferencia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/02_TransferLearningPytorch.html">Transfer Learning con PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/03_Distillation.html">La destilación de conocimientos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/04_DistillationAnomalie.html">Destilación de conocimientos para la detección no supervisada de anomalías</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/05_FineTuningLLM.html">Ajuste fino (Fine-Tuning) de los LLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/06_FineTuningBertHF.html">Ajuste fino de BERT con Hugging Face</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎨 Modelos generativos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/01_Introduction.html">Introducción a los modelos generativos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/02_GAN.html">Redes generativas antagónicas (GAN)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/03_GanImplementation.html">Implementación de una GAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/04_VAE.html">Autoencoders variacionales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/05_VaeImplementation.html">Implementación de un VAE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/06_NormalizingFlows.html">Flujos de normalización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/07_DiffusionModels.html">Modelos de difusión</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/08_DiffusionImplementation.html">Implementación de un modelo de difusión</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎁 Bonus – Cursos específicos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/01_ActivationEtInitialisation.html">Activaciones e inicializaciones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/02_BatchNorm.html">Normalización por lotes (<em>Batch Normalization</em>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/03_DataAugmentation.html">Aumento de datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/04_Broadcasting.html">Difusión (<em>Broadcasting</em>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/05_Optimizer.html">Comprender los diferentes optimizadores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/06_Regularisation.html">Regularización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/07_ConnexionsResiduelles.html">Conexiones residuales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/08_CrossValidation.html">Introducción a la validación cruzada</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/09_MetriquesEvaluation.html">Métricas de evaluación de modelos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/10_Tokenization.html">Introducción a la tokenización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/11_Quantization.html">Cuantización</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/edit/main/en/08_DetectionEtYolo/02_YoloEnDetail.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/issues/new?title=Issue%20on%20page%20%2F08_DetectionEtYolo/02_YoloEnDetail.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/08_DetectionEtYolo/02_YoloEnDetail.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>YOLO en detalle</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deteccion-de-objetos">Detección de objetos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#historia-de-la-deteccion-de-objetos">Historia de la detección de objetos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#you-only-look-once-yolo">You Only Look Once (YOLO)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#yolo-como-funciona">YOLO: ¿Cómo funciona?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#division-en-cuadricula">División en cuadrícula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arquitectura-del-modelo">Arquitectura del modelo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-del-modelo">Entrenamiento del modelo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitaciones-de-yolo">Limitaciones de YOLO</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mejoras-de-yolo">Mejoras de YOLO</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov2-2017-tambien-conocido-como-yolo9000">YOLOv2 (2017) - también conocido como YOLO9000</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov3-2018">YOLOv3 (2018)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov4-2020">YOLOv4 (2020)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov5-2020">YOLOv5 (2020)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov6-2022">YOLOv6 (2022)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov7-2022">YOLOv7 (2022)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov8-2023">YOLOv8 (2023)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolo-world-2024">YOLO-World (2024)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="yolo-en-detalle">
+<h1>YOLO en detalle<a class="headerlink" href="#yolo-en-detalle" title="Link to this heading">#</a></h1>
+<p>En este cuaderno, exploraremos en detalle el funcionamiento del modelo YOLO.</p>
+<section id="deteccion-de-objetos">
+<h2>Detección de objetos<a class="headerlink" href="#deteccion-de-objetos" title="Link to this heading">#</a></h2>
+<section id="historia-de-la-deteccion-de-objetos">
+<h3>Historia de la detección de objetos<a class="headerlink" href="#historia-de-la-deteccion-de-objetos" title="Link to this heading">#</a></h3>
+<p>Poco después de la publicación del famoso <a class="reference external" href="https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf">artículo</a> que popularizó el <em>deep learning</em>, los investigadores en procesamiento de imágenes comenzaron a desarrollar modelos de <em>deep learning</em>.</p>
+<p>Como se explicó en el cuaderno anterior, existen tres grandes categorías de algoritmos de procesamiento de imágenes: clasificación, detección y segmentación.</p>
+<p>La clasificación es relativamente sencilla de implementar con un modelo de <em>deep learning</em> profundo, siempre que se cuente con los recursos necesarios. Sin embargo, la detección requiere más ingenio.</p>
+<p>En 2014, un grupo de investigadores propuso el artículo <a class="reference external" href="https://arxiv.org/pdf/1311.2524">Rich feature hierarchies for accurate object detection and semantic segmentation</a>, más conocido como R-CNN. Este artículo, muy influyente, introdujo una arquitectura de dos etapas para la detección de objetos y ofreció un rendimiento notable. El principal problema de este enfoque es su tiempo de procesamiento demasiado lento, que no permite una detección en tiempo real. Numerosas técnicas intentaron resolver este problema proponiendo arquitecturas diferentes, como <a class="reference external" href="https://arxiv.org/pdf/1504.08083">fast R-CNN</a>, <a class="reference external" href="https://arxiv.org/pdf/1506.01497">faster R-CNN</a> y <a class="reference external" href="https://arxiv.org/pdf/1703.06870">mask R-CNN</a>. Estos métodos mejoran significativamente el R-CNN básico, pero no son suficientes para lograr una detección en tiempo real en la mayoría de los casos.</p>
+<p>En 2015, un artículo provocó un cambio radical en el campo de la detección de objetos. Este artículo es <a class="reference external" href="https://arxiv.org/pdf/1506.02640">You Only Look Once: Unified, Real-Time Object Detection</a>.</p>
+</section>
+<section id="you-only-look-once-yolo">
+<h3>You Only Look Once (YOLO)<a class="headerlink" href="#you-only-look-once-yolo" title="Link to this heading">#</a></h3>
+<p>Los enfoques anteriores utilizaban una propuesta de regiones seguida de una clasificación. En otras palabras, explotaban clasificadores potentes para la detección de objetos.</p>
+<p>El artículo <em>You Only Look Once</em> (YOLO) propone predecir las <em>bounding boxes</em> y las probabilidades de pertenencia a una clase directamente mediante una única red neuronal. Esta arquitectura es mucho más rápida y permite alcanzar velocidades de procesamiento de hasta 45 imágenes por segundo.</p>
+<p>¡Es una revolución en el campo de la detección de objetos!</p>
+<p>Pero, ¿cómo funciona?</p>
+</section>
+</section>
+<section id="yolo-como-funciona">
+<h2>YOLO: ¿Cómo funciona?<a class="headerlink" href="#yolo-como-funciona" title="Link to this heading">#</a></h2>
+<p>Esta sección describe la arquitectura de YOLO inspirándose en este <a class="reference external" href="https://medium.com/analytics-vidhya/yolo-explained-5b6f4564f31">artículo del blog</a>. Se recomienda su lectura. Las imágenes utilizadas provienen del artículo del blog o del documento original.</p>
+<section id="division-en-cuadricula">
+<h3>División en cuadrícula<a class="headerlink" href="#division-en-cuadricula" title="Link to this heading">#</a></h3>
+<p>El principio básico de YOLO es dividir la imagen en partes más pequeñas mediante una cuadrícula de dimensión <span class="math notranslate nohighlight">\(S \times S\)</span>, como se muestra a continuación:</p>
+<p><img alt="yolo" src="../_images/grid.png" /></p>
+<p>La celda que contiene el centro de un objeto (por ejemplo, un perro o una bicicleta) es responsable de su detección (para el cálculo de la función de <em>loss</em>). Cada celda de la cuadrícula predice <span class="math notranslate nohighlight">\(B\)</span> <em>bounding boxes</em> (configurable, 2 en el artículo original) y una puntuación de confianza para cada una. La <em>bounding box</em> predicha contiene los valores <span class="math notranslate nohighlight">\(x, y, w, h, c\)</span>, donde <span class="math notranslate nohighlight">\((x, y)\)</span> es la posición del centro en la cuadrícula, <span class="math notranslate nohighlight">\((w, h)\)</span> son las dimensiones de la caja en porcentaje de la imagen completa y <span class="math notranslate nohighlight">\(c\)</span> es la confianza del modelo (probabilidad).</p>
+<p>Para calcular la precisión de nuestra <em>bounding box</em> durante el entrenamiento (componente de la función de <em>loss</em>), se utiliza la métrica <em>intersection over union</em> (IoU), definida como:</p>
+<p><span class="math notranslate nohighlight">\(\frac{pred_{box}\cap label_{box}}{pred_{box} \cup label_{box}}\)</span></p>
+<p><img alt="iou" src="../_images/iou.png" /></p>
+<p>Además de predecir la <em>bounding box</em> y la confianza, cada celda también predice la clase del objeto. Esta clase está representada por un vector <em>one-hot</em> (que contiene solo ceros, excepto un 1 en la clase correcta) en las anotaciones. Es importante señalar que cada celda puede predecir varias <em>bounding boxes</em>, pero solo una clase. Esta es una de las limitaciones del algoritmo: si varios objetos están en la misma celda, el modelo no podrá predecirlos correctamente.</p>
+<p>Ahora que tenemos toda la información, podemos calcular la dimensión de salida de la red. Tenemos <span class="math notranslate nohighlight">\(S \times S\)</span> celdas, cada celda predice <span class="math notranslate nohighlight">\(B\)</span> <em>bounding boxes</em> y <span class="math notranslate nohighlight">\(C\)</span> probabilidades (donde <span class="math notranslate nohighlight">\(C\)</span> es el número de clases).</p>
+<p>Por lo tanto, la predicción del modelo tiene una dimensión de: <span class="math notranslate nohighlight">\(S \times S \times (C + B \times 5)\)</span>.</p>
+<p>Esto nos lleva a la siguiente figura:</p>
+<p><img alt="yolo" src="../_images/yolo.png" /></p>
+<p>La figura de arriba en el centro muestra las <em>bounding boxes</em> predichas por el modelo (aquellas con un borde más grueso tienen puntuaciones de confianza altas). La figura de abajo en el centro muestra la clase predicha en cada celda (en azul la clase perro, en amarillo la clase bicicleta y en rosa la clase coche).</p>
+</section>
+<section id="arquitectura-del-modelo">
+<h3>Arquitectura del modelo<a class="headerlink" href="#arquitectura-del-modelo" title="Link to this heading">#</a></h3>
+<p>La arquitectura del modelo YOLO, en términos de disposición de las capas, también es particular. Se compone de tres componentes principales: <em>head</em>, <em>neck</em> y <em>backbone</em>.</p>
+<ul class="simple">
+<li><p><strong>Backbone</strong>: Es la parte más importante de la red, compuesta por una serie de convoluciones para detectar las características más importantes. Esta parte suele estar preentrenada en un conjunto de datos de clasificación.</p></li>
+<li><p><strong>Neck y Head</strong>: Estas capas procesan la salida de las capas convolucionales para producir una predicción de tamaño <span class="math notranslate nohighlight">\(S \times S \times (C + B \times 5)\)</span>.</p></li>
+</ul>
+<p>En el artículo original de YOLO, la cuadrícula tiene un tamaño de 7x7, hay 20 clases (<a class="reference external" href="http://host.robots.ox.ac.uk/pascal/VOC/">Pascal VOC</a>) y se predicen dos <em>bounding boxes</em> por celda. Esto da una predicción de tamaño:</p>
+<p><span class="math notranslate nohighlight">\(7 \times 7 \times (20 + 2 \times 5) = 1470\)</span></p>
+</section>
+<section id="entrenamiento-del-modelo">
+<h3>Entrenamiento del modelo<a class="headerlink" href="#entrenamiento-del-modelo" title="Link to this heading">#</a></h3>
+<p>Los valores de entrenamiento del modelo (tamaño de imagen, <em>epochs</em>, número de capas, <em>batch_size</em>, etc.) se detallan en el artículo original y no entraremos en detalles aquí.</p>
+<p>Sin embargo, es interesante profundizar un poco en la función de <em>loss</em>. La idea lógica básica sería utilizar simplemente la función de <em>loss</em> MSE entre nuestras predicciones y las etiquetas. Sin embargo, esto no funciona directamente porque el modelo daría la misma importancia a la calidad de la localización y a la precisión de la predicción. En la práctica, se utiliza una ponderación en las funciones de <em>loss</em> <span class="math notranslate nohighlight">\(\lambda_{coord}\)</span> y <span class="math notranslate nohighlight">\(\lambda_{noobj}\)</span>. Los valores del artículo original se establecen en 5 para <span class="math notranslate nohighlight">\(\lambda_{coord}\)</span> y 0.5 para <span class="math notranslate nohighlight">\(\lambda_{noobj}\)</span>. Cabe señalar que <span class="math notranslate nohighlight">\(\lambda_{noobj}\)</span> se utiliza solo en las celdas donde no hay objetos para evitar que su puntuación de confianza, cercana a 0, afecte demasiado a las celdas que contienen objetos.</p>
+</section>
+<section id="limitaciones-de-yolo">
+<h3>Limitaciones de YOLO<a class="headerlink" href="#limitaciones-de-yolo" title="Link to this heading">#</a></h3>
+<p>Ya hemos mencionado su principal limitación: solo predecir un número limitado de <em>bounding boxes</em> por celda y no permitir la detección de objetos de diferentes categorías en la misma celda. Esto plantea problemas cuando se desea detectar personas en una multitud, por ejemplo.</p>
+</section>
+</section>
+<section id="mejoras-de-yolo">
+<h2>Mejoras de YOLO<a class="headerlink" href="#mejoras-de-yolo" title="Link to this heading">#</a></h2>
+<p>Hemos visto que YOLO es un modelo muy eficiente y rápido para la detección de objetos en imágenes. Por esta razón, muchos investigadores han buscado mejorarlo proponiendo diversas optimizaciones. Incluso hoy en día, nuevas versiones de YOLO se lanzan regularmente.</p>
+<p>Esta sección presenta cronológicamente las diferentes versiones de YOLO.</p>
+<section id="yolov2-2017-tambien-conocido-como-yolo9000">
+<h3>YOLOv2 (2017) - también conocido como YOLO9000<a class="headerlink" href="#yolov2-2017-tambien-conocido-como-yolo9000" title="Link to this heading">#</a></h3>
+<p><strong>Artículo: <a class="reference external" href="https://arxiv.org/pdf/1612.08242">YOLO9000: Better, Faster, Stronger</a></strong></p>
+<p><strong>Innovaciones:</strong></p>
+<ul class="simple">
+<li><p>Introducción de la idea de <em>anchors</em> (anclas) para mejorar la precisión de las predicciones de las cajas.</p></li>
+<li><p>Cambio de la resolución de entrada de 224x224 a 416x416 para mejorar la detección de objetos pequeños.</p></li>
+</ul>
+</section>
+<section id="yolov3-2018">
+<h3>YOLOv3 (2018)<a class="headerlink" href="#yolov3-2018" title="Link to this heading">#</a></h3>
+<p><strong>Artículo: <a class="reference external" href="https://arxiv.org/abs/1804.02767">YOLOv3: An Incremental Improvement</a></strong></p>
+<p><strong>Innovaciones:</strong></p>
+<ul class="simple">
+<li><p>Uso de un modelo más profundo con una arquitectura Darknet-53, una red neuronal convolucional residual.</p></li>
+<li><p>Detección multiescala, con predicciones realizadas en tres niveles de granularidad diferentes (<em>feature maps</em> de distintos tamaños).</p></li>
+</ul>
+</section>
+<section id="yolov4-2020">
+<h3>YOLOv4 (2020)<a class="headerlink" href="#yolov4-2020" title="Link to this heading">#</a></h3>
+<p><strong>Artículo: <a class="reference external" href="https://arxiv.org/abs/2004.10934">YOLOv4: Optimal Speed and Accuracy of Object Detection</a></strong></p>
+<p><strong>Innovaciones:</strong></p>
+<ul class="simple">
+<li><p>Uso del <em>backbone</em> CSPDarknet53 para un mejor rendimiento.</p></li>
+<li><p>Mejoras en las cabezas de detección con PANet (Path Aggregation Network) para optimizar los flujos de información.</p></li>
+<li><p>Introducción del concepto de <em>Mosaic Data Augmentation</em> para enriquecer la diversidad de los datos de entrenamiento.</p></li>
+<li><p>Adición de diversas técnicas modernas como <em>DropBlock</em>, activación <em>Mish</em> y SPP (<em>Spatial Pyramid Pooling</em>).</p></li>
+</ul>
+</section>
+<section id="yolov5-2020">
+<h3>YOLOv5 (2020)<a class="headerlink" href="#yolov5-2020" title="Link to this heading">#</a></h3>
+<p><strong>Desarrollado por Ultralytics</strong></p>
+<p><strong>Innovaciones:</strong></p>
+<ul class="simple">
+<li><p>Sin artículo oficial, pero con mejoras prácticas en la implementación y el rendimiento.</p></li>
+<li><p>Modelo más ligero y más fácil de entrenar con una mejor gestión de las dependencias.</p></li>
+</ul>
+</section>
+<section id="yolov6-2022">
+<h3>YOLOv6 (2022)<a class="headerlink" href="#yolov6-2022" title="Link to this heading">#</a></h3>
+<p><strong>Innovaciones:</strong></p>
+<ul class="simple">
+<li><p>Nuevo <em>backbone</em> YOLOv6S, optimizado para el rendimiento en tiempo real.</p></li>
+<li><p>Técnicas avanzadas de reducción de latencia.</p></li>
+<li><p>Mejoras en los métodos de aumento de datos y optimización de hiperparámetros.</p></li>
+</ul>
+</section>
+<section id="yolov7-2022">
+<h3>YOLOv7 (2022)<a class="headerlink" href="#yolov7-2022" title="Link to this heading">#</a></h3>
+<p><strong>Artículo: <a class="reference external" href="https://arxiv.org/abs/2207.02696">YOLOv7: Trainable bag-of-freebies sets new state-of-the-art for real-time object detectors</a></strong></p>
+<p><strong>Innovaciones:</strong></p>
+<ul class="simple">
+<li><p>Integración de <em>bag of freebies</em> para mejorar la precisión sin aumentar el tiempo de inferencia.</p></li>
+<li><p>Arquitectura optimizada para un equilibrio óptimo entre velocidad y precisión.</p></li>
+<li><p>Adición de diversas técnicas de regularización para mejorar el rendimiento general.</p></li>
+</ul>
+</section>
+<section id="yolov8-2023">
+<h3>YOLOv8 (2023)<a class="headerlink" href="#yolov8-2023" title="Link to this heading">#</a></h3>
+<p><strong>Desarrollado por Ultralytics</strong></p>
+<p><strong>Innovaciones:</strong></p>
+<ul class="simple">
+<li><p>Aún más optimizado para el rendimiento en tiempo real y la integración móvil.</p></li>
+<li><p>Arquitectura flexible que permite ajustes para diversos casos de uso, incluyendo detección, segmentación y clasificación.</p></li>
+</ul>
+</section>
+<section id="yolo-world-2024">
+<h3>YOLO-World (2024)<a class="headerlink" href="#yolo-world-2024" title="Link to this heading">#</a></h3>
+<p><strong>Artículo: <a class="reference external" href="https://arxiv.org/pdf/2401.17270">YOLO-World: Real-Time Open-Vocabulary Object Detection</a></strong></p>
+<p><strong>Innovaciones:</strong></p>
+<ul class="simple">
+<li><p>Uso de un <em>transformer encoder</em> para texto que permite la detección de <em>vocabulario abierto</em>.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./08_DetectionEtYolo"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_Introduction.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introducción a la detección de objetos en imágenes</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03_Ultralytics.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Ultralytics</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deteccion-de-objetos">Detección de objetos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#historia-de-la-deteccion-de-objetos">Historia de la detección de objetos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#you-only-look-once-yolo">You Only Look Once (YOLO)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#yolo-como-funciona">YOLO: ¿Cómo funciona?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#division-en-cuadricula">División en cuadrícula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arquitectura-del-modelo">Arquitectura del modelo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-del-modelo">Entrenamiento del modelo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitaciones-de-yolo">Limitaciones de YOLO</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mejoras-de-yolo">Mejoras de YOLO</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov2-2017-tambien-conocido-como-yolo9000">YOLOv2 (2017) - también conocido como YOLO9000</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov3-2018">YOLOv3 (2018)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov4-2020">YOLOv4 (2020)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov5-2020">YOLOv5 (2020)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov6-2022">YOLOv6 (2022)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov7-2022">YOLOv7 (2022)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolov8-2023">YOLOv8 (2023)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolo-world-2024">YOLO-World (2024)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Simon Thomine
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div id="language-switcher" style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #eee;">
+  <span style="margin-right: 10px;">🌐 Language / Langue:</span>
+  <a href="#" onclick="switchToEnglish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #4CAF50; color: white; border-radius: 5px; font-weight: bold; transition: all 0.3s;">🇺🇸 English</a>
+  <a href="#" onclick="switchToFrench()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #f0f0f0; border-radius: 5px; transition: all 0.3s;">🇫🇷 Français</a>
+  <a href="#" onclick="switchToSpanish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ffd700; border-radius: 5px; transition: all 0.3s;">🇪🇸 Español</a>
+  <a href="#" onclick="switchToChinese()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ff4b4b; color: white; border-radius: 5px; transition: all 0.3s;">🇨🇳 中文</a>
+</div>
+<script>
+function getBaseUrl() {
+  let baseUrl = window.location.origin;
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    baseUrl += pathname.split('fr/')[0];
+  } else if (pathname.includes('en/')) {
+    baseUrl += pathname.split('en/')[0];
+  } else if (pathname.includes('es/')) {
+    baseUrl += pathname.split('es/')[0];
+  } else if (pathname.includes('zh/')) {
+    baseUrl += pathname.split('zh/')[0];
+  } else {
+    baseUrl += pathname.split('/').slice(0, -1).join('/') + '/';
+  }
+  return baseUrl;
+}
+
+function getCurrentPage() {
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    return pathname.split('fr/')[1] || 'index.html';
+  } else if (pathname.includes('en/')) {
+    return pathname.split('en/')[1] || 'index.html';
+  } else if (pathname.includes('es/')) {
+    return pathname.split('es/')[1] || 'index.html';
+  } else if (pathname.includes('zh/')) {
+    return pathname.split('zh/')[1] || 'index.html';
+  }
+  return 'index.html';
+}
+
+function switchToEnglish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'en/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToFrench() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'fr/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToSpanish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'es/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToChinese() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'zh/' + currentPage;
+  window.location.href = newUrl;
+}
+</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

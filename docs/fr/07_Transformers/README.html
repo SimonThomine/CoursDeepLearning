@@ -112,7 +112,7 @@
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
 </div>
 <aside class="bd-header-announcement" aria-label="Announcement">
-  <div class="bd-header-announcement__content">🚀 Apprendre le Deep Learning à partir de zéro 🚀</div>
+  <div class="bd-header-announcement__content"><span style="font-size:2em; font-weight:bold;">🚀 Apprendre le Deep Learning à partir de zéro 🚀</span></div>
 </aside>
 
   
@@ -628,25 +628,27 @@ By Simon Thomine
     
 <div class="extra_footer">
   <div id="language-switcher" style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #eee;">
-  <span style="margin-right: 10px;">🌐 Langue / Language:</span>
-  <a href="#" onclick="switchToEnglish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #f0f0f0; border-radius: 5px; transition: all 0.3s;">🇺🇸 English</a>
-  <a href="#" onclick="switchToFrench()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #4CAF50; color: white; border-radius: 5px; font-weight: bold; transition: all 0.3s;">🇫🇷 Français</a>
+  <span style="margin-right: 10px;">🌐 Language / Langue:</span>
+  <a href="#" onclick="switchToEnglish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #4CAF50; color: white; border-radius: 5px; font-weight: bold; transition: all 0.3s;">🇺🇸 English</a>
+  <a href="#" onclick="switchToFrench()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #f0f0f0; border-radius: 5px; transition: all 0.3s;">🇫🇷 Français</a>
+  <a href="#" onclick="switchToSpanish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ffd700; border-radius: 5px; transition: all 0.3s;">🇪🇸 Español</a>
+  <a href="#" onclick="switchToChinese()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ff4b4b; color: white; border-radius: 5px; transition: all 0.3s;">🇨🇳 中文</a>
 </div>
 <script>
 function getBaseUrl() {
-  // Get the base URL without the build path
   let baseUrl = window.location.origin;
   let pathname = window.location.pathname;
-  
-  // Remove the build-specific parts
   if (pathname.includes('fr/')) {
     baseUrl += pathname.split('fr/')[0];
   } else if (pathname.includes('en/')) {
     baseUrl += pathname.split('en/')[0];
+  } else if (pathname.includes('es/')) {
+    baseUrl += pathname.split('es/')[0];
+  } else if (pathname.includes('zh/')) {
+    baseUrl += pathname.split('zh/')[0];
   } else {
     baseUrl += pathname.split('/').slice(0, -1).join('/') + '/';
   }
-  
   return baseUrl;
 }
 
@@ -656,6 +658,10 @@ function getCurrentPage() {
     return pathname.split('fr/')[1] || 'index.html';
   } else if (pathname.includes('en/')) {
     return pathname.split('en/')[1] || 'index.html';
+  } else if (pathname.includes('es/')) {
+    return pathname.split('es/')[1] || 'index.html';
+  } else if (pathname.includes('zh/')) {
+    return pathname.split('zh/')[1] || 'index.html';
   }
   return 'index.html';
 }
@@ -664,7 +670,6 @@ function switchToEnglish() {
   const baseUrl = getBaseUrl();
   const currentPage = getCurrentPage();
   const newUrl = baseUrl + 'en/' + currentPage;
-  console.log('Switching to English:', newUrl);
   window.location.href = newUrl;
 }
 
@@ -672,7 +677,20 @@ function switchToFrench() {
   const baseUrl = getBaseUrl();
   const currentPage = getCurrentPage();
   const newUrl = baseUrl + 'fr/' + currentPage;
-  console.log('Switching to French:', newUrl);
+  window.location.href = newUrl;
+}
+
+function switchToSpanish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'es/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToChinese() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'zh/' + currentPage;
   window.location.href = newUrl;
 }
 </script>

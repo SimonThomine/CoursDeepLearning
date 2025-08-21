@@ -1,0 +1,1031 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>模型量化 &#8212; Deep Learning Course</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Bonus_CoursSpécifiques/11_Quantization';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="词元化介绍" href="10_Tokenization.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><span style="font-size:2em; font-weight:bold;">🚀 从零开始学习深度学习 🚀</span></div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Deep Learning Course</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    深度学习课程 🚀
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">🧮 基础</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/01_D%C3%A9riv%C3%A9esEtDescenteDuGradient.html">导数与梯度下降</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/02_R%C3%A9gressionLogistique.html">逻辑回归</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔗 全连接网络</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/01_MonPremierR%C3%A9seau.html">我的第一个神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/02_PytorchIntroduction.html">PyTorch 简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/03_TechniquesAvanc%C3%A9es.html">高级技术</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🖼️ 卷积网络</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/01_CouchesDeConvolutions.html">卷积层</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/02_R%C3%A9seauConvolutif.html">卷积神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/03_ConvImplementation.html">卷积层的实现</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/04_R%C3%A9seauConvolutifPytorch.html">使用 PyTorch 构建卷积神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/05_ApplicationClassification.html">在彩色图像数据集上的应用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/06_ApplicationSegmentation.html">图像分割的应用</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔄 自编码器</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/01_IntuitionEtPremierAE.html">自编码器简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/02_DenoisingAE.html">使用自编码器进行图像去噪</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📝 自然语言处理 (NLP)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/01_Introduction.html">自然语言处理（NLP）简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/02_bigramme.html">二元模型（Bigram）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/03_R%C3%A9seauFullyConnected.html">全连接神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/04_WaveNet.html">使用 PyTorch 实现 WaveNet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/05_Rnn.html">循环神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/06_Lstm.html">长短期记忆网络（LSTM）</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Hugging Face 简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">使用 Transformer 的计算机视觉</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">使用 Transformers 进行自然语言处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">使用 Transformers 处理音频</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">使用 Diffusers 生成图像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">使用 Gradio 进行演示</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/01_Introduction.html">Transformer 模型简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/02_GptFromScratch.html">从零开始构建 GPT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/03_TrainingOurGpt.html">训练我们的 GPT 模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/04_ArchitectureEtParticularit%C3%A9s.html">变压器的结构和特性</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/05_UtilisationsPossibles.html">Transformer架构的可能应用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/06_VisionTransformerImplementation.html">Vision Transformer 的实现</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/07_SwinTransformer.html">Swin Transformer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎯 目标检测 (YOLO)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/01_Introduction.html">图像中的目标检测简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/02_YoloEnDetail.html">YOLO 详解</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/03_Ultralytics.html">Ultralytics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔍 对比学习训练</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/01_FaceVerification.html">人脸验证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/02_NonSupervis%C3%A9.html">无监督对比学习</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎓 迁移学习与蒸馏</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/01_TransferLearning.html">迁移学习</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/02_TransferLearningPytorch.html">使用 PyTorch 进行迁移学习</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/03_Distillation.html">知识蒸馏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/04_DistillationAnomalie.html">无监督异常检测的知识蒸馏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/05_FineTuningLLM.html">大型语言模型的微调</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/06_FineTuningBertHF.html">使用 Hugging Face 对 BERT 进行微调</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎨 生成模型</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/01_Introduction.html">生成模型简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/02_GAN.html">生成对抗网络（GAN）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/03_GanImplementation.html">生成对抗网络（GAN）的实现</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/04_VAE.html">变分自编码器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/05_VaeImplementation.html">变分自编码器（VAE）的实现</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/06_NormalizingFlows.html">归一化流</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/07_DiffusionModels.html">扩散模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/08_DiffusionImplementation.html">扩散模型的实现</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎁 拓展专题</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_ActivationEtInitialisation.html">激活函数与初始化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_BatchNorm.html">批量归一化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_DataAugmentation.html">数据增强</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_Broadcasting.html">广播机制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_Optimizer.html">理解不同的优化器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_Regularisation.html">正则化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_ConnexionsResiduelles.html">残差连接</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_CrossValidation.html">交叉验证简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_MetriquesEvaluation.html">模型评估指标</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_Tokenization.html">词元化介绍</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">模型量化</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/edit/main/en/Bonus_CoursSpécifiques/11_Quantization.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/issues/new?title=Issue%20on%20page%20%2FBonus_CoursSpécifiques/11_Quantization.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Bonus_CoursSpécifiques/11_Quantization.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>模型量化</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">计算机中如何表示数字？</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">量化简介</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">常见精度类型简介</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">对称量化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">非对称量化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">裁剪与范围调整</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">校准</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ptq">训练后量化（PTQ）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">动态量化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">静态量化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">动态量化与静态量化的区别</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ptq-4">PTQ：4 位量化</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gptq">GPTQ 方法</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gguf">GGUF 方法</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qat">量化感知训练（QAT）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bitnet-1">BitNet：1 位量化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bitnet-1-58">BitNet 1.58：引入零值！</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning-des-modeles-de-langages">Fine-Tuning des modèles de langages</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lora">LoRA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qlora">QLoRA</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>模型量化<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>深度学习模型的规模和性能不断增长。以大型语言模型（LLM）为例，最先进的开源模型（如 Llama 3.1）已拥有数千亿参数。</p>
+<p>如此庞大的模型无法在单个 GPU 上运行。即使使用市场上最强大的 GPU（如 H100，拥有 80GB 显存），也需要多个 GPU 才能进行推理，训练则需要更多。</p>
+<p>实践表明，模型参数越多，性能越好。因此我们不希望缩小模型规模，而是希望减少其内存占用。</p>
+<p>本课程主要参考以下两篇文章：</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-quantization?utm_source=ainews&amp;amp;utm_medium=email&amp;amp;utm_campaign=ainews-to-be-named-5098">量化的可视化指南</a></p></li>
+<li><p><a class="reference external" href="https://medium.com/&#64;dillipprasad60/qlora-explained-a-deep-dive-into-parametric-efficient-fine-tuning-in-large-language-models-llms-c1a4794b1766">QLoRA 的详细解释</a>
+文中的图片也来源于这两篇文章。</p></li>
+</ul>
+<section id="id2">
+<h2>计算机中如何表示数字？<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>在计算机中，浮点数使用特定位数表示。<a class="reference external" href="https://en.wikipedia.org/wiki/IEEE_754">IEEE 754</a> 标准定义了如何用三部分（符号位、指数位和尾数位）表示一个数。</p>
+<p>以下是 FP16（16 位）浮点数的表示示例：</p>
+<p><img alt="FP16 示例" src="../_images/Fp16.png" /></p>
+<p>符号位决定数的正负，指数位表示小数点前的数字，尾数位表示小数点后的数字。以下是将 FP16 表示转换为实际数值的示例：</p>
+<p><img alt="FP16 转换示例" src="../_images/convert.webp" /></p>
+<p>通常，使用的位数越多，数值的精度越高，可表示的范围也越大。例如，FP16 和 FP32 的精度对比如下：</p>
+<p><img alt="浮点数精度对比" src="../_images/compareFP.webp" /></p>
+<p>需要注意的是，评估数值表示的两个关键指标是：</p>
+<ul class="simple">
+<li><p><strong>动态范围（Dynamic Range）</strong>：表示可表示的数值范围</p></li>
+<li><p><strong>精度（Precision）</strong>：表示相邻数值之间的最小差异</p></li>
+</ul>
+<p>指数位越多，动态范围越大；尾数位越多，精度越高（相邻数值间隔越小）。</p>
+<p>在深度学习中，通常优先选择 BF16 而非 FP16。BF16 具有更大的指数位（动态范围更大），但精度较低。</p>
+<p>下图展示了它们的区别：</p>
+<p><img alt="BF16 对比" src="../_images/BF16.webp" /></p>
+<p>现在我们理解了浮点数精度的概念，可以计算模型在不同精度下的内存占用。在 FP32 下，每个数占用 32 位（即 4 字节，1 字节 = 8 位）。模型的内存占用可通过以下公式计算：
+<span class="math notranslate nohighlight">\(memory= \frac{n_{bits}}{8} \times n_{params}\)</span></p>
+<p>以一个 700 亿参数的模型为例，在不同精度下的内存占用如下：</p>
+<ul class="simple">
+<li><p>FP64（双精度）：<span class="math notranslate nohighlight">\(\frac{64}{8} \times 70B = 560GB\)</span></p></li>
+<li><p>FP32（单精度）：<span class="math notranslate nohighlight">\(\frac{32}{8} \times 70B = 280GB\)</span></p></li>
+<li><p>FP16（半精度）：<span class="math notranslate nohighlight">\(\frac{16}{8} \times 70B = 140GB\)</span></p></li>
+</ul>
+<p>可以看到，即使使用半精度（FP16），模型仍需 140GB 内存，相当于 2 块 H100 GPU 的显存。</p>
+<p><strong>注意</strong>：这里讨论的是推理阶段的精度。在训练阶段，由于需要保存激活值以进行梯度下降，内存占用会更高（详见后续 QLoRA 部分）。</p>
+</section>
+<section id="id3">
+<h2>量化简介<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>量化的目标是将模型从高精度（如 FP32）降低到低精度（如 INT8），从而减少内存占用。</p>
+<p><strong>注意</strong>：INT8 是用 8 位表示 -127 到 127 的整数。</p>
+<p><img alt="量化示意图" src="../_images/quantization.webp" /></p>
+<p>减少位数会导致精度损失。以下图片可以直观展示这一点：</p>
+<p><img alt="饼干图片（量化后）" src="../_images/cookies.webp" /></p>
+<p>可以看到图片出现“颗粒感”，这是由于可用颜色数量减少导致的。我们的目标是减少位数的同时，尽可能保留原始图片的精度。</p>
+<p>量化主要有两种方法：</p>
+<ul class="simple">
+<li><p>对称量化</p></li>
+<li><p>非对称量化</p></li>
+</ul>
+<section id="id4">
+<h3>常见精度类型简介<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p><strong>FP16</strong>：相较于 FP32，精度和动态范围均降低。</p>
+<p><img alt="FP16 特性" src="../_images/fp16.webp" /></p>
+<p><strong>BF16</strong>：精度显著降低，但动态范围与 FP32 相同。</p>
+<p><img alt="BF16 特性" src="../_images/bf16.webp" /></p>
+<p><strong>INT8</strong>：使用整数表示。</p>
+<p><img alt="INT8 特性" src="../_images/int8.webp" /></p>
+</section>
+<section id="id5">
+<h3>对称量化<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>对称量化将原始浮点数的取值范围对称地映射到量化后的取值范围，即浮点数中的 0 映射到量化后的 0。</p>
+<p><img alt="对称量化示意图" src="../_images/symmetricq.webp" /></p>
+<p>最常用的对称量化方法是 <strong>absmax（绝对值最大量化）</strong>。该方法使用数据的绝对最大值进行映射：</p>
+<p><img alt="absmax 量化示意图" src="../_images/absmax.webp" /></p>
+<p>量化公式如下（设 <span class="math notranslate nohighlight">\(b\)</span> 为目标位数，<span class="math notranslate nohighlight">\(\alpha\)</span> 为数据的绝对最大值）：</p>
+<ol class="arabic simple">
+<li><p>计算缩放因子：
+<span class="math notranslate nohighlight">\(s=\frac{2^{b-1}-1}{\alpha}\)</span></p></li>
+<li><p>量化操作：
+<span class="math notranslate nohighlight">\(x_{quantized}=round(s \times x)\)</span></p></li>
+<li><p>反量化（恢复 FP32）：
+<span class="math notranslate nohighlight">\(x_{dequantized}=\frac{x_{quantized}}{s}\)</span></p></li>
+</ol>
+<p>需要注意的是，反量化后的值与原始值并不完全相同：</p>
+<p><img alt="absmax 量化示例" src="../_images/absmaxExample.png" /></p>
+<p>量化误差可视化：</p>
+<p><img alt="absmax 量化误差" src="../_images/absmaxError.png" /></p>
+</section>
+<section id="id6">
+<h3>非对称量化<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>非对称量化不以 0 为对称中心。它将原始浮点数的最小值 <span class="math notranslate nohighlight">\(\beta\)</span> 和最大值 <span class="math notranslate nohighlight">\(\alpha\)</span> 映射到量化范围的最小值和最大值。最常用的方法是 <strong>零点量化（zero-point quantization）</strong>：</p>
+<p><img alt="非对称量化示意图" src="../_images/asymetric.png" /></p>
+<p>由于 0 的位置发生了变化，因此称为非对称量化。我们需要计算 <strong>零点（zero-point）</strong> 以实现线性映射。</p>
+<p>量化步骤如下（假设量化到 INT8）：</p>
+<ol class="arabic simple">
+<li><p>计算缩放因子：
+<span class="math notranslate nohighlight">\(s=\frac{128 - (-127)}{\alpha - \beta}\)</span></p></li>
+<li><p>计算零点：
+<span class="math notranslate nohighlight">\(z=round(-s \times \beta) - 2^{b-1}\)</span></p></li>
+<li><p>量化操作：
+<span class="math notranslate nohighlight">\(x_{quantized}=round(s \times x + z)\)</span></p></li>
+<li><p>反量化：
+<span class="math notranslate nohighlight">\(x_{dequantized}=\frac{x_{quantized}-z}{s}\)</span></p></li>
+</ol>
+<p>两种方法各有优缺点。以下是它们在任意输入 <span class="math notranslate nohighlight">\(x\)</span> 下的表现对比：</p>
+<p><img alt="对称与非对称量化对比" src="../_images/compare.png" /></p>
+</section>
+<section id="id7">
+<h3>裁剪与范围调整<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>上述方法的一个主要缺点是对 <strong>异常值（outliers）</strong> 不鲁棒。假设向量 <span class="math notranslate nohighlight">\(x\)</span> 包含以下值：
+[-0.59, -0.21, -0.07, 0.13, 0.28, 0.57, 256]
+直接量化会导致除 256 外的所有值被映射到相同的量化值：</p>
+<p><img alt="异常值处理示例" src="../_images/outlier.png" /></p>
+<p>这会造成巨大的信息损失，因此需要特殊处理。</p>
+<p>实际应用中，我们可以通过 <strong>裁剪（clipping）</strong> 限制浮点数的范围。例如，将值限制在 [-5, 5] 范围内，超出该范围的值将被映射到量化范围的最大值或最小值（INT8 中为 127 或 -127）：</p>
+<p><img alt="裁剪示意图" src="../_images/clipping.png" /></p>
+<p>裁剪减小了非异常值的误差，但会增大异常值的误差（这可能带来新的问题）。</p>
+</section>
+<section id="id8">
+<h3>校准<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>前面我们任意选择了 [-5, 5] 作为量化范围。实际上，这个范围是通过 <strong>校准（calibration）</strong> 方法确定的。校准的目标是找到一个能最小化整体量化误差的取值范围。不同类型的参数（权重、激活值等）采用的校准方法也不同。</p>
+<p><strong>权重与偏置的校准</strong>：
+权重和偏置是模型训练后固定的静态值。由于权重数量远多于偏置，通常我们只量化权重，而保留偏置的原始精度。</p>
+<p>权重的校准方法包括：</p>
+<ul class="simple">
+<li><p>手动选择输入范围的百分比</p></li>
+<li><p>最小化原始权重与量化权重的均方误差（MSE）</p></li>
+<li><p>使用 KL 散度最小化熵差</p></li>
+</ul>
+<p>百分比方法与我们之前介绍的类似，而后两种方法更严谨且有效。</p>
+<p><strong>激活值的校准</strong>：
+激活值依赖于模型输入，且在每层后动态更新，因此难以直接量化。这需要在推理过程中实时观测。
+这引出了两种主要的量化方法：</p>
+<ul class="simple">
+<li><p><strong>训练后量化（PTQ）</strong>：在模型训练完成后进行</p></li>
+<li><p><strong>量化感知训练（QAT）</strong>：在训练或微调过程中同时进行量化</p></li>
+</ul>
+</section>
+</section>
+<section id="ptq">
+<h2>训练后量化（PTQ）<a class="headerlink" href="#ptq" title="Link to this heading">#</a></h2>
+<p>最常见的量化方法是 <strong>训练后量化（PTQ）</strong>，因为它无需重新训练或微调模型。</p>
+<p>权重的量化可采用对称或非对称量化。</p>
+<p>激活值的量化较为复杂，因为其取值范围在训练后无法预知。激活值的量化有两种形式：</p>
+<ul class="simple">
+<li><p>动态量化</p></li>
+<li><p>静态量化</p></li>
+</ul>
+<section id="id9">
+<h3>动态量化<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>动态量化在数据通过某一层后，收集该层的激活值，并实时计算 <strong>零点（zeropoint）</strong> 和 <strong>缩放因子（scale factor）</strong> 进行量化：</p>
+<p><img alt="动态量化流程 1" src="../_images/dynamicQ.webp" /></p>
+<p>每个层有独立的零点和缩放因子，因此量化方式因层而异：</p>
+<p><img alt="动态量化流程 2" src="../_images/dynamicQ2.webp" /></p>
+<p><strong>注意</strong>：动态量化发生在 <strong>推理过程中</strong>。</p>
+</section>
+<section id="id10">
+<h3>静态量化<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>与动态量化不同，<strong>静态量化</strong> 不在推理时计算零点和缩放因子。而是在推理前，使用一个 <strong>校准数据集</strong> 预先计算这些参数。该数据集应能代表实际数据分布，用于估计激活值的统计分布：</p>
+<p><img alt="静态量化流程" src="../_images/staticQ.png" /></p>
+<p>通过校准数据集收集所有层的激活值后，计算出的缩放因子和零点将用于后续所有激活值的量化。</p>
+</section>
+<section id="id11">
+<h3>动态量化与静态量化的区别<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>动态量化</strong>：因每层独立计算缩放因子和零点，精度较高，但会增加推理时间。</p></li>
+<li><p><strong>静态量化</strong>：精度略低，但推理速度更快。</p></li>
+</ul>
+</section>
+</section>
+<section id="ptq-4">
+<h2>PTQ：4 位量化<a class="headerlink" href="#ptq-4" title="Link to this heading">#</a></h2>
+<p>理想情况下，我们希望将量化精度降至 4 位（而非 8 位），但直接应用之前的方法会导致误差剧增。</p>
+<p>目前有几种方法可将位数降至 2 位（建议保持在 4 位）。其中两种主流方法为：</p>
+<ul class="simple">
+<li><p><strong>GPTQ</strong>（仅使用 GPU）</p></li>
+<li><p><strong>GGUF</strong>（可部分使用 CPU）</p></li>
+</ul>
+<section id="gptq">
+<h3>GPTQ 方法<a class="headerlink" href="#gptq" title="Link to this heading">#</a></h3>
+<p><strong>GPTQ</strong> 是目前最流行的 4 位量化方法。其核心思想是 <strong>逐层独立进行非对称量化</strong>：</p>
+<p><img alt="GPTQ 流程示意图" src="../_images/GPTQ.png" /></p>
+<p>在量化过程中，权重会转换为 <strong>Hessian 矩阵的逆矩阵</strong>（损失函数的二阶导数），以评估模型输出对每个权重变化的敏感度。Hessian 中值较小的权重更为重要，因为其微小变化会显著影响模型输出：</p>
+<p><img alt="Hessian 矩阵示意图" src="../_images/hessian.png" /></p>
+<p>接下来，我们会对权重进行 <strong>量化→反量化</strong>，并计算 <strong>量化误差</strong>。该误差结合 Hessian 矩阵，用于加权调整其他权重，以保持模型整体功能：</p>
+<p><img alt="GPTQ 误差计算" src="../_images/GPTQError.png" /></p>
+<p>加权误差计算公式：
+<span class="math notranslate nohighlight">\(q=\frac{x_1-y_1}{h_1}\)</span>
+其中：</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x_1\)</span>：量化前的原始值</p></li>
+<li><p><span class="math notranslate nohighlight">\(y_1\)</span>：量化+反量化后的值</p></li>
+<li><p><span class="math notranslate nohighlight">\(h_1\)</span>：Hessian 矩阵中对应的值</p></li>
+</ul>
+<p>然后，我们将该加权误差重新分配到同一行的其他权重（如 <span class="math notranslate nohighlight">\(x_2\)</span>）：
+<span class="math notranslate nohighlight">\(x_2 = x_2 + q \times h_2\)</span></p>
+<p><img alt="GPTQ 误差分配流程" src="../_images/GPTQprocess.png" /></p>
+<p>该过程会迭代，直到所有权重完成量化。由于权重间相互关联，某个权重的量化误差可通过调整其他权重（基于 Hessian）得到补偿，因此该方法效果良好。</p>
+</section>
+<section id="gguf">
+<h3>GGUF 方法<a class="headerlink" href="#gguf" title="Link to this heading">#</a></h3>
+<p>虽然 GPTQ 能有效在 GPU 上运行 LLM，但对于特别大的模型，GPU 显存仍可能不足。<strong>GGUF</strong> 方法允许将 LLM 的任意层移动到 CPU，从而同时利用 <strong>内存（RAM）</strong> 和 <strong>显存（VRAM）</strong>。</p>
+<p>该方法会根据目标量化位数频繁调整，其基本流程如下：</p>
+<ol class="arabic simple">
+<li><p>将某一层的权重划分为 <strong>超级块（super block）</strong>，每个超级块再细分为 <strong>子块（sub block）</strong></p></li>
+<li><p>对每个块（超级块及子块）提取 <strong>缩放因子 <span class="math notranslate nohighlight">\(s\)</span></strong> 和 <strong>absmax 值 <span class="math notranslate nohighlight">\(\alpha\)</span></strong></p></li>
+</ol>
+<p><img alt="GGUF 量化结构示意图" src="../_images/GGUF.png" /></p>
+<p>子块的缩放因子 <span class="math notranslate nohighlight">\(s\)</span> 会使用超级块的缩放因子进行 <strong>二次量化</strong>，这种方法称为 <strong>分块量化（block-wise quantization）</strong>。</p>
+<p><strong>注意</strong>：通常超级块的量化精度高于子块（例如超级块用 8 位，子块用 4 位）。</p>
+</section>
+</section>
+<section id="qat">
+<h2>量化感知训练（QAT）<a class="headerlink" href="#qat" title="Link to this heading">#</a></h2>
+<p>与训练后量化（PTQ）不同，<strong>量化感知训练（QAT）</strong> 在训练过程中同时进行量化，并将量化参数（如缩放因子）纳入反向传播优化：</p>
+<p><img alt="QAT 流程示意图" src="../_images/QAT.png" /></p>
+<p>由于量化在训练阶段就被考虑在内，模型能主动适应量化带来的限制，因此 QAT 通常比 PTQ 更精确。</p>
+<p>QAT 的具体实现方式：
+在训练过程中引入 <strong>伪量化（fake quantization）</strong> 操作（例如 32 位→4 位→32 位），模拟实际量化效果：</p>
+<p><img alt="伪量化流程示意图" src="../_images/fakequantize.png" /></p>
+<p>这种方式使模型在训练时就“感知”到量化带来的限制，从而调整权重更新，以优化量化后的性能。</p>
+<p>可以这样理解：QAT 会引导模型收敛到 <strong>宽阔的极小值点</strong>，这些点对量化误差不敏感；而传统训练可能收敛到 <strong>狭窄的极小值点</strong>，量化后误差较大：</p>
+<p><img alt="极小值点对比示意图" src="../_images/minimums.png" /></p>
+<p>实践中，传统训练的模型在高精度（FP32）下损失更低，但一旦量化，QAT 训练的模型性能会显著优于 PTQ 量化的模型。</p>
+<section id="bitnet-1">
+<h3>BitNet：1 位量化<a class="headerlink" href="#bitnet-1" title="Link to this heading">#</a></h3>
+<p>将模型量化到 <strong>1 位</strong> 是减少模型大小的极致方案——每个权重仅用 0 或 1 表示，这听起来难以置信。</p>
+<p><a class="reference external" href="https://arxiv.org/pdf/2310.11453">BitNet</a> 提出用 <strong>-1 或 1</strong> 表示权重，并将 Transformer 中的线性层替换为 <strong>BitLinear 层</strong>：</p>
+<p><img alt="BitTransformer 架构示意图" src="../_images/bitTransformer.png" /></p>
+<p>BitLinear 层的工作原理与传统线性层相同，唯一区别是：</p>
+<ul class="simple">
+<li><p>权重用 <strong>1 位</strong> 表示（-1 或 1）</p></li>
+<li><p>激活值用 <strong>INT8</strong> 表示</p></li>
+</ul>
+<p>训练过程中同样使用 <strong>伪量化</strong>，使模型适应 1 位权重的限制：</p>
+<p><img alt="BitNet 伪量化示意图" src="../_images/bitnet.png" /></p>
+<p><strong>BitLinear 层的工作流程</strong>：</p>
+<ol class="arabic">
+<li><p><strong>权重量化</strong>
+训练时权重以 INT8 存储，并通过 <strong>signum 函数</strong> 量化为 1 位：</p>
+<ul class="simple">
+<li><p>小于 0 → -1</p></li>
+<li><p>大于 0 → 1
+该函数将权重分布中心对齐到 0。</p></li>
+</ul>
+<p><img alt="权重量化流程" src="../_images/weigthquanti.png" /></p>
+<p>同时提取 <strong>平均绝对值 <span class="math notranslate nohighlight">\(\beta\)</span></strong> 用于后续反量化。</p>
+</li>
+<li><p><strong>激活值量化</strong>
+使用 <strong>absmax 量化</strong> 将 FP16 激活值转换为 INT8，并存储 <strong>最大绝对值 <span class="math notranslate nohighlight">\(\alpha\)</span></strong> 用于反量化。</p></li>
+<li><p><strong>反量化</strong>
+利用保存的 <span class="math notranslate nohighlight">\(\alpha\)</span> 和 <span class="math notranslate nohighlight">\(\beta\)</span>，将 1 位权重和 INT8 激活值恢复为 FP16 精度。</p></li>
+</ol>
+<p>整个过程简单高效，使模型权重仅用 <strong>-1 和 1</strong> 表示。研究发现，该方法在 <strong>大于 300 亿参数</strong> 的深度模型上效果良好，但对小型模型的性能有限。</p>
+</section>
+<section id="bitnet-1-58">
+<h3>BitNet 1.58：引入零值！<a class="headerlink" href="#bitnet-1-58" title="Link to this heading">#</a></h3>
+<p>为改进原始 BitNet（尤其是小型模型的性能），<a class="reference external" href="https://arxiv.org/pdf/2402.17764">BitNet1.58</a> 在 <strong>-1 和 1</strong> 的基础上 <strong>引入了 0</strong> 。虽然看似微小，这一改动显著提升了模型表现。</p>
+<p><strong>注</strong>：因 <span class="math notranslate nohighlight">\(log_2(3)=1.58\)</span>，该方法被称为 1.58 位量化（3 种取值：-1、0、1）。</p>
+<p><strong>为何 0 如此关键？</strong>
+从矩阵乘法的基础出发：
+矩阵乘法 = 逐元素乘法 + 求和。原始 BitNet 仅能选择“加”或“减”操作，而引入 0 后，可实现：</p>
+<ul class="simple">
+<li><p><strong>1</strong>：加该值</p></li>
+<li><p><strong>0</strong>：忽略该值</p></li>
+<li><p><strong>-1</strong>：减该值</p></li>
+</ul>
+<p>这种“过滤”机制极大改善了表示能力。</p>
+<p><strong>1.58 位量化的实现</strong>：
+采用 <strong>absmean 量化</strong>（absmax 的变体），基于 <strong>平均绝对值 <span class="math notranslate nohighlight">\(\alpha\)</span></strong> （而非最大值）将权重四舍五入到 -1、0 或 1：</p>
+<p><img alt="BitNet 1.58 量化流程" src="../_images/bitnet158.png" /></p>
+<p>仅这两项改进（三值表示 + absmean 量化）就使 BitNet 性能显著提升，即使在极低位数下仍保持良好表现。</p>
+</section>
+</section>
+<section id="fine-tuning-des-modeles-de-langages">
+<h2>Fine-Tuning des modèles de langages<a class="headerlink" href="#fine-tuning-des-modeles-de-langages" title="Link to this heading">#</a></h2>
+<p>Lorsque nous avons calculé la VRAM nécessaire pour un modèle, nous avons regardé uniquement pour l’inférence. Si l’on souhaite entraîner le modèle, la VRAM nécessaire est beaucoup plus importante et va dépendre de l’optimizer que l’on utilise (voir <a class="reference internal" href="05_Optimizer.html"><span class="std std-doc">cours sur les optimizers</span></a>). On peut alors imaginer que les LLM ont besoin d’une quantité énorme de mémoire pour être entraînés ou <em>fine-tunés</em>.</p>
+<p>Pour réduire cette nécessité en mémoire, des méthodes de <em>parameter efficient fine-tuning</em> (PEFT) ont été proposées et permettent de ne réentraîner qu’une partie du modèle. En plus de permettre de <em>fine-tuner</em> les modèles, cela a également pour effet d’éviter le <em>catastrophic forgetting</em> car on entraîne uniquement une petite partie des paramètres totaux du modèle.</p>
+<p>Il existe de nombreuses méthodes pour le PEFT : LoRA, <em>Adapter</em>, <em>Prefix Tuning</em>, <em>Prompt Tuning</em>, QLoRA, etc.</p>
+<p>L’idée avec les méthodes de type <em>Adapter</em>, LoRA et QLoRA est d’ajouter une couche entraînable permettant d’adapter la valeur des poids (sans avoir besoin de réentraîner les couches de base du modèle).</p>
+<section id="lora">
+<h3>LoRA<a class="headerlink" href="#lora" title="Link to this heading">#</a></h3>
+<p>La méthode <a class="reference external" href="https://arxiv.org/pdf/2106.09685">LoRA (low-rank adaptation of large language models)</a> est une technique de <em>fine-tuning</em> permettant d’adapter un LLM à une tâche ou un domaine spécifique. Cette méthode introduit des matrices entraînables de décomposition en rang à chaque couche du transformer, ce qui réduit les paramètres entraînables du modèle car les couches de base sont <em>frozen</em>. La méthode peut potentiellement diminuer le nombre de paramètres entraînables d’un facteur 10 000 tout en réduisant la VRAM nécessaire pour l’entraînement d’un facteur allant jusqu’à 3. Les performances des modèles <em>fine-tunés</em> avec cette méthode sont équivalentes ou meilleures que les modèles <em>fine-tunés</em> de manière classique sur de nombreuses tâches.</p>
+<p><img alt="LoRA" src="../_images/LoRA.webp" /></p>
+<p>Au lieu de modifier la matrice <span class="math notranslate nohighlight">\(W\)</span> d’une couche, la méthode LoRA ajoute deux nouvelles matrices <span class="math notranslate nohighlight">\(A\)</span> et <span class="math notranslate nohighlight">\(B\)</span> dont le produit représente les modifications à apporter à la matrice <span class="math notranslate nohighlight">\(W\)</span>.
+<span class="math notranslate nohighlight">\(Y=W+AB\)</span>
+Si <span class="math notranslate nohighlight">\(W\)</span> est de taille <span class="math notranslate nohighlight">\(m \times n\)</span>, alors <span class="math notranslate nohighlight">\(A\)</span> est de taille <span class="math notranslate nohighlight">\(m \times r\)</span> et <span class="math notranslate nohighlight">\(B\)</span> de taille <span class="math notranslate nohighlight">\(r \times n\)</span>, où <span class="math notranslate nohighlight">\(r\)</span> est le rang qui est bien plus petit que <span class="math notranslate nohighlight">\(m\)</span> ou <span class="math notranslate nohighlight">\(n\)</span> (ce qui explique la diminution du nombre de paramètres). Pendant l’entraînement, seulement <span class="math notranslate nohighlight">\(A\)</span> et <span class="math notranslate nohighlight">\(B\)</span> sont modifiés, ce qui permet au modèle d’apprendre la tâche spécifique.</p>
+</section>
+<section id="qlora">
+<h3>QLoRA<a class="headerlink" href="#qlora" title="Link to this heading">#</a></h3>
+<p>QLoRA est une version améliorée de LoRA qui permet d’ajouter la quantification 4-bit pour les paramètres du modèle pré-entraîné. Comme nous l’avons vu précédemment, la quantification permet de réduire drastiquement la mémoire nécessaire pour faire tourner le modèle. En combinant LoRA et la quantification, on peut maintenant imaginer entraîner un LLM sur un simple GPU grand public, ce qui paraissait impossible il y a encore quelques années.</p>
+<p><strong>Note</strong> : QLoRA quantifie les poids en <em>Normal Float</em> 4 (NF4), qui est une méthode de quantification spécifique aux modèles de deep learning. Pour en savoir plus, vous pouvez consulter cette <a class="reference external" href="https://www.youtube.com/watch?v=TPcXVJ1VSRI&amp;amp;t=563s">vidéo</a> au temps indiqué. Le NF4 est conçu spécifiquement pour représenter des distributions gaussiennes (et les réseaux de neurones sont supposés avoir des poids suivant une distribution gaussienne).</p>
+<p>QLoRA est une version améliorée de LoRA qui permet d’ajouter la quantization 4-bit pour les paramètres du modèle pré-entrainé. Comme nous l’avons vu précédemment, la quantization permet de réduire drastiquement la mémoire nécessaire pour faire tourner le modèle. En combinant LoRA et la quantization, on peut maintenant imaginer faire entraîner un LLM sur un simple GPU grand public ce qui paraissait impossible il y encore quelques années.</p>
+<p><strong>Note</strong> : QLoRA quantize les poids en <em>Normal Float</em> 4 (NF4) qui est une méthode de quantization spécifique aux modèles de deep learning. Pour en savoir plus, vous pouvez consulter cette <a class="reference external" href="https://www.youtube.com/watch?v=TPcXVJ1VSRI&amp;amp;t=563s">vidéo</a> au temps indiqué. Le NF4 est conçu spécifiquement pour représenter des distributions gaussiennes (et les réseaux de neurones sont supposés avoir des poids suivants une distribution gaussienne).</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Bonus_CoursSpécifiques"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="10_Tokenization.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">词元化介绍</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">计算机中如何表示数字？</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">量化简介</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">常见精度类型简介</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">对称量化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">非对称量化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">裁剪与范围调整</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">校准</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ptq">训练后量化（PTQ）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">动态量化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">静态量化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">动态量化与静态量化的区别</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ptq-4">PTQ：4 位量化</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gptq">GPTQ 方法</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gguf">GGUF 方法</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qat">量化感知训练（QAT）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bitnet-1">BitNet：1 位量化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bitnet-1-58">BitNet 1.58：引入零值！</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning-des-modeles-de-langages">Fine-Tuning des modèles de langages</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lora">LoRA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qlora">QLoRA</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Simon Thomine
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div id="language-switcher" style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #eee;">
+  <span style="margin-right: 10px;">🌐 Language / Langue:</span>
+  <a href="#" onclick="switchToEnglish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #4CAF50; color: white; border-radius: 5px; font-weight: bold; transition: all 0.3s;">🇺🇸 English</a>
+  <a href="#" onclick="switchToFrench()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #f0f0f0; border-radius: 5px; transition: all 0.3s;">🇫🇷 Français</a>
+  <a href="#" onclick="switchToSpanish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ffd700; border-radius: 5px; transition: all 0.3s;">🇪🇸 Español</a>
+  <a href="#" onclick="switchToChinese()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ff4b4b; color: white; border-radius: 5px; transition: all 0.3s;">🇨🇳 中文</a>
+</div>
+<script>
+function getBaseUrl() {
+  let baseUrl = window.location.origin;
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    baseUrl += pathname.split('fr/')[0];
+  } else if (pathname.includes('en/')) {
+    baseUrl += pathname.split('en/')[0];
+  } else if (pathname.includes('es/')) {
+    baseUrl += pathname.split('es/')[0];
+  } else if (pathname.includes('zh/')) {
+    baseUrl += pathname.split('zh/')[0];
+  } else {
+    baseUrl += pathname.split('/').slice(0, -1).join('/') + '/';
+  }
+  return baseUrl;
+}
+
+function getCurrentPage() {
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    return pathname.split('fr/')[1] || 'index.html';
+  } else if (pathname.includes('en/')) {
+    return pathname.split('en/')[1] || 'index.html';
+  } else if (pathname.includes('es/')) {
+    return pathname.split('es/')[1] || 'index.html';
+  } else if (pathname.includes('zh/')) {
+    return pathname.split('zh/')[1] || 'index.html';
+  }
+  return 'index.html';
+}
+
+function switchToEnglish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'en/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToFrench() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'fr/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToSpanish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'es/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToChinese() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'zh/' + currentPage;
+  window.location.href = newUrl;
+}
+</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

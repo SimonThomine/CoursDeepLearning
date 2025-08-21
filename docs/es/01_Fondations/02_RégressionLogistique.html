@@ -1,0 +1,979 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Regresión Logística &#8212; Deep Learning Course</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '01_Fondations/02_RégressionLogistique';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Mi primer red neuronal" href="../02_R%C3%A9seauFullyConnected/01_MonPremierR%C3%A9seau.html" />
+    <link rel="prev" title="Derivada y descenso del gradiente" href="01_D%C3%A9riv%C3%A9esEtDescenteDuGradient.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><span style="font-size:2em; font-weight:bold;">🚀 Aprende Deep Learning desde cero 🚀</span></div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Deep Learning Course</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Curso de Deep Learning 🚀
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">🧮 Fundamentos</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_D%C3%A9riv%C3%A9esEtDescenteDuGradient.html">Derivada y descenso del gradiente</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Regresión Logística</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔗 Redes totalmente conectadas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/01_MonPremierR%C3%A9seau.html">Mi primer red neuronal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/02_PytorchIntroduction.html">Introducción a PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/03_TechniquesAvanc%C3%A9es.html">Técnicas avanzadas</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🖼️ Redes convolucionales</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/01_CouchesDeConvolutions.html">Las capas de convolución</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/02_R%C3%A9seauConvolutif.html">Redes convolucionales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/03_ConvImplementation.html">Implementación de la capa de convolución</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/04_R%C3%A9seauConvolutifPytorch.html">Redes convolucionales con PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/05_ApplicationClassification.html">Aplicación en un conjunto de datos de imágenes en color</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/06_ApplicationSegmentation.html">Aplicación de la segmentación</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔄 Autoencoders</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/01_IntuitionEtPremierAE.html">Introducción a los autoencodificadores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/02_DenoisingAE.html">Autoencoder para desruido</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📝 PLN</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/01_Introduction.html">Introducción al PLN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/02_bigramme.html">Bigrama</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/03_R%C3%A9seauFullyConnected.html">Red neuronal completamente conectada</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/04_WaveNet.html">PyTorch y WaveNet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/05_Rnn.html">Redes neuronales recurrentes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/06_Lstm.html">Memoria a Corto-Largo Plazo (LSTM)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introducción a Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Visión por computadora con Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">Procesamiento del lenguaje natural con Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Procesamiento de audio con Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generación de imágenes con Diffusers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demostración con Gradio</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/01_Introduction.html">Introducción a los transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/02_GptFromScratch.html">Construyamos un GPT desde cero</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/03_TrainingOurGpt.html">Entrenamiento de nuestro modelo GPT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/04_ArchitectureEtParticularit%C3%A9s.html">Arquitectura y particularidades del <em>transformer</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/05_UtilisationsPossibles.html">Posibles usos de la arquitectura Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/06_VisionTransformerImplementation.html">Implementación del Vision Transformer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/07_SwinTransformer.html">Swin Transformer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎯 Detección y YOLO</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/01_Introduction.html">Introducción a la detección de objetos en imágenes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/02_YoloEnDetail.html">YOLO en detalle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/03_Ultralytics.html">Ultralytics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔍 Entrenamiento contrastivo</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/01_FaceVerification.html">Verificación facial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/02_NonSupervis%C3%A9.html">Aprendizaje contrastivo no supervisado</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎓 Transfer Learning y Distillation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/01_TransferLearning.html">Aprendizaje por transferencia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/02_TransferLearningPytorch.html">Transfer Learning con PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/03_Distillation.html">La destilación de conocimientos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/04_DistillationAnomalie.html">Destilación de conocimientos para la detección no supervisada de anomalías</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/05_FineTuningLLM.html">Ajuste fino (Fine-Tuning) de los LLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/06_FineTuningBertHF.html">Ajuste fino de BERT con Hugging Face</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎨 Modelos generativos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/01_Introduction.html">Introducción a los modelos generativos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/02_GAN.html">Redes generativas antagónicas (GAN)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/03_GanImplementation.html">Implementación de una GAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/04_VAE.html">Autoencoders variacionales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/05_VaeImplementation.html">Implementación de un VAE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/06_NormalizingFlows.html">Flujos de normalización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/07_DiffusionModels.html">Modelos de difusión</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/08_DiffusionImplementation.html">Implementación de un modelo de difusión</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎁 Bonus – Cursos específicos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/01_ActivationEtInitialisation.html">Activaciones e inicializaciones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/02_BatchNorm.html">Normalización por lotes (<em>Batch Normalization</em>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/03_DataAugmentation.html">Aumento de datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/04_Broadcasting.html">Difusión (<em>Broadcasting</em>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/05_Optimizer.html">Comprender los diferentes optimizadores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/06_Regularisation.html">Regularización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/07_ConnexionsResiduelles.html">Conexiones residuales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/08_CrossValidation.html">Introducción a la validación cruzada</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/09_MetriquesEvaluation.html">Métricas de evaluación de modelos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/10_Tokenization.html">Introducción a la tokenización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/11_Quantization.html">Cuantización</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/edit/main/en/01_Fondations/02_RégressionLogistique.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/issues/new?title=Issue%20on%20page%20%2F01_Fondations/02_RégressionLogistique.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/01_Fondations/02_RégressionLogistique.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Regresión Logística</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-neurona-artificial">El Neurona Artificial</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funciones-de-activacion">Funciones de Activación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicacion">Aplicación</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funcion-de-costo">Función de Costo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculando-derivadas">Calculando Derivadas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Regresión Logística</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="regresion-logistica">
+<h1>Regresión Logística<a class="headerlink" href="#regresion-logistica" title="Link to this heading">#</a></h1>
+<section id="el-neurona-artificial">
+<h2>El Neurona Artificial<a class="headerlink" href="#el-neurona-artificial" title="Link to this heading">#</a></h2>
+<p>Sumergámonos en el corazón del asunto: el neurona artificial.</p>
+<p>La figura de abajo muestra cómo funciona un neurona artificial:</p>
+<p><img alt="Neurona Artificial" src="../_images/NeuroneArtificiel.png" /></p>
+<p>Un neurona artificial recibe un vector <span class="math notranslate nohighlight">\(\mathbf{x}=(x_1,x_2,...,x_n)\)</span> como entrada. Cada elemento <span class="math notranslate nohighlight">\(x_i\)</span> del vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> se multiplica por un peso <span class="math notranslate nohighlight">\(w_i\)</span>, luego se calcula la suma y se añade un sesgo <span class="math notranslate nohighlight">\(b\)</span>. Esta suma se pasa entonces a través de una función llamada <strong>función de activación</strong> <span class="math notranslate nohighlight">\(\phi\)</span>.
+<span class="math notranslate nohighlight">\(Output = \phi(\sum_{i=0}^{n} w_i x_i  + b)\)</span>
+Este proceso se llama neurona artificial porque se inspira en el funcionamiento de un <a class="reference external" href="https://en.wikipedia.org/wiki/Artificial_neuron">neurona biológico</a>.</p>
+</section>
+<section id="funciones-de-activacion">
+<h2>Funciones de Activación<a class="headerlink" href="#funciones-de-activacion" title="Link to this heading">#</a></h2>
+<p><strong>Función de Heaviside:</strong> Originalmente, la primera neurona artificial (<a class="reference external" href="https://fr.wikipedia.org/wiki/Perceptron">el perceptrón</a>) utilizaba una función de umbral como función de activación. Esto permite tomar una decisión (0 o 1) basada en la suma ponderada y un umbral definido.
+<span class="math notranslate nohighlight">\(heaviside(x) = \left\{
+    \begin{array}{ll}
+        1 &amp; \text{si } x &gt; 0 \\
+        0 &amp; \text{de lo contrario}
+    \end{array}
+\right. \text{con } x=\sum_{i=0}^{n} w_i x_i  + b\)</span>
+Esta función de activación es efectiva para la clasificación binaria, pero no funciona para múltiples clases. Además, la función no es diferenciable, lo que complica el uso del algoritmo de descenso de gradiente para optimizar los pesos <span class="math notranslate nohighlight">\(w_i\)</span> de la neurona.</p>
+<p>Las funciones de activación recientes son mucho más interesantes para entrenar redes neuronales usando descenso de gradiente. Primero, son diferenciables, lo que permite la aplicación de nuestro algoritmo de descenso de gradiente. Segundo, son no lineales, lo que permite a las redes aprender representaciones complejas. También hay otras ventajas específicas para cada función de activación.</p>
+<p>Una de las funciones de activación “recientes” es la función sigmoide, que detallamos aquí:</p>
+<p><strong>Función Sigmoide:</strong> Otra función de activación particularmente interesante debido a su analogía con la probabilidad es la función sigmoide. Esta vez, la función permite obtener un valor entre 0 y 1 usando la fórmula:
+<span class="math notranslate nohighlight">\(sigmoid(x) = \frac{1}{1 + e^{-x}} \text{ con } x=\sum_{i=0}^{n} w_i x_i  + b\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tracé de la fonction sigmoïde</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Fonction sigmoïde&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;sigmoid(x)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/cb2a6b5327d1de2209c0b7d14fce71c47416801bce8208628ada2d92dc021e7c.png" src="../_images/cb2a6b5327d1de2209c0b7d14fce71c47416801bce8208628ada2d92dc021e7c.png" />
+</div>
+</div>
+<p>Esta función es diferenciable, y su derivada es:
+<span class="math notranslate nohighlight">\(sigmoid'(x) = sigmoid(x) \cdot (1 - f(x))\)</span>
+Por lo tanto, podemos aplicar el descenso de gradiente a nuestra neurona artificial cuando usamos esta función de activación.</p>
+<p>Hay muchas otras <a class="reference external" href="https://fr.wikipedia.org/wiki/Fonction_d%27activation">funciones de activación</a> cada una con sus propios usos. Las veremos en los siguientes cursos. (<span class="math notranslate nohighlight">\(Tanh\)</span>, <span class="math notranslate nohighlight">\(ReLU\)</span>, <span class="math notranslate nohighlight">\(Softmax\)</span>)</p>
+</section>
+<section id="aplicacion">
+<h2>Aplicación<a class="headerlink" href="#aplicacion" title="Link to this heading">#</a></h2>
+<p>Para entender completamente la regresión logística, nada supera un ejemplo concreto.</p>
+<p>En este ejemplo, determinaremos si un estudiante será admitido en su universidad soñada basada en tres piezas de información: su puntuación en el examen de ingreso, su promedio de calificaciones del año anterior y la calidad de su carta de motivación.</p>
+<p>No conocemos el método de cálculo para admitir o rechazar a un estudiante, pero tenemos los datos y las decisiones correspondientes.</p>
+<p>La información de entrada va de 0 a 1, con 1 indicando la mejor puntuación. Admitido = 1 corresponde a la admisión, mientras que Admitido = 0 corresponde al rechazo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tabulate</span><span class="w"> </span><span class="kn">import</span> <span class="n">tabulate</span>
+
+<span class="c1"># Définition des données d&#39;entraînement</span>
+<span class="n">values_train</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">]]</span>
+<span class="n">labels_train</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Ajout des noms de colonnes</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;Examen&#39;</span><span class="p">,</span> <span class="s1">&#39;Moyenne&#39;</span><span class="p">,</span> <span class="s1">&#39;Motivation&#39;</span><span class="p">,</span> <span class="s1">&#39;Admis&#39;</span><span class="p">]]</span>
+<span class="n">data</span><span class="o">.</span><span class="n">extend</span><span class="p">([[</span><span class="n">values_train</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">values_train</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">values_train</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span> <span class="n">labels_train</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">values_train</span><span class="p">))])</span>
+
+<span class="c1"># Affichage du tableau</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="s2">&quot;firstrow&quot;</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s2">&quot;fancy_grid&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>╒══════════╤═══════════╤══════════════╤═════════╕
+│   Examen │   Moyenne │   Motivation │   Admis │
+╞══════════╪═══════════╪══════════════╪═════════╡
+│      0.7 │       0.8 │          0.1 │       1 │
+├──────────┼───────────┼──────────────┼─────────┤
+│      0.4 │       0.9 │          0.5 │       0 │
+├──────────┼───────────┼──────────────┼─────────┤
+│      0.2 │       0.3 │          0.9 │       0 │
+├──────────┼───────────┼──────────────┼─────────┤
+│      0.9 │       0.9 │          0.6 │       1 │
+╘══════════╧═══════════╧══════════════╧═════════╛
+</pre></div>
+</div>
+</div>
+</div>
+<p>Nuestro objetivo en este problema es determinar si los estudiantes con las puntuaciones <span class="math notranslate nohighlight">\([Exam=0.8, Average=0.7, Motivation=0.2]\)</span> y <span class="math notranslate nohighlight">\([Exam=0.4, Average=0.5, Motivation=0.9]\)</span> fueron admitidos.</p>
+<p>Has entendido que los datos <span class="math notranslate nohighlight">\(Exam\)</span>, <span class="math notranslate nohighlight">\(Average\)</span> y <span class="math notranslate nohighlight">\(Motivation\)</span> corresponden a nuestros <span class="math notranslate nohighlight">\(x_i\)</span>. Nuestro objetivo con la regresión logística es encontrar un valor óptimo para los <span class="math notranslate nohighlight">\(w_i\)</span> que se alinee con nuestros datos de entrenamiento.</p>
+<p>Para simplificar, definamos <span class="math notranslate nohighlight">\(x_0=Exam\)</span>, <span class="math notranslate nohighlight">\(x_1=Average\)</span>, <span class="math notranslate nohighlight">\(x_2=Motivation\)</span> y <span class="math notranslate nohighlight">\(y_{true}=Admitted\)</span>.</p>
+<section id="funcion-de-costo">
+<h3>Función de Costo<a class="headerlink" href="#funcion-de-costo" title="Link to this heading">#</a></h3>
+<p>En nuestro ejemplo de descenso de gradiente, nuestro objetivo era encontrar el mínimo de una función. Estos son los escenarios donde el descenso de gradiente sobresale. Para nuestro nuevo problema, necesitamos encontrar una función que, al minimizarse, mejore las predicciones.</p>
+<p>En nuestra clasificación binaria, <span class="math notranslate nohighlight">\(y_{true}\)</span> es 1 si el estudiante es admitido y 0 en caso contrario.</p>
+<p>Nuestro objetivo es predecir si el estudiante es admitido o no prediciendo la salida <span class="math notranslate nohighlight">\(pred\)</span>.</p>
+<p>Durante el entrenamiento, queremos entrenar nuestro modelo de regresión logística para predecir <span class="math notranslate nohighlight">\(pred \approx y_{true}\)</span>.</p>
+<p>Para hacerlo, usamos la función de verosimilitud negativa, que se expresa de la siguiente manera:
+<span class="math notranslate nohighlight">\(\text{loss} = - \left( y_{\text{true}} \cdot \log(\text{pred}) + (1 - y_{\text{true}}) \cdot \log(1 - \text{pred}) \right)\)</span></p>
+<p>Para más detalles sobre la regresión logística y la pérdida de verosimilitud negativa, puedes consultar este <a class="reference external" href="https://blog.demir.io/understanding-logistic-regression-26802c0da856">enlace</a>.</p>
+<p>Lo importante es entender cómo varía esta función en función de nuestra predicción <span class="math notranslate nohighlight">\(pred\)</span> y la etiqueta <span class="math notranslate nohighlight">\(y_{true}\)</span>.</p>
+<p>Para esto, consideremos el caso donde la etiqueta es <span class="math notranslate nohighlight">\(y_{true}=1\)</span>. Analicemos dos escenarios:</p>
+<p>Si <span class="math notranslate nohighlight">\(pred=0.9\)</span>, lo que significa que nuestro modelo predice un 90% de probabilidad de admisión (una buena predicción), entonces:
+<span class="math notranslate nohighlight">\(\text{loss} = - \left( 1.0 \cdot \log(0.9) + (1 - 1.0) \cdot \log(1 - 0.9) \right)\)</span>
+<span class="math notranslate nohighlight">\(\text{loss} = - \left( 1.0 \cdot \log(0.9) + 0 \cdot \log(1 - 0.9) \right)\)</span>
+<span class="math notranslate nohighlight">\(\text{loss} = - \left( 1.0 \cdot \log(0.9)\right)\)</span>
+<span class="math notranslate nohighlight">\(\text{loss} = - \left( 1.0 \cdot \log(0.9)\right)\)</span>
+<span class="math notranslate nohighlight">\(\text{loss} = 0.046\)</span>
+La pérdida es baja, lo cual es bueno porque la predicción es precisa.</p>
+<p>Si <span class="math notranslate nohighlight">\(pred=0.2\)</span>, lo que significa que nuestro modelo predice un 20% de probabilidad de admisión (una mala predicción), entonces:
+<span class="math notranslate nohighlight">\(\text{loss} = - \left( 1.0 \cdot \log(0.2) + (1 - 1.0) \cdot \log(1 - 0.2) \right)\)</span>
+<span class="math notranslate nohighlight">\(\text{loss} = - \left( 1.0 \cdot \log(0.2) + 0 \cdot \log(1 - 0.2) \right)\)</span>
+<span class="math notranslate nohighlight">\(\text{loss} = - \left( 1.0 \cdot \log(0.2)\right)\)</span>
+<span class="math notranslate nohighlight">\(\text{loss} = - \left( 1.0 \cdot \log(0.2)\right)\)</span>
+<span class="math notranslate nohighlight">\(\text{loss} = 0.70\)</span>
+La pérdida es alta, lo cual es bueno porque la predicción es pobre.</p>
+<p>Para un caso donde <span class="math notranslate nohighlight">\(y_{true}=0\)</span>, encontramos una pérdida baja cuando <span class="math notranslate nohighlight">\(pred\)</span> está cerca de 0 y una pérdida alta cuando <span class="math notranslate nohighlight">\(pred\)</span> está cerca de 1 (puedes hacer el cálculo para practicar si es necesario).</p>
+</section>
+<section id="calculando-derivadas">
+<h3>Calculando Derivadas<a class="headerlink" href="#calculando-derivadas" title="Link to this heading">#</a></h3>
+<p>Ahora que tenemos una función para minimizar, es necesario calcular la derivada de esta función con respecto a cada uno de los pesos <span class="math notranslate nohighlight">\(w_0\)</span>, <span class="math notranslate nohighlight">\(w_1\)</span>, <span class="math notranslate nohighlight">\(w_2\)</span> y <span class="math notranslate nohighlight">\(b\)</span>.</p>
+<p>Por lo tanto, debemos calcular <span class="math notranslate nohighlight">\(\frac{\partial loss}{\partial w_0}\)</span>, <span class="math notranslate nohighlight">\(\frac{\partial loss}{\partial w_1}\)</span>, <span class="math notranslate nohighlight">\(\frac{\partial loss}{\partial w_2}\)</span> y <span class="math notranslate nohighlight">\(\frac{\partial loss}{\partial b}\)</span>.</p>
+<p>Para los pesos <span class="math notranslate nohighlight">\(w_0\)</span>, <span class="math notranslate nohighlight">\(w_1\)</span> y <span class="math notranslate nohighlight">\(w_2\)</span>, la derivada se calcula de la misma manera.</p>
+<p>Usando la regla de la cadena, para <span class="math notranslate nohighlight">\(w_0\)</span>, tenemos:
+<span class="math notranslate nohighlight">\(\frac{\partial loss}{\partial w_0} = \frac{\partial loss}{\partial pred} \cdot \frac{\partial pred}{\partial w_0}\)</span></p>
+<p>Como recordatorio, nuestra predicción <span class="math notranslate nohighlight">\(pred\)</span> corresponde a la salida de nuestra regresión logística con la función de activación <span class="math notranslate nohighlight">\(sigmoid\)</span>.</p>
+<p>Para el primer término, la derivada de la pérdida con respecto a <span class="math notranslate nohighlight">\(pred\)</span> da:
+<span class="math notranslate nohighlight">\(\frac{\partial loss}{\partial pred} = -(\frac{y_{true}}{pred} - \frac{1-y_{true}}{1-pred}) \)</span>
+El cálculo no se detallará aquí, pero puedes hacerlo tú mismo para verificar.</p>
+<p>Para el segundo término, la derivada de <span class="math notranslate nohighlight">\(pred\)</span> con respecto a <span class="math notranslate nohighlight">\(w_0\)</span> da:
+<span class="math notranslate nohighlight">\(\frac{\partial pred}{\partial w_0} = pred \cdot (1-pred) \cdot x_0\)</span></p>
+<p>Combinando los dos términos, obtenemos:
+<span class="math notranslate nohighlight">\(\frac{\partial loss}{\partial w_0} =-(\frac{y_{true}}{pred} - \frac{1-y_{true}}{1-pred}) \cdot pred \cdot (1-pred) \cdot x_0\)</span></p>
+<p>Y después de simplificación (mágicamente),
+<span class="math notranslate nohighlight">\(\frac{\partial loss}{\partial w_0} = (pred-y_{true}) \cdot x_0\)</span></p>
+<p>Sin detallar el cálculo, también obtenemos:
+<span class="math notranslate nohighlight">\(\frac{\partial loss}{\partial b} = pred-y_{true}\)</span></p>
+</section>
+<section id="id1">
+<h3>Regresión Logística<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Ahora que tenemos todos los elementos,
+definamos nuestra función de regresión logística en Python:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Notre classe de regression logistique</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">logistic_regression</span><span class="p">():</span>
+  <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">w0</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">w1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">w2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="o">=</span><span class="mi">0</span>
+  <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x0</span><span class="p">,</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">):</span>
+    <span class="c1"># Somme pondérée et ajout du biais</span>
+    <span class="n">pond</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">w0</span><span class="o">*</span><span class="n">x0</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">w1</span><span class="o">*</span><span class="n">x1</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">w2</span><span class="o">*</span><span class="n">x2</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+    <span class="c1"># Application de la sigmoïde</span>
+    <span class="n">pred</span><span class="o">=</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">pond</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pred</span>
+    
+<span class="k">def</span><span class="w"> </span><span class="nf">loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+  <span class="c1"># Calcul du loss (log vraisemblance négative)</span>
+  <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span> <span class="p">(</span><span class="n">y_true</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y_true</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">))</span>
+  <span class="k">return</span> <span class="n">loss</span>
+    
+
+<span class="k">def</span><span class="w"> </span><span class="nf">update_weights</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">pred</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">):</span>
+       
+  <span class="c1"># On calcule les dérivées en fonction des poids et du biais </span>
+  <span class="n">dL_dw0</span> <span class="o">=</span> <span class="p">(</span><span class="n">pred</span> <span class="o">-</span> <span class="n">y_true</span><span class="p">)</span> <span class="o">*</span> <span class="n">x0</span>
+  <span class="n">dL_dw1</span> <span class="o">=</span> <span class="p">(</span><span class="n">pred</span> <span class="o">-</span> <span class="n">y_true</span><span class="p">)</span> <span class="o">*</span> <span class="n">x1</span>
+  <span class="n">dL_dw2</span> <span class="o">=</span> <span class="p">(</span><span class="n">pred</span> <span class="o">-</span> <span class="n">y_true</span><span class="p">)</span> <span class="o">*</span> <span class="n">x2</span>
+  <span class="n">dL_db</span> <span class="o">=</span> <span class="n">pred</span> <span class="o">-</span> <span class="n">y_true</span>
+      
+  <span class="c1"># On modifie les paramètres pour réduire le loss </span>
+  <span class="c1"># La modification des poids dépend du learning rate, du signe de la dérivée et de la valeur de la dérivée</span>
+  <span class="n">model</span><span class="o">.</span><span class="n">w0</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">dL_dw0</span>
+  <span class="n">model</span><span class="o">.</span><span class="n">w1</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">dL_dw1</span>
+  <span class="n">model</span><span class="o">.</span><span class="n">w2</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">dL_dw2</span>
+  <span class="n">model</span><span class="o">.</span><span class="n">b</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">dL_db</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialisation du modèle et des hyperparamètres</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.01</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">1000</span> <span class="c1"># le nombre d&#39;itérations d&#39;entrainement</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">logistic_regression</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Antes de entrenar el modelo, probemos nuestras predicciones en los dos estudiantes cuyos resultados de admisión queremos conocer.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">values_test</span><span class="o">=</span><span class="p">[[</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.7</span><span class="p">,</span><span class="mf">0.7</span><span class="p">],[</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.9</span><span class="p">]]</span>
+<span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values_test</span><span class="p">:</span>
+  <span class="n">x0</span><span class="p">,</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="o">=</span><span class="n">value</span>
+  <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;L&#39;élève avec Examen = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span><span class="o">+</span> <span class="s2">&quot;, Moyenne = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot; et Motivation = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span><span class="o">+</span> <span class="s2">&quot; a &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">pred</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">% d</span><span class="s2">e chance d&#39;être admis&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>L&#39;élève avec Examen = 0.8, Moyenne = 0.7 et Motivation = 0.7 a 60% de chance d&#39;être admis
+L&#39;élève avec Examen = 0.4, Moyenne = 0.5 et Motivation = 0.9 a 59% de chance d&#39;être admis
+</pre></div>
+</div>
+</div>
+</div>
+<p>Podemos ver que el modelo es muy incierto y da probabilidades aleatorias, lo cual es lógico ya que sus pesos se inicializan aleatoriamente.</p>
+<p>Ahora, entremos el modelo con nuestros datos de entrenamiento.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Entraînement</span>
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+  <span class="c1"># Mise à jour des poids pour chaque exemple</span>
+  <span class="n">total_loss</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">),</span> <span class="n">y_true</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">values_train</span><span class="p">,</span> <span class="n">labels_train</span><span class="p">):</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+    <span class="n">update_weights</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">pred</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">)</span>
+    <span class="n">total_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
+
+  <span class="n">avg_loss</span> <span class="o">=</span> <span class="n">total_loss</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels_train</span><span class="p">)</span>
+  
+  <span class="c1"># Affichage de la perte pour suivre la progression de l&#39;entraînement</span>
+  <span class="k">if</span> <span class="p">((</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">5000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">epoch</span><span class="o">==</span><span class="mi">0</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">epochs</span><span class="si">}</span><span class="s2">, Loss: </span><span class="si">{</span><span class="n">avg_loss</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/40000, Loss: 0.01468091027998586
+Epoch 5000/40000, Loss: 0.013032955086147595
+Epoch 10000/40000, Loss: 0.011715352279809266
+Epoch 15000/40000, Loss: 0.010638348324912276
+Epoch 20000/40000, Loss: 0.009741762611763436
+Epoch 25000/40000, Loss: 0.008983896958517028
+Epoch 30000/40000, Loss: 0.008334957514714105
+Epoch 35000/40000, Loss: 0.007773096000082178
+Epoch 40000/40000, Loss: 0.007281930357182074
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">w0</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">w1</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">w2</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values_test</span><span class="p">:</span>
+  <span class="n">x0</span><span class="p">,</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="o">=</span><span class="n">value</span>
+  <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;L&#39;élève avec Examen = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span><span class="o">+</span> <span class="s2">&quot;, Moyenne = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot; et Motivation = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span><span class="o">+</span> <span class="s2">&quot; a &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">pred</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">% d</span><span class="s2">e chance d&#39;être admis&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>19.464301071981186 -3.27230109363944 -8.244865180820856 -4.903197398150705
+L&#39;élève avec Examen = 0.8, Moyenne = 0.7 et Motivation = 0.7 a 93% de chance d&#39;être admis
+L&#39;élève avec Examen = 0.4, Moyenne = 0.5 et Motivation = 0.9 a 0% de chance d&#39;être admis
+</pre></div>
+</div>
+</div>
+</div>
+<p>Como podemos ver, nuestro modelo ahora es mucho más confiado en sus predicciones y nos da predicciones consistentes con los datos de entrenamiento.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./01_Fondations"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_D%C3%A9riv%C3%A9esEtDescenteDuGradient.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Derivada y descenso del gradiente</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../02_R%C3%A9seauFullyConnected/01_MonPremierR%C3%A9seau.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Mi primer red neuronal</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-neurona-artificial">El Neurona Artificial</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funciones-de-activacion">Funciones de Activación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicacion">Aplicación</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funcion-de-costo">Función de Costo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculando-derivadas">Calculando Derivadas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Regresión Logística</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Simon Thomine
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div id="language-switcher" style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #eee;">
+  <span style="margin-right: 10px;">🌐 Language / Langue:</span>
+  <a href="#" onclick="switchToEnglish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #4CAF50; color: white; border-radius: 5px; font-weight: bold; transition: all 0.3s;">🇺🇸 English</a>
+  <a href="#" onclick="switchToFrench()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #f0f0f0; border-radius: 5px; transition: all 0.3s;">🇫🇷 Français</a>
+  <a href="#" onclick="switchToSpanish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ffd700; border-radius: 5px; transition: all 0.3s;">🇪🇸 Español</a>
+  <a href="#" onclick="switchToChinese()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ff4b4b; color: white; border-radius: 5px; transition: all 0.3s;">🇨🇳 中文</a>
+</div>
+<script>
+function getBaseUrl() {
+  let baseUrl = window.location.origin;
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    baseUrl += pathname.split('fr/')[0];
+  } else if (pathname.includes('en/')) {
+    baseUrl += pathname.split('en/')[0];
+  } else if (pathname.includes('es/')) {
+    baseUrl += pathname.split('es/')[0];
+  } else if (pathname.includes('zh/')) {
+    baseUrl += pathname.split('zh/')[0];
+  } else {
+    baseUrl += pathname.split('/').slice(0, -1).join('/') + '/';
+  }
+  return baseUrl;
+}
+
+function getCurrentPage() {
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    return pathname.split('fr/')[1] || 'index.html';
+  } else if (pathname.includes('en/')) {
+    return pathname.split('en/')[1] || 'index.html';
+  } else if (pathname.includes('es/')) {
+    return pathname.split('es/')[1] || 'index.html';
+  } else if (pathname.includes('zh/')) {
+    return pathname.split('zh/')[1] || 'index.html';
+  }
+  return 'index.html';
+}
+
+function switchToEnglish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'en/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToFrench() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'fr/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToSpanish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'es/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToChinese() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'zh/' + currentPage;
+  window.location.href = newUrl;
+}
+</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

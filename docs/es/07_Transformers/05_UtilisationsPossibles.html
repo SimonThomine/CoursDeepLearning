@@ -1,0 +1,784 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Posibles usos de la arquitectura Transformers &#8212; Deep Learning Course</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '07_Transformers/05_UtilisationsPossibles';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Implementación del Vision Transformer" href="06_VisionTransformerImplementation.html" />
+    <link rel="prev" title="Arquitectura y particularidades del transformer" href="04_ArchitectureEtParticularit%C3%A9s.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><span style="font-size:2em; font-weight:bold;">🚀 Aprende Deep Learning desde cero 🚀</span></div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Deep Learning Course</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Curso de Deep Learning 🚀
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">🧮 Fundamentos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/01_D%C3%A9riv%C3%A9esEtDescenteDuGradient.html">Derivada y descenso del gradiente</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/02_R%C3%A9gressionLogistique.html">Regresión Logística</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔗 Redes totalmente conectadas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/01_MonPremierR%C3%A9seau.html">Mi primer red neuronal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/02_PytorchIntroduction.html">Introducción a PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/03_TechniquesAvanc%C3%A9es.html">Técnicas avanzadas</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🖼️ Redes convolucionales</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/01_CouchesDeConvolutions.html">Las capas de convolución</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/02_R%C3%A9seauConvolutif.html">Redes convolucionales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/03_ConvImplementation.html">Implementación de la capa de convolución</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/04_R%C3%A9seauConvolutifPytorch.html">Redes convolucionales con PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/05_ApplicationClassification.html">Aplicación en un conjunto de datos de imágenes en color</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/06_ApplicationSegmentation.html">Aplicación de la segmentación</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔄 Autoencoders</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/01_IntuitionEtPremierAE.html">Introducción a los autoencodificadores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/02_DenoisingAE.html">Autoencoder para desruido</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📝 PLN</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/01_Introduction.html">Introducción al PLN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/02_bigramme.html">Bigrama</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/03_R%C3%A9seauFullyConnected.html">Red neuronal completamente conectada</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/04_WaveNet.html">PyTorch y WaveNet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/05_Rnn.html">Redes neuronales recurrentes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/06_Lstm.html">Memoria a Corto-Largo Plazo (LSTM)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introducción a Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Visión por computadora con Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">Procesamiento del lenguaje natural con Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Procesamiento de audio con Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generación de imágenes con Diffusers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demostración con Gradio</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_Introduction.html">Introducción a los transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_GptFromScratch.html">Construyamos un GPT desde cero</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_TrainingOurGpt.html">Entrenamiento de nuestro modelo GPT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_ArchitectureEtParticularit%C3%A9s.html">Arquitectura y particularidades del <em>transformer</em></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Posibles usos de la arquitectura Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_VisionTransformerImplementation.html">Implementación del Vision Transformer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_SwinTransformer.html">Swin Transformer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎯 Detección y YOLO</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/01_Introduction.html">Introducción a la detección de objetos en imágenes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/02_YoloEnDetail.html">YOLO en detalle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/03_Ultralytics.html">Ultralytics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔍 Entrenamiento contrastivo</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/01_FaceVerification.html">Verificación facial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/02_NonSupervis%C3%A9.html">Aprendizaje contrastivo no supervisado</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎓 Transfer Learning y Distillation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/01_TransferLearning.html">Aprendizaje por transferencia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/02_TransferLearningPytorch.html">Transfer Learning con PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/03_Distillation.html">La destilación de conocimientos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/04_DistillationAnomalie.html">Destilación de conocimientos para la detección no supervisada de anomalías</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/05_FineTuningLLM.html">Ajuste fino (Fine-Tuning) de los LLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/06_FineTuningBertHF.html">Ajuste fino de BERT con Hugging Face</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎨 Modelos generativos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/01_Introduction.html">Introducción a los modelos generativos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/02_GAN.html">Redes generativas antagónicas (GAN)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/03_GanImplementation.html">Implementación de una GAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/04_VAE.html">Autoencoders variacionales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/05_VaeImplementation.html">Implementación de un VAE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/06_NormalizingFlows.html">Flujos de normalización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/07_DiffusionModels.html">Modelos de difusión</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/08_DiffusionImplementation.html">Implementación de un modelo de difusión</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎁 Bonus – Cursos específicos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/01_ActivationEtInitialisation.html">Activaciones e inicializaciones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/02_BatchNorm.html">Normalización por lotes (<em>Batch Normalization</em>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/03_DataAugmentation.html">Aumento de datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/04_Broadcasting.html">Difusión (<em>Broadcasting</em>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/05_Optimizer.html">Comprender los diferentes optimizadores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/06_Regularisation.html">Regularización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/07_ConnexionsResiduelles.html">Conexiones residuales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/08_CrossValidation.html">Introducción a la validación cruzada</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/09_MetriquesEvaluation.html">Métricas de evaluación de modelos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/10_Tokenization.html">Introducción a la tokenización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/11_Quantization.html">Cuantización</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/edit/main/en/07_Transformers/05_UtilisationsPossibles.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/issues/new?title=Issue%20on%20page%20%2F07_Transformers/05_UtilisationsPossibles.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/07_Transformers/05_UtilisationsPossibles.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Posibles usos de la arquitectura Transformers</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bert">BERT</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-modelo">Entrenamiento modelo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utilidad-de-bert">Utilidad de BERT</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformers-para-procesamiento-de-imagenes">Transformers para procesamiento de imágenes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vit-vision-transformer">ViT : Vision Transformer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aprendizaje-no-supervisado-para-la-vision">Aprendizaje no supervisado para la visión</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformers-que-combinan-texto-e-imagen">Transformers que combinan texto e imagen</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="posibles-usos-de-la-arquitectura-transformers">
+<h1>Posibles usos de la arquitectura Transformers<a class="headerlink" href="#posibles-usos-de-la-arquitectura-transformers" title="Link to this heading">#</a></h1>
+<p>En las secciones anteriores, demostramos las capacidades de los <em>transformers</em> mediante una aplicación de predicción del siguiente <em>token</em> (como GPT). También abordamos la diferencia entre el codificador (<em>encoder</em>), el decodificador (<em>decoder</em>) y la arquitectura completa para las tareas de Procesamiento del Lenguaje Natural (NLP).</p>
+<p>Lo destacable de la arquitectura <em>transformer</em> es su gran versatilidad. Puede aplicarse a una amplia variedad de problemas, a diferencia de las capas convolucionales, que están sesgadas (lo que las hace muy eficientes rápidamente en el procesamiento de imágenes).</p>
+<p>En este curso, presentaremos brevemente algunas arquitecturas clásicas de <em>transformers</em> en diferentes dominios, principalmente en NLP y visión por computadora.</p>
+<section id="bert">
+<h2>BERT<a class="headerlink" href="#bert" title="Link to this heading">#</a></h2>
+<p>El artículo <a class="reference external" href="https://arxiv.org/pdf/1810.04805">BERT: Pre-entrenamiento de Transformadores Bidireccionales Profundos para la Comprensión del Lenguaje</a> propone un método para entrenar un modelo de lenguaje tipo <em>encoder</em> de manera no supervisada.</p>
+<p><strong>Sobre el entrenamiento no supervisado en NLP</strong>: Una de las fortalezas de los modelos de lenguaje (LLM) como GPT y BERT es que pueden entrenarse con grandes cantidades de datos sin necesidad de anotarlos. En el caso de GPT, se toma un documento de texto, se oculta el final y se pide al modelo que lo genere. La función de pérdida (<em>loss</em>) se calcula comparando la generación del modelo con el texto original (como hicimos para generar texto al estilo de Molière). En BERT, el enfoque es ligeramente diferente.</p>
+<section id="entrenamiento-modelo">
+<h3>Entrenamiento modelo<a class="headerlink" href="#entrenamiento-modelo" title="Link to this heading">#</a></h3>
+<p>BERT es un modelo tipo <em>encoder</em>, lo que significa que considera el contexto de las palabras tanto a la izquierda como a la derecha (antes y después de la palabra actual). Para entrenarlo, no se puede proceder como con GPT, limitándose a predecir las palabras siguientes.</p>
+<p><strong>Modelo de Lenguaje Enmascarado (MLM)</strong>: BERT es un <em>Masked Language Model</em> (MLM). Durante el entrenamiento, se enmascaran ciertas palabras de una frase (en posiciones aleatorias) y se pide al modelo que las prediga utilizando el contexto que rodea a la palabra enmascarada.</p>
+<p><img alt="BERT" src="../_images/bert.png" /></p>
+<p>Figura extraída del <a class="reference external" href="https://towardsdatascience.com/bert-explained-state-of-the-art-language-model-for-nlp-f8b21a9b6270">artículo</a>.</p>
+<p><strong>Predicción de la Siguiente Frase (NSP)</strong>: BERT también está preentrenado para determinar si una frase B sigue a una frase A en el texto, lo que ayuda al modelo a comprender las relaciones entre las frases.</p>
+<p><strong>Nota</strong>: Para obtener más información sobre BERT y aprender a ajustarlo (<em>fine-tuning</em>), puedes consultar el <a class="reference internal" href="../10_TransferLearningEtDistillation/05_FineTuningLLM.html"><span class="std std-doc">curso 10 sobre BERT</span></a>.</p>
+</section>
+<section id="utilidad-de-bert">
+<h3>Utilidad de BERT<a class="headerlink" href="#utilidad-de-bert" title="Link to this heading">#</a></h3>
+<p>BERT y otros modelos de lenguaje tipo <em>encoder</em> (como RoBERTa, ALBERT, etc.) se utilizan como base para tareas más específicas. Luego, se realiza un ajuste fino (<em>fine-tuning</em>) para otras tareas, como las mencionadas en el cuaderno anterior (análisis de sentimientos, clasificación de texto, etc.).</p>
+<p><strong>Nota</strong>: Hemos visto cómo entrenar modelos <em>encoder</em> y <em>decoder</em> de manera no supervisada para tareas de NLP (BERT y GPT). También es posible entrenar un modelo completo (con <em>encoder</em>, <em>decoder</em> y atención cruzada) de manera no supervisada, como en el caso del modelo <a class="reference external" href="https://arxiv.org/pdf/1910.10683">T5</a>. No describimos su funcionamiento en este cuaderno, pero para obtener más información, puedes consultar este <a class="reference external" href="https://medium.com/analytics-vidhya/t5-a-detailed-explanation-a0ac9bc53e51">artículo</a>.</p>
+</section>
+</section>
+<section id="transformers-para-procesamiento-de-imagenes">
+<h2>Transformers para procesamiento de imágenes<a class="headerlink" href="#transformers-para-procesamiento-de-imagenes" title="Link to this heading">#</a></h2>
+<p>Pocos años después del auge de los <em>transformers</em> en el campo del NLP, su uso en el ámbito de la visión por computadora también revolucionó este dominio.
+El artículo <a class="reference external" href="https://arxiv.org/pdf/2010.11929">Una Imagen Vale 16x16 Palabras: Transformadores para el Reconocimiento de Imágenes a Gran Escala</a> presenta una aplicación de un <em>transformer</em> tipo <em>encoder</em> adaptado al procesamiento de imágenes.</p>
+<section id="vit-vision-transformer">
+<h3>ViT : Vision Transformer<a class="headerlink" href="#vit-vision-transformer" title="Link to this heading">#</a></h3>
+<p>Este artículo introduce el <em>Vision Transformer</em> (ViT), que se basa en dividir la imagen en <em>patches</em> (parches) que luego se ingresan al <em>transformer</em> como si fueran <em>tokens</em>.</p>
+<p><img alt="ViT" src="../_images/ViT.png" /></p>
+<p>Como se puede observar en el lado derecho de la figura, la arquitectura corresponde a un tipo de <em>encoder</em> (la única diferencia con respecto a <a class="reference external" href="https://arxiv.org/pdf/1706.03762">Attention Is All You Need</a> es la aplicación de las normalizaciones antes de las capas en lugar de después).</p>
+<p>En el modelo <em>Vision Transformer</em> (ViT), cada imagen se divide en <em>patches</em> de tamaño fijo, por ejemplo, de <span class="math notranslate nohighlight">\(16 \times 16\)</span> píxeles. Cada <em>patch</em> se transforma en un vector al aplanarlo, y luego este vector se proyecta en un espacio de <em>embedding</em> mediante una capa de proyección lineal, similar a la utilizada en los modelos de procesamiento de texto como BERT o GPT (capa <em>Embedding</em>). Esta representación vectorial captura la información espacial y estructural de la imagen, al igual que los <em>embeddings</em> en los modelos de NLP capturan el significado y las relaciones entre palabras.
+El título del artículo “Una Imagen Vale 16x16 Palabras” refleja esta analogía: cada <em>patch</em> de la imagen se trata como una “palabra” proyectada en un espacio de <em>embedding</em> para permitir el aprendizaje con la arquitectura <em>transformer</em>.</p>
+<p><strong>Nota</strong>:</p>
+<ul class="simple">
+<li><p>El <em>Vision Transformer</em> del artículo original se entrena de manera supervisada en tareas de clasificación de objetos. Los resultados de este artículo son impresionantes y demuestran su capacidad para superar a los modelos convolucionales.</p></li>
+<li><p>Una mejora notable de la arquitectura ViT para tareas de visión (con entrenamiento supervisado) es el <a class="reference external" href="https://arxiv.org/abs/2103.14030">Swin Transformer</a>. Este <em>transformer</em> tiene una arquitectura jerárquica (que puede recordar a las CNN) y permite capturar las relaciones espaciales de manera más eficiente.</p></li>
+</ul>
+</section>
+<section id="aprendizaje-no-supervisado-para-la-vision">
+<h3>Aprendizaje no supervisado para la visión<a class="headerlink" href="#aprendizaje-no-supervisado-para-la-vision" title="Link to this heading">#</a></h3>
+<p>En el campo del NLP, los modelos base (entrenados de manera no supervisada) han permitido avances espectaculares. Crear un modelo base para imágenes también es una tarea muy atractiva. Esto permitiría tener un modelo que pueda ajustarse fácilmente (<em>fine-tuning</em>) para tareas específicas y con buenos resultados. Para esta tarea, se han propuesto varias aproximaciones utilizando únicamente imágenes. A continuación, presentaremos dos de ellas.</p>
+<p><strong>BEIT</strong>: <a class="reference external" href="https://arxiv.org/pdf/2106.08254">BEIT: Pre-entrenamiento tipo BERT para Transformadores de Imágenes</a> propone utilizar el mismo método de entrenamiento que BERT, pero en el contexto de las imágenes. Esto consiste en enmascarar ciertos <em>patches</em> de la imagen y tratar de predecirlos durante el entrenamiento. Sin embargo, a diferencia de las palabras, las posibilidades de imágenes son casi infinitas (si queremos predecir una imagen RGB de tamaño <span class="math notranslate nohighlight">\(3 \times 8 \times 8\)</span>, hay <span class="math notranslate nohighlight">\((256 \times 256 \times 256)^{8 \times 8} = (16777216)^{64}\)</span> posibilidades, lo que es más que el número de átomos en el universo). Por lo tanto, no se pueden predecir directamente los píxeles.
+Para solucionar este problema, se utiliza un <a class="reference external" href="https://shashank7-iitd.medium.com/understanding-vector-quantized-variational-autoencoders-vq-vae-323d710a888a">VQ-VAE</a>, que permite discretizar una representación de la imagen. Esta versión discreta corresponde a valores provenientes de un diccionario de tamaño fijo, y por lo tanto es posible predecir esta representación discreta.</p>
+<p><img alt="BEIT" src="../_images/beit.png" /></p>
+<p><strong>Image GPT</strong>: El artículo <a class="reference external" href="https://cdn.openai.com/papers/Generative_Pretraining_from_Pixels_V2.pdf">Pre-entrenamiento Generativo a partir de Píxeles</a> introduce un equivalente de GPT, pero para píxeles. Se trata de un modelo autorregresivo que genera los píxeles de una imagen uno por uno, al igual que un modelo autorregresivo de NLP con los <em>tokens</em>. Esto permite un entrenamiento no supervisado, pero presenta varios inconvenientes:</p>
+<ul class="simple">
+<li><p>La generación toma mucho tiempo, ya que se genera un píxel a la vez. Por lo tanto, es necesario aplicar una reducción dimensional previa.</p></li>
+<li><p>Generar de izquierda a derecha no tiene sentido para una imagen. ¿Por qué de izquierda a derecha y no de derecha a izquierda? ¿O comenzando desde el centro?</p></li>
+</ul>
+<p><img alt="Image GPT" src="../_images/imagegpt.png" /></p>
+<p>Il existe d’autres façons d’entraîner des <em>transformers</em> de vision (ou d’autres modèles de vision) de manière non supervisée, comme les <a class="reference external" href="https://arxiv.org/pdf/2111.06377">Masked Autoencoders</a> ou les modèles associant texte et image.</p>
+</section>
+</section>
+<section id="transformers-que-combinan-texto-e-imagen">
+<h2>Transformers que combinan texto e imagen<a class="headerlink" href="#transformers-que-combinan-texto-e-imagen" title="Link to this heading">#</a></h2>
+<p>Los modelos <em>Transformer</em> que combinan texto e imagen han demostrado ser de gran ayuda para crear modelos de base. Estos modelos suelen ser <em>subtituladores</em>, es decir, están entrenados para generar una descripción de una imagen.</p>
+<p>En esta sección, presentaremos el funcionamiento del modelo <a class="reference external" href="https://openai.com/index/clip/">CLIP</a>, introducido en el artículo <a class="reference external" href="https://arxiv.org/pdf/2103.00020">Aprendizaje de Modelos Visuales Transferibles a partir de Supervisión con Lenguaje Natural</a>. También explicaremos la importancia de este tipo de modelo y sus capacidades en diversas tareas.</p>
+<p>Dans cette partie, nous allons présenter le fonctionnement du modèle <a class="reference external" href="https://openai.com/index/clip/">CLIP</a> introduit dans l’article <a class="reference external" href="https://arxiv.org/pdf/2103.00020">Learning Transferable Visual Models From Natural Language Supervision</a>. Nous présenterons également l’intérêt de ce type de modèle et ses capacités dans le cadre de nombreuses tâches.</p>
+<p><strong>Arquitectura de CLIP</strong>: El entrenamiento de CLIP se basa en un método contrastivo. Este método consiste en presentar al modelo dos ejemplos: uno positivo que corresponde a la etiqueta dada y uno negativo que no corresponde. El objetivo es que el modelo asocie correctamente el ejemplo positivo con la etiqueta, al tiempo que disocia el ejemplo negativo de la misma. Así, este enfoque permite definir una frontera clara entre lo que es relevante (positivo) y lo que no lo es (negativo), maximizando la separación entre ambos.</p>
+<p>En la práctica, CLIP utiliza tanto un codificador de texto (<em>encoder</em>) como un codificador de imágenes, ambos basados en arquitecturas de <em>transformers</em>. El modelo codifica descripciones textuales e imágenes para luego asociarlas correctamente durante el entrenamiento. El objetivo principal es maximizar la correlación entre las descripciones y las imágenes correspondientes, mientras se minimiza esta correlación para las parejas que no coinciden. Esto permite al modelo aprender a representar de manera eficiente las relaciones entre texto e imagen en un espacio de <em>embedding</em> común, facilitando así la comprensión y generación de texto a partir de imágenes, y viceversa.</p>
+<p>Lors de la phase de test, on peut demander au modèle de générer une description adaptée pour notre image.</p>
+<p><img alt="CLIP" src="../_images/clip.png" /></p>
+<p><strong>Uso del modelo</strong>: Más allá de ser un simple generador de subtítulos (<em>captioner</em>), CLIP también permite realizar clasificación <em>zero-shot</em>, es decir, clasificar una imagen sin haber entrenado el modelo específicamente para esa tarea. En el caso de CLIP, esto permite asignar una puntuación a cada descripción que se le proporciona. Por ejemplo, si se le dan dos descripciones como “Una foto de un gato” y “Una foto de un perro”, devuelve puntuaciones de probabilidad que indican qué tan asociada está la imagen actual con cada una de las descripciones.</p>
+<p><strong>Otros usos</strong>: Este método de entrenamiento también ha permitido crear modelos de detección <em>zero-shot</em>, como <a class="reference external" href="https://arxiv.org/pdf/2205.06230">OWL-ViT</a>, modelos de transferencia de estilo e incluso modelos de generación de imágenes.</p>
+<p><strong>Conjuntos de datos de imágenes con descripciones</strong>: También podemos preguntarnos si una descripción de imagen no es equivalente a una etiqueta y si, por lo tanto, necesitaríamos una anotación laboriosa para entrenar este tipo de modelos (que requieren miles de millones de imágenes para ser eficientes). En realidad, es posible recolectar imágenes con descripciones de manera sencilla en internet gracias al atributo “alt” de las imágenes en el código HTML, que es una descripción que las personas añaden a sus imágenes.</p>
+<p>Por supuesto, estos datos no son necesariamente confiables, pero en este tipo de modelos la cantidad es más importante que la calidad.</p>
+<p>Además, actualmente existen bases de datos de código abierto que contienen miles de millones de pares imagen/descripción. La más conocida es <a class="reference external" href="https://laion.ai/blog/laion-5b/">LAION-5B</a>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./07_Transformers"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="04_ArchitectureEtParticularit%C3%A9s.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Arquitectura y particularidades del <em>transformer</em></p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="06_VisionTransformerImplementation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Implementación del Vision Transformer</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bert">BERT</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-modelo">Entrenamiento modelo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utilidad-de-bert">Utilidad de BERT</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformers-para-procesamiento-de-imagenes">Transformers para procesamiento de imágenes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vit-vision-transformer">ViT : Vision Transformer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aprendizaje-no-supervisado-para-la-vision">Aprendizaje no supervisado para la visión</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformers-que-combinan-texto-e-imagen">Transformers que combinan texto e imagen</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Simon Thomine
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div id="language-switcher" style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #eee;">
+  <span style="margin-right: 10px;">🌐 Language / Langue:</span>
+  <a href="#" onclick="switchToEnglish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #4CAF50; color: white; border-radius: 5px; font-weight: bold; transition: all 0.3s;">🇺🇸 English</a>
+  <a href="#" onclick="switchToFrench()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #f0f0f0; border-radius: 5px; transition: all 0.3s;">🇫🇷 Français</a>
+  <a href="#" onclick="switchToSpanish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ffd700; border-radius: 5px; transition: all 0.3s;">🇪🇸 Español</a>
+  <a href="#" onclick="switchToChinese()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ff4b4b; color: white; border-radius: 5px; transition: all 0.3s;">🇨🇳 中文</a>
+</div>
+<script>
+function getBaseUrl() {
+  let baseUrl = window.location.origin;
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    baseUrl += pathname.split('fr/')[0];
+  } else if (pathname.includes('en/')) {
+    baseUrl += pathname.split('en/')[0];
+  } else if (pathname.includes('es/')) {
+    baseUrl += pathname.split('es/')[0];
+  } else if (pathname.includes('zh/')) {
+    baseUrl += pathname.split('zh/')[0];
+  } else {
+    baseUrl += pathname.split('/').slice(0, -1).join('/') + '/';
+  }
+  return baseUrl;
+}
+
+function getCurrentPage() {
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    return pathname.split('fr/')[1] || 'index.html';
+  } else if (pathname.includes('en/')) {
+    return pathname.split('en/')[1] || 'index.html';
+  } else if (pathname.includes('es/')) {
+    return pathname.split('es/')[1] || 'index.html';
+  } else if (pathname.includes('zh/')) {
+    return pathname.split('zh/')[1] || 'index.html';
+  }
+  return 'index.html';
+}
+
+function switchToEnglish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'en/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToFrench() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'fr/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToSpanish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'es/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToChinese() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'zh/' + currentPage;
+  window.location.href = newUrl;
+}
+</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

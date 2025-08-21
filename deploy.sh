@@ -7,10 +7,10 @@ echo "🚀 Building Multilingual Jupyter Book for Deployment"
 
 # Clean previous builds
 echo "🧹 Cleaning previous builds..."
-rm -rf _build_fr _build_en docs/
+rm -rf _build_fr _build_en _build_es _build_zh docs/
 
-# Build both versions
-echo "🔨 Building both language versions..."
+# Build all versions
+echo "🔨 Building all language versions..."
 python build_multilingual.py
 
 # Create docs directory for GitHub Pages
@@ -20,10 +20,12 @@ mkdir -p docs
 # Copy built files to docs
 cp -r _build_fr/_build/html docs/fr
 cp -r _build_en/_build/html docs/en
+cp -r _build_es/_build/html docs/es
+cp -r _build_zh/_build/html docs/zh
 cp index.html docs/
 
 # remove unnecessary files
-rm -rf _build_fr _build_en
+rm -rf _build_fr _build_en _build_es _build_zh
 
 # Create .nojekyll file to prevent Jekyll processing
 touch docs/.nojekyll

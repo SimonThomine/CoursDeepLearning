@@ -1,0 +1,1160 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Introducción a la tokenización &#8212; Deep Learning Course</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Bonus_CoursSpécifiques/10_Tokenization';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Cuantización" href="11_Quantization.html" />
+    <link rel="prev" title="Métricas de evaluación de modelos" href="09_MetriquesEvaluation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><span style="font-size:2em; font-weight:bold;">🚀 Aprende Deep Learning desde cero 🚀</span></div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Deep Learning Course</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Curso de Deep Learning 🚀
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">🧮 Fundamentos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/01_D%C3%A9riv%C3%A9esEtDescenteDuGradient.html">Derivada y descenso del gradiente</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/02_R%C3%A9gressionLogistique.html">Regresión Logística</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔗 Redes totalmente conectadas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/01_MonPremierR%C3%A9seau.html">Mi primer red neuronal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/02_PytorchIntroduction.html">Introducción a PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/03_TechniquesAvanc%C3%A9es.html">Técnicas avanzadas</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🖼️ Redes convolucionales</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/01_CouchesDeConvolutions.html">Las capas de convolución</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/02_R%C3%A9seauConvolutif.html">Redes convolucionales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/03_ConvImplementation.html">Implementación de la capa de convolución</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/04_R%C3%A9seauConvolutifPytorch.html">Redes convolucionales con PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/05_ApplicationClassification.html">Aplicación en un conjunto de datos de imágenes en color</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/06_ApplicationSegmentation.html">Aplicación de la segmentación</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔄 Autoencoders</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/01_IntuitionEtPremierAE.html">Introducción a los autoencodificadores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/02_DenoisingAE.html">Autoencoder para desruido</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📝 PLN</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/01_Introduction.html">Introducción al PLN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/02_bigramme.html">Bigrama</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/03_R%C3%A9seauFullyConnected.html">Red neuronal completamente conectada</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/04_WaveNet.html">PyTorch y WaveNet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/05_Rnn.html">Redes neuronales recurrentes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/06_Lstm.html">Memoria a Corto-Largo Plazo (LSTM)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introducción a Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Visión por computadora con Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">Procesamiento del lenguaje natural con Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Procesamiento de audio con Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Generación de imágenes con Diffusers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demostración con Gradio</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/01_Introduction.html">Introducción a los transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/02_GptFromScratch.html">Construyamos un GPT desde cero</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/03_TrainingOurGpt.html">Entrenamiento de nuestro modelo GPT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/04_ArchitectureEtParticularit%C3%A9s.html">Arquitectura y particularidades del <em>transformer</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/05_UtilisationsPossibles.html">Posibles usos de la arquitectura Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/06_VisionTransformerImplementation.html">Implementación del Vision Transformer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/07_SwinTransformer.html">Swin Transformer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎯 Detección y YOLO</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/01_Introduction.html">Introducción a la detección de objetos en imágenes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/02_YoloEnDetail.html">YOLO en detalle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/03_Ultralytics.html">Ultralytics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔍 Entrenamiento contrastivo</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/01_FaceVerification.html">Verificación facial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/02_NonSupervis%C3%A9.html">Aprendizaje contrastivo no supervisado</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎓 Transfer Learning y Distillation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/01_TransferLearning.html">Aprendizaje por transferencia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/02_TransferLearningPytorch.html">Transfer Learning con PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/03_Distillation.html">La destilación de conocimientos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/04_DistillationAnomalie.html">Destilación de conocimientos para la detección no supervisada de anomalías</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/05_FineTuningLLM.html">Ajuste fino (Fine-Tuning) de los LLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/06_FineTuningBertHF.html">Ajuste fino de BERT con Hugging Face</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎨 Modelos generativos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/01_Introduction.html">Introducción a los modelos generativos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/02_GAN.html">Redes generativas antagónicas (GAN)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/03_GanImplementation.html">Implementación de una GAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/04_VAE.html">Autoencoders variacionales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/05_VaeImplementation.html">Implementación de un VAE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/06_NormalizingFlows.html">Flujos de normalización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/07_DiffusionModels.html">Modelos de difusión</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/08_DiffusionImplementation.html">Implementación de un modelo de difusión</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎁 Bonus – Cursos específicos</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_ActivationEtInitialisation.html">Activaciones e inicializaciones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_BatchNorm.html">Normalización por lotes (<em>Batch Normalization</em>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_DataAugmentation.html">Aumento de datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_Broadcasting.html">Difusión (<em>Broadcasting</em>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_Optimizer.html">Comprender los diferentes optimizadores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_Regularisation.html">Regularización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_ConnexionsResiduelles.html">Conexiones residuales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_CrossValidation.html">Introducción a la validación cruzada</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_MetriquesEvaluation.html">Métricas de evaluación de modelos</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introducción a la tokenización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_Quantization.html">Cuantización</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/edit/main/en/Bonus_CoursSpécifiques/10_Tokenization.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/issues/new?title=Issue%20on%20page%20%2FBonus_CoursSpécifiques/10_Tokenization.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Bonus_CoursSpécifiques/10_Tokenization.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introducción a la tokenización</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tokenizador-de-gpt-2">Tokenizador de GPT-2</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aritmetica">Aritmética</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#palabras-identicas-tokens-diferentes">Palabras idénticas, tokens diferentes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#otros-idiomas">Otros idiomas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python">Python</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creemos-nuestro-propio-tokenizador">Creemos nuestro propio tokenizador</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unicode">Unicode</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utf-8">UTF-8</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algoritmo-de-byte-pair-encoding">Algoritmo de byte-pair encoding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicacion-del-byte-pair-encoding">Aplicación del byte-pair encoding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decodificacion-codificacion">Decodificación/Codificación</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#patrones-regex">Patrones regex</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tokens-especiales">Tokens especiales</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#otros-tipos-de-tokenizadores">Otros tipos de tokenizadores</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tokenizacion-en-otras-modalidades">Tokenización en otras modalidades?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#respuestas-a-las-preguntas-del-principio">Respuestas a las preguntas del principio</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="introduccion-a-la-tokenizacion">
+<h1>Introducción a la tokenización<a class="headerlink" href="#introduccion-a-la-tokenizacion" title="Link to this heading">#</a></h1>
+<p>Un elemento clave de los modelos de lenguaje (LLM) es la <em>tokenización</em>. Se trata del primer paso de una red transformer, que consiste en transformar un texto en una secuencia de enteros. Este curso se inspira ampliamente en el video de Andrej Karpathy, <a class="reference external" href="https://www.youtube.com/watch?v=zduSFxRajkE&amp;amp;ab_channel=AndrejKarpathy">Let’s build the GPT Tokenizer</a>.</p>
+<p>Cuando implementamos nuestro GPT, utilizamos un <em>tokenizador</em> muy simple que codifica cada carácter con un entero diferente. En la práctica, preferimos codificar <em>fragmentos</em> de caracteres, es decir, agrupaciones de caracteres.</p>
+<p>Comprender cómo funciona un tokenizador es esencial para entender el funcionamiento de un modelo de lenguaje.</p>
+<p>Al final del curso, podremos responder a estas preguntas:</p>
+<ul class="simple">
+<li><p>¿Por qué los LLM tienen dificultades para deletrear palabras?</p></li>
+<li><p>¿Por qué los LLM tienen dificultades para realizar operaciones simples en cadenas de caracteres (como invertir una cadena)?</p></li>
+<li><p>¿Por qué los LLM son mejores en inglés?</p></li>
+<li><p>¿Por qué los LLM son malos en aritmética?</p></li>
+<li><p>¿Por qué GPT-2 no es muy bueno en Python?</p></li>
+<li><p>¿Por qué mi LLM se detiene inmediatamente si le envío la cadena “<endoftext>”?</p></li>
+<li><p>¿Por qué el LLM se rompe cuando le hablo de SolidGoldMagiKarp?</p></li>
+<li><p>¿Por qué es preferible usar YAML en lugar de JSON con los LLM?</p></li>
+</ul>
+<p><strong>Nota</strong>: El tokenizador es una parte completamente separada del LLM, con su propio conjunto de datos de entrenamiento y que se entrena de manera diferente.</p>
+<p><img alt="Tokenizer" src="../_images/tokenizer.png" /></p>
+<section id="tokenizador-de-gpt-2">
+<h2>Tokenizador de GPT-2<a class="headerlink" href="#tokenizador-de-gpt-2" title="Link to this heading">#</a></h2>
+<p>Comencemos por analizar la tokenización de GPT-2 a través del sitio <a class="reference external" href="https://tiktokenizer.vercel.app/?model=gpt2">Tiktokenizer</a> para comprender qué puede causar problemas. El tokenizador de GPT-2 tiene un vocabulario de aproximadamente 50,000 palabras, lo que significa 50,000 tokens distintos.</p>
+<section id="aritmetica">
+<h3>Aritmética<a class="headerlink" href="#aritmetica" title="Link to this heading">#</a></h3>
+<p>En primer lugar, si examinamos la parte aritmética, notamos rápidamente que los números pueden separarse en tokens de manera bastante arbitraria.
+Por ejemplo:</p>
+<p><img alt="Aritmética" src="../_images/arith.png" /></p>
+<p>998 es un token completo, pero 9988 se separa en dos tokens: 99 y 88.
+Es fácil imaginar que para el LLM, contar se vuelve complicado.</p>
+</section>
+<section id="palabras-identicas-tokens-diferentes">
+<h3>Palabras idénticas, tokens diferentes<a class="headerlink" href="#palabras-identicas-tokens-diferentes" title="Link to this heading">#</a></h3>
+<p>Para palabras idénticas, según cómo se escriban, obtenemos tokens diferentes.
+Por ejemplo:
+<img alt="Same1" src="../_images/same1.png" />
+<img alt="Same2" src="../_images/same2.png" /></p>
+<p>Las 4 palabras idénticas se representan con tokens diferentes (el token 198 corresponde al salto de línea). El modelo deberá aprender que estos tokens son casi idénticos.</p>
+</section>
+<section id="otros-idiomas">
+<h3>Otros idiomas<a class="headerlink" href="#otros-idiomas" title="Link to this heading">#</a></h3>
+<p>Para la misma frase en diferentes idiomas, el número de tokens utilizados no es el mismo:</p>
+<p><img alt="Idioma" src="../_images/langage.png" /></p>
+<p>Esto se explica por el hecho de que el tokenizador de GPT-2 se entrena principalmente con datos en inglés.
+En la práctica, esto reduce las capacidades del modelo en otros idiomas, ya que el contexto no es el mismo en términos de información. Se puede insertar un texto mucho más largo en inglés que en japonés.</p>
+</section>
+<section id="python">
+<h3>Python<a class="headerlink" href="#python" title="Link to this heading">#</a></h3>
+<p>Podemos observar cómo el tokenizador se comporta con el código Python:</p>
+<p><img alt="Python" src="../_images/python.png" /></p>
+<p>Cada espacio de la indentación se cuenta como un token. Si el código contiene muchas condiciones o bucles, el contexto aumenta rápidamente, lo que hace que el modelo sea poco eficiente.</p>
+<p><strong>Nota</strong>: Este defecto se corrigió en las versiones posteriores de GPT (3 y 4), una indentación de 4 tab es un único token, por ejemplo.</p>
+<p><img alt="Python2" src="../_images/python2.png" /></p>
+<p><strong>Nota 2</strong>: La configuración de nuestro editor de código (2 o 4 espacios para la indentación en Python) también puede influir en la tokenización.</p>
+<p><strong>Nota 3</strong>: Un LLM especializado en código también tendrá un tokenizador especializado, lo que mejora el rendimiento.</p>
+</section>
+</section>
+<section id="creemos-nuestro-propio-tokenizador">
+<h2>Creemos nuestro propio tokenizador<a class="headerlink" href="#creemos-nuestro-propio-tokenizador" title="Link to this heading">#</a></h2>
+<p>Para crear nuestro propio tokenizador, comencemos por ver cómo convertir cadenas de caracteres en enteros.</p>
+<section id="unicode">
+<h3>Unicode<a class="headerlink" href="#unicode" title="Link to this heading">#</a></h3>
+<p>Un método posible es usar <a class="reference external" href="https://fr.wikipedia.org/wiki/Unicode">Unicode</a>. Esto permite convertir cada carácter en un entero.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sentence</span><span class="o">=</span><span class="s2">&quot;Ce cours de deep learning est génial !&quot;</span>
+<span class="c1"># ord() permet de récupérer le code unicode d&#39;un caractère</span>
+<span class="n">unicode</span><span class="o">=</span><span class="p">[</span><span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">)</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">unicode</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[67, 101, 32, 99, 111, 117, 114, 115, 32, 100, 101, 32, 100, 101, 101, 112, 32, 108, 101, 97, 114, 110, 105, 110, 103, 32, 101, 115, 116, 32, 103, 233, 110, 105, 97, 108]
+</pre></div>
+</div>
+</div>
+</div>
+<p>En la práctica, no se puede usar este método por varias razones:</p>
+<ul class="simple">
+<li><p>Actualmente, hay casi 150,000 caracteres, lo cual es demasiado grande como tamaño de vocabulario.</p></li>
+<li><p>Hay actualizaciones regulares (una por año), lo que haría que un tokenizador basado en Unicode quedara obsoleto después de un año.</p></li>
+</ul>
+</section>
+<section id="utf-8">
+<h3>UTF-8<a class="headerlink" href="#utf-8" title="Link to this heading">#</a></h3>
+<p>Otra posibilidad es usar el <em>codificación</em> UTF-8 (16 o 32 bits también serían posibles, pero menos prácticos), que permite codificar Unicode en 4 a 8 bits. Al hacer esto, nuestro tamaño de vocabulario base será de 256.</p>
+<p>Mantendremos la idea de UTF-8, pero queremos aumentar el tamaño del vocabulario, ya que 256 es demasiado pequeño y obligaría a los LLM a tener tamaños de contexto enormes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sentence</span><span class="o">=</span><span class="s2">&quot;Bonjour&quot;</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">sentence</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[66, 111, 110, 106, 111, 117, 114]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="algoritmo-de-byte-pair-encoding">
+<h3>Algoritmo de byte-pair encoding<a class="headerlink" href="#algoritmo-de-byte-pair-encoding" title="Link to this heading">#</a></h3>
+<p>Para aumentar nuestro tamaño de vocabulario, usamos el algoritmo <em>byte-pair encoding</em>.
+El funcionamiento de este algoritmo es simple: iterativamente encontramos la pareja de bytes más frecuente y la reemplazamos con un nuevo token (lo que aumenta el vocabulario en 1).
+Por ejemplo, tomemos la secuencia:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aaabdaaabac</span>
+</pre></div>
+</div>
+<p>En la primera iteración, vemos que la pareja “aa” es la más frecuente, por lo que la reemplazamos con el token Z:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ZabdZabac</span>
+<span class="n">Z</span><span class="o">=</span><span class="n">aa</span>
+</pre></div>
+</div>
+<p>En la segunda iteración, es la pareja “ab” que reemplazamos con Y:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ZYdZYac</span>
+<span class="n">Y</span><span class="o">=</span><span class="n">ab</span>
+<span class="n">Z</span><span class="o">=</span><span class="n">aa</span>
+</pre></div>
+</div>
+<p>Finalmente, en la tercera iteración, podemos reemplazar ZY con X:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">XdXac</span>
+<span class="n">X</span><span class="o">=</span><span class="n">ZY</span>
+<span class="n">Y</span><span class="o">=</span><span class="n">ab</span>
+<span class="n">Z</span><span class="o">=</span><span class="n">aa</span>
+</pre></div>
+</div>
+<p>Así, hemos aumentado el vocabulario mientras reducimos el tamaño de la secuencia (y, por lo tanto, el contexto necesario para procesarla).</p>
+<p><strong>Nota</strong>: La elección de los datos de entrenamiento tiene un impacto crucial en el tokenizador. Deben elegirse en función de nuestros objetivos.</p>
+<p>La ventaja de este algoritmo es que se puede aplicar tantas veces como sea necesario hasta obtener un tamaño de contexto que nos satisfaga.</p>
+<p><strong>Nota</strong>: La elección de los datos de entrenamiento tiene un impacto crucial en el tokenizador. Deben elegirse en función de nuestros objetivos.</p>
+</section>
+<section id="aplicacion-del-byte-pair-encoding">
+<h3>Aplicación del byte-pair encoding<a class="headerlink" href="#aplicacion-del-byte-pair-encoding" title="Link to this heading">#</a></h3>
+<p>Para ilustrar el uso del <em>byte-pair encoding</em>, tomemos un gran fragmento de texto y contemos las parejas. Para ello, usemos el primer capítulo del primer volumen de <em>La Comedia Humana</em> de Balzac. El texto se obtuvo de <a class="reference external" href="https://www.gutenberg.org/ebooks/41211">Gutenberg</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;balzac.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+  <span class="n">text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">[:</span><span class="mi">1000</span><span class="p">])</span>
+
+<span class="n">tokens</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">tokens</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Au milieu de la rue Saint-Denis, presque au coin de la rue du
+Petit-Lion, existait naguère une de ces maisons précieuses qui donnent
+aux historiens la facilité de reconstruire par analogie l&#39;ancien Paris.
+Les murs menaçants de cette bicoque semblaient avoir été bariolés
+d&#39;hiéroglyphes. Quel autre nom le flâneur pouvait-il donner aux X et aux
+V que traçaient sur la façade les pièces de bois transversales ou
+diagonales dessinées dans le badigeon par de petites lézardes
+parallèles? Évidemment, au passage de toutes les voitures, chacune de
+ces solives s&#39;agitait dans sa mortaise. Ce vénérable édifice était
+surmonté d&#39;un toit triangulaire dont aucun modèle ne se verra bientôt
+plus à Paris. Cette couverture, tordue par les intempéries du climat
+parisien, s&#39;avançait de trois pieds sur la rue, autant pour garantir des
+eaux pluviales le seuil de la porte, que pour abriter le mur d&#39;un
+grenier et sa lucarne sans appui. Ce dernier étage était construit en
+planches clouées l&#39;une sur l&#39;autre comme de
+[65, 117, 32, 109, 105, 108, 105, 101, 117, 32, 100, 101, 32, 108, 97, 32, 114, 117, 101, 32, 83, 97, 105, 110, 116, 45, 68, 101, 110, 105, 115, 44, 32, 112, 114, 101, 115, 113, 117, 101, 32, 97, 117, 32, 99, 111, 105, 110, 32, 100, 101, 32, 108, 97, 32, 114, 117, 101, 32, 100, 117, 10, 80, 101, 116, 105, 116, 45, 76, 105, 111, 110, 44, 32, 101, 120, 105, 115, 116, 97, 105, 116, 32, 110, 97, 103, 117, 195, 168, 114, 101, 32, 117, 110, 101, 32, 100, 101, 32, 99, 101, 115, 32, 109, 97, 105, 115, 111, 110, 115, 32, 112, 114, 195, 169, 99, 105, 101, 117, 115, 101, 115, 32, 113, 117, 105, 32, 100, 111, 110, 110, 101, 110, 116, 10, 97, 117, 120, 32, 104, 105, 115, 116, 111, 114, 105, 101, 110, 115, 32, 108, 97, 32, 102, 97, 99, 105, 108, 105, 116, 195, 169, 32, 100, 101, 32, 114, 101, 99, 111, 110, 115, 116, 114, 117, 105, 114, 101, 32, 112, 97, 114, 32, 97, 110, 97, 108, 111, 103, 105, 101, 32, 108, 39, 97, 110, 99, 105, 101, 110, 32, 80, 97, 114, 105, 115, 46, 10, 76, 101, 115, 32, 109, 117, 114, 115, 32, 109, 101, 110, 97, 195, 167, 97, 110, 116, 115, 32, 100, 101, 32, 99, 101, 116, 116, 101, 32, 98, 105, 99, 111, 113, 117, 101, 32, 115, 101, 109, 98, 108, 97, 105, 101, 110, 116, 32, 97, 118, 111, 105, 114, 32, 195, 169, 116, 195, 169, 32, 98, 97, 114, 105, 111, 108, 195, 169, 115, 10, 100, 39, 104, 105, 195, 169, 114, 111, 103, 108, 121, 112, 104, 101, 115, 46, 32, 81, 117, 101, 108, 32, 97, 117, 116, 114, 101, 32, 110, 111, 109, 32, 108, 101, 32, 102, 108, 195, 162, 110, 101, 117, 114, 32, 112, 111, 117, 118, 97, 105, 116, 45, 105, 108, 32, 100, 111, 110, 110, 101, 114, 32, 97, 117, 120, 32, 88, 32, 101, 116, 32, 97, 117, 120, 10, 86, 32, 113, 117, 101, 32, 116, 114, 97, 195, 167, 97, 105, 101, 110, 116, 32, 115, 117, 114, 32, 108, 97, 32, 102, 97, 195, 167, 97, 100, 101, 32, 108, 101, 115, 32, 112, 105, 195, 168, 99, 101, 115, 32, 100, 101, 32, 98, 111, 105, 115, 32, 116, 114, 97, 110, 115, 118, 101, 114, 115, 97, 108, 101, 115, 32, 111, 117, 10, 100, 105, 97, 103, 111, 110, 97, 108, 101, 115, 32, 100, 101, 115, 115, 105, 110, 195, 169, 101, 115, 32, 100, 97, 110, 115, 32, 108, 101, 32, 98, 97, 100, 105, 103, 101, 111, 110, 32, 112, 97, 114, 32, 100, 101, 32, 112, 101, 116, 105, 116, 101, 115, 32, 108, 195, 169, 122, 97, 114, 100, 101, 115, 10, 112, 97, 114, 97, 108, 108, 195, 168, 108, 101, 115, 63, 32, 195, 137, 118, 105, 100, 101, 109, 109, 101, 110, 116, 44, 32, 97, 117, 32, 112, 97, 115, 115, 97, 103, 101, 32, 100, 101, 32, 116, 111, 117, 116, 101, 115, 32, 108, 101, 115, 32, 118, 111, 105, 116, 117, 114, 101, 115, 44, 32, 99, 104, 97, 99, 117, 110, 101, 32, 100, 101, 10, 99, 101, 115, 32, 115, 111, 108, 105, 118, 101, 115, 32, 115, 39, 97, 103, 105, 116, 97, 105, 116, 32, 100, 97, 110, 115, 32, 115, 97, 32, 109, 111, 114, 116, 97, 105, 115, 101, 46, 32, 67, 101, 32, 118, 195, 169, 110, 195, 169, 114, 97, 98, 108, 101, 32, 195, 169, 100, 105, 102, 105, 99, 101, 32, 195, 169, 116, 97, 105, 116, 10, 115, 117, 114, 109, 111, 110, 116, 195, 169, 32, 100, 39, 117, 110, 32, 116, 111, 105, 116, 32, 116, 114, 105, 97, 110, 103, 117, 108, 97, 105, 114, 101, 32, 100, 111, 110, 116, 32, 97, 117, 99, 117, 110, 32, 109, 111, 100, 195, 168, 108, 101, 32, 110, 101, 32, 115, 101, 32, 118, 101, 114, 114, 97, 32, 98, 105, 101, 110, 116, 195, 180, 116, 10, 112, 108, 117, 115, 32, 195, 160, 32, 80, 97, 114, 105, 115, 46, 32, 67, 101, 116, 116, 101, 32, 99, 111, 117, 118, 101, 114, 116, 117, 114, 101, 44, 32, 116, 111, 114, 100, 117, 101, 32, 112, 97, 114, 32, 108, 101, 115, 32, 105, 110, 116, 101, 109, 112, 195, 169, 114, 105, 101, 115, 32, 100, 117, 32, 99, 108, 105, 109, 97, 116, 10, 112, 97, 114, 105, 115, 105, 101, 110, 44, 32, 115, 39, 97, 118, 97, 110, 195, 167, 97, 105, 116, 32, 100, 101, 32, 116, 114, 111, 105, 115, 32, 112, 105, 101, 100, 115, 32, 115, 117, 114, 32, 108, 97, 32, 114, 117, 101, 44, 32, 97, 117, 116, 97, 110, 116, 32, 112, 111, 117, 114, 32, 103, 97, 114, 97, 110, 116, 105, 114, 32, 100, 101, 115, 10, 101, 97, 117, 120, 32, 112, 108, 117, 118, 105, 97, 108, 101, 115, 32, 108, 101, 32, 115, 101, 117, 105, 108, 32, 100, 101, 32, 108, 97, 32, 112, 111, 114, 116, 101, 44, 32, 113, 117, 101, 32, 112, 111, 117, 114, 32, 97, 98, 114, 105, 116, 101, 114, 32, 108, 101, 32, 109, 117, 114, 32, 100, 39, 117, 110, 10, 103, 114, 101, 110, 105, 101, 114, 32, 101, 116, 32, 115, 97, 32, 108, 117, 99, 97, 114, 110, 101, 32, 115, 97, 110, 115, 32, 97, 112, 112, 117, 105, 46, 32, 67, 101, 32, 100, 101, 114, 110, 105, 101, 114, 32, 195, 169, 116, 97, 103, 101, 32, 195, 169, 116, 97, 105, 116, 32, 99, 111, 110, 115, 116, 114, 117, 105, 116, 32, 101, 110, 10, 112, 108, 97, 110, 99, 104, 101, 115, 32, 99, 108, 111, 117, 195, 169]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Contemos ahora las parejas:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_stats</span><span class="p">(</span><span class="n">ids</span><span class="p">):</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="n">ids</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span> 
+        <span class="n">counts</span><span class="p">[</span><span class="n">pair</span><span class="p">]</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pair</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">counts</span>
+
+<span class="n">stats</span> <span class="o">=</span> <span class="n">get_stats</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Les 5 paires les plus fréquentes : &quot;</span><span class="p">,</span><span class="nb">sorted</span><span class="p">(((</span><span class="n">v</span><span class="p">,</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">stats</span><span class="o">.</span><span class="n">items</span><span class="p">()),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)[:</span><span class="mi">5</span><span class="p">])</span>
+
+<span class="n">top_pair</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">stats</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La paire la plus fréquente est : &quot;</span><span class="p">,</span> <span class="n">top_pair</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Les 5 paires les plus fréquentes :  [(5025, (101, 32)), (2954, (115, 32)), (2429, (32, 100)), (2332, (116, 32)), (2192, (101, 115))]
+La paire la plus fréquente est :  (101, 32)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Definamos ahora una función para fusionar las parejas más frecuentes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fonction pour fusionner les paires les plus fréquentes, on donne en entrée la liste des tokens, la paire à fusionner et le nouvel index</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">merge</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="n">pair</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+  <span class="n">newids</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">):</span>
+    <span class="c1"># Si on est pas à la dernière position et que la paire correspond, on la remplace</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+      <span class="n">newids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+      <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">newids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+      <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+  <span class="k">return</span> <span class="n">newids</span>
+
+<span class="c1"># Test de la fonction merge</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">merge</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="mi">99</span><span class="p">))</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;taille du texte avant :&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">))</span>
+<span class="c1"># On fusionne la paire la plus fréquente et on lui donne un nouvel index (256 car on a déjà les caractères de 0 à 255)</span>
+<span class="n">tokens2</span> <span class="o">=</span> <span class="n">merge</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="n">top_pair</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tokens2</span><span class="p">[:</span><span class="mi">100</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;taille du texte après :&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[5, 6, 99, 9, 1]
+taille du texte avant : 128987
+[65, 117, 32, 109, 105, 108, 105, 101, 117, 32, 100, 256, 108, 97, 32, 114, 117, 256, 83, 97, 105, 110, 116, 45, 68, 101, 110, 105, 115, 44, 32, 112, 114, 101, 115, 113, 117, 256, 97, 117, 32, 99, 111, 105, 110, 32, 100, 256, 108, 97, 32, 114, 117, 256, 100, 117, 10, 80, 101, 116, 105, 116, 45, 76, 105, 111, 110, 44, 32, 101, 120, 105, 115, 116, 97, 105, 116, 32, 110, 97, 103, 117, 195, 168, 114, 256, 117, 110, 256, 100, 256, 99, 101, 115, 32, 109, 97, 105, 115, 111]
+taille du texte après : 123962
+</pre></div>
+</div>
+</div>
+</div>
+<p>Con una sola fusión, ya hemos reducido significativamente el tamaño de la codificación del texto.
+Ahora, definamos el tamaño de vocabulario deseado y fusionemos tantas veces como sea necesario.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vocab_size</span> <span class="o">=</span> <span class="mi">276</span> <span class="c1"># La taille du vocabulaire que l&#39;on souhaite</span>
+<span class="n">num_merges</span> <span class="o">=</span> <span class="n">vocab_size</span> <span class="o">-</span> <span class="mi">256</span>
+<span class="n">tokens_merged</span><span class="o">=</span><span class="n">tokens</span>
+
+
+<span class="n">merges</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1"># (int, int) -&gt; int</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_merges</span><span class="p">):</span>
+  <span class="n">stats</span> <span class="o">=</span> <span class="n">get_stats</span><span class="p">(</span><span class="n">tokens_merged</span><span class="p">)</span>
+  <span class="n">pair</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">stats</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+  <span class="n">idx</span> <span class="o">=</span> <span class="mi">256</span> <span class="o">+</span> <span class="n">i</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;merging </span><span class="si">{</span><span class="n">pair</span><span class="si">}</span><span class="s2"> into a new token </span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+  <span class="n">tokens_merged</span> <span class="o">=</span> <span class="n">merge</span><span class="p">(</span><span class="n">tokens_merged</span><span class="p">,</span> <span class="n">pair</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
+  <span class="n">merges</span><span class="p">[</span><span class="n">pair</span><span class="p">]</span> <span class="o">=</span> <span class="n">idx</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>merging (101, 32) into a new token 256
+merging (115, 32) into a new token 257
+merging (116, 32) into a new token 258
+merging (195, 169) into a new token 259
+merging (101, 110) into a new token 260
+merging (97, 105) into a new token 261
+merging (44, 32) into a new token 262
+merging (111, 110) into a new token 263
+merging (101, 257) into a new token 264
+merging (111, 117) into a new token 265
+merging (114, 32) into a new token 266
+merging (97, 110) into a new token 267
+merging (113, 117) into a new token 268
+merging (100, 256) into a new token 269
+merging (97, 32) into a new token 270
+merging (101, 117) into a new token 271
+merging (101, 115) into a new token 272
+merging (108, 256) into a new token 273
+merging (105, 110) into a new token 274
+merging (46, 32) into a new token 275
+</pre></div>
+</div>
+</div>
+</div>
+<p>Ahora podemos ver la diferencia entre las dos secuencias de tokens:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Taille de base:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Taille après merge:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens_merged</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;compression ratio: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">tokens_merged</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">X&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Taille de base: 128987
+Taille après merge: 98587
+compression ratio: 1.31X
+</pre></div>
+</div>
+</div>
+</div>
+<p>Hemos comprimido bien el tamaño de la secuencia mientras aumentamos el vocabulario en solo 20.
+GPT-2 aumenta el vocabulario a 50,000, por lo que puedes imaginar que esto reduce drásticamente el tamaño de las secuencias.</p>
+</section>
+<section id="decodificacion-codificacion">
+<h3>Decodificación/Codificación<a class="headerlink" href="#decodificacion-codificacion" title="Link to this heading">#</a></h3>
+<p>Ahora que hemos construido nuestro tokenizador, queremos poder pasar de enteros (tokens) a nuestro texto y viceversa.</p>
+<p>Para ello, primero construyamos la función de <em>decodificación</em>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vocab</span> <span class="o">=</span> <span class="p">{</span><span class="n">idx</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">([</span><span class="n">idx</span><span class="p">])</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">256</span><span class="p">)}</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">),</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">merges</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">vocab</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">vocab</span><span class="p">[</span><span class="n">p0</span><span class="p">]</span> <span class="o">+</span> <span class="n">vocab</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span>
+
+<span class="c1"># Fonction pour décoder les ids en texte, prend en entrée une liste d&#39;entiers et retourne une chaine de caractères</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">decode</span><span class="p">(</span><span class="n">ids</span><span class="p">):</span>
+  <span class="n">tokens</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">vocab</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">)</span>
+  <span class="n">text</span> <span class="o">=</span> <span class="n">tokens</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">)</span> <span class="c1"># errors=&quot;replace&quot; permet de remplacer les caractères non reconnus par le caractére spécial �</span>
+  <span class="k">return</span> <span class="n">text</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">decode</span><span class="p">([</span><span class="mi">87</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>W
+</pre></div>
+</div>
+</div>
+</div>
+<p>Y la función de <em>codificación</em>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fonction pour encoder le texte en ids, prend en entrée une chaine de caractères et retourne une liste d&#39;entiers </span>
+<span class="k">def</span><span class="w"> </span><span class="nf">encode</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+  <span class="n">tokens</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+  <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="n">stats</span> <span class="o">=</span> <span class="n">get_stats</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+    <span class="n">pair</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">merges</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="n">pair</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">merges</span><span class="p">:</span>
+      <span class="k">break</span> 
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">merges</span><span class="p">[</span><span class="n">pair</span><span class="p">]</span>
+    <span class="n">tokens</span> <span class="o">=</span> <span class="n">merge</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="n">pair</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">tokens</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;Bonjour&quot;</span><span class="p">))</span>
+
+<span class="c1"># On eut véifier que l&#39;encodage et le décodage fonctionne correctement</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">decode</span><span class="p">(</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;Bonjour&quot;</span><span class="p">)))</span>
+
+<span class="c1"># Et sur le text en entier</span>
+<span class="n">text2</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">encode</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text2</span> <span class="o">==</span> <span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[66, 263, 106, 265, 114]
+Bonjour
+True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="patrones-regex">
+<h3>Patrones regex<a class="headerlink" href="#patrones-regex" title="Link to this heading">#</a></h3>
+<p>La serie de GPT usa <em>patrones regex</em> para separar el texto antes de crear el vocabulario. Esto permite tener más control sobre el tipo de tokens generados (por ejemplo, evitar tener diferentes tokens para “perro”, “perro!” y “perro?”). En el código fuente de Tiktoken (tokenizador de GPT), podemos encontrar el siguiente patrón: <strong>‘s|’t|’re|’ve|’m|’ll|’d| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+</strong>.</p>
+<p>La sintaxis es bastante compleja, pero la descompondremos para entender qué hace:</p>
+<ul class="simple">
+<li><p><strong>‘s|’t|’re|’ve|’m|’ll|’d</strong>: Corresponde a las contracciones en inglés como “is”, “it”, “are”, “have”, “am”, “will” y “had”. Estos tokens suelen ser importantes para aislar en el procesamiento del lenguaje natural.</p></li>
+<li><p><strong>?\p{L}+</strong>: Corresponde a palabras compuestas por letras. El “?” al inicio significa que la palabra puede estar precedida por un espacio, lo que permite capturar palabras con o sin espacio inicial.</p></li>
+<li><p><strong>?\p{N}+</strong>: Corresponde a secuencias de números (números). De la misma manera, un espacio opcional puede preceder la secuencia de números.</p></li>
+<li><p><strong>?[^\s\p{L}\p{N}]+</strong>: Corresponde a uno o más caracteres que no son espacios, letras ni números. Esto captura símbolos y puntuaciones, con un espacio opcional al inicio.</p></li>
+<li><p><strong>\s+(?!\S)</strong>: Corresponde a uno o más espacios seguidos solo por espacios (es decir, una secuencia de espacios al final de la cadena o antes de un salto de línea).</p></li>
+<li><p><strong>\s+</strong>: Corresponde a uno o más espacios. Es una correspondencia genérica para espacios múltiples entre palabras.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">regex</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">re</span>
+<span class="n">gpt2pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&quot;&quot;&#39;s|&#39;t|&#39;re|&#39;ve|&#39;m|&#39;ll|&#39;d| ?\p</span><span class="si">{L}</span><span class="s2">+| ?\p</span><span class="si">{N}</span><span class="s2">+| ?[^\s\p</span><span class="si">{L}</span><span class="s2">\p</span><span class="si">{N}</span><span class="s2">]+|\s+(?!\S)|\s+&quot;&quot;&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">gpt2pat</span><span class="p">,</span> <span class="s2">&quot;Hello&#39;ve world123 how&#39;s are you!!!?&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Hello&#39;, &quot;&#39;ve&quot;, &#39; world&#39;, &#39;123&#39;, &#39; how&#39;, &quot;&#39;s&quot;, &#39; are&#39;, &#39; you&#39;, &#39;!!!?&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>El texto se ha separado según las condiciones descritas en el <em>patrón regex</em>.</p>
+</section>
+<section id="tokens-especiales">
+<h3>Tokens especiales<a class="headerlink" href="#tokens-especiales" title="Link to this heading">#</a></h3>
+<p>También se añaden tokens especiales para el entrenamiento y el <em>finetuning</em>:</p>
+<ul class="simple">
+<li><p><strong>&lt;|endoftext|&gt;</strong>: Este token se usa para delimitar la separación entre diferentes documentos en los datos de entrenamiento.</p></li>
+<li><p><strong>&lt;|im_start|&gt;</strong> y <strong>&lt;|im_end|&gt;</strong>: Estos tokens delimitan el inicio y el final de un mensaje del usuario para un chatbot, por ejemplo.</p></li>
+</ul>
+<p><strong>Nota</strong>: Durante el <em>finetuning</em>, es posible añadir tokens al tokenizador (como <strong>&lt;|im_start|&gt;</strong> y <strong>&lt;|im_end|&gt;</strong>, por ejemplo) específicos para la tarea que se desea realizar. Por supuesto, esto requerirá modificar la matriz de embedding y volver a entrenarla.</p>
+</section>
+<section id="otros-tipos-de-tokenizadores">
+<h3>Otros tipos de tokenizadores<a class="headerlink" href="#otros-tipos-de-tokenizadores" title="Link to this heading">#</a></h3>
+<p>El tokenizador que hemos implementado está basado en el tokenizador <a class="reference external" href="https://github.com/openai/tiktoken">tiktoken</a> de OpenAI, utilizado en los modelos GPT. Otro tokenizador común es <a class="reference external" href="https://github.com/google/sentencepiece">sentencepiece</a>, utilizado en los modelos de Google y Meta, por ejemplo.</p>
+<p><strong>Nota</strong>: Sentencepiece es mucho más complejo que tiktoken y tiene muchos parámetros que ajustar. En la práctica, probablemente se usa porque el código es de código abierto (mientras que el código de entrenamiento de tiktoken no es de código abierto, solo tenemos acceso al código para codificar y decodificar).</p>
+</section>
+</section>
+<section id="tokenizacion-en-otras-modalidades">
+<h2>Tokenización en otras modalidades?<a class="headerlink" href="#tokenizacion-en-otras-modalidades" title="Link to this heading">#</a></h2>
+<p>Cuando queremos hacer un procesamiento <em>multimodal</em> (que está de moda en este momento), debemos producir tokens a partir de modalidades diferentes al texto, como el sonido o las imágenes.
+Idealmente, transformaríamos nuestro sonido o imagen en tokens para dárselos al transformer como si fueran texto.</p>
+<p>Para las imágenes, podemos usar un <a class="reference external" href="https://arxiv.org/pdf/1711.00937">VQVAE</a> o un <a class="reference external" href="https://arxiv.org/pdf/2012.09841">VQGAN</a>. La idea es usar un VAE o GAN para generar valores discretos en un espacio latente. Estos valores discretos luego se usan como tokens.</p>
+<p><img alt="VQGAN" src="../_images/VQGAN.png" /></p>
+<p>Figura extraída del <a class="reference external" href="https://arxiv.org/pdf/2012.09841">artículo</a>.</p>
+<p>El modelo SORA de OpenAI hace algo similar, pero con videos:</p>
+<p><img alt="SORA" src="../_images/SORA.png" /></p>
+<p>Figura extraída del <a class="reference external" href="https://arxiv.org/pdf/2402.17177">artículo</a></p>
+</section>
+<section id="respuestas-a-las-preguntas-del-principio">
+<h2>Respuestas a las preguntas del principio<a class="headerlink" href="#respuestas-a-las-preguntas-del-principio" title="Link to this heading">#</a></h2>
+<p>Ahora responderemos a las preguntas planteadas al principio del curso con lo que hemos aprendido:</p>
+<ul class="simple">
+<li><p><strong>¿Por qué los LLM tienen dificultades para deletrear palabras?</strong>
+La separación en tokens hace que cada palabra no se separe en todos sus caracteres, sino en <em>fragmentos</em> de caracteres. Esto hace que sea complicado para el modelo descomponerlas.</p></li>
+<li><p><strong>¿Por qué los LLM tienen dificultades para realizar operaciones simples en cadenas de caracteres (como invertir una cadena)?</strong>
+Es más o menos por la misma razón que la pregunta anterior. Para invertir una palabra, no basta con invertir los tokens que representan esa palabra.</p></li>
+<li><p><strong>¿Por qué los LLM son mejores en inglés?</strong>
+Hay varias razones para esto: los datos de entrenamiento del transformer y los datos de entrenamiento del tokenizador. Para el transformer, más datos en inglés le permiten aprender mejor el idioma y sus sutilezas. Para el tokenizador, si se entrena con datos en inglés, los tokens generados estarán principalmente adaptados para palabras en inglés, por lo que necesitaremos menos contexto que para otros idiomas.</p></li>
+<li><p><strong>¿Por qué los LLM son malos en aritmética?</strong>
+Los números se representan de manera bastante arbitraria según los datos de entrenamiento. Realizar operaciones con estos tokens no es algo fácil para el LLM.</p></li>
+<li><p><strong>¿Por qué GPT-2 no es muy bueno en Python?</strong>
+Como vimos en este curso, el tokenizador de GPT-2 transforma un espacio simple en un token. En Python, con la indentación y múltiples condiciones/bucles, rápidamente hay muchos espacios, lo que afecta significativamente el contexto.</p></li>
+<li><p><strong>¿Por qué mi LLM se detiene inmediatamente si le envío la cadena “<endoftext>”?</strong>
+Se trata de un token especial añadido en los datos de entrenamiento para separar el texto. Cuando el LLM lo encuentra, debe detener su generación.</p></li>
+<li><p><strong>¿Por qué el LLM se rompe cuando le hablo de SolidGoldMagiKarp?</strong>
+Esta pregunta es un poco menos evidente, y te recomiendo leer el excelente <a class="reference external" href="https://www.lesswrong.com/posts/aPeJE8bSo6rAFoLqg/solidgoldmagikarp-plus-prompt-generation">blogpost</a>. Explicándolo simplemente, si las palabras están presentes en los datos de entrenamiento del tokenizador pero no en los datos de entrenamiento del LLM, entonces el embedding de este token no estará en absoluto entrenado, y el LLM se comportará de manera aleatoria cuando encuentre este token. SolidGoldMagiKarp es un usuario de Reddit que debía aparecer regularmente en los datos de entrenamiento del tokenizador, pero no en los datos de entrenamiento del transformer.</p></li>
+<li><p><strong>¿Por qué es preferible usar YAML en lugar de JSON con los LLM?</strong>
+Es un poco la misma idea que con Python. El tokenizador de GPT-2 (y de la mayoría de los modelos, por cierto) transforma un documento JSON en más tokens que su equivalente YAML. Pasar de JSON a YAML reduce, por lo tanto, el contexto necesario para tratar el documento.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Bonus_CoursSpécifiques"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="09_MetriquesEvaluation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Métricas de evaluación de modelos</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="11_Quantization.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Cuantización</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tokenizador-de-gpt-2">Tokenizador de GPT-2</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aritmetica">Aritmética</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#palabras-identicas-tokens-diferentes">Palabras idénticas, tokens diferentes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#otros-idiomas">Otros idiomas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python">Python</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creemos-nuestro-propio-tokenizador">Creemos nuestro propio tokenizador</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unicode">Unicode</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utf-8">UTF-8</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algoritmo-de-byte-pair-encoding">Algoritmo de byte-pair encoding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicacion-del-byte-pair-encoding">Aplicación del byte-pair encoding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decodificacion-codificacion">Decodificación/Codificación</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#patrones-regex">Patrones regex</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tokens-especiales">Tokens especiales</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#otros-tipos-de-tokenizadores">Otros tipos de tokenizadores</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tokenizacion-en-otras-modalidades">Tokenización en otras modalidades?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#respuestas-a-las-preguntas-del-principio">Respuestas a las preguntas del principio</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Simon Thomine
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div id="language-switcher" style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #eee;">
+  <span style="margin-right: 10px;">🌐 Language / Langue:</span>
+  <a href="#" onclick="switchToEnglish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #4CAF50; color: white; border-radius: 5px; font-weight: bold; transition: all 0.3s;">🇺🇸 English</a>
+  <a href="#" onclick="switchToFrench()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #f0f0f0; border-radius: 5px; transition: all 0.3s;">🇫🇷 Français</a>
+  <a href="#" onclick="switchToSpanish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ffd700; border-radius: 5px; transition: all 0.3s;">🇪🇸 Español</a>
+  <a href="#" onclick="switchToChinese()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ff4b4b; color: white; border-radius: 5px; transition: all 0.3s;">🇨🇳 中文</a>
+</div>
+<script>
+function getBaseUrl() {
+  let baseUrl = window.location.origin;
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    baseUrl += pathname.split('fr/')[0];
+  } else if (pathname.includes('en/')) {
+    baseUrl += pathname.split('en/')[0];
+  } else if (pathname.includes('es/')) {
+    baseUrl += pathname.split('es/')[0];
+  } else if (pathname.includes('zh/')) {
+    baseUrl += pathname.split('zh/')[0];
+  } else {
+    baseUrl += pathname.split('/').slice(0, -1).join('/') + '/';
+  }
+  return baseUrl;
+}
+
+function getCurrentPage() {
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    return pathname.split('fr/')[1] || 'index.html';
+  } else if (pathname.includes('en/')) {
+    return pathname.split('en/')[1] || 'index.html';
+  } else if (pathname.includes('es/')) {
+    return pathname.split('es/')[1] || 'index.html';
+  } else if (pathname.includes('zh/')) {
+    return pathname.split('zh/')[1] || 'index.html';
+  }
+  return 'index.html';
+}
+
+function switchToEnglish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'en/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToFrench() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'fr/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToSpanish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'es/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToChinese() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'zh/' + currentPage;
+  window.location.href = newUrl;
+}
+</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

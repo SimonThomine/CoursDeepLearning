@@ -1,0 +1,1001 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Quantization &#8212; Deep Learning Course</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Bonus_CoursSpécifiques/11_Quantization';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Introduction to Tokenization" href="10_Tokenization.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><span style="font-size:2em; font-weight:bold;">🚀 Learn Deep Learning from scratch 🚀</span></div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Deep Learning Course</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Deep Learning Course 🚀
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">🧮 Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/01_D%C3%A9riv%C3%A9esEtDescenteDuGradient.html">Derivative and Gradient Descent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Fondations/02_R%C3%A9gressionLogistique.html">Logistic Regression</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔗 Fully Connected Networks</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/01_MonPremierR%C3%A9seau.html">My First Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/02_PytorchIntroduction.html">Introduction to PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_R%C3%A9seauFullyConnected/03_TechniquesAvanc%C3%A9es.html">Advanced Techniques</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🖼️ Convolutional Networks</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/01_CouchesDeConvolutions.html">Convolutional Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/02_R%C3%A9seauConvolutif.html">Convolutional Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/03_ConvImplementation.html">Implementing the Convolution Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/04_R%C3%A9seauConvolutifPytorch.html">Convolutional Networks with PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/05_ApplicationClassification.html">Application on a color image dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_R%C3%A9seauConvolutifs/06_ApplicationSegmentation.html">Applying Segmentation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔄 Autoencoders</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/01_IntuitionEtPremierAE.html">Introduction to Autoencoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_Autoencodeurs/02_DenoisingAE.html">Autoencoder for Denoising</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">📝 NLP</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/01_Introduction.html">Introduction to NLP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/02_bigramme.html">Bigram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/03_R%C3%A9seauFullyConnected.html">Fully Connected Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/04_WaveNet.html">PyTorch and WaveNet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/05_Rnn.html">Recurrent Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_NLP/06_Lstm.html">Long Short-Term Memory</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🤗 HuggingFace</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/01_introduction.html">Introduction to Hugging Face</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/02_ComputerVisionWithTransformers.html">Computer Vision with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/03_NlpWithTransformers.html">Natural Language Processing with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/04_AudioWithTransformers.html">Audio Processing with Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/05_ImageGenerationWithDiffusers.html">Image Generation with Diffusers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06_HuggingFace/06_DemoAvecGradio.html">Demo with Gradio</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">⚡ Transformers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/01_Introduction.html">Introduction to Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/02_GptFromScratch.html">Building a GPT from Scratch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/03_TrainingOurGpt.html">Training our GPT model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/04_ArchitectureEtParticularit%C3%A9s.html">Transformer architecture and features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/05_UtilisationsPossibles.html">Possible Applications of the Transformer Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/06_VisionTransformerImplementation.html">Implementing the Vision Transformer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07_Transformers/07_SwinTransformer.html">Swin Transformer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎯  Object Detection (YOLO)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/01_Introduction.html">Introduction to Object Detection in Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/02_YoloEnDetail.html">YOLO in Detail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08_DetectionEtYolo/03_Ultralytics.html">Ultralytics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🔍 Contrastive Training</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/01_FaceVerification.html">Facial Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09_EntrainementContrastif/02_NonSupervis%C3%A9.html">Unsupervised Contrastive Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎓 Transfer Learning and Distillation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/01_TransferLearning.html">Transfer Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/02_TransferLearningPytorch.html">Transfer Learning with PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/03_Distillation.html">Knowledge Distillation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/04_DistillationAnomalie.html">Knowledge Distillation for Unsupervised Anomaly Detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/05_FineTuningLLM.html">Fine-Tuning of LLMs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_TransferLearningEtDistillation/06_FineTuningBertHF.html">Fine-tuning BERT with Hugging Face</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎨 Generative Models</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/01_Introduction.html">Introduction to Generative Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/02_GAN.html">Generative Adversarial Networks (GANs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/03_GanImplementation.html">Implementing a GAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/04_VAE.html">Variational Autoencoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/05_VaeImplementation.html">Implementing a VAE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/06_NormalizingFlows.html">Normalizing Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/07_DiffusionModels.html">Diffusion Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11_ModelesGeneratifs/08_DiffusionImplementation.html">Implementing a Diffusion Model</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">🎁 Bonus – Specific Topics</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_ActivationEtInitialisation.html">Activations and Initializations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_BatchNorm.html">Batch Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_DataAugmentation.html">Data Augmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_Broadcasting.html">Broadcasting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_Optimizer.html">Understanding Different Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_Regularisation.html">Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_ConnexionsResiduelles.html">Residual Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_CrossValidation.html">Introduction to Cross-Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_MetriquesEvaluation.html">Model Evaluation Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_Tokenization.html">Introduction to Tokenization</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Quantization</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/edit/main/en/Bonus_CoursSpécifiques/11_Quantization.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SimonThomine/CoursDeepLearning/issues/new?title=Issue%20on%20page%20%2FBonus_CoursSpécifiques/11_Quantization.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Bonus_CoursSpécifiques/11_Quantization.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Quantization</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-represent-numbers-on-a-computer">How to Represent Numbers on a Computer?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-quantization">Introduction to Quantization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-overview-of-common-precisions">Quick Overview of Common Precisions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#symmetric-quantization">Symmetric Quantization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#asymmetric-quantization">Asymmetric Quantization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clipping-and-range-modification">Clipping and Range Modification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibration">Calibration</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#post-training-quantization-ptq">Post-Training Quantization (PTQ)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-quantization">Dynamic Quantization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#static-quantization">Static Quantization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#difference-between-dynamic-and-static-quantization">Difference Between Dynamic and Static Quantization</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ptq-4-bit-quantization">PTQ: 4-bit Quantization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gptq">GPTQ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gguf">GGUF</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantization-aware-training-qat">Quantization-Aware Training (QAT)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bitnet-1-bit-quantization">BitNet: 1-bit Quantization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bitnet-1-58-we-need-zero">BitNet 1.58: We Need Zero!</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning-of-language-models">Fine-Tuning of Language Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lora">LoRA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qlora">QLoRA</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="quantization">
+<h1>Quantization<a class="headerlink" href="#quantization" title="Link to this heading">#</a></h1>
+<p>Deep Learning models are becoming increasingly powerful and large. Take the example of LLM (Large Language Models): the best open-source models, such as Llama 3.1, now have hundreds of billions of parameters.</p>
+<p>Loading such a model on a single GPU is impossible. Even with the most powerful GPU on the market (the H100, with 80 GB of VRAM), multiple GPUs are needed for inference and even more for training.</p>
+<p>In practice, we observe that the more parameters a model has, the better its performance. Therefore, we do not want to reduce the size of the models. However, we aim to decrease the memory space they occupy.</p>
+<p>This course is heavily inspired by two articles: <a class="reference external" href="https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-quantization?utm_source=ainews&amp;amp;utm_medium=email&amp;amp;utm_campaign=ainews-to-be-named-5098">a visual guide to quantization</a> and <a class="reference external" href="https://medium.com/&#64;dillipprasad60/qlora-explained-a-deep-dive-into-parametric-efficient-fine-tuning-in-large-language-models-llms-c1a4794b1766">a detailed explanation of QLoRA</a>. The images used also come from these two articles.</p>
+<section id="how-to-represent-numbers-on-a-computer">
+<h2>How to Represent Numbers on a Computer?<a class="headerlink" href="#how-to-represent-numbers-on-a-computer" title="Link to this heading">#</a></h2>
+<p>To represent floating-point numbers on a computer, a certain number of bits are used. The <a class="reference external" href="https://en.wikipedia.org/wiki/IEEE_754">IEEE 754</a> standard describes how bits can represent a number. This is done through three parts: the sign, the exponent, and the mantissa.</p>
+<p>Here is an example of FP16 (16-bit) representation:</p>
+<p><img alt="FP16" src="../_images/Fp16.png" /></p>
+<p>The sign determines the sign of the number, the exponent gives the digits before the decimal point, and the mantissa gives the digits after the decimal point. Here is an example in image form of how to convert the FP16 representation to a number.</p>
+<p><img alt="Convert" src="../_images/convert.webp" /></p>
+<p>Generally, the more bits used to represent a value, the more precise the value can be or the larger the range of values it can cover. For example, we can compare the precision of FP16 and FP32:</p>
+<p><img alt="Compare FP" src="../_images/compareFP.webp" /></p>
+<p>One last important thing to know: there are two ways to evaluate a representation. On the one hand, the <em>dynamic range</em> which indicates the range of values that can be represented, and the <em>precision</em> which describes the difference between two neighboring values.</p>
+<p>The larger the exponent, the larger the <em>dynamic range</em>, and the larger the mantissa, the higher the <em>precision</em> (so two neighboring values are close).</p>
+<p>In deep learning, we often prefer to use the BF16 representation instead of FP16. The BF16 representation has a larger exponent but lower precision.</p>
+<p>The following figure illustrates the differences:</p>
+<p><img alt="BF16" src="../_images/BF16.webp" /></p>
+<p>Now that we understand the concepts of floating-point number precision, we can calculate the memory space a model occupies based on the precision. In FP32, a number is represented by 32 bits, which corresponds to 4 bytes (1 byte equals 8 bits). To obtain the memory usage of a model, we can perform the following calculation:
+<span class="math notranslate nohighlight">\(memory= \frac{n_{bits}}{8}*n_{params}\)</span></p>
+<p>Take the example of a model with 70 billion parameters at different precision levels: double (FP64), full-precision (FP32), and half-precision (FP16).
+For FP64: <span class="math notranslate nohighlight">\(\frac{64}{8} \times 70B = 560GB\)</span>
+For FP32: <span class="math notranslate nohighlight">\(\frac{32}{8} \times 70B = 280GB\)</span>
+For FP16: <span class="math notranslate nohighlight">\(\frac{16}{8} \times 70B = 140GB\)</span></p>
+<p>We clearly see the need to find a way to reduce the size of the models. Here, even the half-precision model occupies 140 GB, which corresponds to 2 H100 GPUs.</p>
+<p><strong>Note</strong>: Here, we are talking about precision for inference. For training, since we need to keep activations in memory for gradient descent, we end up with many more parameters (see the section on QLoRA later in the course).</p>
+</section>
+<section id="introduction-to-quantization">
+<h2>Introduction to Quantization<a class="headerlink" href="#introduction-to-quantization" title="Link to this heading">#</a></h2>
+<p>The goal of quantization is to reduce the precision of a model by transitioning from a rich precision like FP32 to a lower precision like INT8.</p>
+<p><strong>Note</strong>: INT8 is the way to represent integers from -127 to 127 in 8 bits.</p>
+<p><img alt="Quantization" src="../_images/quantization.webp" /></p>
+<p>Of course, by reducing the number of bits to represent values, we lose precision.
+To illustrate this, let’s look at an image:</p>
+<p><img alt="Cookies" src="../_images/cookies.webp" /></p>
+<p>We notice a “grain” in the image, due to a lack of available colors to represent it.
+What we want is to reduce the number of bits to represent the image while preserving the precision of the original image as much as possible.</p>
+<p>There are several ways to perform quantization: symmetric quantization and asymmetric quantization.</p>
+<section id="quick-overview-of-common-precisions">
+<h3>Quick Overview of Common Precisions<a class="headerlink" href="#quick-overview-of-common-precisions" title="Link to this heading">#</a></h3>
+<p><strong>FP16</strong>: The <em>precision</em> and <em>dynamic range</em> decrease compared to FP32.</p>
+<p><img alt="FP16" src="../_images/fp16.webp" /></p>
+<p><strong>BF16</strong>: The <em>precision</em> decreases significantly, but the <em>dynamic range</em> remains the same compared to FP32.</p>
+<p><img alt="BF16" src="../_images/bf16.webp" /></p>
+<p><strong>INT8</strong>: We switch to an integer representation.</p>
+<p><img alt="INT8" src="../_images/int8.webp" /></p>
+</section>
+<section id="symmetric-quantization">
+<h3>Symmetric Quantization<a class="headerlink" href="#symmetric-quantization" title="Link to this heading">#</a></h3>
+<p>In the case of symmetric quantization, the range of values of our original floating-point numbers is mapped symmetrically onto the range of quantization values. This means that 0 in the floating-point numbers is mapped to 0 in the quantization precision.</p>
+<p><img alt="Symmetric Quantization" src="../_images/symmetricq.webp" /></p>
+<p>One of the most common and simplest ways to perform this operation is to use the <em>absmax (absolute maximum quantization)</em> method. We take the maximum value (in absolute value) and perform the mapping relative to this value:</p>
+<p><img alt="Absmax" src="../_images/absmax.webp" /></p>
+<p>The formula is quite basic: let’s consider <span class="math notranslate nohighlight">\(b\)</span> the number of bytes we want to quantize, <span class="math notranslate nohighlight">\(\alpha\)</span> the largest absolute value.
+Then we can calculate the <em>scale factor</em> as follows:
+<span class="math notranslate nohighlight">\(s=\frac{2^{b-1}-1}{\alpha}\)</span>
+We can then perform the quantization of <span class="math notranslate nohighlight">\(x\)</span> as follows:
+<span class="math notranslate nohighlight">\(x_{quantized}=round(s \times x)\)</span>
+To dequantize and retrieve an FP32 value, we can do it this way:
+<span class="math notranslate nohighlight">\(x_{dequantized}=\frac{x_{quantized}}{s}\)</span></p>
+<p>Of course, the dequantized value will not be equivalent to the value before quantization:</p>
+<p><img alt="Absmax Example" src="../_images/absmaxExample.png" /></p>
+<p>and we can quantify the quantization errors:</p>
+<p><img alt="Absmax Error" src="../_images/absmaxError.png" /></p>
+</section>
+<section id="asymmetric-quantization">
+<h3>Asymmetric Quantization<a class="headerlink" href="#asymmetric-quantization" title="Link to this heading">#</a></h3>
+<p>Unlike symmetric quantization, asymmetric quantization is not symmetric around 0. Instead, we map the minimum <span class="math notranslate nohighlight">\(\beta\)</span> and the maximum <span class="math notranslate nohighlight">\(\alpha\)</span> of the <em>range</em> of the original floating-point numbers to the minimum and maximum of the quantized <em>range</em>.
+The most common method for this is called <em>zero-point quantization</em>.</p>
+<p><img alt="Asymmetric Quantization" src="../_images/asymetric.png" /></p>
+<p>With this method, 0 has changed position, which is why this method is called asymmetric.</p>
+<p>Since 0 has been moved, we need to calculate the position of 0 (<em>zero-point</em>) to perform the linear mapping.</p>
+<p>We can quantify as follows:
+<span class="math notranslate nohighlight">\(s=\frac{128 - - 127}{\alpha- \beta}\)</span>
+We calculate the <em>zero-point</em>:
+<span class="math notranslate nohighlight">\(z=round(-s \times \beta)-2^{b-1}\)</span>
+and:
+<span class="math notranslate nohighlight">\(x_{quantized}=round(s \times x + z)\)</span>
+To dequantize, we can then apply the following formula:
+<span class="math notranslate nohighlight">\(x_{dequantized}=\frac{x_{quantized}-z}{s}\)</span></p>
+<p>Both methods have their advantages and disadvantages; we can compare them by looking at the behavior on any <span class="math notranslate nohighlight">\(x\)</span>:</p>
+<p><img alt="Comparison" src="../_images/compare.png" /></p>
+</section>
+<section id="clipping-and-range-modification">
+<h3>Clipping and Range Modification<a class="headerlink" href="#clipping-and-range-modification" title="Link to this heading">#</a></h3>
+<p>The methods we have presented have a major flaw. These methods are not at all robust to <em>outliers</em>. Imagine that our vector <span class="math notranslate nohighlight">\(x\)</span> contains the following values: [-0.59, -0.21, -0.07, 0.13, 0.28, 0.57, 256]. If we perform our usual <em>mapping</em>, we will obtain identical values for all elements except the <em>outlier</em> (256):</p>
+<p><img alt="Outlier" src="../_images/outlier.png" /></p>
+<p>This is very problematic because the loss of information is enormous.</p>
+<p>In practice, we can decide to <em>clip</em> certain values to reduce the <em>range</em> in the floating-point space (before applying quantization). For example, we could decide to limit the values within the range [-5,5], and all values outside this range will be mapped to the maximum or minimum quantization values (127 or -127 for INT8):</p>
+<p><img alt="Clipping" src="../_images/clipping.png" /></p>
+<p>By doing this, we greatly reduce the error on non-<em>outliers</em> but increase it for <em>outliers</em> (which can also be problematic).</p>
+</section>
+<section id="calibration">
+<h3>Calibration<a class="headerlink" href="#calibration" title="Link to this heading">#</a></h3>
+<p>In the previous section, we arbitrarily used a value range of [-5,5]. The selection of this value range is not random and is determined by a method called <em>calibration</em>. The idea is to find a value range that minimizes the quantization error for all values. The <em>calibration</em> methods used vary depending on the type of parameters we want to quantize.</p>
+<p><strong>Calibration for weights and biases</strong>:
+Weights and biases are static values (fixed after model training). These are values we know before performing inference.
+Often, since there are many more weights than biases, we keep the base precision on the biases and perform quantization only on the weights.</p>
+<p>For weights, there are several possible calibration methods:</p>
+<ul class="simple">
+<li><p>We can manually choose a percentage of the input range</p></li>
+<li><p>We can optimize the MSE distance between the base weights and the quantized weights</p></li>
+<li><p>We can minimize the entropy (with KL-divergence) between the base weights and the quantized weights</p></li>
+</ul>
+<p>The percentage method is similar to the method we used previously. The other two methods are more rigorous and effective.</p>
+<p><strong>Calibration for activations</strong>:
+Unlike weights and biases, activations depend on the input value of the model. Therefore, it is very complicated to quantify them effectively. These values are updated after each layer, and we can only know their values during inference when the model layer processes the values.
+This leads us to the next section, which discusses two different methods for quantizing activations (and also weights).
+These methods are:</p>
+<ul class="simple">
+<li><p><em>Post-training quantization</em> (PTQ): Quantization occurs after model training</p></li>
+<li><p><em>Quantization-aware training</em> (QAT): Quantization is performed during training or <em>fine-tuning</em> of the model.</p></li>
+</ul>
+</section>
+</section>
+<section id="post-training-quantization-ptq">
+<h2>Post-Training Quantization (PTQ)<a class="headerlink" href="#post-training-quantization-ptq" title="Link to this heading">#</a></h2>
+<p>One of the most common ways to perform quantization is to do it after model training. From a practical standpoint, this makes sense as it does not require training or <em>fine-tuning</em> the model.</p>
+<p>Weight quantization is performed using either symmetric quantization or asymmetric quantization.</p>
+<p>For activations, it’s different since we don’t know the range of values taken by the activation distribution.
+There are two forms of quantization for activations:</p>
+<ul class="simple">
+<li><p>Dynamic quantization</p></li>
+<li><p>Static quantization</p></li>
+</ul>
+<section id="dynamic-quantization">
+<h3>Dynamic Quantization<a class="headerlink" href="#dynamic-quantization" title="Link to this heading">#</a></h3>
+<p>In dynamic quantization, we collect the activations after the data has passed through a layer. The layer distribution is then quantized by calculating the <em>zeropoint</em> and <em>scale factor</em>.</p>
+<p><img alt="Dynamic Quantization" src="../_images/dynamicQ.webp" /></p>
+<p>In this process, each layer has its own <em>zeropoint</em> and <em>scale factor</em> values, so the quantization is not the same.</p>
+<p><img alt="Dynamic Quantization 2" src="../_images/dynamicQ2.webp" /></p>
+<p><strong>Note</strong>: This quantization process occurs <strong>during</strong> inference.</p>
+</section>
+<section id="static-quantization">
+<h3>Static Quantization<a class="headerlink" href="#static-quantization" title="Link to this heading">#</a></h3>
+<p>Unlike <em>dynamic quantization</em>, <em>static quantization</em> does not calculate the <em>zeropoint</em> and <em>scale factor</em> during inference. Indeed, in the static quantization method, the <em>zeropoint</em> and <em>scale factor</em> values are calculated before inference using a <em>calibration dataset</em>. This <em>dataset</em> is assumed to be representative of the data and allows us to calculate the potential distributions taken by the activations.</p>
+<p><img alt="Static Quantization" src="../_images/staticQ.png" /></p>
+<p>After collecting the activation values across the entire <em>calibration dataset</em>, we can use them to calculate the <em>scale factor</em> and <em>zeropoint</em> that will then be used for all activations.</p>
+</section>
+<section id="difference-between-dynamic-and-static-quantization">
+<h3>Difference Between Dynamic and Static Quantization<a class="headerlink" href="#difference-between-dynamic-and-static-quantization" title="Link to this heading">#</a></h3>
+<p>Generally, <em>dynamic quantization</em> is slightly more precise as it calculates the <em>scale factor</em> and <em>zeropoint</em> values for each layer, but this process also tends to slow down the inference time.</p>
+<p>Conversely, <em>static quantization</em> is less precise but faster.</p>
+</section>
+</section>
+<section id="ptq-4-bit-quantization">
+<h2>PTQ: 4-bit Quantization<a class="headerlink" href="#ptq-4-bit-quantization" title="Link to this heading">#</a></h2>
+<p>Ideally, we would like to maximize quantization, i.e., 4 bits instead of 8 bits. In practice, this is not easy because it drastically increases the error if we simply use the methods we have seen so far.</p>
+<p>However, there are a few methods that allow reducing the number of bits down to 2 bits (it is recommended to stay at 4 bits).</p>
+<p>Among these methods, we find two main ones:</p>
+<ul class="simple">
+<li><p>GPTQ (uses only the GPU)</p></li>
+<li><p>GGUF (can also use the CPU in part)</p></li>
+</ul>
+<section id="gptq">
+<h3>GPTQ<a class="headerlink" href="#gptq" title="Link to this heading">#</a></h3>
+<p>GPTQ is probably the most used method for 4-bit quantization. The idea is to use asymmetric quantization on each layer independently:</p>
+<p><img alt="GPTQ" src="../_images/GPTQ.png" /></p>
+<p>During the quantization process, the weights are converted into the inverse of the Hessian matrix (second derivative of the <em>loss</em> function), which allows us to know if the model output is sensitive to changes in each weight. In a simplified manner, this allows calculating the importance of each weight in a layer. The weights associated with small values in the Hessian are the most important because a change in these weights will significantly affect the model.</p>
+<p><img alt="Hessian" src="../_images/hessian.png" /></p>
+<p>Then, we quantize and dequantize the weights to obtain our <em>quantization error</em>. This error allows us to weigh the quantization error relative to the true error and the Hessian matrix.</p>
+<p><img alt="GPTQError" src="../_images/GPTQError.png" /></p>
+<p>The weighted error is calculated as follows:
+<span class="math notranslate nohighlight">\(q=\frac{x_1-y_1}{h_1}\)</span> where <span class="math notranslate nohighlight">\(x_1\)</span> is the value before quantization, <span class="math notranslate nohighlight">\(y_1\)</span> is the value after quantization/dequantization, and <span class="math notranslate nohighlight">\(h_1\)</span> is the corresponding value in the Hessian matrix.</p>
+<p>Then, we redistribute this weighted quantization error to the other weights in the row. This allows maintaining the overall function and the network output. For example, for <span class="math notranslate nohighlight">\(x_2\)</span>:
+<span class="math notranslate nohighlight">\(x_2=x_2 + q \times h_2\)</span></p>
+<p><img alt="GPTQprocess" src="../_images/GPTQprocess.png" /></p>
+<p>We perform this process until all values are quantized.
+In practice, this method works well because all weights are correlated with each other, so if a weight has a large quantization error, the other weights are changed to compensate for the error (based on the Hessian).</p>
+</section>
+<section id="gguf">
+<h3>GGUF<a class="headerlink" href="#gguf" title="Link to this heading">#</a></h3>
+<p>GPTQ is a very good method for running a LLM on a GPU. However, even with this quantization, we sometimes do not have enough GPU memory to run a deep LLM model. The GGUF method allows moving any layer of the LLM to the CPU.</p>
+<p>In this way, we can use both the RAM and the video memory (VRAM) at the same time.</p>
+<p>This quantization method is frequently updated and depends on the desired bit level of quantization.</p>
+<p>In general, the method works as follows:</p>
+<p>First, the weights of a layer are divided into <em>super blocks</em>, where each <em>super block</em> is further divided into <em>sub blocks</em>. We then extract the values <span class="math notranslate nohighlight">\(s\)</span> and <span class="math notranslate nohighlight">\(\alpha\)</span> (<em>absmax</em>) for each <em>block</em> (the <em>super</em> and the <em>sub</em>).</p>
+<p><img alt="GGUF" src="../_images/GGUF.png" /></p>
+<p>The <em>scale factors</em> <span class="math notranslate nohighlight">\(s\)</span> of the <em>sub blocks</em> are then quantized again using the information from the <em>super block</em> (which has its own <em>scale factor</em>). This method is called <em>block-wise quantization</em>.</p>
+<p><strong>Note</strong>: Generally, the quantization level is different between the <em>sub blocks</em> and the <em>super block</em>: the <em>super block</em> often has higher precision than the <em>sub blocks</em>.</p>
+</section>
+</section>
+<section id="quantization-aware-training-qat">
+<h2>Quantization-Aware Training (QAT)<a class="headerlink" href="#quantization-aware-training-qat" title="Link to this heading">#</a></h2>
+<p>Instead of performing quantization after training, we can do it during training. Indeed, performing quantization after training does not take into account the training process, which can cause problems.</p>
+<p><em>Quantization-aware training</em> is a method that allows performing quantization during training and learning the different quantization parameters during backpropagation:</p>
+<p><img alt="QAT" src="../_images/QAT.png" /></p>
+<p>In practice, this method is often more precise than PTQ because quantization is already planned during training, and we can therefore adapt the model specifically with a future goal of quantization.</p>
+<p>This approach works as follows:
+During training, a quantization/dequantization process (<em>fake quantization</em>) is introduced (e.g., quantization from 32 bits to 4 bits and then dequantization from 4 bits to 32 bits).</p>
+<p><img alt="Fake Quantization" src="../_images/fakequantize.png" /></p>
+<p>This approach allows the model to consider quantization during training and thus adapt the weight updates to favor good results for the quantized model.</p>
+<p>One way to see things is to imagine that the model will converge to wide minima that minimize the quantization error rather than narrow minima that could cause errors during quantization. For a model trained without <em>fake quantization</em>, there would be no preference for the minimum chosen for convergence:</p>
+<p><img alt="Minimums" src="../_images/minimums.png" /></p>
+<p>In practice, models trained in the classical way have a lower <em>loss</em> than models trained with QAT when the precision is high (FP32), but as soon as we quantize the model, the QAT model will be much more performant than a model quantized via a PTQ method.</p>
+<section id="bitnet-1-bit-quantization">
+<h3>BitNet: 1-bit Quantization<a class="headerlink" href="#bitnet-1-bit-quantization" title="Link to this heading">#</a></h3>
+<p>The ideal way to reduce the size of a model would be to quantize it to 1 bit. This seems crazy, how can we imagine representing a neural network with only 0s and 1s for each weight?</p>
+<p><a class="reference external" href="https://arxiv.org/pdf/2310.11453">BitNet</a> proposes representing the weights of a model with a single bit by using the value -1 or 1 for a weight. We need to imagine replacing the linear layers of the transformer architecture with BitLinear layers:</p>
+<p><img alt="BitTransformer" src="../_images/bitTransformer.png" /></p>
+<p>The BitLinear layer works exactly like a basic linear layer, except that the weights are represented with a single bit and the activations in INT8.</p>
+<p>As explained previously, there is a form of <em>fake quantization</em> that allows the model to learn the effect of quantization to force it to adapt to this new constraint:</p>
+<p><img alt="BitNet" src="../_images/bitnet.png" /></p>
+<p>Let’s analyze this layer step by step:</p>
+<p><strong>First step: Weight Quantization</strong>
+During training, the weights are stored in INT8 and quantized to 1-bit using the <em>signum</em> function.
+This function simply centers the weight distribution at 0 and converts anything less than 0 to -1 and anything greater than 0 to 1.</p>
+<p><img alt="Weight Quantization" src="../_images/weigthquanti.png" /></p>
+<p>A value <span class="math notranslate nohighlight">\(\beta\)</span> (absolute mean value) is also extracted for the dequantization process.</p>
+<p><strong>Second step: Activation Quantization</strong>
+For activations, the BitLinear layer uses <em>absmax</em> quantization to convert from FP16 to INT8, and a value <span class="math notranslate nohighlight">\(\alpha\)</span> (absolute maximum value) is stored for dequantization.</p>
+<p><strong>Third step: Dequantization</strong>
+From the <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> values we have kept, we can use these values to dequantize and return to FP16 precision.</p>
+<p>And that’s it, the procedure is quite simple and allows the model to be represented with only -1s and 1s.</p>
+<p>The authors of the paper noticed that, by using this technique, we obtain good results on quite deep models (more than 30B), but the results are quite average for smaller models.</p>
+</section>
+<section id="bitnet-1-58-we-need-zero">
+<h3>BitNet 1.58: We Need Zero!<a class="headerlink" href="#bitnet-1-58-we-need-zero" title="Link to this heading">#</a></h3>
+<p>The method <a class="reference external" href="https://arxiv.org/pdf/2402.17764">BitNet1.58</a> was introduced to improve the previous model, particularly for the case of smaller models.
+In this method, the authors propose adding the value 0 in addition to -1 and 1. This does not seem like a big change, but this method greatly improves the original BitNet model.</p>
+<p><strong>Note</strong>: The model is nicknamed 1.58 bits because <span class="math notranslate nohighlight">\(log_2(3)=1.58\)</span>, so theoretically, a representation of 3 values uses 1.58 bits.</p>
+<p>But then why is 0 so useful?
+In fact, we just need to go back to the basics and look at matrix multiplication.
+A matrix multiplication can be decomposed into two operations: the multiplication of the weights two by two and the sum of all these weights.
+With -1 and 1, during the sum, we could only decide to add the value or subtract it. With the addition of 0, we can now ignore the value:</p>
+<ul class="simple">
+<li><p>1: I want to add this value</p></li>
+<li><p>0: I want to ignore this value</p></li>
+<li><p>-1: I want to subtract this value</p></li>
+</ul>
+<p>In this way, we can effectively filter the values, which allows for a much better representation.</p>
+<p>To perform 1.58-bit quantization, we use <em>absmean</em> quantization, which is a variant of <em>absmax</em>. Instead of basing it on the maximum, we base it on the absolute mean <span class="math notranslate nohighlight">\(\alpha\)</span> and then round the values to -1, 0, or 1:</p>
+<p><img alt="BitNet 1.58" src="../_images/bitnet158.png" /></p>
+<p>And that’s it, it’s simply these two techniques (ternary representation and <em>absmean</em> quantization) that allow drastically improving the classic BitNet method and proposing extremely quantized and still performant models.</p>
+</section>
+</section>
+<section id="fine-tuning-of-language-models">
+<h2>Fine-Tuning of Language Models<a class="headerlink" href="#fine-tuning-of-language-models" title="Link to this heading">#</a></h2>
+<p>When we calculated the VRAM needed for a model, we only looked at inference. If we want to train the model, the required VRAM is much larger and depends on the optimizer we use (see <a class="reference internal" href="05_Optimizer.html"><span class="std std-doc">course on optimizers</span></a>). We can then imagine that LLMs need an enormous amount of memory to be trained or <em>fine-tuned</em>.</p>
+<p>To reduce this memory requirement, <em>parameter efficient fine-tuning</em> (PEFT) methods have been proposed, which allow retraining only part of the model. In addition to allowing <em>fine-tuning</em> of the models, this also helps avoid <em>catastrophic forgetting</em> because we only train a small part of the total model parameters.</p>
+<p>There are many methods for PEFT: LoRA, <em>Adapter</em>, <em>Prefix Tuning</em>, <em>Prompt Tuning</em>, QLoRA, etc.</p>
+<p>The idea with methods like <em>Adapter</em>, LoRA, and QLoRA is to add a trainable layer that allows adapting the weight values (without needing to retrain the base layers of the model).</p>
+<section id="lora">
+<h3>LoRA<a class="headerlink" href="#lora" title="Link to this heading">#</a></h3>
+<p>The method <a class="reference external" href="https://arxiv.org/pdf/2106.09685">LoRA (low-rank adaptation of large language models)</a> is a <em>fine-tuning</em> technique that allows adapting an LLM to a specific task or domain. This method introduces trainable matrices of rank decomposition at each transformer layer, reducing the trainable parameters of the model since the base layers are <em>frozen</em>. The method can potentially decrease the number of trainable parameters by a factor of 10,000 while reducing the VRAM required for training by a factor of up to 3. The performance of models <em>fine-tuned</em> with this method is equivalent or better than classically <em>fine-tuned</em> models on many tasks.</p>
+<p><img alt="LoRA" src="../_images/LoRA.webp" /></p>
+<p>Instead of modifying the matrix <span class="math notranslate nohighlight">\(W\)</span> of a layer, the LoRA method adds two new matrices <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> whose product represents the modifications to be made to the matrix <span class="math notranslate nohighlight">\(W\)</span>.
+<span class="math notranslate nohighlight">\(Y=W+AB\)</span>
+If <span class="math notranslate nohighlight">\(W\)</span> is of size <span class="math notranslate nohighlight">\(m \times n\)</span>, then <span class="math notranslate nohighlight">\(A\)</span> is of size <span class="math notranslate nohighlight">\(m \times r\)</span> and <span class="math notranslate nohighlight">\(B\)</span> of size <span class="math notranslate nohighlight">\(r \times n\)</span>, where <span class="math notranslate nohighlight">\(r\)</span> is the rank which is much smaller than <span class="math notranslate nohighlight">\(m\)</span> or <span class="math notranslate nohighlight">\(n\)</span> (which explains the reduction in the number of parameters). During training, only <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are modified, allowing the model to learn the specific task.</p>
+</section>
+<section id="qlora">
+<h3>QLoRA<a class="headerlink" href="#qlora" title="Link to this heading">#</a></h3>
+<p>QLoRA is an improved version of LoRA that allows adding 4-bit quantization for the parameters of the pre-trained model. As we saw previously, quantization drastically reduces the memory required to run the model. By combining LoRA and quantization, we can now imagine training an LLM on a simple consumer GPU, which seemed impossible just a few years ago.</p>
+<p><strong>Note</strong>: QLoRA quantizes the weights in <em>Normal Float</em> 4 (NF4), which is a quantization method specific to deep learning models. To learn more, you can consult this <a class="reference external" href="https://www.youtube.com/watch?v=TPcXVJ1VSRI&amp;amp;t=563s">video</a> at the indicated time. NF4 is specifically designed to represent Gaussian distributions (and neural networks are assumed to have weights following a Gaussian distribution).</p>
+<p>QLoRA is an improved version of LoRA that allows adding 4-bit quantization for the parameters of the pre-trained model. As we saw previously, quantization drastically reduces the memory required to run the model. By combining LoRA and quantization, we can now imagine training an LLM on a simple consumer GPU, which seemed impossible just a few years ago.</p>
+<p><strong>Note</strong>: QLoRA quantizes the weights in <em>Normal Float</em> 4 (NF4), which is a quantization method specific to deep learning models. To learn more, you can consult this <a class="reference external" href="https://www.youtube.com/watch?v=TPcXVJ1VSRI&amp;amp;t=563s">video</a> at the indicated time. NF4 is specifically designed to represent Gaussian distributions (and neural networks are assumed to have weights following a Gaussian distribution).</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Bonus_CoursSpécifiques"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="10_Tokenization.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introduction to Tokenization</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-represent-numbers-on-a-computer">How to Represent Numbers on a Computer?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-quantization">Introduction to Quantization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-overview-of-common-precisions">Quick Overview of Common Precisions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#symmetric-quantization">Symmetric Quantization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#asymmetric-quantization">Asymmetric Quantization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clipping-and-range-modification">Clipping and Range Modification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibration">Calibration</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#post-training-quantization-ptq">Post-Training Quantization (PTQ)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-quantization">Dynamic Quantization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#static-quantization">Static Quantization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#difference-between-dynamic-and-static-quantization">Difference Between Dynamic and Static Quantization</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ptq-4-bit-quantization">PTQ: 4-bit Quantization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gptq">GPTQ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gguf">GGUF</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantization-aware-training-qat">Quantization-Aware Training (QAT)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bitnet-1-bit-quantization">BitNet: 1-bit Quantization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bitnet-1-58-we-need-zero">BitNet 1.58: We Need Zero!</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning-of-language-models">Fine-Tuning of Language Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lora">LoRA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qlora">QLoRA</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Simon Thomine
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div id="language-switcher" style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #eee;">
+  <span style="margin-right: 10px;">🌐 Language / Langue:</span>
+  <a href="#" onclick="switchToEnglish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #4CAF50; color: white; border-radius: 5px; font-weight: bold; transition: all 0.3s;">🇺🇸 English</a>
+  <a href="#" onclick="switchToFrench()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #f0f0f0; border-radius: 5px; transition: all 0.3s;">🇫🇷 Français</a>
+  <a href="#" onclick="switchToSpanish()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ffd700; border-radius: 5px; transition: all 0.3s;">🇪🇸 Español</a>
+  <a href="#" onclick="switchToChinese()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ff4b4b; color: white; border-radius: 5px; transition: all 0.3s;">🇨🇳 中文</a>
+</div>
+<script>
+function getBaseUrl() {
+  let baseUrl = window.location.origin;
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    baseUrl += pathname.split('fr/')[0];
+  } else if (pathname.includes('en/')) {
+    baseUrl += pathname.split('en/')[0];
+  } else if (pathname.includes('es/')) {
+    baseUrl += pathname.split('es/')[0];
+  } else if (pathname.includes('zh/')) {
+    baseUrl += pathname.split('zh/')[0];
+  } else {
+    baseUrl += pathname.split('/').slice(0, -1).join('/') + '/';
+  }
+  return baseUrl;
+}
+
+function getCurrentPage() {
+  let pathname = window.location.pathname;
+  if (pathname.includes('fr/')) {
+    return pathname.split('fr/')[1] || 'index.html';
+  } else if (pathname.includes('en/')) {
+    return pathname.split('en/')[1] || 'index.html';
+  } else if (pathname.includes('es/')) {
+    return pathname.split('es/')[1] || 'index.html';
+  } else if (pathname.includes('zh/')) {
+    return pathname.split('zh/')[1] || 'index.html';
+  }
+  return 'index.html';
+}
+
+function switchToEnglish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'en/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToFrench() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'fr/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToSpanish() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'es/' + currentPage;
+  window.location.href = newUrl;
+}
+
+function switchToChinese() {
+  const baseUrl = getBaseUrl();
+  const currentPage = getCurrentPage();
+  const newUrl = baseUrl + 'zh/' + currentPage;
+  window.location.href = newUrl;
+}
+</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

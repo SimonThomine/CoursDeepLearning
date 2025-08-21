@@ -9,97 +9,97 @@ parts:
 - caption: 🧮 Foundations
   chapters:
   - file: 01_Fondations/01_DérivéesEtDescenteDuGradient
-#   - file: 01_Fondations/02_LogisticRegression
+  - file: 01_Fondations/02_RégressionLogistique
 
-# - caption: 🔗 Fully Connected Networks  
-#   chapters:
-#   - file: 02_RéseauFullyConnected/01_MyFirstNetwork
-#   - file: 02_RéseauFullyConnected/02_PytorchIntroduction
-#   - file: 02_RéseauFullyConnected/03_AdvancedTechniques
+- caption: 🔗 Fully Connected Networks 
+  chapters:
+  - file: 02_RéseauFullyConnected/01_MonPremierRéseau
+  - file: 02_RéseauFullyConnected/02_PytorchIntroduction
+  - file: 02_RéseauFullyConnected/03_TechniquesAvancées
 
-# - caption: 🖼️ Convolutional Networks
-#   chapters:
-#   - file: 03_RéseauConvolutifs/01_ConvolutionalLayers
-#   - file: 03_RéseauConvolutifs/02_ConvolutionalNetwork
-#   - file: 03_RéseauConvolutifs/03_ConvImplementation
-#   - file: 03_RéseauConvolutifs/04_ConvolutionalNetworkPytorch
-#   - file: 03_RéseauConvolutifs/05_ClassificationApplication
-#   - file: 03_RéseauConvolutifs/06_SegmentationApplication
+- caption: 🖼️ Convolutional Networks
+  chapters:
+  - file: 03_RéseauConvolutifs/01_CouchesDeConvolutions
+  - file: 03_RéseauConvolutifs/02_RéseauConvolutif
+  - file: 03_RéseauConvolutifs/03_ConvImplementation
+  - file: 03_RéseauConvolutifs/04_RéseauConvolutifPytorch
+  - file: 03_RéseauConvolutifs/05_ApplicationClassification
+  - file: 03_RéseauConvolutifs/06_ApplicationSegmentation
 
-# - caption: 🔄 Autoencoders
-#   chapters:
-#   - file: 04_Autoencodeurs/01_IntuitionAndFirstAE
-#   - file: 04_Autoencodeurs/02_DenoisingAE
+- caption: 🔄 Autoencoders
+  chapters:
+  - file: 04_Autoencodeurs/01_IntuitionEtPremierAE
+  - file: 04_Autoencodeurs/02_DenoisingAE
 
-# - caption: 📝 NLP
-#   chapters:
-#   - file: 05_NLP/01_Introduction
-#   - file: 05_NLP/02_Bigrams
-#   - file: 05_NLP/03_FullyConnectedNetwork
-#   - file: 05_NLP/04_WaveNet
-#   - file: 05_NLP/05_RNN
-#   - file: 05_NLP/06_LSTM
+- caption: 📝 NLP
+  chapters:
+  - file: 05_NLP/01_Introduction
+  - file: 05_NLP/02_bigramme
+  - file: 05_NLP/03_RéseauFullyConnected
+  - file: 05_NLP/04_WaveNet
+  - file: 05_NLP/05_Rnn
+  - file: 05_NLP/06_Lstm
 
-# - caption: 🤗 HuggingFace
-#   chapters:
-#   - file: 06_HuggingFace/01_Introduction
-#   - file: 06_HuggingFace/02_ComputerVisionWithTransformers
-#   - file: 06_HuggingFace/03_NLPWithTransformers
-#   - file: 06_HuggingFace/04_AudioWithTransformers
-#   - file: 06_HuggingFace/05_ImageGenerationWithDiffusers
-#   - file: 06_HuggingFace/06_DemoWithGradio
+- caption: 🤗 HuggingFace
+  chapters:
+  - file: 06_HuggingFace/01_introduction
+  - file: 06_HuggingFace/02_ComputerVisionWithTransformers
+  - file: 06_HuggingFace/03_NlpWithTransformers
+  - file: 06_HuggingFace/04_AudioWithTransformers
+  - file: 06_HuggingFace/05_ImageGenerationWithDiffusers
+  - file: 06_HuggingFace/06_DemoAvecGradio
 
-# - caption: ⚡ Transformers
-#   chapters:
-#   - file: 07_Transformers/01_Introduction
-#   - file: 07_Transformers/02_GPTFromScratch
-#   - file: 07_Transformers/03_TrainingOurGPT
-#   - file: 07_Transformers/04_ArchitectureAndSpecificities
-#   - file: 07_Transformers/05_PossibleUses
-#   - file: 07_Transformers/06_VisionTransformerImplementation
-#   - file: 07_Transformers/07_SwinTransformer
+- caption: ⚡ Transformers
+  chapters:
+  - file: 07_Transformers/01_Introduction
+  - file: 07_Transformers/02_GptFromScratch
+  - file: 07_Transformers/03_TrainingOurGpt
+  - file: 07_Transformers/04_ArchitectureEtParticularités
+  - file: 07_Transformers/05_UtilisationsPossibles
+  - file: 07_Transformers/06_VisionTransformerImplementation
+  - file: 07_Transformers/07_SwinTransformer
 
-# - caption: 🎯 Detection and YOLO
-#   chapters:
-#   - file: 08_DetectionEtYolo/01_Introduction
-#   - file: 08_DetectionEtYolo/02_YOLOInDetail
-#   - file: 08_DetectionEtYolo/03_Ultralytics
+- caption: 🎯  Object Detection (YOLO)
+  chapters:
+  - file: 08_DetectionEtYolo/01_Introduction
+  - file: 08_DetectionEtYolo/02_YoloEnDetail
+  - file: 08_DetectionEtYolo/03_Ultralytics
 
-# - caption: 🔍 Contrastive Training
-#   chapters:
-#   - file: 09_EntrainementContrastif/01_FaceVerification
-#   - file: 09_EntrainementContrastif/02_Unsupervised
+- caption: 🔍 Contrastive Training
+  chapters:
+  - file: 09_EntrainementContrastif/01_FaceVerification
+  - file: 09_EntrainementContrastif/02_NonSupervisé
 
-# - caption: 🎓 Transfer Learning and Distillation
-#   chapters:
-#   - file: 10_TransferLearningEtDistillation/01_TransferLearning
-#   - file: 10_TransferLearningEtDistillation/02_TransferLearningPytorch
-#   - file: 10_TransferLearningEtDistillation/03_Distillation
-#   - file: 10_TransferLearningEtDistillation/04_AnomalyDistillation
-#   - file: 10_TransferLearningEtDistillation/05_FineTuningLLM
-#   - file: 10_TransferLearningEtDistillation/06_FineTuningBertHF
+- caption: 🎓 Transfer Learning and Distillation
+  chapters:
+  - file: 10_TransferLearningEtDistillation/01_TransferLearning
+  - file: 10_TransferLearningEtDistillation/02_TransferLearningPytorch
+  - file: 10_TransferLearningEtDistillation/03_Distillation
+  - file: 10_TransferLearningEtDistillation/04_DistillationAnomalie
+  - file: 10_TransferLearningEtDistillation/05_FineTuningLLM
+  - file: 10_TransferLearningEtDistillation/06_FineTuningBertHF
 
-# - caption: 🎨 Generative Models
-#   chapters:
-#   - file: 11_ModelesGeneratifs/01_Introduction
-#   - file: 11_ModelesGeneratifs/02_GAN
-#   - file: 11_ModelesGeneratifs/03_GANImplementation
-#   - file: 11_ModelesGeneratifs/04_VAE
-#   - file: 11_ModelesGeneratifs/05_VAEImplementation
-#   - file: 11_ModelesGeneratifs/06_NormalizingFlows
-#   - file: 11_ModelesGeneratifs/07_DiffusionModels
-#   - file: 11_ModelesGeneratifs/08_DiffusionImplementation
+- caption: 🎨 Generative Models
+  chapters:
+  - file: 11_ModelesGeneratifs/01_Introduction
+  - file: 11_ModelesGeneratifs/02_GAN
+  - file: 11_ModelesGeneratifs/03_GanImplementation
+  - file: 11_ModelesGeneratifs/04_VAE
+  - file: 11_ModelesGeneratifs/05_VaeImplementation
+  - file: 11_ModelesGeneratifs/06_NormalizingFlows
+  - file: 11_ModelesGeneratifs/07_DiffusionModels
+  - file: 11_ModelesGeneratifs/08_DiffusionImplementation
 
-# - caption: 🎁 Bonus Specific Topics
-#   chapters:
-#   - file: Bonus_CoursSpécifiques/01_ActivationAndInitialization
-#   - file: Bonus_CoursSpécifiques/02_BatchNorm
-#   - file: Bonus_CoursSpécifiques/03_DataAugmentation
-#   - file: Bonus_CoursSpécifiques/04_Broadcasting
-#   - file: Bonus_CoursSpécifiques/05_Optimizer
-#   - file: Bonus_CoursSpécifiques/06_Regularization
-#   - file: Bonus_CoursSpécifiques/07_ResidualConnections
-#   - file: Bonus_CoursSpécifiques/08_CrossValidation
-#   - file: Bonus_CoursSpécifiques/09_EvaluationMetrics
-#   - file: Bonus_CoursSpécifiques/10_Tokenization
-#   - file: Bonus_CoursSpécifiques/11_Quantization
+- caption: 🎁 Bonus – Specific Topics
+  chapters:
+  - file: Bonus_CoursSpécifiques/01_ActivationEtInitialisation
+  - file: Bonus_CoursSpécifiques/02_BatchNorm
+  - file: Bonus_CoursSpécifiques/03_DataAugmentation
+  - file: Bonus_CoursSpécifiques/04_Broadcasting
+  - file: Bonus_CoursSpécifiques/05_Optimizer
+  - file: Bonus_CoursSpécifiques/06_Regularisation
+  - file: Bonus_CoursSpécifiques/07_ConnexionsResiduelles
+  - file: Bonus_CoursSpécifiques/08_CrossValidation
+  - file: Bonus_CoursSpécifiques/09_MetriquesEvaluation
+  - file: Bonus_CoursSpécifiques/10_Tokenization
+  - file: Bonus_CoursSpécifiques/11_Quantization
