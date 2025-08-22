@@ -526,6 +526,7 @@ document.write(`
 模型通过<strong>对比学习</strong>训练，使得同一图像-文本对的嵌入向量距离最小化，而不同对的距离最大化。</p></li>
 </ul>
 <p>CLIP模型虽然使用了对比损失函数，但并非真正的无监督学习。它依赖于图像-文本对作为训练中的”伪标签”。</p>
+<p><img alt="CLIP" src="../_images/clip1.png" /></p>
 </section>
 <section id="id3">
 <h3>图像的无监督学习<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
@@ -536,6 +537,8 @@ document.write(`
 <li><p>通过<strong>孪生网络</strong>（两个相同的网络）分别处理每张图像</p></li>
 <li><p>模型训练目标：最小化同一图像对的表示距离，最大化不同图像对的表示距离</p></li>
 </ol>
+<p><img alt="simCLR" src="../_images/simCLR.png" /></p>
+<p><img alt="transform" src="../_images/transform.png" /></p>
 <p>这种方法中，<strong>数据增强</strong>至关重要，需要精心设计多样化的变换策略。我们可以类比正负样本对：</p>
 <ul class="simple">
 <li><p><strong>正样本对</strong>：来自同一原始图像<span class="math notranslate nohighlight">\(x\)</span>的两个变换后图像<span class="math notranslate nohighlight">\(x_i\)</span>和<span class="math notranslate nohighlight">\(x_j\)</span></p></li>
@@ -561,6 +564,7 @@ document.write(`
 <section id="id6">
 <h3>自编码器<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
 <p>我们已在<a class="reference internal" href="#../04_Autoencodeurs/README.md"><span class="xref myst">第四课</span></a>介绍过<strong>自编码器</strong>，它能学习到图像的有效表示。论文<a class="reference external" href="https://arxiv.org/pdf/2111.06377">《Masked Autoencoders Are Scalable Vision Learners》</a>证明，<strong>掩码自编码器</strong>（Masked Autoencoders）能够学习到非常有用的图像表示。</p>
+<p><img alt="mae" src="../_images/mae.png" /></p>
 </section>
 <section id="gan">
 <h3>生成对抗网络（GAN）<a class="headerlink" href="#gan" title="Link to this heading">#</a></h3>
@@ -570,6 +574,7 @@ document.write(`
 <li><p><strong>判别器</strong>：区分真实图像与生成图像</p></li>
 </ul>
 <p>通过这种对抗训练，可以得到能生成<strong>高度逼真图像</strong>的生成器，且<strong>不需标注数据</strong>。几年前，GAN是主流的图像生成方法（如今已被同样无监督的<strong>扩散模型</strong>所取代）。</p>
+<p><img alt="gan" src="../_images/gan.png" /></p>
 </section>
 <section id="id7">
 <h3>变换预测<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
@@ -578,11 +583,13 @@ document.write(`
 <li><p>旋转图像（<a class="reference external" href="https://arxiv.org/pdf/1803.07728">RotNet</a>），训练模型预测旋转角度</p></li>
 <li><p>将图像打乱如拼图（<a class="reference external" href="https://arxiv.org/pdf/1603.09246">JigSaw</a>），训练模型重建原图</p></li>
 </ul>
+<p><img alt="jigsaw" src="../_images/jigsaw.png" /></p>
 </section>
 <section id="id8">
 <h3>自监督蒸馏<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
 <p>近期，基于<strong>知识蒸馏</strong>的方法重新采用图像变换（类似对比学习），但<strong>不使用负样本对</strong>。为避免模型”崩溃”（collapse），研究者们设计了多种技术。详见论文<a class="reference external" href="https://arxiv.org/pdf/2104.14294">DINO</a>。</p>
 <p><strong>注</strong>：知识蒸馏概念将在后续课程中详细讲解。</p>
+<p><img alt="dino" src="../_images/dino.png" /></p>
 <p><strong>注</strong>：</p>
 <ol class="arabic simple">
 <li><p>上述无监督学习方法列表并不完整，但已涵盖主要方法</p></li>

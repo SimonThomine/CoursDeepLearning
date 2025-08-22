@@ -521,11 +521,14 @@ document.write(`
 <h3>Modelo CLIP<a class="headerlink" href="#modelo-clip" title="Link to this heading">#</a></h3>
 <p>Ya hemos visto el modelo <a class="reference external" href="https://openai.com/index/clip/">CLIP</a> en el <a class="reference internal" href="../07_Transformers/05_UtilisationsPossibles.html"><span class="std std-doc">curso 7</span></a>, que se entrena de manera contrastiva dentro del <em>batch</em>. Este enfoque difiere de lo visto anteriormente: un <em>vision transformer</em> procesa las imágenes del <em>batch</em>, mientras que un <em>text transformer</em> procesa las descripciones de cada imagen. Luego, el modelo se entrena para asociar correctamente las imágenes y sus descripciones de manera contrastiva, minimizando la distancia entre los <em>embeddings</em> de una misma pareja y maximizando la de parejas diferentes.</p>
 <p>CLIP es un modelo que utiliza una función de pérdida contrastiva, pero no es estrictamente no supervisado. Se basa en pares de imágenes/texto que actúan como etiquetas durante el entrenamiento.</p>
+<p><img alt="CLIP" src="../_images/clip1.png" /></p>
 </section>
 <section id="aprendizaje-no-supervisado-para-imagenes">
 <h3>Aprendizaje no supervisado para imágenes<a class="headerlink" href="#aprendizaje-no-supervisado-para-imagenes" title="Link to this heading">#</a></h3>
 <p>En el aprendizaje no supervisado, buscamos prescindir de datos etiquetados. El método <a class="reference external" href="https://arxiv.org/pdf/2002.05709">SimCLR</a> propone una técnica para aplicar el aprendizaje contrastivo en este contexto.
 La idea es procesar un <em>batch</em> de datos donde cada elemento es un par de imágenes. La particularidad es que se trata de la misma imagen transformada (consultar el <a class="reference internal" href="../Bonus_CoursSp%C3%A9cifiques/03_DataAugmentation.html"><span class="std std-doc">curso bonus sobre aumento de datos</span></a>). Cada imagen se pasa por una red idéntica (siamesa), y el modelo se entrena para minimizar la distancia entre las representaciones de las imágenes del mismo par y maximizar la de imágenes de pares diferentes.</p>
+<p><img alt="simCLR" src="../_images/simCLR.png" /></p>
+<p><img alt="transform" src="../_images/transform.png" /></p>
 <p>En este método, el aumento de datos es crucial, y es importante no descuidar las posibles transformaciones.
 Para establecer una analogía con los pares positivos y negativos:</p>
 <ul class="simple">
@@ -547,19 +550,23 @@ Para responder, podemos establecer una analogía con los modelos de lenguaje. Es
 <section id="autoencoders">
 <h3>Autoencoders<a class="headerlink" href="#autoencoders" title="Link to this heading">#</a></h3>
 <p>Ya presentamos los autoencoders en el <a class="reference internal" href="#../04_Autoencodeurs/README.md"><span class="xref myst">curso 4</span></a>, que permiten aprender representaciones relevantes de imágenes. El artículo <a class="reference external" href="https://arxiv.org/pdf/2111.06377"><em>Masked Autoencoders Are Scalable Vision Learners</em></a> demuestra que los <em>masked autoencoders</em> pueden usarse para aprender representaciones de imágenes muy útiles.</p>
+<p><img alt="mae" src="../_images/mae.png" /></p>
 </section>
 <section id="redes-generativas-antagonistas-gan">
 <h3>Redes generativas antagonistas (GAN)<a class="headerlink" href="#redes-generativas-antagonistas-gan" title="Link to this heading">#</a></h3>
 <p>En este curso aún no hemos hablado de las GAN. Brevemente, son redes que se entrenan de manera antagonista: un generador crea imágenes falsas, mientras que un discriminador debe distinguir entre una imagen real y una generada. Al entrenarse juntos, se puede obtener un generador capaz de producir imágenes muy realistas sin necesidad de un conjunto de datos etiquetado. Hace algunos años, era el método más utilizado para la generación de imágenes (actualmente, se usan más los modelos de difusión, que también son no supervisados).</p>
+<p><img alt="gan" src="../_images/gan.png" /></p>
 </section>
 <section id="prediccion-de-transformaciones">
 <h3>Predicción de transformaciones<a class="headerlink" href="#prediccion-de-transformaciones" title="Link to this heading">#</a></h3>
 <p>Otro enfoque consiste en predecir una transformación aplicada a la imagen. Por ejemplo, se puede rotar la imagen (<a class="reference external" href="https://arxiv.org/pdf/1803.07728">RotNet</a>) y entrenar al modelo para predecir esa rotación, o mezclar la imagen como un rompecabezas y entrenar al modelo para reconstruirla (<a class="reference external" href="https://arxiv.org/pdf/1603.09246">JigSaw</a>).</p>
+<p><img alt="jigsaw" src="../_images/jigsaw.png" /></p>
 </section>
 <section id="destilacion-autosupervisada">
 <h3>Destilación autosupervisada<a class="headerlink" href="#destilacion-autosupervisada" title="Link to this heading">#</a></h3>
 <p>Más recientemente, los métodos basados en la destilación de conocimientos vuelven a utilizar transformaciones de imágenes, como en el aprendizaje contrastivo, pero sin emplear pares negativos. Para evitar que el modelo <em>colapse</em>, se usan diversas técnicas. Para más detalles, puedes leer el artículo <a class="reference external" href="https://arxiv.org/pdf/2104.14294">DINO</a>.
 <strong>Nota</strong>: El concepto de destilación de conocimientos se abordará en el siguiente curso.</p>
+<p><img alt="dino" src="../_images/dino.png" /></p>
 <p><strong>Nota</strong>: La lista de métodos no supervisados no es exhaustiva, pero ahora tienes una buena idea de los enfoques existentes. Además, las GAN y los modelos de difusión son no supervisados, pero no se utilizan para crear modelos base que puedan ajustarse (<em>fine-tune</em>) para tareas más específicas.</p>
 </section>
 </section>
