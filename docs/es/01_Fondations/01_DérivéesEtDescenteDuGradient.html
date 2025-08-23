@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -507,8 +507,8 @@ document.write(`
 <p>Este curso presenta el algoritmo de <strong>descenso del gradiente</strong>, un pilar fundamental del <em>deep learning</em>. Para comprenderlo bien, comencemos con un repaso sobre las derivadas.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span> 
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span> 
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
 </div>
 </div>
@@ -518,7 +518,7 @@ document.write(`
 <p>Consideremos una función: <span class="math notranslate nohighlight">\(f(x) = 2x^2 - 3x + 4\)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
   <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mi">4</span>
 <span class="n">f</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
@@ -577,7 +577,7 @@ Los resultados no son exactos porque <span class="math notranslate nohighlight">
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># On définit deriv_f = f&#39;(x)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">deriv_f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">deriv_f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
   <span class="k">return</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">-</span><span class="mi">3</span>
 </pre></div>
 </div>
@@ -643,7 +643,7 @@ Ahora sabemos cómo <span class="math notranslate nohighlight">\(x\)</span> afec
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">=</span><span class="mf">2.0</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">deriv_y_x</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">deriv_y_x</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
   <span class="k">return</span> <span class="mi">6</span><span class="o">*</span><span class="n">x</span><span class="o">-</span><span class="mi">3</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">):</span>
   <span class="n">grad</span><span class="o">=</span><span class="n">deriv_y_x</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -683,18 +683,18 @@ Para aplicar el <strong>descenso del gradiente</strong>, calculamos <span class=
 <p>Ahora ya podemos aplicar el algoritmo de <strong>descenso del gradiente</strong>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">deriv_y_a</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">deriv_y_a</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
   <span class="k">return</span> <span class="mi">12</span><span class="o">*</span><span class="n">a</span><span class="o">-</span><span class="mi">4</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">deriv_y_b</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">deriv_y_b</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
   <span class="k">return</span> <span class="mi">4</span><span class="o">*</span><span class="n">b</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">deriv_y_c</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">deriv_y_c</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
   <span class="k">return</span> <span class="mi">1</span>
 
 <span class="n">a</span><span class="o">=</span><span class="mf">1.0</span>
 <span class="n">b</span><span class="o">=</span><span class="mf">1.0</span>
 <span class="n">c</span><span class="o">=</span><span class="mf">1.0</span>
 <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">deriv_y_x</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">deriv_y_x</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
   <span class="k">return</span> <span class="mi">6</span><span class="o">*</span><span class="n">x</span><span class="o">-</span><span class="mi">3</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">):</span>
   <span class="n">grad_a</span><span class="o">=</span><span class="n">deriv_y_a</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>

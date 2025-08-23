@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -513,11 +513,11 @@ Nous utilisons le modèle <a class="reference external" href="https://research.f
 <p>Tout d’abord, construisons notre pipeline à l’aide de la bibliothèque transformers de Hugging Face.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">pipeline</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
 </div>
 </div>
@@ -558,7 +558,7 @@ Nous utilisons le modèle <a class="reference external" href="https://research.f
 <p>Procédons à la détection et dessinons les boîtes. Pour avoir un résultat clair, nous n’allons entourer que les personnes. Vous pouvez enlever ce filtre si vous le souhaitez.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">draw_boxes</span><span class="p">(</span><span class="n">image</span><span class="p">,</span><span class="n">output</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">draw_boxes</span><span class="p">(</span><span class="n">image</span><span class="p">,</span><span class="n">output</span><span class="p">):</span>
   <span class="n">cv_image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
   <span class="k">for</span> <span class="n">bbox</span> <span class="ow">in</span> <span class="n">output</span><span class="p">:</span>
     <span class="n">box</span> <span class="o">=</span> <span class="n">bbox</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">]</span>
@@ -587,14 +587,14 @@ Nous utilisons le modèle <a class="reference external" href="https://research.f
 <p>C’est maintenant le moment de construire notre démo avec Gradio. L’idée est d’avoir une interface qui prend une image en entrée et renvoie la même image avec les personnes entourées.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gradio</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gr</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gradio</span> <span class="k">as</span> <span class="nn">gr</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_pipeline_prediction</span><span class="p">(</span><span class="n">pil_image</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_pipeline_prediction</span><span class="p">(</span><span class="n">pil_image</span><span class="p">):</span>
   <span class="n">pipeline_output</span> <span class="o">=</span> <span class="n">detector</span><span class="p">(</span><span class="n">pil_image</span><span class="p">)</span>
   <span class="n">processed_image</span> <span class="o">=</span> <span class="n">draw_boxes</span><span class="p">(</span><span class="n">pil_image</span><span class="p">,</span><span class="n">pipeline_output</span><span class="p">)</span>
   <span class="k">return</span> <span class="n">processed_image</span>
