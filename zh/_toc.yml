@@ -1,22 +1,20 @@
-# Table of Contents - Deep Learning Course (English)
 format: jb-book
 root: README
 options:
   numbered: true
   titlesonly: false
-
 parts:
 - caption: 🧮 基础
   chapters:
   - file: 01_Fondations/01_DérivéesEtDescenteDuGradient
   - file: 01_Fondations/02_RégressionLogistique
-
+  - file: 01_Fondations/qcm
 - caption: 🔗 全连接网络
   chapters:
   - file: 02_RéseauFullyConnected/01_MonPremierRéseau
   - file: 02_RéseauFullyConnected/02_PytorchIntroduction
   - file: 02_RéseauFullyConnected/03_TechniquesAvancées
-
+  - file: 02_RéseauFullyConnected/qcm
 - caption: 🖼️ 卷积网络
   chapters:
   - file: 03_RéseauConvolutifs/01_CouchesDeConvolutions
@@ -25,12 +23,12 @@ parts:
   - file: 03_RéseauConvolutifs/04_RéseauConvolutifPytorch
   - file: 03_RéseauConvolutifs/05_ApplicationClassification
   - file: 03_RéseauConvolutifs/06_ApplicationSegmentation
-
+  - file: 03_RéseauConvolutifs/qcm
 - caption: 🔄 自编码器
   chapters:
   - file: 04_Autoencodeurs/01_IntuitionEtPremierAE
   - file: 04_Autoencodeurs/02_DenoisingAE
-
+  - file: 04_Autoencodeurs/qcm
 - caption: 📝 自然语言处理 (NLP)
   chapters:
   - file: 05_NLP/01_Introduction
@@ -39,7 +37,7 @@ parts:
   - file: 05_NLP/04_WaveNet
   - file: 05_NLP/05_Rnn
   - file: 05_NLP/06_Lstm
-
+  - file: 05_NLP/qcm
 - caption: 🤗 HuggingFace
   chapters:
   - file: 06_HuggingFace/01_introduction
@@ -48,7 +46,6 @@ parts:
   - file: 06_HuggingFace/04_AudioWithTransformers
   - file: 06_HuggingFace/05_ImageGenerationWithDiffusers
   - file: 06_HuggingFace/06_DemoAvecGradio
-
 - caption: ⚡ Transformers
   chapters:
   - file: 07_Transformers/01_Introduction
@@ -58,18 +55,18 @@ parts:
   - file: 07_Transformers/05_UtilisationsPossibles
   - file: 07_Transformers/06_VisionTransformerImplementation
   - file: 07_Transformers/07_SwinTransformer
-
+  - file: 07_Transformers/qcm
 - caption: 🎯 目标检测 (YOLO)
   chapters:
   - file: 08_DetectionEtYolo/01_Introduction
   - file: 08_DetectionEtYolo/02_YoloEnDetail
   - file: 08_DetectionEtYolo/03_Ultralytics
-
+  - file: 08_DetectionEtYolo/qcm
 - caption: 🔍 对比学习训练
   chapters:
   - file: 09_EntrainementContrastif/01_FaceVerification
   - file: 09_EntrainementContrastif/02_NonSupervisé
-
+  - file: 09_EntrainementContrastif/qcm
 - caption: 🎓 迁移学习与蒸馏
   chapters:
   - file: 10_TransferLearningEtDistillation/01_TransferLearning
@@ -78,7 +75,7 @@ parts:
   - file: 10_TransferLearningEtDistillation/04_DistillationAnomalie
   - file: 10_TransferLearningEtDistillation/05_FineTuningLLM
   - file: 10_TransferLearningEtDistillation/06_FineTuningBertHF
-
+  - file: 10_TransferLearningEtDistillation/qcm
 - caption: 🎨 生成模型
   chapters:
   - file: 11_ModelesGeneratifs/01_Introduction
@@ -89,17 +86,28 @@ parts:
   - file: 11_ModelesGeneratifs/06_NormalizingFlows
   - file: 11_ModelesGeneratifs/07_DiffusionModels
   - file: 11_ModelesGeneratifs/08_DiffusionImplementation
-
+  - file: 11_ModelesGeneratifs/qcm
 - caption: 🎁 拓展专题
   chapters:
   - file: Bonus_CoursSpécifiques/01_ActivationEtInitialisation
+  - file: Bonus_CoursSpécifiques/qcm_01_ActivationEtInitialisation
   - file: Bonus_CoursSpécifiques/02_BatchNorm
+  - file: Bonus_CoursSpécifiques/qcm_02_BatchNorm
   - file: Bonus_CoursSpécifiques/03_DataAugmentation
+  - file: Bonus_CoursSpécifiques/qcm_03_DataAugmentation
   - file: Bonus_CoursSpécifiques/04_Broadcasting
+  - file: Bonus_CoursSpécifiques/qcm_04_Broadcasting
   - file: Bonus_CoursSpécifiques/05_Optimizer
+  - file: Bonus_CoursSpécifiques/qcm_05_Optimizer
   - file: Bonus_CoursSpécifiques/06_Regularisation
+  - file: Bonus_CoursSpécifiques/qcm_06_Regularisation
   - file: Bonus_CoursSpécifiques/07_ConnexionsResiduelles
+  - file: Bonus_CoursSpécifiques/qcm_07_ConnexionsResiduelles
   - file: Bonus_CoursSpécifiques/08_CrossValidation
+  - file: Bonus_CoursSpécifiques/qcm_08_CrossValidation
   - file: Bonus_CoursSpécifiques/09_MetriquesEvaluation
+  - file: Bonus_CoursSpécifiques/qcm_09_MetriquesEvaluation
   - file: Bonus_CoursSpécifiques/10_Tokenization
+  - file: Bonus_CoursSpécifiques/qcm_10_Tokenization
   - file: Bonus_CoursSpécifiques/11_Quantization
+  - file: Bonus_CoursSpécifiques/qcm_11_Quantization

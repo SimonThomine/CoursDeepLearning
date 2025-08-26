@@ -4,9 +4,67 @@ Build script for multilingual Jupyter Book
 """
 
 import os
+import shutil
+
 import subprocess
 import sys
 from pathlib import Path
+
+
+def copy_standalone_qcms(lang, build_dir):
+    """Copy standalone QCM files to the build directory"""
+    print(f"📋 Copie des QCM standalone pour {lang}...")
+
+    source_lang_dir = Path(lang)
+    target_html_dir = Path(f"{build_dir}/_build/html")
+
+    if not target_html_dir.exists():
+        print(f"⚠️ Répertoire de build {target_html_dir} introuvable")
+        return False
+
+    copied_count = 0
+
+    # Parcourir tous les dossiers de chapitres dans la langue
+    for chapter_dir in source_lang_dir.iterdir():
+        if chapter_dir.is_dir():
+            # Chercher les fichiers QCM standalone
+            qcm_files = list(chapter_dir.glob("*qcm*.html"))
+
+            for qcm_file in qcm_files:
+                # Éviter de copier les fichiers générés par Sphinx
+                if "standalone" in qcm_file.name or not any(x in qcm_file.name for x in ["_build", "doctrees"]):
+
+                    # Créer le répertoire de destination
+                    target_chapter_dir = target_html_dir / chapter_dir.name
+                    target_chapter_dir.mkdir(parents=True, exist_ok=True)
+
+                    # Copier le fichier
+                    target_file = target_chapter_dir / qcm_file.name
+                    try:
+                        shutil.copy2(qcm_file, target_file)
+                        print(f"  ✅ Copié: {qcm_file} → {target_file}")
+                        copied_count += 1
+                    except Exception as e:
+                        print(
+                            f"  ❌ Erreur lors de la copie de {qcm_file}: {e}")
+                    # try:
+                    #     shutil.copy2(qcm_file, target_file)
+                    #     print(f"  ✅ Copié: {qcm_file} → {target_file}")
+                    #     copied_count += 1
+                    #     # Conversion en markdown
+                    #     md_target = target_file.with_suffix(".md")
+                    #     html_qcm_to_markdown(target_file, md_target)
+                    #     print(f"  📝 Converti en markdown: {md_target}")
+                    # except Exception as e:
+                    #     print(
+                    #         f"  ❌ Erreur lors de la copie de {qcm_file}: {e}")
+
+    if copied_count > 0:
+        print(f"📋 {copied_count} fichier(s) QCM copiés pour {lang}")
+    else:
+        print(f"📋 Aucun QCM standalone trouvé pour {lang}")
+
+    return True
 
 
 def run_command(cmd, cwd=None):
@@ -43,7 +101,8 @@ def build_language_version(lang_dir, output_dir):
         if Path(js_source).exists():
             shutil.copy2(js_source, js_dest)
             print(f"📄 Copied language switcher to {js_dest}")
-
+        # Copy standalone QCM files
+        copy_standalone_qcms(lang_dir, output_dir)
     return success
 
 
