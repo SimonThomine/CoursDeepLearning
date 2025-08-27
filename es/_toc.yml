@@ -89,25 +89,37 @@ parts:
   - file: 11_ModelesGeneratifs/qcm
 - caption: 🎁 Bonus – Cursos específicos
   chapters:
+  chapters:
   - file: Bonus_CoursSpécifiques/01_ActivationEtInitialisation
-  - file: Bonus_CoursSpécifiques/qcm_01_ActivationEtInitialisation
+    sections:
+      - file: Bonus_CoursSpécifiques/qcm_01_ActivationEtInitialisation
   - file: Bonus_CoursSpécifiques/02_BatchNorm
-  - file: Bonus_CoursSpécifiques/qcm_02_BatchNorm
+    sections:
+      - file: Bonus_CoursSpécifiques/qcm_02_BatchNorm
   - file: Bonus_CoursSpécifiques/03_DataAugmentation
-  - file: Bonus_CoursSpécifiques/qcm_03_DataAugmentation
+    sections:
+      - file: Bonus_CoursSpécifiques/qcm_03_DataAugmentation
   - file: Bonus_CoursSpécifiques/04_Broadcasting
-  - file: Bonus_CoursSpécifiques/qcm_04_Broadcasting
+    sections:
+      - file: Bonus_CoursSpécifiques/qcm_04_Broadcasting
   - file: Bonus_CoursSpécifiques/05_Optimizer
-  - file: Bonus_CoursSpécifiques/qcm_05_Optimizer
+    sections:
+      - file: Bonus_CoursSpécifiques/qcm_05_Optimizer
   - file: Bonus_CoursSpécifiques/06_Regularisation
-  - file: Bonus_CoursSpécifiques/qcm_06_Regularisation
+    sections:
+      - file: Bonus_CoursSpécifiques/qcm_06_Regularisation
   - file: Bonus_CoursSpécifiques/07_ConnexionsResiduelles
-  - file: Bonus_CoursSpécifiques/qcm_07_ConnexionsResiduelles
+    sections:
+      - file: Bonus_CoursSpécifiques/qcm_07_ConnexionsResiduelles
   - file: Bonus_CoursSpécifiques/08_CrossValidation
-  - file: Bonus_CoursSpécifiques/qcm_08_CrossValidation
+    sections:
+      - file: Bonus_CoursSpécifiques/qcm_08_CrossValidation
   - file: Bonus_CoursSpécifiques/09_MetriquesEvaluation
-  - file: Bonus_CoursSpécifiques/qcm_09_MetriquesEvaluation
+    sections:
+      - file: Bonus_CoursSpécifiques/qcm_09_MetriquesEvaluation
   - file: Bonus_CoursSpécifiques/10_Tokenization
-  - file: Bonus_CoursSpécifiques/qcm_10_Tokenization
+    sections:
+      - file: Bonus_CoursSpécifiques/qcm_10_Tokenization
   - file: Bonus_CoursSpécifiques/11_Quantization
-  - file: Bonus_CoursSpécifiques/qcm_11_Quantization
+    sections:
+      - file: Bonus_CoursSpécifiques/qcm_11_Quantization

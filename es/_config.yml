@@ -29,63 +29,54 @@ html:
       <a href="#" onclick="switchToChinese()" style="text-decoration: none; margin: 0 5px; padding: 5px 10px; background: #ff4b4b; color: white; border-radius: 5px; transition: all 0.3s;">🇨🇳 中文</a>
     </div>
     <script>
-    function getBaseUrl() {
-      let baseUrl = window.location.origin;
-      let pathname = window.location.pathname;
-      if (pathname.includes('fr/')) {
-        baseUrl += pathname.split('fr/')[0];
-      } else if (pathname.includes('en/')) {
-        baseUrl += pathname.split('en/')[0];
-      } else if (pathname.includes('es/')) {
-        baseUrl += pathname.split('es/')[0];
-      } else if (pathname.includes('zh/')) {
-        baseUrl += pathname.split('zh/')[0];
-      } else {
-        baseUrl += pathname.split('/').slice(0, -1).join('/') + '/';
-      }
-      return baseUrl;
+    function getLangMatch() {
+      // Cherche /fr/, /en/, /es/, /zh/ comme segment de chemin
+      return window.location.pathname.match(/\/(fr|en|es|zh)\//);
     }
-    
-    function getCurrentPage() {
+
+    function getBaseUrl() {
+      let origin = window.location.origin;
       let pathname = window.location.pathname;
-      if (pathname.includes('fr/')) {
-        return pathname.split('fr/')[1] || 'index.html';
-      } else if (pathname.includes('en/')) {
-        return pathname.split('en/')[1] || 'index.html';
-      } else if (pathname.includes('es/')) {
-        return pathname.split('es/')[1] || 'index.html';
-      } else if (pathname.includes('zh/')) {
-        return pathname.split('zh/')[1] || 'index.html';
+      let match = getLangMatch();
+      if (match) {
+        // Prend tout avant le segment de langue
+        return origin + pathname.substring(0, match.index + 1);
+      }
+      // Sinon, retourne le chemin courant
+      return origin + pathname.substring(0, pathname.lastIndexOf('/') + 1);
+    }
+
+    function getCurrentPage() {
+      let match = getLangMatch();
+      if (match) {
+        // Prend tout après le segment de langue
+        return window.location.pathname.substring(match.index + match[0].length) || 'index.html';
       }
       return 'index.html';
     }
-    
+
     function switchToEnglish() {
       const baseUrl = getBaseUrl();
       const currentPage = getCurrentPage();
-      const newUrl = baseUrl + 'en/' + currentPage;
-      window.location.href = newUrl;
+      window.location.href = baseUrl + 'en/' + currentPage;
     }
-    
+
     function switchToFrench() {
       const baseUrl = getBaseUrl();
       const currentPage = getCurrentPage();
-      const newUrl = baseUrl + 'fr/' + currentPage;
-      window.location.href = newUrl;
+      window.location.href = baseUrl + 'fr/' + currentPage;
     }
 
     function switchToSpanish() {
       const baseUrl = getBaseUrl();
       const currentPage = getCurrentPage();
-      const newUrl = baseUrl + 'es/' + currentPage;
-      window.location.href = newUrl;
+      window.location.href = baseUrl + 'es/' + currentPage;
     }
 
     function switchToChinese() {
       const baseUrl = getBaseUrl();
       const currentPage = getCurrentPage();
-      const newUrl = baseUrl + 'zh/' + currentPage;
-      window.location.href = newUrl;
+      window.location.href = baseUrl + 'zh/' + currentPage;
     }
     </script>
 # MyST configuration

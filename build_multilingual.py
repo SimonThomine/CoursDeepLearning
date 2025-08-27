@@ -47,17 +47,6 @@ def copy_standalone_qcms(lang, build_dir):
                     except Exception as e:
                         print(
                             f"  ❌ Erreur lors de la copie de {qcm_file}: {e}")
-                    # try:
-                    #     shutil.copy2(qcm_file, target_file)
-                    #     print(f"  ✅ Copié: {qcm_file} → {target_file}")
-                    #     copied_count += 1
-                    #     # Conversion en markdown
-                    #     md_target = target_file.with_suffix(".md")
-                    #     html_qcm_to_markdown(target_file, md_target)
-                    #     print(f"  📝 Converti en markdown: {md_target}")
-                    # except Exception as e:
-                    #     print(
-                    #         f"  ❌ Erreur lors de la copie de {qcm_file}: {e}")
 
     if copied_count > 0:
         print(f"📋 {copied_count} fichier(s) QCM copiés pour {lang}")
