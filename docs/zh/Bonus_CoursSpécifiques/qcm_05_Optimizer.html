@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,18 +13,7 @@
         window.MathJax = {
             tex: {
                 inlineMath: [['\\(', '\\)'], ['$', '$']],
-                displayMath: [['\\[', '\\]'], ['$$', '$$']],
-                processEscapes: true,
-                processEnvironments: true
-            },
-            options: {
-                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-                ignoreHtmlClass: 'tex2jax_ignore',
-                processHtmlClass: 'tex2jax_process'
-            },
-            svg: {
-                fontCache: 'global',
-                scale: 1.1
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
             }
         };
     </script>
@@ -304,48 +293,58 @@
             border: 1px solid #e2e8f0;
         }
 
-        /* Styles pour améliorer l'affichage des formules MathJax */
-        .MathJax {
-            font-size: 1.1em !important;
-            margin: 0.5em 0;
+        /* Navigation */
+        .navigation-bar {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 1001;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
         }
 
-        .MathJax_Display {
-            margin: 1em 0 !important;
-            text-align: center !important;
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.95);
+            color: #2c3e50;
+            border: 2px solid rgba(44, 62, 80, 0.2);
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
         }
 
-        .MathJax_Preview {
-            color: transparent !important;
+        .nav-btn:hover {
+            background: rgba(44, 62, 80, 0.9);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
         }
 
-        /* Pour les formules inline */
-        .MathJax_SVG {
-            vertical-align: middle !important;
+        .nav-btn i {
+            font-size: 12px;
         }
 
-        /* Assurer que les formules ne débordent pas */
-        .question-text .MathJax_Display,
-        .answer-text .MathJax_Display {
-            overflow-x: auto;
-            overflow-y: hidden;
-            max-width: 100%;
+        .next-page-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* Style pour les formules dans les réponses */
-        .answer-text .MathJax {
-            color: inherit !important;
-        }
-
-        /* Responsive pour les formules */
-        @media (max-width: 768px) {
-            .MathJax {
-                font-size: 1em !important;
-            }
-            
-            .MathJax_Display {
-                font-size: 0.9em !important;
-            }
+        .next-page-btn:hover {
+            background: linear-gradient(135deg, #5a6fd8, #6a4190);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
 
         /* Responsive design */
@@ -362,69 +361,42 @@
             .header h1 {
                 font-size: 2rem;
             }
-        }
-        .navigation-bar {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1001;
-        }
-
-        .back-to-course-btn {
-            background: rgba(255, 255, 255, 0.95);
-            color: #2c3e50;
-            border: 2px solid rgba(44, 62, 80, 0.2);
-            padding: 12px 20px;
-            border-radius: 25px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            font-size: 14px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .back-to-course-btn:hover {
-            background: rgba(44, 62, 80, 0.9);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .back-to-course-btn i {
-            font-size: 12px;
-        }
-
-        @media (max-width: 768px) {
+            
             .navigation-bar {
                 top: 10px;
                 left: 10px;
+                right: 10px;
+                flex-direction: column;
+                gap: 10px;
             }
             
-            .back-to-course-btn {
+            .nav-btn {
                 padding: 10px 16px;
                 font-size: 13px;
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
 <div class="navigation-bar">
-    <button class="back-to-course-btn" onclick="goBackToCourse()">
+    <button class="nav-btn" onclick="goBackToCourse()">
         <i class="fas fa-arrow-left"></i> 返回课程
+    </button>
+    <button class="nav-btn next-page-btn" onclick="goToNextPage()">
+        下一页 <i class="fas fa-arrow-right"></i>
     </button>
 </div>
 <div class="progress-bar" id="progressBar"></div>
 
 <div class="header">
     <h1><i class="fas fa-brain"></i> 互动测验</h1>
-    <p>测试你的知识！ !</p>
+    <p>测试你的知识！</p>
 </div>
 
 <div class="qcm-container">
+
     
         <div class="question-container">
             <div class="question-header">
@@ -579,6 +551,10 @@
     <div class="score-container">
         <div class="score-text" id="scoreDisplay">Score: 0/5</div>
     </div>
+
+    <div class="score-container">
+        <div class="score-text" id="scoreDisplay">得分: 0/5</div>
+    </div>
 </div>
 
 <script>
@@ -592,21 +568,22 @@
     }
 
     function updateScore() {
-        document.getElementById('scoreDisplay').innerHTML = `Score: ${correctAnswers}/${totalQuestions}`;
+        document.getElementById('scoreDisplay').innerHTML = `得分: ${correctAnswers}/${totalQuestions}`;
     }
 
     function goBackToCourse() {
-        // Essaie d'utiliser l'historique du navigateur
         if (document.referrer && document.referrer.includes(window.location.hostname)) {
             window.history.back();
         } else {
-            // Sinon, redirige vers l'index du chapitre
             window.location.href = './';
         }
     }
 
+    function goToNextPage() {
+        window.location.href = "../Bonus_CoursSpécifiques/06_Regularisation.html";
+    }
+
     function checkAnswer(button, isCorrect, correctAnswer, questionNumber) {
-        // Désactiver tous les boutons de cette question
         const questionContainer = button.closest('.question-container');
         const buttons = questionContainer.querySelectorAll('.answer-button');
         
@@ -614,7 +591,6 @@
             btn.disabled = true;
         });
 
-        // Incrémenter les questions répondues si c'est la première fois
         if (!button.hasAttribute('data-answered')) {
             answeredQuestions++;
             button.setAttribute('data-answered', 'true');
@@ -628,13 +604,12 @@
             feedbackHtml = `
                 <div class="feedback correct">
                     <i class="fas fa-check-circle feedback-icon"></i>
-                    Excellent ! Vous avez trouvé la bonne réponse.
+                    太棒了！你找到了正确答案。
                 </div>
             `;
         } else {
             button.classList.add('incorrect');
             
-            // Trouver et mettre en surbrillance la bonne réponse
             buttons.forEach(btn => {
                 const optionText = btn.querySelector('.answer-text').textContent;
                 const optionLetter = btn.querySelector('.answer-option').textContent;
@@ -646,12 +621,11 @@
             feedbackHtml = `
                 <div class="feedback incorrect">
                     <i class="fas fa-times-circle feedback-icon"></i>
-                    Incorrect ! La bonne réponse était : <strong>${correctAnswer}</strong>
+                    错误！正确答案是： <strong>${correctAnswer}</strong>
                 </div>
             `;
         }
 
-        // Ajouter le feedback s'il n'existe pas déjà
         if (!questionContainer.querySelector('.feedback')) {
             questionContainer.insertAdjacentHTML('beforeend', feedbackHtml);
         }
@@ -659,7 +633,6 @@
         updateProgress();
         updateScore();
         
-        // Re-render MathJax après modification du contenu
         if (window.MathJax) {
             MathJax.typesetPromise([questionContainer]).then(() => {
                 console.log('MathJax re-rendered');
@@ -667,7 +640,6 @@
         }
     }
 
-    // Animation d'entrée pour les questions
     document.addEventListener('DOMContentLoaded', function() {
         const questions = document.querySelectorAll('.question-container');
         questions.forEach((question, index) => {
@@ -684,4 +656,3 @@
     
 </body>
 </html>
-    

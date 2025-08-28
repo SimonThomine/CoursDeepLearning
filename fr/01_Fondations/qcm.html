@@ -1,5 +1,4 @@
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -294,29 +293,19 @@
             border: 1px solid #e2e8f0;
         }
 
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .qcm-container {
-                margin: 0;
-                border-radius: 0;
-            }
-            
-            .question-container {
-                padding: 1.5rem;
-            }
-            
-            .header h1 {
-                font-size: 2rem;
-            }
-        }
+        /* Navigation */
         .navigation-bar {
             position: fixed;
             top: 20px;
             left: 20px;
+            right: 20px;
             z-index: 1001;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
         }
 
-        .back-to-course-btn {
+        .nav-btn {
             background: rgba(255, 255, 255, 0.95);
             color: #2c3e50;
             border: 2px solid rgba(44, 62, 80, 0.2);
@@ -331,36 +320,72 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            text-decoration: none;
         }
 
-        .back-to-course-btn:hover {
+        .nav-btn:hover {
             background: rgba(44, 62, 80, 0.9);
             color: white;
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
         }
 
-        .back-to-course-btn i {
+        .nav-btn i {
             font-size: 12px;
         }
 
+        .next-page-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .next-page-btn:hover {
+            background: linear-gradient(135deg, #5a6fd8, #6a4190);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Responsive design */
         @media (max-width: 768px) {
+            .qcm-container {
+                margin: 0;
+                border-radius: 0;
+            }
+            
+            .question-container {
+                padding: 1.5rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
             .navigation-bar {
                 top: 10px;
                 left: 10px;
+                right: 10px;
+                flex-direction: column;
+                gap: 10px;
             }
             
-            .back-to-course-btn {
+            .nav-btn {
                 padding: 10px 16px;
                 font-size: 13px;
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
 <div class="navigation-bar">
-    <button class="back-to-course-btn" onclick="goBackToCourse()">
+    <button class="nav-btn" onclick="goBackToCourse()">
         <i class="fas fa-arrow-left"></i> Retour aux cours
+    </button>
+    <button class="nav-btn next-page-btn" onclick="goToNextPage()">
+        Page suivante <i class="fas fa-arrow-right"></i>
     </button>
 </div>
 <div class="progress-bar" id="progressBar"></div>
@@ -371,6 +396,9 @@
 </div>
 
 <div class="qcm-container">
+
+
+
     
         <div class="question-container">
             <div class="question-header">
@@ -675,6 +703,18 @@
     <div class="score-container">
         <div class="score-text" id="scoreDisplay">Score: 0/10</div>
     </div>
+
+    <div class="score-container">
+        <div class="score-text" id="scoreDisplay">Score: 0/10</div>
+    </div>
+
+    <div class="score-container">
+        <div class="score-text" id="scoreDisplay">Score: 0/10</div>
+    </div>
+
+    <div class="score-container">
+        <div class="score-text" id="scoreDisplay">Score: 0/10</div>
+    </div>
 </div>
 
 <script>
@@ -692,17 +732,18 @@
     }
 
     function goBackToCourse() {
-        // Essaie d'utiliser l'historique du navigateur
         if (document.referrer && document.referrer.includes(window.location.hostname)) {
             window.history.back();
         } else {
-            // Sinon, redirige vers l'index du chapitre
             window.location.href = './';
         }
     }
 
+    function goToNextPage() {
+        window.location.href = "../02_RéseauFullyConnected/01_MonPremierRéseau.html";
+    }
+
     function checkAnswer(button, isCorrect, correctAnswer, questionNumber) {
-        // Désactiver tous les boutons de cette question
         const questionContainer = button.closest('.question-container');
         const buttons = questionContainer.querySelectorAll('.answer-button');
         
@@ -710,7 +751,6 @@
             btn.disabled = true;
         });
 
-        // Incrémenter les questions répondues si c'est la première fois
         if (!button.hasAttribute('data-answered')) {
             answeredQuestions++;
             button.setAttribute('data-answered', 'true');
@@ -730,7 +770,6 @@
         } else {
             button.classList.add('incorrect');
             
-            // Trouver et mettre en surbrillance la bonne réponse
             buttons.forEach(btn => {
                 const optionText = btn.querySelector('.answer-text').textContent;
                 const optionLetter = btn.querySelector('.answer-option').textContent;
@@ -747,7 +786,6 @@
             `;
         }
 
-        // Ajouter le feedback s'il n'existe pas déjà
         if (!questionContainer.querySelector('.feedback')) {
             questionContainer.insertAdjacentHTML('beforeend', feedbackHtml);
         }
@@ -755,7 +793,6 @@
         updateProgress();
         updateScore();
         
-        // Re-render MathJax après modification du contenu
         if (window.MathJax) {
             MathJax.typesetPromise([questionContainer]).then(() => {
                 console.log('MathJax re-rendered');
@@ -763,7 +800,6 @@
         }
     }
 
-    // Animation d'entrée pour les questions
     document.addEventListener('DOMContentLoaded', function() {
         const questions = document.querySelectorAll('.question-container');
         questions.forEach((question, index) => {
@@ -780,4 +816,3 @@
     
 </body>
 </html>
-    

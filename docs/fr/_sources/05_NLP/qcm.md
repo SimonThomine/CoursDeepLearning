@@ -1,4 +1,4 @@
-# QCM NLP
+# QCM Interactif
 ```{raw} html
 <!DOCTYPE html>
 <html lang="fr">
