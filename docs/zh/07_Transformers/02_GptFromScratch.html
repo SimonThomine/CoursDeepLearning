@@ -1195,9 +1195,9 @@ tensor([[1.0000, 2.0000],
 <p>为了计算序列中前一个元素相对于当前元素的重要性，我们执行 <em>query</em> <span class="math notranslate nohighlight">\(Q\)</span> 和 <em>key</em> <span class="math notranslate nohighlight">\(K\)</span>（转置）之间的点积：
 <span class="math notranslate nohighlight">\(wei = QK^T\)</span>
 为了获得注意力权重（总和为 1），我们应用 <em>softmax</em> 并乘以 <em>value</em> <span class="math notranslate nohighlight">\(V\)</span>：
-<span class="math notranslate nohighlight">\(Output = \text{softmax}\left(wei\right) \cdot V\)</span>
-<img alt="Attention" src="../_images/attention2.png" />
-在 Python 中，我们这样实现：</p>
+<span class="math notranslate nohighlight">\(Output = \text{softmax}\left(wei\right) \cdot V\)</span></p>
+<p><img alt="Attention" src="../_images/attention2.png" /></p>
+<p>在 Python 中，我们这样实现：</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">B</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">C</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">32</span> <span class="c1"># batch, time, channels</span>
@@ -1237,10 +1237,10 @@ tensor([[1.0000, 2.0000],
 <li><p>更准确地说，沿着 <em>batch</em> 维度没有交互： <em>batch</em> 中的每个元素都是独立处理的。这有点像我们有 <em>batch_size</em> 个独立的图。</p></li>
 <li><p>这种注意力 <em>block</em> 被称为 <em>decoder block</em>。它的特点是每个元素只与过去（通过下三角矩阵）进行通信。然而，还有其他注意力层（<em>encoder</em>）允许所有元素之间相互通信（用于翻译、情感分析或图像处理）。</p></li>
 <li><p>我们称之为 <em>self-attention</em>，因为 <em>query</em>、 <em>key</em> 和 <em>value</em> 来自同一源。 <em>query</em>、 <em>key</em> 和 <em>value</em> 可以来自不同的源：我们称之为 <em>cross-attention</em>。</p></li>
-<li><p>如果您阅读论文 <a class="reference external" href="https://arxiv.org/pdf/1706.03762">Attention is all you need</a>，您会发现有一个对 <em>head_size</em> 平方根的归一化：
-<img alt="Attention" src="../_images/attention.png" />
-这在初始化权重时特别有助于 <em>softmax</em> 函数的稳定性。</p></li>
+<li><p>如果您阅读论文 <a class="reference external" href="https://arxiv.org/pdf/1706.03762">Attention is all you need</a>，您会发现有一个对 <em>head_size</em> 平方根的归一化：</p></li>
 </ul>
+<p><img alt="Attention" src="../_images/attention.png" /></p>
+<p>这在初始化权重时特别有助于 <em>softmax</em> 函数的稳定性。</p>
 <p>现在让我们实现一个 <em>head</em> 类，它将执行 <em>self-attention</em> 的操作。这只是我们之前以类的形式看到的内容。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1277,8 +1277,8 @@ tensor([[1.0000, 2.0000],
 </section>
 <section id="id8">
 <h2>多头注意力<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
-<p>在论文 <a class="reference external" href="https://arxiv.org/pdf/1706.03762">Attention is all you need</a> 中，提出了 <em>self-attention</em> 的一个变体。这个变体称为 <em>multi-head attention</em>，它只是简单地在并行方式下有多个 <em>self-attention</em> 层。该层的目的是并行处理以使其在 GPU 上更快。
-<img alt="多头注意力" src="../_images/multihead.png" /></p>
+<p>在 <a class="reference external" href="https://arxiv.org/pdf/1706.03762">Attention is all you need</a>（Vaswani 等人，2017）中，多头注意力（<em>multi-head attention</em>）通过并行计算多个注意力表示（即“头”）来扩展自注意力（<em>self-attention</em>）。每个头学习捕捉特定的依赖关系（如语法、语义、局部等），从而丰富数据的表示。这种机制不仅增强了数据的表征能力，还充分利用了 GPU 的并行性能</p>
+<p><img alt="多头注意力" src="../_images/multihead.png" /></p>
 <p>实现相当简单，因为它只是多个 <em>head</em> 层。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

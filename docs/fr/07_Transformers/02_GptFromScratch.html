@@ -1277,7 +1277,7 @@ tensor([[1.0000, 2.0000],
 </section>
 <section id="multi-head-attention">
 <h2>Multi-Head Attention<a class="headerlink" href="#multi-head-attention" title="Link to this heading">#</a></h2>
-<p>Dans le papier <a class="reference external" href="https://arxiv.org/pdf/1706.03762">Attention is all you need</a>, une variante de la <em>self-attention</em> est proposée. Cette variante s’appelle <em>multi-head attention</em> et consiste simplement à avoir plusieurs couches de <em>self-attention</em> en parallèle. Le but de cette couche est de paralléliser le traitement pour qu’il soit plus rapide sur GPU.</p>
+<p>Dans <a class="reference external" href="https://arxiv.org/pdf/1706.03762">Attention is all you need</a> (Vaswani et al., 2017), le <em>multi-head attention</em> étend la <em>self-attention</em> en calculant plusieurs représentations d’attention en parallèle (les “têtes”). Chaque tête apprend à capturer des dépendances spécifiques (syntaxiques, sémantiques, locales, etc.), ce qui enrichit la représentation des données. Ce mécanisme enrichit la représentation des données et tire parti du parallélisme des GPU.</p>
 <p><img alt="Multi-Head Attention" src="../_images/multihead.png" /></p>
 <p>L’implémentation est assez simple puisqu’il s’agit juste de plusieurs couches <em>head</em>.</p>
 <div class="cell docutils container">
